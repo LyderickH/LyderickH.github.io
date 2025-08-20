@@ -12,17 +12,24 @@
     main { flex:1; max-width:900px; margin:0 auto; padding:2rem; }
     main h2 { font-size:1.5rem; margin-bottom:1rem; }
     main p, main ul { margin-bottom:1.5rem; line-height:1.6; }
-    .slider-container { position:relative; max-width:900px; margin:2rem auto; overflow:hidden; border-radius:1rem; box-shadow:0 6px 12px rgba(0,0,0,0.3); background:#000; text-align:center; min-height:400px; }
-    #pdf-render { width:100%; display:block; margin:auto; border-radius:1rem 1rem 0 0; max-width:100%; }
-    .caption { background:rgba(0,0,0,0.8); padding:1rem; border-radius:0 0 1rem 1rem; color:#fff; }
-    .slider-container button { cursor:pointer; position:absolute; top:50%; width:auto; padding:0.5rem 1rem; margin-top:-1.5rem; color:#fff; font-weight:bold; font-size:2rem; border-radius:0.5rem; background-color:rgba(0,0,0,0.6); border:none; user-select:none; transition: background 0.3s; z-index:10; }
+    .slider-container { position:relative; max-width:900px; margin:2rem auto; border-radius:1rem; box-shadow:0 6px 12px rgba(0,0,0,0.3); background:#000; overflow:hidden; }
+    .pdf-viewer { width:100%; height:600px; border:none; border-radius:1rem 1rem 0 0; background:#fff; display:none; }
+    .pdf-viewer.active { display:block; }
+    .fallback-message { display:none; padding:2rem; text-align:center; background:#333; border-radius:1rem 1rem 0 0; min-height:500px; }
+    .fallback-message.active { display:flex; flex-direction:column; justify-content:center; align-items:center; }
+    .fallback-message h3 { color:#4CAF50; margin-bottom:1rem; }
+    .slider-container button { cursor:pointer; position:absolute; top:50%; width:auto; padding:0.5rem 1rem; margin-top:-1.5rem; color:#fff; font-weight:bold; font-size:2rem; border-radius:0.5rem; background-color:rgba(0,0,0,0.6); border:none; user-select:none; transition: all 0.3s; z-index:10; }
     .slider-container button:hover:not(:disabled) { background-color: rgba(0,0,0,0.9); }
     .slider-container button:disabled { opacity:0.3; cursor:not-allowed; }
     .prev { left:0.5rem; }
     .next { right:0.5rem; }
-    .download-btn { display:inline-block; margin:1rem 0; padding:0.5rem 1rem; background:#2c2c54; color:#f4f4f4; text-decoration:none; border-radius:0.5rem; font-weight:bold; }
-    .download-btn:hover { background:#1c1c1c; }
-    .loading { text-align:center; padding:2rem; color:#ccc; }
+    .caption { background:rgba(0,0,0,0.8); padding:1rem; border-radius:0 0 1rem 1rem; color:#fff; text-align:center; }
+    .download-btn { display:inline-block; margin:1rem 0; padding:0.75rem 1.5rem; background:linear-gradient(135deg, #4CAF50, #45a049); color:#fff; text-decoration:none; border-radius:0.5rem; font-weight:bold; transition: all 0.3s; }
+    .download-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
+    .pdf-controls { display:flex; justify-content:center; gap:1rem; padding:1rem; background:rgba(0,0,0,0.5); }
+    .pdf-controls button { padding:0.5rem 1rem; background:#4CAF50; color:white; border:none; border-radius:0.3rem; cursor:pointer; }
+    .pdf-controls button:hover { background:#45a049; }
+    .pdf-controls span { color:#fff; line-height:2.5; }
     footer { text-align:center; padding:1rem; font-size:0.9rem; background:rgba(0,0,0,0.2); }
     footer a { color:#fff; text-decoration:none; }
   </style>
@@ -35,20 +42,49 @@
 
   <main>
     <h2>Explications</h2>
-    <p>Projet Power BI : Simulateur interactif du marché immobilier...</p>
+    <p>Projet Power BI : Simulateur interactif du marché immobilier permettant d'analyser les tendances, prix et opportunités d'investissement par région.</p>
 
-    <!-- Slider PDF -->
+    <!-- Slider PDF avec méthodes multiples -->
     <div class="slider-container">
-      <canvas id="pdf-render"></canvas>
-      <div class="caption" id="caption-text">
-        <div class="loading">Chargement du PDF...</div>
-      </div>
-      <button class="prev" id="prev-btn">&#10094;</button>
-      <button class="next" id="next-btn">&#10095;</button>
-    </div>
-    <a class="download-btn" href="images/projet1/PowerBiImmo.pdf" download>Télécharger PDF</a>
+      <!-- Méthode 1: iframe avec navigation par page -->
+      <iframe id="pdf-iframe-1" class="pdf-viewer active" src="images/projet1/PowerBiImmo.pdf#page=1"></iframe>
+      <iframe id="pdf-iframe-2" class="pdf-viewer" src="images/projet1/PowerBiImmo.pdf#page=2"></iframe>
+      <iframe id="pdf-iframe-3" class="pdf-viewer" src="images/projet1/PowerBiImmo.pdf#page=3"></iframe>
+      <iframe id="pdf-iframe-4" class="pdf-viewer" src="images/projet1/PowerBiImmo.pdf#page=4"></iframe>
+      <iframe id="pdf-iframe-5" class="pdf-viewer" src="images/projet1/PowerBiImmo.pdf#page=5"></iframe>
 
-    <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence</p>
+      <!-- Message de fallback si PDF non accessible -->
+      <div id="fallback" class="fallback-message">
+        <h3>⚠️ PDF non accessible</h3>
+        <p>Le fichier PDF ne peut pas être affiché directement dans le navigateur.</p>
+        <p><strong>Solutions :</strong></p>
+        <ul style="text-align:left; max-width:400px;">
+          <li>Téléchargez le PDF avec le bouton ci-dessous</li>
+          <li>Vérifiez que le fichier existe dans <code>images/projet1/PowerBiImmo.pdf</code></li>
+          <li>Utilisez un serveur web local (pas file://)</li>
+        </ul>
+      </div>
+
+      <button class="prev" onclick="previousPage()">&#10094;</button>
+      <button class="next" onclick="nextPage()">&#10095;</button>
+      
+      <div class="caption">
+        <span id="page-info">Page <span id="current-page">1</span> sur <span id="total-pages">5</span></span>
+        <div class="pdf-controls">
+          <button onclick="goToPage(1)">1</button>
+          <button onclick="goToPage(2)">2</button>
+          <button onclick="goToPage(3)">3</button>
+          <button onclick="goToPage(4)">4</button>
+          <button onclick="goToPage(5)">5</button>
+          <span>|</span>
+          <button onclick="toggleFallback()">Problème d'affichage ?</button>
+        </div>
+      </div>
+    </div>
+
+    <a class="download-btn" href="images/projet1/PowerBiImmo.pdf" download>📄 Télécharger le PDF complet</a>
+
+    <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence Power BI :</p>
     <iframe title="powerbiimmo -V3 avec liens" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8" frameborder="0" allowFullScreen="true"></iframe>
   </main>
 
@@ -56,127 +92,96 @@
     <p>© 2025 - Portfolio de Lydérick Henry</p>
   </footer>
 
-  <!-- PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.min.js"></script>
   <script>
-    // Configuration PDF.js
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.worker.min.js';
-    
-    // Variables globales
-    let pdfDoc = null;
-    let pageNum = 1;
-    let isLoading = false;
+    let currentPage = 1;
+    const totalPages = 5;
+    let showingFallback = false;
 
-    // Éléments du DOM
-    const canvas = document.getElementById('pdf-render');
-    const ctx = canvas.getContext('2d');
-    const caption = document.getElementById('caption-text');
-    const btnPrev = document.getElementById('prev-btn');
-    const btnNext = document.getElementById('next-btn');
-
-    // URL du PDF - Testez d'abord avec un PDF de test
-    const url = 'images/projet1/PowerBiImmo.pdf';
-
-    console.log('Tentative de chargement du PDF depuis:', url);
-
-    function updateButtons() {
-      if (!pdfDoc) {
-        btnPrev.disabled = true;
-        btnNext.disabled = true;
-        return;
+    function updateDisplay() {
+      // Masquer tous les iframes
+      for (let i = 1; i <= totalPages; i++) {
+        const iframe = document.getElementById(`pdf-iframe-${i}`);
+        if (iframe) iframe.classList.remove('active');
       }
-      btnPrev.disabled = (pageNum <= 1);
-      btnNext.disabled = (pageNum >= pdfDoc.numPages);
-    }
 
-    function renderPage(num) {
-      if (!pdfDoc || isLoading) {
-        console.log('Rendu annulé - PDF non chargé ou déjà en cours');
-        return;
+      if (!showingFallback) {
+        // Afficher l'iframe de la page courante
+        const currentIframe = document.getElementById(`pdf-iframe-${currentPage}`);
+        if (currentIframe) {
+          currentIframe.classList.add('active');
+        }
+        document.getElementById('fallback').classList.remove('active');
+      } else {
+        document.getElementById('fallback').classList.add('active');
       }
-      
-      isLoading = true;
-      console.log('Rendu de la page:', num);
-      
-      pdfDoc.getPage(num).then(function(page) {
-        const viewport = page.getViewport({ scale: 1.2 });
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
 
-        const renderContext = {
-          canvasContext: ctx,
-          viewport: viewport
-        };
+      // Mettre à jour les informations de page
+      document.getElementById('current-page').textContent = currentPage;
+      
+      // Mettre à jour les boutons
+      document.querySelector('.prev').disabled = (currentPage <= 1);
+      document.querySelector('.next').disabled = (currentPage >= totalPages);
 
-        return page.render(renderContext).promise;
-      }).then(function() {
-        isLoading = false;
-        console.log('Page rendue avec succès');
-        caption.innerHTML = `Page ${num} sur ${pdfDoc.numPages}`;
-        updateButtons();
-      }).catch(function(error) {
-        isLoading = false;
-        console.error('Erreur lors du rendu:', error);
-        caption.innerHTML = 'Erreur lors du rendu de la page';
-        updateButtons();
+      // Mettre à jour les boutons de navigation rapide
+      const controls = document.querySelectorAll('.pdf-controls button');
+      controls.forEach((btn, index) => {
+        if (index < totalPages) {
+          btn.style.background = (index + 1 === currentPage) ? '#45a049' : '#4CAF50';
+        }
       });
     }
 
-    function goToPage(targetPage) {
-      if (!pdfDoc || isLoading) return;
-      if (targetPage < 1 || targetPage > pdfDoc.numPages) return;
-      
-      pageNum = targetPage;
-      renderPage(pageNum);
+    function previousPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        updateDisplay();
+      }
     }
 
-    // Event listeners
-    btnPrev.addEventListener('click', function() {
-      goToPage(pageNum - 1);
+    function nextPage() {
+      if (currentPage < totalPages) {
+        currentPage++;
+        updateDisplay();
+      }
+    }
+
+    function goToPage(page) {
+      if (page >= 1 && page <= totalPages) {
+        currentPage = page;
+        updateDisplay();
+      }
+    }
+
+    function toggleFallback() {
+      showingFallback = !showingFallback;
+      updateDisplay();
+    }
+
+    // Navigation au clavier
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') previousPage();
+      if (e.key === 'ArrowRight') nextPage();
     });
 
-    btnNext.addEventListener('click', function() {
-      goToPage(pageNum + 1);
+    // Test de chargement du PDF
+    window.addEventListener('load', function() {
+      const testIframe = document.getElementById('pdf-iframe-1');
+      
+      // Timeout pour détecter si le PDF ne se charge pas
+      setTimeout(() => {
+        try {
+          // Test basique - si on ne peut pas accéder au contenu, peut-être un problème
+          if (testIframe && testIframe.contentDocument === null) {
+            console.log('PDF potentiellement non accessible');
+          }
+        } catch (e) {
+          console.log('PDF chargé avec restrictions de sécurité (normal)');
+        }
+      }, 3000);
     });
 
     // Initialisation
-    updateButtons();
-    caption.innerHTML = 'Tentative de chargement du PDF...';
-
-    // Test de l'existence du fichier d'abord
-    fetch(url, { method: 'HEAD' })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Fichier non trouvé (${response.status})`);
-        }
-        console.log('Fichier PDF trouvé, chargement...');
-        return pdfjsLib.getDocument(url).promise;
-      })
-      .then(function(pdf) {
-        pdfDoc = pdf;
-        console.log('PDF chargé avec succès -', pdf.numPages, 'pages');
-        caption.innerHTML = `PDF chargé - ${pdf.numPages} pages`;
-        
-        // Attendre un petit délai avant le premier rendu
-        setTimeout(() => {
-          renderPage(1);
-        }, 100);
-      })
-      .catch(function(error) {
-        console.error('Erreur complète:', error);
-        let errorMsg = '⚠️ Impossible de charger le PDF';
-        
-        if (error.message.includes('404') || error.message.includes('non trouvé')) {
-          errorMsg += '<br><small>Le fichier n\'existe pas à l\'emplacement spécifié</small>';
-        } else if (error.message.includes('CORS')) {
-          errorMsg += '<br><small>Problème de sécurité CORS - servez le fichier depuis un serveur web</small>';
-        } else {
-          errorMsg += '<br><small>' + error.message + '</small>';
-        }
-        
-        caption.innerHTML = `<div style="color: #ff6b6b;">${errorMsg}</div>`;
-        updateButtons();
-      });
+    updateDisplay();
   </script>
 </body>
 </html>
