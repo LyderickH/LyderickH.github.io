@@ -5,22 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projet - Lydérick Henry</title>
   <style>
-    body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:linear-gradient(135deg,#1c1c1c,#2c2c54); color:#f4f4f4; display:flex; flex-direction:column; min-height:100vh; }
+    body {
+      margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:linear-gradient(135deg,#1c1c1c,#2c2c54); color:#f4f4f4;
+      display:flex; flex-direction:column; min-height:100vh;
+    }
     header { text-align:center; padding:2rem 1rem; }
     header h1 { font-size:2rem; margin-bottom:0.5rem; }
     header a { color:#f4f4f4; text-decoration:none; font-size:0.9rem; border-bottom:1px solid #f4f4f4; }
     main { flex:1; max-width:900px; margin:0 auto; padding:2rem; }
     main h2 { font-size:1.5rem; margin-bottom:1rem; }
-    main p, main ul { margin-bottom:1.5rem; line-height:1.6; }
-    .slider-container { position:relative; max-width:900px; margin:2rem auto; overflow:hidden; border-radius:1rem; box-shadow:0 6px 12px rgba(0,0,0,0.3); background:#000; text-align:center; }
-    #pdf-render { width:100%; display:block; margin:auto; border-radius:1rem 1rem 0 0; }
-    .caption { background:rgba(0,0,0,0.6); padding:1rem; border-radius:0 0 1rem 1rem; }
-    .slider-container button { cursor:pointer; position:absolute; top:50%; width:auto; padding:0.5rem 1rem; margin-top:-1.5rem; color:#fff; font-weight:bold; font-size:2rem; border-radius:0.5rem; background-color:rgba(0,0,0,0.4); border:none; user-select:none; transition: background 0.3s; }
+    main p { margin-bottom:1.5rem; line-height:1.6; }
+
+    /* Slider PDF */
+    .slider-container {
+      position:relative; max-width:900px; margin:2rem auto;
+      overflow:hidden; border-radius:1rem; box-shadow:0 6px 12px rgba(0,0,0,0.3); background:#000; text-align:center;
+    }
+    #pdf-render { width:100%; display:block; margin:auto; border-radius:1rem; }
+    .caption {
+      background:rgba(0,0,0,0.6); padding:0.5rem 1rem; font-size:0.9rem;
+      border-radius:0 0 1rem 1rem;
+    }
+    .slider-container button {
+      cursor:pointer; position:absolute; top:50%; transform:translateY(-50%);
+      padding:0.5rem 1rem; color:#fff; font-weight:bold; font-size:2rem;
+      border-radius:0.5rem; background-color:rgba(0,0,0,0.4); border:none; user-select:none;
+      transition: background 0.3s;
+    }
     .slider-container button:hover { background-color: rgba(0,0,0,0.7); }
     .prev { left:0.5rem; }
     .next { right:0.5rem; }
-    .download-btn { display:inline-block; margin:1rem 0; padding:0.5rem 1rem; background:#2c2c54; color:#f4f4f4; text-decoration:none; border-radius:0.5rem; font-weight:bold; }
+
+    .download-btn {
+      display:inline-block; margin:1rem 0; padding:0.5rem 1rem; background:#2c2c54;
+      color:#f4f4f4; text-decoration:none; border-radius:0.5rem; font-weight:bold;
+    }
     .download-btn:hover { background:#1c1c1c; }
+
     footer { text-align:center; padding:1rem; font-size:0.9rem; background:rgba(0,0,0,0.2); }
     footer a { color:#fff; text-decoration:none; }
   </style>
@@ -41,10 +63,8 @@
       <button class="prev" disabled>&#10094;</button>
       <button class="next" disabled>&#10095;</button>
     </div>
-    <a class="download-btn" href="images/projet1/PowerBiImmo.pdf" download>Télécharger PDF</a>
 
-    <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence</p>
-    <iframe title="powerbiimmo -V3 avec liens" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8" frameborder="0" allowFullScreen="true"></iframe>
+    <a class="download-btn" href="images/projet1/PowerBiImmo.pdf" download>Télécharger PDF</a>
   </main>
 
   <footer>
@@ -53,110 +73,69 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.js"></script>
   <script>
-    // Configuration du worker (obligatoire)
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js';
 
-    // Variables globales
     const url = 'images/projet1/PowerBiImmo.pdf';
     let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null;
 
-    // Éléments du DOM
     const canvas = document.getElementById('pdf-render');
     const ctx = canvas.getContext('2d');
     const caption = document.getElementById('caption-text');
     const btnPrev = document.querySelector('.prev');
     const btnNext = document.querySelector('.next');
 
-    /**
-     * Met à jour l'état des boutons de navigation (activé/désactivé).
-     */
     function updateButtonsState() {
       if (pdfDoc) {
         btnPrev.disabled = (pageNum <= 1);
         btnNext.disabled = (pageNum >= pdfDoc.numPages);
-      } else {
-        btnPrev.disabled = true;
-        btnNext.disabled = true;
       }
     }
 
-    /**
-     * Rend une page spécifique du PDF.
-     * @param {number} numPage - Le numéro de la page à afficher.
-     */
-    function renderPage(numPage) {
+    function renderPage(num) {
       pageRendering = true;
-      updateButtonsState(); // Désactive les boutons pendant le rendu
+      updateButtonsState();
 
-      pdfDoc.getPage(numPage).then(page => {
+      pdfDoc.getPage(num).then(page => {
         const scale = 1.2;
         const viewport = page.getViewport({ scale });
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        const renderContext = {
-          canvasContext: ctx,
-          viewport: viewport
-        };
 
-        const renderTask = page.render(renderContext);
-
-        renderTask.promise.then(() => {
+        page.render({ canvasContext: ctx, viewport }).promise.then(() => {
           pageRendering = false;
+          caption.textContent = `Page ${pageNum} / ${pdfDoc.numPages}`;
           if (pageNumPending !== null) {
             renderPage(pageNumPending);
             pageNumPending = null;
           }
-          caption = `Page ${pageNum} / ${pdfDoc.numPages}`;
-          updateButtonsState(); // Réactive les boutons après le rendu
-        }).catch(err => {
-          caption = 'Erreur de rendu de la page';
-          console.error('Erreur de rendu PDF:', err);
-          pageRendering = false;
           updateButtonsState();
         });
-      }).catch(err => {
-        caption = 'Page introuvable';
-        console.error('Erreur page PDF:', err);
-        pageRendering = false;
-        updateButtonsState();
       });
     }
 
-    /**
-     * Fonction qui met en file d'attente un rendu de page si un rendu est déjà en cours.
-     * @param {number} numPage - Le numéro de la page à mettre en file d'attente.
-     */
-    function queueRenderPage(numPage) {
-      if (pageRendering) {
-        pageNumPending = numPage;
-      } else {
-        renderPage(numPage);
-      }
+    function queueRenderPage(num) {
+      if (pageRendering) pageNumPending = num;
+      else renderPage(num);
     }
 
-    // Gestion des événements
     btnPrev.addEventListener('click', () => {
-      if (pageNum <= 1 || pageRendering) return;
+      if (pageNum <= 1) return;
       pageNum--;
       queueRenderPage(pageNum);
     });
 
     btnNext.addEventListener('click', () => {
-      if (!pdfDoc || pageNum >= pdfDoc.numPages || pageRendering) return;
+      if (pageNum >= pdfDoc.numPages) return;
       pageNum++;
       queueRenderPage(pageNum);
     });
 
-    // Chargement initial du PDF
     pdfjsLib.getDocument(url).promise.then(doc => {
       pdfDoc = doc;
-      caption = `Chargement de la page 1 / ${pdfDoc.numPages}`;
       renderPage(pageNum);
     }).catch(err => {
-      const msg = 'Impossible de charger le PDF. Vérifiez l\'URL et le chemin du fichier.';
-      caption = msg;
-      console.error(msg, err);
-      updateButtonsState();
+      caption.textContent = 'Impossible de charger le PDF';
+      console.error(err);
     });
   </script>
 </body>
