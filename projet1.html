@@ -6,20 +6,20 @@
   <title>Projet - Lydérick Henry</title>
   <style>
     body {
-      margin:0;
-      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background:linear-gradient(135deg,#1c1c1c,#2c2c54);
-      color:#f4f4f4;
-      display:flex;
-      flex-direction:column;
-      min-height:100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    header { text-align:center; padding:2rem 1rem; }
-    header h1 { font-size:2rem; margin-bottom:0.5rem; }
-    header a { color:#f4f4f4; text-decoration:none; font-size:0.9rem; border-bottom:1px solid #f4f4f4; }
-    main { flex:1; max-width:900px; margin:0 auto; padding:2rem; }
-    main h2 { font-size:1.5rem; margin-bottom:1rem; }
-    main p, main ul { margin-bottom:1.5rem; line-height:1.6; }
+    header { text-align: center; padding: 2rem 1rem; }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    header a { color: #f4f4f4; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #f4f4f4; }
+    main { flex: 1; max-width: 900px; margin: 0 auto; padding: 2rem; }
+    main h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+    main p, main ul { margin-bottom: 1.5rem; line-height: 1.6; }
 
     /* Slider */
     .slider-container {
@@ -30,60 +30,32 @@
       border-radius:1rem;
       box-shadow:0 6px 12px rgba(0,0,0,0.3);
       background:#000;
-      text-align:center;
     }
-    .slide {
-      width:100%;
-      display:none;
-      border-radius:1rem;
-    }
+    .slide { width:100%; display:none; border-radius:1rem 1rem 0 0; }
     .slide.active { display:block; }
-    .caption {
-      background:rgba(0,0,0,0.6);
-      padding:1rem;
-      border-radius:0 0 1rem 1rem;
-      color:#fff;
+    .counter {
+      position:absolute; right:.5rem; top:.5rem;
+      padding:.25rem .5rem; border-radius:.5rem;
+      background:rgba(0,0,0,.55); font-size:.9rem; color:#fff;
     }
     .slider-container button {
-      cursor:pointer;
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:auto;
-      padding:0.5rem 1rem;
-      color:#fff;
-      font-weight:bold;
-      font-size:2rem;
-      border-radius:0.5rem;
-      background-color:rgba(0,0,0,0.4);
-      border:none;
-      user-select:none;
-      transition: background 0.3s;
+      cursor:pointer; position:absolute; top:50%; transform:translateY(-50%);
+      padding:.5rem 1rem; color:#fff; font-size:2rem;
+      border-radius:.5rem; background:rgba(0,0,0,0.45); border:none;
     }
-    .slider-container button:hover { background-color: rgba(0,0,0,0.7); }
-    .prev { left:0.5rem; }
-    .next { right:0.5rem; }
+    .slider-container button:hover { background:rgba(0,0,0,0.75); }
+    .prev { left:.5rem; }
+    .next { right:.5rem; }
+    .caption {
+      background:#0b0b0b; padding:1rem 1.25rem;
+      border-top:1px solid rgba(255,255,255,.1);
+      border-radius:0 0 1rem 1rem;
+    }
+    .caption h3 { margin:.1rem 0 .35rem 0; font-size:1.05rem; font-weight:600; }
+    .caption p { margin:0; font-size:.95rem; color:rgba(255,255,255,.75); }
 
-    /* Bouton téléchargement */
-    .download-btn {
-      display:inline-block;
-      margin:1rem 0;
-      padding:0.5rem 1rem;
-      background:#2c2c54;
-      color:#f4f4f4;
-      text-decoration:none;
-      border-radius:0.5rem;
-      font-weight:bold;
-    }
-    .download-btn:hover { background:#1c1c1c; }
-
-    footer {
-      text-align:center;
-      padding:1rem;
-      font-size:0.9rem;
-      background:rgba(0,0,0,0.2);
-    }
-    footer a { color:#fff; text-decoration:none; }
+    footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
+    footer a { color: #fff; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -94,24 +66,89 @@
 
   <main>
     <h2>Explications</h2>
-    <p>Projet Power BI : Simulateur interactif du marché immobilier...</p>
+    Projet Power BI : Simulateur interactif du marché immobilier <br>
+    <p>Ce projet, développé dans le cadre d'une formation à l'IAE de Lille, est un simulateur interactif conçu pour explorer et analyser le marché immobilier français. L'objectif était de consolider mes compétences en <strong>data visualisation</strong> et d'approfondir ma maîtrise de l'outil <strong>Power BI</strong>.</p>
+    <p>J'ai utilisé des données provenant de <strong>Data.gouv</strong> (période 2019-2024 pour le foncier et 2022-2024 pour la location) pour créer une solution permettant aux utilisateurs de :</p>
+    <ul>
+      <li><strong>Calculer des emprunts</strong> et simuler des achats.</li>
+      <li><strong>Estimer la rentabilité</strong> d'un investissement locatif.</li>
+      <li><strong>Comparer</strong> les prix fonciers et les loyers.</li>
+      <li><strong>Analyser les tendances</strong> du marché par région et ville.</li>
+      <li><strong>Comparer deux villes</strong> distinctes.</li>
+    </ul>
+    <p>Ce projet a renforcé ma conviction que Power BI est un outil essentiel pour le <strong>reporting</strong> et la création de <strong>tableaux de bord dynamiques</strong>. Il démontre ma capacité à transformer des données brutes en informations stratégiques et visuelles, et à mettre en place un processus de mise à jour automatisé (via le langage M).</p>
+    <p>Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
 
     <!-- Slider -->
     <div class="slider-container">
-      <img src="images/projet1/page1.png" alt="Slide 1" class="slide active">
-      <img src="images/projet1/page2.png" alt="Slide 2" class="slide">
-      <img src="images/projet1/page3.png" alt="Slide 3" class="slide">
+      <img src="images/projet1/PowerBiImmo_page-0001.jpg" alt="Page 1" class="slide active">
+      <img src="images/projet1/PowerBiImmo_page-0002.jpg" alt="Page 2" class="slide">
+      <img src="images/projet1/PowerBiImmo_page-0003.jpg" alt="Page 3" class="slide">
+      <img src="images/projet1/PowerBiImmo_page-0004.jpg" alt="Page 4" class="slide">
+      <img src="images/projet1/PowerBiImmo_page-0005.jpg" alt="Page 5" class="slide">
+      <img src="images/projet1/PowerBiImmo_page-0006.jpg" alt="Page 6" class="slide">
+      <img src="images/projet1/PowerBiImmo_page-0007.jpg" alt="Page 7" class="slide">
+      <img src="images/projet1/PowerBiImmo_page-0008.jpg" alt="Page 8" class="slide">
 
+      <div class="counter" id="counter">1 / 8</div>
       <button class="prev">&#10094;</button>
       <button class="next">&#10095;</button>
-      <div class="caption" id="caption-text">1 / 3</div>
+
+      <div class="caption">
+        <h3 id="caption-title">Titre de la page 1</h3>
+        <p id="caption-text">Description de la page 1 : contexte, objectifs et périmètre.</p>
+      </div>
     </div>
 
-    <a class="download-btn" href="images/projet1/PowerBiImmo.pdf" download>Télécharger PDF</a>
-
     <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence</p>
-    <iframe title="powerbiimmo -V3 avec liens"
-            width="1140"
-            height="541.25"
-            src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
-            fra
+    <iframe title="powerbiimmo -V3 avec liens" width="1140" height="541.25"
+      src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
+      frameborder="0" allowFullScreen="true"></iframe>
+  </main>
+
+  <footer>
+    <p>© 2025 - Portfolio de Lydérick Henry</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const captionTitle = document.getElementById('caption-title');
+    const captionText = document.getElementById('caption-text');
+    const counter = document.getElementById('counter');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+
+    const captions = [
+      { title: 'Titre de la page 1', text: 'Description de la page 1 : contexte, objectifs et périmètre.' },
+      { title: 'Titre de la page 2', text: 'Description de la page 2 : structure des données et nettoyage.' },
+      { title: 'Titre de la page 3', text: 'Description de la page 3 : indicateurs clefs et tableaux de bord.' },
+      { title: 'Titre de la page 4', text: 'Description de la page 4 : segmentation et filtres interactifs.' },
+      { title: 'Titre de la page 5', text: 'Description de la page 5 : analyse géographique et cartes.' },
+      { title: 'Titre de la page 6', text: 'Description de la page 6 : tendances temporelles et prévisions.' },
+      { title: 'Titre de la page 7', text: 'Description de la page 7 : scénarios et simulateur de prix.' },
+      { title: 'Titre de la page 8', text: 'Description de la page 8 : synthèse, limites et suites possibles.' }
+    ];
+
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      captionTitle.textContent = captions[index].title;
+      captionText.textContent = captions[index].text;
+      counter.textContent = `${index+1} / ${slides.length}`;
+    }
+
+    prev.addEventListener('click', () => {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    });
+
+    next.addEventListener('click', () => {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>
