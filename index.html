@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Lydérick Henry</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p a {
+      color: #f4f4f4;
+      text-decoration: none;
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      flex: 1;
+    }
+    .card {
+      background: #333;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+    }
+    .card a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.2);
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lydérick Henry</h1>
+    <p><a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a></p>
+    <p><a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank">Voir mon CV sur LinkedIn</a><br>(numéro de téléphone disponible sur LinkedIn)</p>
+  </header>
+
+  <section class="projects">
+    <div class="card">
+      <a href="projet1.html">Projet 1</a>
+    </div>
+    <div class="card">
+      <a href="projet2.html">Projet 2</a>
+    </div>
+    <div class="card">
+      <a href="projet3.html">Projet 3</a>
+    </div>
+    <div class="card">
+      <a href="projet4.html">Projet 4</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 - Portfolio de Lydérick Henry</p>
+  </footer>
+</body>
+</html>
