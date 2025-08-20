@@ -1,196 +1,46 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projet - Lydérick Henry</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
-      color: #f4f4f4;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    header h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-    header a {
-      color: #f4f4f4;
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px solid #f4f4f4;
-    }
-    main {
-      flex: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    main h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    main p {
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    /* Styles du slider PDF */
-    .slider-container {
-      position: relative;
-      max-width: 900px;
-      margin: 2rem auto;
-      text-align: center;
-      background: rgba(0,0,0,0.3);
-      padding: 1rem;
-      border-radius: 1rem;
-    }
-    canvas {
-      border-radius: 1rem;
-      max-width: 100%;
-      margin-bottom: 0.5rem;
-    }
-    #caption-text {
-      margin-bottom: 1rem;
-    }
-    .prev, .next {
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      margin: 0 0.5rem;
-      color: #fff;
-      font-weight: bold;
-      font-size: 1rem;
-      border-radius: 0.5rem;
-      background-color: rgba(0,0,0,0.6);
-      border: none;
-      user-select: none;
-      transition: background 0.3s;
-    }
-    .prev:hover, .next:hover {
-      background-color: rgba(0,0,0,0.9);
-    }
-    .download-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #4CAF50;
-      color: white;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .download-btn:hover {
-      background-color: #45a049;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background: rgba(0,0,0,0.2);
-    }
-    footer a {
-      color: #fff;
-      text-decoration: none;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Projet PowerBI - Analyse immobilière</h1>
-    <a href="index.html">← Retour à l’accueil</a>
-  </header>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.min.js"></script>
+<script>
+const url = 'images/projet1/PowerBiImmo.pdf'; // sans "/" initial
+let pdfDoc = null, pageNum = 1;
+const canvas = document.getElementById('pdf-render');
+const ctx = canvas.getContext('2d');
+const caption = document.getElementById('caption-text');
 
-  <main>
-    <h2>Explications</h2>
-    Projet Power BI : Simulateur interactif du marché immobilier
-    <br>
+// PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.worker.min.js';
 
-    <p>Ce projet, développé dans le cadre d'une formation à l'IAE de Lille, est un simulateur interactif conçu pour explorer et analyser le marché immobilier français. L'objectif était de consolider mes compétences en <strong>data visualisation</strong> et d'approfondir ma maîtrise de l'outil <strong>Power BI</strong>.</p>
+// Chargement du PDF
+pdfjsLib.getDocument(url).promise.then(doc => {
+  pdfDoc = doc;
+  renderPage(pageNum);
+}).catch(err => {
+  console.error('Erreur PDF:', err);
+});
 
-    <p>J'ai utilisé des données provenant de <strong>Data.gouv</strong> (période 2019-2024 pour le foncier et 2022-2024 pour la location) pour créer une solution permettant aux utilisateurs de :</p>
+// Fonction pour afficher une page
+function renderPage(num) {
+  pdfDoc.getPage(num).then(page => {
+    const scale = 1.2; // Ajustable selon taille canvas
+    const viewport = page.getViewport({ scale });
 
-    <ul>
-      <li><strong>Calculer des emprunts</strong> et simuler des achats.</li>
-      <li><strong>Estimer la rentabilité</strong> d'un investissement locatif.</li>
-      <li><strong>Comparer</strong> les prix fonciers et les loyers.</li>
-      <li><strong>Analyser les tendances</strong> du marché par région et ville.</li>
-      <li><strong>Comparer deux villes</strong> distinctes.</li>
-    </ul>
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
 
-    <p>Ce projet a renforcé ma conviction que Power BI est un outil essentiel pour le <strong>reporting</strong> et la création de <strong>tableaux de bord dynamiques</strong>. Il m'a permis de progresser sur la manière de transformer des données brutes en informations stratégiques et visuelles, et sur la mise en place de processus de mise à jour automatisé (via le langage M).</p>
-
-    <!-- Slider PDF -->
-    <div class="slider-container">
-      <canvas id="pdf-render"></canvas>
-      <div id="caption-text">Page 1 / ?</div>
-      <button class="prev">← Page précédente</button>
-      <button class="next">Page suivante →</button>
-      <br>
-      <a href="/images/projet1/PowerBiImmo.pdf" download class="download-btn">Télécharger PDF</a>
-    </div>
-
-    <p>Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
-
-    <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence :</p>
-    <iframe title="powerbiimmo -V3 avec liens" width="1140" height="541.25" 
-      src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8" 
-      frameborder="0" allowFullScreen="true"></iframe>
-  </main>
-
-  <footer>
-    <p>© 2025 - Portfolio de Lydérick Henry</p>
-  </footer>
-
-  <!-- PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.min.js"></script>
-  <script>
-    const url = '/images/projet1/PowerBiImmo.pdf';
-    let pdfDoc = null, pageNum = 1;
-    const canvas = document.getElementById('pdf-render');
-    const ctx = canvas.getContext('2d');
-    const caption = document.getElementById('caption-text');
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.worker.min.js';
-
-    pdfjsLib.getDocument(url).promise.then(doc => {
-      pdfDoc = doc;
-      renderPage(pageNum);
-    }).catch(err => {
-      console.error('Erreur lors du chargement du PDF :', err);
+    page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
+      caption.textContent = `Page ${pageNum} / ${pdfDoc.numPages}`;
     });
+  });
+}
 
-    function renderPage(num) {
-      pdfDoc.getPage(num).then(page => {
-        const scale = 1.5;
-        const viewport = page.getViewport({ scale });
-
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        const renderContext = {
-          canvasContext: ctx,
-          viewport: viewport
-        };
-        page.render(renderContext).promise.then(() => {
-          caption.textContent = `Page ${pageNum} / ${pdfDoc.numPages}`;
-        });
-      });
-    }
-
-    document.querySelector('.prev').addEventListener('click', () => {
-      if (pageNum <= 1) return;
-      pageNum--;
-      renderPage(pageNum);
-    });
-
-    document.querySelector('.next').addEventListener('click', () => {
-      if (pageNum >= pdfDoc.numPages) return;
-      pageNum++;
-      renderPage(pa
+// Navigation
+document.querySelector('.prev').addEventListener('click', () => {
+  if (pageNum <= 1) return;
+  pageNum--;
+  renderPage(pageNum);
+});
+document.querySelector('.next').addEventListener('click', () => {
+  if (pageNum >= pdfDoc.numPages) return;
+  pageNum++;
+  renderPage(pageNum);
+});
+</script>
