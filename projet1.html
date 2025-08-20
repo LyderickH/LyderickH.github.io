@@ -65,8 +65,7 @@
     // Variables globales
     let pdfDoc = null;
     let pageNum = 1;
-    let pageRendering = false;
-    let pageNumPending = null;
+    let isLoading = false;
 
     // Éléments du DOM
     const canvas = document.getElementById('pdf-render');
@@ -75,109 +74,109 @@
     const btnPrev = document.getElementById('prev-btn');
     const btnNext = document.getElementById('next-btn');
 
-    // URL du PDF (remplacez par votre chemin)
+    // URL du PDF - Testez d'abord avec un PDF de test
     const url = 'images/projet1/PowerBiImmo.pdf';
 
+    console.log('Tentative de chargement du PDF depuis:', url);
+
     function updateButtons() {
+      if (!pdfDoc) {
+        btnPrev.disabled = true;
+        btnNext.disabled = true;
+        return;
+      }
       btnPrev.disabled = (pageNum <= 1);
-      btnNext.disabled = (pdfDoc && pageNum >= pdfDoc.numPages);
+      btnNext.disabled = (pageNum >= pdfDoc.numPages);
     }
 
     function renderPage(num) {
-      if (!pdfDoc) return;
+      if (!pdfDoc || isLoading) {
+        console.log('Rendu annulé - PDF non chargé ou déjà en cours');
+        return;
+      }
       
-      pageRendering = true;
+      isLoading = true;
+      console.log('Rendu de la page:', num);
       
       pdfDoc.getPage(num).then(function(page) {
-        // Calculer l'échelle pour s'adapter au conteneur
-        const containerWidth = canvas.parentElement.clientWidth - 40; // Marge
-        const viewport = page.getViewport({ scale: 1 });
-        const scale = Math.min(containerWidth / viewport.width, 1.5);
-        const scaledViewport = page.getViewport({ scale: scale });
-
-        canvas.height = scaledViewport.height;
-        canvas.width = scaledViewport.width;
+        const viewport = page.getViewport({ scale: 1.2 });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
 
         const renderContext = {
           canvasContext: ctx,
-          viewport: scaledViewport
+          viewport: viewport
         };
 
-        const renderTask = page.render(renderContext);
-
-        renderTask.promise.then(function() {
-          pageRendering = false;
-          if (pageNumPending !== null) {
-            renderPage(pageNumPending);
-            pageNumPending = null;
-          }
-          caption.innerHTML = `Page ${num} sur ${pdfDoc.numPages}`;
-          updateButtons();
-        }).catch(function(error) {
-          pageRendering = false;
-          console.error('Erreur lors du rendu de la page:', error);
-          caption.innerHTML = 'Erreur lors du rendu de la page';
-        });
+        return page.render(renderContext).promise;
+      }).then(function() {
+        isLoading = false;
+        console.log('Page rendue avec succès');
+        caption.innerHTML = `Page ${num} sur ${pdfDoc.numPages}`;
+        updateButtons();
       }).catch(function(error) {
-        pageRendering = false;
-        console.error('Erreur lors du chargement de la page:', error);
-        caption.innerHTML = 'Erreur lors du chargement de la page';
+        isLoading = false;
+        console.error('Erreur lors du rendu:', error);
+        caption.innerHTML = 'Erreur lors du rendu de la page';
+        updateButtons();
       });
     }
 
-    function queueRenderPage(num) {
-      if (pageRendering) {
-        pageNumPending = num;
-      } else {
-        renderPage(num);
-      }
-    }
-
-    function onPrevPage() {
-      if (pageNum <= 1) return;
-      pageNum--;
-      queueRenderPage(pageNum);
-    }
-
-    function onNextPage() {
-      if (pageNum >= pdfDoc.numPages) return;
-      pageNum++;
-      queueRenderPage(pageNum);
+    function goToPage(targetPage) {
+      if (!pdfDoc || isLoading) return;
+      if (targetPage < 1 || targetPage > pdfDoc.numPages) return;
+      
+      pageNum = targetPage;
+      renderPage(pageNum);
     }
 
     // Event listeners
-    btnPrev.addEventListener('click', onPrevPage);
-    btnNext.addEventListener('click', onNextPage);
-
-    // Désactiver les boutons initialement
-    btnPrev.disabled = true;
-    btnNext.disabled = true;
-
-    // Charger le PDF
-    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-      pdfDoc = pdfDoc_;
-      caption.innerHTML = `Document chargé - ${pdfDoc.numPages} pages`;
-      
-      // Rendre la première page
-      renderPage(pageNum);
-    }).catch(function(error) {
-      console.error('Erreur lors du chargement du PDF:', error);
-      caption.innerHTML = `
-        <div style="color: #ff6b6b;">
-          ⚠️ Impossible de charger le PDF<br>
-          <small>Vérifiez que le fichier existe : ${url}</small>
-        </div>
-      `;
-      btnPrev.disabled = true;
-      btnNext.disabled = true;
+    btnPrev.addEventListener('click', function() {
+      goToPage(pageNum - 1);
     });
 
-    // Redimensionner le canvas si la fenêtre change de taille
-    window.addEventListener('resize', function() {
-      if (pdfDoc) {
-        renderPage(pageNum);
-      }
+    btnNext.addEventListener('click', function() {
+      goToPage(pageNum + 1);
     });
+
+    // Initialisation
+    updateButtons();
+    caption.innerHTML = 'Tentative de chargement du PDF...';
+
+    // Test de l'existence du fichier d'abord
+    fetch(url, { method: 'HEAD' })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Fichier non trouvé (${response.status})`);
+        }
+        console.log('Fichier PDF trouvé, chargement...');
+        return pdfjsLib.getDocument(url).promise;
+      })
+      .then(function(pdf) {
+        pdfDoc = pdf;
+        console.log('PDF chargé avec succès -', pdf.numPages, 'pages');
+        caption.innerHTML = `PDF chargé - ${pdf.numPages} pages`;
+        
+        // Attendre un petit délai avant le premier rendu
+        setTimeout(() => {
+          renderPage(1);
+        }, 100);
+      })
+      .catch(function(error) {
+        console.error('Erreur complète:', error);
+        let errorMsg = '⚠️ Impossible de charger le PDF';
+        
+        if (error.message.includes('404') || error.message.includes('non trouvé')) {
+          errorMsg += '<br><small>Le fichier n\'existe pas à l\'emplacement spécifié</small>';
+        } else if (error.message.includes('CORS')) {
+          errorMsg += '<br><small>Problème de sécurité CORS - servez le fichier depuis un serveur web</small>';
+        } else {
+          errorMsg += '<br><small>' + error.message + '</small>';
+        }
+        
+        caption.innerHTML = `<div style="color: #ff6b6b;">${errorMsg}</div>`;
+        updateButtons();
+      });
   </script>
 </body>
 </html>
