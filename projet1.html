@@ -6,44 +6,83 @@
   <title>Projet - Lydérick Henry</title>
   <style>
     body {
-      margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background:linear-gradient(135deg,#1c1c1c,#2c2c54); color:#f4f4f4;
-      display:flex; flex-direction:column; min-height:100vh;
+      margin:0;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:linear-gradient(135deg,#1c1c1c,#2c2c54);
+      color:#f4f4f4;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
     }
     header { text-align:center; padding:2rem 1rem; }
     header h1 { font-size:2rem; margin-bottom:0.5rem; }
     header a { color:#f4f4f4; text-decoration:none; font-size:0.9rem; border-bottom:1px solid #f4f4f4; }
     main { flex:1; max-width:900px; margin:0 auto; padding:2rem; }
     main h2 { font-size:1.5rem; margin-bottom:1rem; }
-    main p { margin-bottom:1.5rem; line-height:1.6; }
+    main p, main ul { margin-bottom:1.5rem; line-height:1.6; }
 
-    /* Slider PDF */
+    /* Slider */
     .slider-container {
-      position:relative; max-width:900px; margin:2rem auto;
-      overflow:hidden; border-radius:1rem; box-shadow:0 6px 12px rgba(0,0,0,0.3); background:#000; text-align:center;
+      position:relative;
+      max-width:900px;
+      margin:2rem auto;
+      overflow:hidden;
+      border-radius:1rem;
+      box-shadow:0 6px 12px rgba(0,0,0,0.3);
+      background:#000;
+      text-align:center;
     }
-    #pdf-render { width:100%; display:block; margin:auto; border-radius:1rem; }
+    .slide {
+      width:100%;
+      display:none;
+      border-radius:1rem;
+    }
+    .slide.active { display:block; }
     .caption {
-      background:rgba(0,0,0,0.6); padding:0.5rem 1rem; font-size:0.9rem;
+      background:rgba(0,0,0,0.6);
+      padding:1rem;
       border-radius:0 0 1rem 1rem;
+      color:#fff;
     }
     .slider-container button {
-      cursor:pointer; position:absolute; top:50%; transform:translateY(-50%);
-      padding:0.5rem 1rem; color:#fff; font-weight:bold; font-size:2rem;
-      border-radius:0.5rem; background-color:rgba(0,0,0,0.4); border:none; user-select:none;
+      cursor:pointer;
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:auto;
+      padding:0.5rem 1rem;
+      color:#fff;
+      font-weight:bold;
+      font-size:2rem;
+      border-radius:0.5rem;
+      background-color:rgba(0,0,0,0.4);
+      border:none;
+      user-select:none;
       transition: background 0.3s;
     }
     .slider-container button:hover { background-color: rgba(0,0,0,0.7); }
     .prev { left:0.5rem; }
     .next { right:0.5rem; }
 
+    /* Bouton téléchargement */
     .download-btn {
-      display:inline-block; margin:1rem 0; padding:0.5rem 1rem; background:#2c2c54;
-      color:#f4f4f4; text-decoration:none; border-radius:0.5rem; font-weight:bold;
+      display:inline-block;
+      margin:1rem 0;
+      padding:0.5rem 1rem;
+      background:#2c2c54;
+      color:#f4f4f4;
+      text-decoration:none;
+      border-radius:0.5rem;
+      font-weight:bold;
     }
     .download-btn:hover { background:#1c1c1c; }
 
-    footer { text-align:center; padding:1rem; font-size:0.9rem; background:rgba(0,0,0,0.2); }
+    footer {
+      text-align:center;
+      padding:1rem;
+      font-size:0.9rem;
+      background:rgba(0,0,0,0.2);
+    }
     footer a { color:#fff; text-decoration:none; }
   </style>
 </head>
@@ -57,86 +96,22 @@
     <h2>Explications</h2>
     <p>Projet Power BI : Simulateur interactif du marché immobilier...</p>
 
+    <!-- Slider -->
     <div class="slider-container">
-      <canvas id="pdf-render"></canvas>
-      <div class="caption" id="caption-text">Chargement...</div>
-      <button class="prev" disabled>&#10094;</button>
-      <button class="next" disabled>&#10095;</button>
+      <img src="images/projet1/page1.png" alt="Slide 1" class="slide active">
+      <img src="images/projet1/page2.png" alt="Slide 2" class="slide">
+      <img src="images/projet1/page3.png" alt="Slide 3" class="slide">
+
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+      <div class="caption" id="caption-text">1 / 3</div>
     </div>
 
     <a class="download-btn" href="images/projet1/PowerBiImmo.pdf" download>Télécharger PDF</a>
-  </main>
 
-  <footer>
-    <p>© 2025 - Portfolio de Lydérick Henry</p>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.js"></script>
-  <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js';
-
-    const url = 'images/projet1/PowerBiImmo.pdf';
-    let pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null;
-
-    const canvas = document.getElementById('pdf-render');
-    const ctx = canvas.getContext('2d');
-    const caption = document.getElementById('caption-text');
-    const btnPrev = document.querySelector('.prev');
-    const btnNext = document.querySelector('.next');
-
-    function updateButtonsState() {
-      if (pdfDoc) {
-        btnPrev.disabled = (pageNum <= 1);
-        btnNext.disabled = (pageNum >= pdfDoc.numPages);
-      }
-    }
-
-    function renderPage(num) {
-      pageRendering = true;
-      updateButtonsState();
-
-      pdfDoc.getPage(num).then(page => {
-        const scale = 1.2;
-        const viewport = page.getViewport({ scale });
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        page.render({ canvasContext: ctx, viewport }).promise.then(() => {
-          pageRendering = false;
-          caption.textContent = `Page ${pageNum} / ${pdfDoc.numPages}`;
-          if (pageNumPending !== null) {
-            renderPage(pageNumPending);
-            pageNumPending = null;
-          }
-          updateButtonsState();
-        });
-      });
-    }
-
-    function queueRenderPage(num) {
-      if (pageRendering) pageNumPending = num;
-      else renderPage(num);
-    }
-
-    btnPrev.addEventListener('click', () => {
-      if (pageNum <= 1) return;
-      pageNum--;
-      queueRenderPage(pageNum);
-    });
-
-    btnNext.addEventListener('click', () => {
-      if (pageNum >= pdfDoc.numPages) return;
-      pageNum++;
-      queueRenderPage(pageNum);
-    });
-
-    pdfjsLib.getDocument(url).promise.then(doc => {
-      pdfDoc = doc;
-      renderPage(pageNum);
-    }).catch(err => {
-      caption.textContent = 'Impossible de charger le PDF';
-      console.error(err);
-    });
-  </script>
-</body>
-</html>
+    <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence</p>
+    <iframe title="powerbiimmo -V3 avec liens"
+            width="1140"
+            height="541.25"
+            src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
+            fra
