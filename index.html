@@ -86,7 +86,10 @@
   </section>
 
   <footer>
-    <p>© 2025 - Portfolio de Lydérick Henry</p>
+  <p>© <span id="year"></span> - Portfolio de Lydérick Henry</p>
   </footer>
+  <script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
