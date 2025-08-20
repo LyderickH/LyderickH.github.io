@@ -28,6 +28,25 @@
       text-decoration: none;
       border-bottom: 1px solid #f4f4f4;
     }
+    .intro-projects {
+      max-width: 800px;
+      margin: 3rem auto;
+      text-align: center;
+      background-color: rgba(255,255,255,0.05);
+      padding: 2rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .intro-projects h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+    .intro-projects p {
+      color: #e0e0e0;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -55,7 +74,7 @@
       object-fit: cover;
       border-radius: 0.5rem;
       margin-bottom: 1rem;
-      background: #444; /* couleur de fond si image manquante */
+      background: #444;
     }
     .project-card .no-image {
       display: flex;
@@ -95,11 +114,13 @@
   </header>
 
   <main>
-   <h2>Mes Projets</h2>
-        <p>Ce portfolio présente une sélection de projets personnels et académiques. Pour des raisons de confidentialité, je ne peux pas partager mes réalisations professionnelles.</p>
-        <p>Ces quelques exemples concrets ont été choisis pour vous donner un aperçu de mes compétences et de ma passion pour la data. Ils illustrent ma capacité à transformer des idées en solutions concrètes et à produire des analyses visuelles et des tableaux de bord percutants.</p>
-    <div class="projects">
+    <div class="intro-projects">
+      <h2>Mes Projets</h2>
+      <p>Ce portfolio présente une sélection de projets personnels et académiques. Pour des raisons de confidentialité, je ne peux pas partager mes réalisations professionnelles.</p>
+      <p>Ces quelques exemples concrets ont été choisis pour vous donner un aperçu de mes compétences et de ma passion pour la data. Ils illustrent ma capacité à transformer des idées en solutions concrètes et à produire des analyses visuelles et des tableaux de bord percutants.</p>
+    </div>
 
+    <div class="projects">
       <div class="project-card">
         <a href="projet1.html">
           <img src="images/portfolio accueil immobilier.png" alt="portfolio accueil immobilier" 
@@ -135,7 +156,6 @@
         </a>
         <a href="projet4.html" class="project-title">Projet 4</a>
       </div>
-
     </div>
   </main>
 
