@@ -54,6 +54,31 @@
     .caption h3 { margin:.1rem 0 .35rem 0; font-size:1.05rem; font-weight:600; }
     .caption p { margin:0; font-size:.95rem; color:rgba(255,255,255,.75); }
 
+    /* Boutons */
+    .button-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.6rem;
+      background: #2c3e50;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: #1abc9c; }
+
+    /* Séparation */
+    .separator {
+      margin: 3rem 0 2rem;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+
     footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
     footer a { color: #fff; text-decoration: none; }
   </style>
@@ -100,7 +125,18 @@
       </div>
     </div>
 
-    <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence</p>
+    <!-- Boutons -->
+    <div class="button-container">
+      <a href="images/projet1/powerbiimmo.pdf" class="btn" target="_blank">📄 Télécharger le PDF</a>
+      <a href="TechniqueImmoM.M" class="btn" target="_blank">⚙️ Accéder à l’aspect technique (code M)</a>
+      <a href="images/projet1/BDDImmo.png" class="btn" target="_blank">🗄️ Visualiser la base de données</a>
+    </div>
+
+    <div class="separator"></div>
+
+    <p style="text-align:center; font-style:italic; font-size:1.1rem;">
+      Une version interactive en ligne est disponible ci-dessous (accès réservé aux comptes disposant d’une licence).
+    </p>
     <iframe title="powerbiimmo -V3 avec liens" width="1140" height="541.25"
       src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
       frameborder="0" allowFullScreen="true"></iframe>
@@ -116,7 +152,7 @@
     const captionText = document.getElementById('caption-text');
     const counter = document.getElementById('counter');
     const prev = document.querySelector('.prev');
-    const next = document.querySelector('.next'); // ✅ ajout manquant
+    const next = document.querySelector('.next');
 
     const captions = [
       { title: "Page d'accueil : L'immobilier en un rapport", text: "Page centrale servant de hub interactif vers les différentes sections du rapport." },
