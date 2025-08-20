@@ -1,233 +1,141 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projet - Lydérick Henry</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
-      color: #f4f4f4;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    header h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-    header a {
-      color: #f4f4f4;
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px solid #f4f4f4;
-    }
-    main {
-      flex: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    main h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    main p {
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    .image-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-    .image-container img {
-      max-width: 100%;
-      border-radius: 1rem;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background: rgba(0,0,0,0.2);
-    }
-    footer a {
-      color: #fff;
-      text-decoration: none;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Projet PowerBI - Analyse immobilière </h1>
-    <a href="index.html">← Retour à l’accueil</a>
-  </header>
-
-  <main>
-    <h2>Explications</h2>
-Projet Power BI : Simulateur interactif du marché immobilier
-<br>
-
-<p>Ce projet, développé dans le cadre d'une formation à l'IAE de Lille, est un simulateur interactif conçu pour explorer et analyser le marché immobilier français. L'objectif était de consolider mes compétences en <strong>data visualisation</strong> et d'approfondir ma maîtrise de l'outil <strong>Power BI</strong>.</p>
-
-<p>J'ai utilisé des données provenant de <strong>Data.gouv</strong> (période 2019-2024 pour le foncier et 2022-2024 pour la location) pour créer une solution permettant aux utilisateurs de :</p>
-
-<ul>
-<li><strong>Calculer des emprunts</strong> et simuler des achats.</li>
-<li><strong>Estimer la rentabilité</strong> d'un investissement locatif.</li>
-<li><strong>Comparer</strong> les prix fonciers et les loyers.</li>
-<li><strong>Analyser les tendances</strong> du marché par région et ville.</li>
-<li><strong>Comparer deux villes</strong> distinctes.</li>
-</ul>
-
-<p>Ce projet a renforcé ma conviction que Power BI est un outil essentiel pour le <strong>reporting</strong> et la création de <strong>tableaux de bord dynamiques</strong>. Il m'a permis de progresser sur la manière de transformer des données brutes en informations stratégiques et visuelles, et sur la mise en place de processus de mise à jour automatisé (via le langage M).</p>
-<!-- Slider pour les images du projet -->
-<div class="slider-container">
-  <div class="slider">
-    <div class="slide active">
-      <img src="/images/projet1/image1.jpg" alt="Description image 1">
-      <div class="caption">
-        <p>Cette image montre le tableau de bord principal avec les indicateurs clés du marché immobilier.</p>
-      </div>
-    </div>
-    <div class="slide">
-      <img src="/images/projet1/image2.jpg" alt="Description image 2">
-      <div class="caption">
-        <p>Exemple de comparaison entre deux villes, mettant en évidence les écarts de prix fonciers et loyers.</p>
-      </div>
-    </div>
-    <div class="slide">
-      <img src="/images/projet1/image3.jpg" alt="Description image 3">
-      <div class="caption">
-        <p>Simulation d’emprunt et calcul de rentabilité locative intégrée directement dans le tableau de bord.</p>
-      </div>
-    </div>
-    <div class="slide">
-      <img src="/images/projet1/image4.jpg" alt="Description image 4">
-      <div class="caption">
-        <p>Analyse régionale des tendances du marché, permettant une visualisation claire des zones à fort potentiel.</p>
-      </div>
-    </div>
+<!-- Visualiseur PDF -->
+<div class="pdf-viewer">
+  <canvas id="pdf-canvas"></canvas>
+  <div class="pdf-controls">
+    <button id="prev-page">← Page précédente</button>
+    <span>Page <span id="page-num">1</span> / <span id="page-count">?</span></span>
+    <button id="next-page">Page suivante →</button>
+    <a id="download-pdf" href="/images/projet1/powerbiimmo.pdf" download>
+      <button>Télécharger PDF</button>
+    </a>
   </div>
-  <button class="prev">&#10094;</button>
-  <button class="next">&#10095;</button>
+  <div id="pdf-caption" class="pdf-caption">
+    <p>Description de la première page.</p>
+  </div>
 </div>
 
 <style>
-/* Styles du slider */
-.slider-container {
-  position: relative;
+.pdf-viewer {
+  text-align: center;
   max-width: 900px;
   margin: 2rem auto;
-  overflow: hidden;
+}
+
+#pdf-canvas {
+  width: 100%;
   border-radius: 1rem;
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-.slider {
+.pdf-controls {
+  margin-top: 1rem;
   display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-  min-width: 100%;
-  box-sizing: border-box;
-  display: none;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  text-align: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.slide.active {
-  display: flex;
-}
-
-.slide img {
-  width: 100%;
-  border-radius: 1rem 1rem 0 0;
-}
-
-.caption {
-  background: rgba(0,0,0,0.6);
-  padding: 1rem;
-  border-radius: 0 0 1rem 1rem;
-}
-
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
+.pdf-controls button {
   padding: 0.5rem 1rem;
-  margin-top: -1.5rem;
-  color: #fff;
-  font-weight: bold;
-  font-size: 2rem;
+  border: none;
   border-radius: 0.5rem;
   background-color: rgba(0,0,0,0.4);
-  border: none;
-  user-select: none;
-  transition: background 0.3s;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
-.prev:hover, .next:hover {
+.pdf-controls button:hover {
   background-color: rgba(0,0,0,0.7);
 }
 
-.prev {
-  left: 0.5rem;
-}
-
-.next {
-  right: 0.5rem;
+.pdf-caption {
+  margin-top: 1rem;
+  background: rgba(0,0,0,0.6);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 1rem;
+  text-align: left;
 }
 </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.12.313/pdf.min.js"></script>
 <script>
-// Script pour le slider
-const slides = document.querySelectorAll('.slide');
-let currentIndex = 0;
+const url = '/images/projet1/powerbiimmo.pdf'; // chemin vers ton PDF
+const captions = [
+  "Page 1 : Tableau de bord principal du projet.",
+  "Page 2 : Comparaison des villes et évolution des prix.",
+  "Page 3 : Simulation des emprunts et rentabilité locative.",
+  "Page 4 : Analyse régionale et tendances du marché."
+];
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.toggle('active', i === index);
+let pdfDoc = null,
+    pageNum = 1,
+    pageIsRendering = false,
+    pageNumIsPending = null;
+
+const scale = 1.2;
+const canvas = document.getElementById('pdf-canvas');
+const ctx = canvas.getContext('2d');
+const captionDiv = document.getElementById('pdf-caption');
+
+function renderPage(num) {
+  pageIsRendering = true;
+
+  pdfDoc.getPage(num).then(page => {
+    const viewport = page.getViewport({ scale });
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const renderCtx = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
+
+    page.render(renderCtx).promise.then(() => {
+      pageIsRendering = false;
+      if (pageNumIsPending !== null) {
+        renderPage(pageNumIsPending);
+        pageNumIsPending = null;
+      }
+    });
+
+    document.getElementById('page-num').textContent = num;
+    captionDiv.innerHTML = `<p>${captions[num - 1] || ""}</p>`;
   });
 }
 
-document.querySelector('.prev').addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-  showSlide(currentIndex);
-});
+function queueRenderPage(num) {
+  if (pageIsRendering) {
+    pageNumIsPending = num;
+  } else {
+    renderPage(num);
+  }
+}
 
-document.querySelector('.next').addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
-});
+function showPrevPage() {
+  if (pageNum <= 1) return;
+  pageNum--;
+  queueRenderPage(pageNum);
+}
 
-// Auto slide toutes les 6 secondes
-setInterval(() => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
-}, 6000);
+function showNextPage() {
+  if (pageNum >= pdfDoc.numPages) return;
+  pageNum++;
+  queueRenderPage(pageNum);
+}
+
+document.getElementById('prev-page').addEventListener('click', showPrevPage);
+document.getElementById('next-page').addEventListener('click', showNextPage);
+
+// Chargement du PDF
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.12.313/pdf.worker.min.js';
+
+pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
+  pdfDoc = pdfDoc_;
+  document.getElementById('page-count').textContent = pdfDoc.numPages;
+  renderPage(pageNum);
+});
 </script>
-<p>Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
-
-<p>Version web disponible en dessous pour les détenteurs d'un compte avec licence </p>
-      <iframe title="powerbiimmo -V3 avec liens" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8" frameborder="0" allowFullScreen="true"></iframe>    <div class="image-container">
-    </div>
-  </main>
-
-  <footer>
-    <p>© 2025 - Portfolio de Lydérick Henry</p>
-  </footer>
-</body>
-</html>
