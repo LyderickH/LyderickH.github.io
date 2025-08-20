@@ -12,15 +12,17 @@
     main { flex:1; max-width:900px; margin:0 auto; padding:2rem; }
     main h2 { font-size:1.5rem; margin-bottom:1rem; }
     main p, main ul { margin-bottom:1.5rem; line-height:1.6; }
-    .slider-container { position:relative; max-width:900px; margin:2rem auto; overflow:hidden; border-radius:1rem; box-shadow:0 6px 12px rgba(0,0,0,0.3); background:#000; text-align:center; }
-    #pdf-render { width:100%; display:block; margin:auto; border-radius:1rem 1rem 0 0; }
-    .caption { background:rgba(0,0,0,0.6); padding:1rem; border-radius:0 0 1rem 1rem; }
-    .slider-container button { cursor:pointer; position:absolute; top:50%; width:auto; padding:0.5rem 1rem; margin-top:-1.5rem; color:#fff; font-weight:bold; font-size:2rem; border-radius:0.5rem; background-color:rgba(0,0,0,0.4); border:none; user-select:none; transition: background 0.3s; }
-    .slider-container button:hover { background-color: rgba(0,0,0,0.7); }
+    .slider-container { position:relative; max-width:900px; margin:2rem auto; overflow:hidden; border-radius:1rem; box-shadow:0 6px 12px rgba(0,0,0,0.3); background:#000; text-align:center; min-height:400px; }
+    #pdf-render { width:100%; display:block; margin:auto; border-radius:1rem 1rem 0 0; max-width:100%; }
+    .caption { background:rgba(0,0,0,0.8); padding:1rem; border-radius:0 0 1rem 1rem; color:#fff; }
+    .slider-container button { cursor:pointer; position:absolute; top:50%; width:auto; padding:0.5rem 1rem; margin-top:-1.5rem; color:#fff; font-weight:bold; font-size:2rem; border-radius:0.5rem; background-color:rgba(0,0,0,0.6); border:none; user-select:none; transition: background 0.3s; z-index:10; }
+    .slider-container button:hover:not(:disabled) { background-color: rgba(0,0,0,0.9); }
+    .slider-container button:disabled { opacity:0.3; cursor:not-allowed; }
     .prev { left:0.5rem; }
     .next { right:0.5rem; }
     .download-btn { display:inline-block; margin:1rem 0; padding:0.5rem 1rem; background:#2c2c54; color:#f4f4f4; text-decoration:none; border-radius:0.5rem; font-weight:bold; }
     .download-btn:hover { background:#1c1c1c; }
+    .loading { text-align:center; padding:2rem; color:#ccc; }
     footer { text-align:center; padding:1rem; font-size:0.9rem; background:rgba(0,0,0,0.2); }
     footer a { color:#fff; text-decoration:none; }
   </style>
@@ -28,7 +30,7 @@
 <body>
   <header>
     <h1>Projet PowerBI - Analyse immobilière</h1>
-    <a href="index.html">← Retour à l’accueil</a>
+    <a href="index.html">← Retour à l'accueil</a>
   </header>
 
   <main>
@@ -38,9 +40,11 @@
     <!-- Slider PDF -->
     <div class="slider-container">
       <canvas id="pdf-render"></canvas>
-      <div class="caption" id="caption-text">Chargement...</div>
-      <button class="prev" disabled>&#10094;</button>
-      <button class="next" disabled>&#10095;</button>
+      <div class="caption" id="caption-text">
+        <div class="loading">Chargement du PDF...</div>
+      </div>
+      <button class="prev" id="prev-btn">&#10094;</button>
+      <button class="next" id="next-btn">&#10095;</button>
     </div>
     <a class="download-btn" href="images/projet1/PowerBiImmo.pdf" download>Télécharger PDF</a>
 
@@ -55,64 +59,124 @@
   <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.min.js"></script>
   <script>
-    const url = 'images/projet1/PowerBiImmo.pdf';
-    let pdfDoc = null, pageNum = 1;
+    // Configuration PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.worker.min.js';
+    
+    // Variables globales
+    let pdfDoc = null;
+    let pageNum = 1;
+    let pageRendering = false;
+    let pageNumPending = null;
 
+    // Éléments du DOM
     const canvas = document.getElementById('pdf-render');
     const ctx = canvas.getContext('2d');
     const caption = document.getElementById('caption-text');
-    const btnPrev = document.querySelector('.prev');
-    const btnNext = document.querySelector('.next');
+    const btnPrev = document.getElementById('prev-btn');
+    const btnNext = document.getElementById('next-btn');
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.358/pdf.worker.min.js';
+    // URL du PDF (remplacez par votre chemin)
+    const url = 'images/projet1/PowerBiImmo.pdf';
 
-    function setButtonsState() {
+    function updateButtons() {
       btnPrev.disabled = (pageNum <= 1);
       btnNext.disabled = (pdfDoc && pageNum >= pdfDoc.numPages);
     }
 
     function renderPage(num) {
       if (!pdfDoc) return;
-      pdfDoc.getPage(num).then(page => {
-        const scale = 1.2;
-        const viewport = page.getViewport({ scale });
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        page.render({ canvasContext: ctx, viewport }).promise.then(() => {
-          caption.textContent = `Page ${pageNum} / ${pdfDoc.numPages}`;
-          setButtonsState();
-        }).catch(err => {
-          caption.textContent = 'Erreur de rendu';
-          console.error('Erreur rendu PDF:', err);
+      
+      pageRendering = true;
+      
+      pdfDoc.getPage(num).then(function(page) {
+        // Calculer l'échelle pour s'adapter au conteneur
+        const containerWidth = canvas.parentElement.clientWidth - 40; // Marge
+        const viewport = page.getViewport({ scale: 1 });
+        const scale = Math.min(containerWidth / viewport.width, 1.5);
+        const scaledViewport = page.getViewport({ scale: scale });
+
+        canvas.height = scaledViewport.height;
+        canvas.width = scaledViewport.width;
+
+        const renderContext = {
+          canvasContext: ctx,
+          viewport: scaledViewport
+        };
+
+        const renderTask = page.render(renderContext);
+
+        renderTask.promise.then(function() {
+          pageRendering = false;
+          if (pageNumPending !== null) {
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
+          caption.innerHTML = `Page ${num} sur ${pdfDoc.numPages}`;
+          updateButtons();
+        }).catch(function(error) {
+          pageRendering = false;
+          console.error('Erreur lors du rendu de la page:', error);
+          caption.innerHTML = 'Erreur lors du rendu de la page';
         });
-      }).catch(err => {
-        caption.textContent = 'Page introuvable';
-        console.error('Erreur page PDF:', err);
+      }).catch(function(error) {
+        pageRendering = false;
+        console.error('Erreur lors du chargement de la page:', error);
+        caption.innerHTML = 'Erreur lors du chargement de la page';
       });
     }
 
-    btnPrev.addEventListener('click', () => {
+    function queueRenderPage(num) {
+      if (pageRendering) {
+        pageNumPending = num;
+      } else {
+        renderPage(num);
+      }
+    }
+
+    function onPrevPage() {
       if (pageNum <= 1) return;
       pageNum--;
-      renderPage(pageNum);
-    });
+      queueRenderPage(pageNum);
+    }
 
-    btnNext.addEventListener('click', () => {
-      if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
+    function onNextPage() {
+      if (pageNum >= pdfDoc.numPages) return;
       pageNum++;
-      renderPage(pageNum);
-    });
+      queueRenderPage(pageNum);
+    }
 
-    // Chargement PDF
-    pdfjsLib.getDocument(url).promise.then(doc => {
-      pdfDoc = doc;
-      pageNum = 1;
+    // Event listeners
+    btnPrev.addEventListener('click', onPrevPage);
+    btnNext.addEventListener('click', onNextPage);
+
+    // Désactiver les boutons initialement
+    btnPrev.disabled = true;
+    btnNext.disabled = true;
+
+    // Charger le PDF
+    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+      pdfDoc = pdfDoc_;
+      caption.innerHTML = `Document chargé - ${pdfDoc.numPages} pages`;
+      
+      // Rendre la première page
       renderPage(pageNum);
-    }).catch(err => {
-      caption.textContent = 'Impossible de charger le PDF';
-      console.error('Erreur PDF:', err);
+    }).catch(function(error) {
+      console.error('Erreur lors du chargement du PDF:', error);
+      caption.innerHTML = `
+        <div style="color: #ff6b6b;">
+          ⚠️ Impossible de charger le PDF<br>
+          <small>Vérifiez que le fichier existe : ${url}</small>
+        </div>
+      `;
       btnPrev.disabled = true;
       btnNext.disabled = true;
+    });
+
+    // Redimensionner le canvas si la fenêtre change de taille
+    window.addEventListener('resize', function() {
+      if (pdfDoc) {
+        renderPage(pageNum);
+      }
     });
   </script>
 </body>
