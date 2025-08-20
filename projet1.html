@@ -119,14 +119,14 @@
     const next = document.querySelector('.next'); // ✅ ajout manquant
 
     const captions = [
-      { title: 'Page d\'accueil : L\'immobilier en un rapport', text: 'Page d\'accueil du rapport PowerBI, agissant comme un hub de navigation. Elle permet d\'accéder aux sections "La Synthèse", "L\'emprunt", "Le foncier" et "La location".' },
-      { title: 'Simulateur emprunt', text: 'Cette page contient un simulateur de prêt qui affiche le montant maximal empruntable (505 470 €) et la mensualité (2 531 €). Elle présente aussi le montant empruntable par année et une répartition des intérêts et du remboursement.' },
-      { title: 'Simulateur achat', text: 'Cette page propose un simulateur d\'achat calculant les mètres carrés achetables en fonction de différents paramètres comme le salaire mensuel net, la durée en années, le taux d\'intérêt et le taux d\'endettement. Elle fournit également les prix par m² par région, département et ville (code postal).' },
-      { title: 'Tendances Fonciers', text: 'Cette section analyse les tendances du foncier. Elle affiche le prix médian au m² par département dans un graphique à barres, le nombre de ventes par type de bien et par région. Elle inclut également une carte géographique des prix médians au m² par région et un graphique des prix médians au m² par année.' },
-      { title: 'Tendances Location', text: 'Cette page est dédiée aux tendances de la location. On y trouve le montant du loyer au m² par ville et le loyer médian par m² par région sur une carte. Un graphique à barres compare les loyers par type de bien, et un graphique linéaire montre le prix médian au m² par année.' },
-      { title: 'Comparaison Foncier/Location', text: 'Cette page compare les prix fonciers et les loyers. Un graphique combine les prix médians au m² d\'achat et les prix médians de loyer au m² par région. Des filtres pour les années et les types de biens sont disponibles pour l\'achat et la location.' },
-      { title: 'Comparatif des villes', text: 'Cette page permet de comparer deux villes. Pour chaque ville, les données affichées incluent le rendement locatif, le loyer médian au m², le prix médian au m² et le nombre de ventes.' },
-      { title: 'Analyse des rendements locatifs', text: 'Cette section se concentre sur l\'analyse du rendement locatif. Elle présente le rendement locatif par région dans un graphique à barres et sur une carte. Un autre graphique à barres montre le rendement locatif par type de bien.' }
+      { title: "Page d'accueil : L'immobilier en un rapport", text: "Page centrale servant de hub interactif vers les différentes sections du rapport." },
+      { title: "Simulateur emprunt", text: "Outil pour estimer la capacité d’emprunt et visualiser la répartition des remboursements." },
+      { title: "Simulateur achat", text: "Simulateur calculant la surface achetable et comparant les prix au m² selon les zones." },
+      { title: "Tendances Fonciers", text: "Analyse des prix du foncier avec cartes et graphiques illustrant l’évolution par région et type de bien." },
+      { title: "Tendances Location", text: "Étude des loyers au m² par ville et région avec tendances annuelles et comparaisons par type de bien." },
+      { title: "Comparaison Foncier/Location", text: "Page dédiée à la comparaison entre prix d’achat et loyers avec filtres interactifs." },
+      { title: "Comparatif des villes", text: "Outil permettant de comparer deux villes selon prix, loyers, ventes et rendement locatif." },
+      { title: "Analyse des rendements locatifs", text: "Présentation des rendements locatifs par région et par type de bien à l’aide de cartes et graphiques." }
     ];
 
     let current = 0;
