@@ -89,8 +89,136 @@ Projet Power BI : Simulateur interactif du marché immobilier
 <li><strong>Comparer deux villes</strong> distinctes.</li>
 </ul>
 
-<p>Ce projet a renforcé ma conviction que Power BI est un outil essentiel pour le <strong>reporting</strong> et la création de <strong>tableaux de bord dynamiques</strong>. Il démontre ma capacité à transformer des données brutes en informations stratégiques et visuelles, et à mettre en place un processus de mise à jour automatisé (via le langage M).</p>
+<p>Ce projet a renforcé ma conviction que Power BI est un outil essentiel pour le <strong>reporting</strong> et la création de <strong>tableaux de bord dynamiques</strong>. Il m'a permis de progresser sur la manière de transformer des données brutes en informations stratégiques et visuelles, et sur la mise en place de processus de mise à jour automatisé (via le langage M).</p>
+<!-- Slider pour les images du projet -->
+<div class="slider-container">
+  <div class="slider">
+    <div class="slide active">
+      <img src="/images/projet1/image1.jpg" alt="Description image 1">
+      <div class="caption">
+        <p>Cette image montre le tableau de bord principal avec les indicateurs clés du marché immobilier.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="/images/projet1/image2.jpg" alt="Description image 2">
+      <div class="caption">
+        <p>Exemple de comparaison entre deux villes, mettant en évidence les écarts de prix fonciers et loyers.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="/images/projet1/image3.jpg" alt="Description image 3">
+      <div class="caption">
+        <p>Simulation d’emprunt et calcul de rentabilité locative intégrée directement dans le tableau de bord.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="/images/projet1/image4.jpg" alt="Description image 4">
+      <div class="caption">
+        <p>Analyse régionale des tendances du marché, permettant une visualisation claire des zones à fort potentiel.</p>
+      </div>
+    </div>
+  </div>
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+</div>
 
+<style>
+/* Styles du slider */
+.slider-container {
+  position: relative;
+  max-width: 900px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.slide.active {
+  display: flex;
+}
+
+.slide img {
+  width: 100%;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.caption {
+  background: rgba(0,0,0,0.6);
+  padding: 1rem;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 0.5rem 1rem;
+  margin-top: -1.5rem;
+  color: #fff;
+  font-weight: bold;
+  font-size: 2rem;
+  border-radius: 0.5rem;
+  background-color: rgba(0,0,0,0.4);
+  border: none;
+  user-select: none;
+  transition: background 0.3s;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.7);
+}
+
+.prev {
+  left: 0.5rem;
+}
+
+.next {
+  right: 0.5rem;
+}
+</style>
+
+<script>
+// Script pour le slider
+const slides = document.querySelectorAll('.slide');
+let currentIndex = 0;
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
+  });
+}
+
+document.querySelector('.prev').addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  showSlide(currentIndex);
+});
+
+document.querySelector('.next').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  showSlide(currentIndex);
+});
+
+// Auto slide toutes les 6 secondes
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  showSlide(currentIndex);
+}, 6000);
+</script>
 <p>Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
 
 <p>Version web disponible en dessous pour les détenteurs d'un compte avec licence </p>
