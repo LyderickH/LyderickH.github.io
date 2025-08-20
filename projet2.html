@@ -95,12 +95,12 @@
     <p>Ce projet de suivi bancaire, développé comme une démonstration personnelle, est un tableau de bord interactif pour l'analyse des finances. Il illustre l'utilisation de Power BI pour transformer des données brutes de transactions en informations visuelles claires et exploitables.</p>
     <p>Les données utilisées sont fictives et anonymisées pour des raisons de confidentialité. L'outil permet de :</p>
     <ul>
-    <li>Suivre les <strong>revenus et les dépenses</strong> par catégorie.</li>
-    <li>Comparer les <strong>dépenses réelles</strong> avec un budget prévisionnel.</li>
-    <li>Analyser l'<strong>évolution de la trésorerie</strong> au fil des mois.</li>
-    <li>Visualiser la répartition des dépenses par <strong>type de paiement</strong>.</li>
+      <li>Suivre les <strong>revenus et les dépenses</strong> par catégorie.</li>
+      <li>Comparer les <strong>dépenses réelles</strong> avec un budget prévisionnel.</li>
+      <li>Analyser l'<strong>évolution de la trésorerie</strong> au fil des mois.</li>
+      <li>Visualiser la répartition des dépenses par <strong>type de paiement</strong>.</li>
     </ul>
-    <p>Ce projet met en évidence ma capacité à manipuler et visualiser des données financières pour créer des **rapports de gestion personnalisés** et intuitifs. Il s'agit d'une illustration de mes compétences en <strong>data visualisation</strong> et en maîtrise de Power BI.</p>
+    <p>Ce projet met en évidence ma capacité à manipuler et visualiser des données financières pour créer des <strong>rapports de gestion personnalisés</strong> et intuitifs. Il s'agit d'une illustration de mes compétences en <strong>data visualisation</strong> et en maîtrise de Power BI.</p>
     <p>Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
 
     <div class="slider-container">
@@ -148,21 +148,22 @@
 
     function showSlide(index) {
       slides.forEach((s, i) => s.classList.toggle('active', i === index));
-      captionTitle = captions[index].title;
-      captionText = captions[index];
-      counter = `${index+1} / ${slides}`;
+      captionTitle.textContent = captions[index].title;
+      captionText.textContent = captions[index].text;
+      counter.textContent = `${index + 1} / ${slides.length}`;
     }
 
     prev.addEventListener('click', () => {
-      current = (current - 1 + slides) % slides;
+      current = (current - 1 + slides.length) % slides.length;
       showSlide(current);
     });
 
     next.addEventListener('click', () => {
-      current = (current + 1) % slides;
+      current = (current + 1) % slides.length;
       showSlide(current);
     });
 
+    // Initialisation
     showSlide(current);
   </script>
 </body>
