@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet - Lydérick Henry</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header { text-align: center; padding: 2rem 1rem; }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    header a { color: #f4f4f4; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #f4f4f4; }
+    main { flex: 1; max-width: 900px; margin: 0 auto; padding: 2rem; }
+    main h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+    main p, main ul { margin-bottom: 1.5rem; line-height: 1.6; }
+
+    /* Slider */
+    .slider-container {
+      position:relative;
+      max-width:900px;
+      margin:2rem auto;
+      overflow:hidden;
+      border-radius:1rem;
+      box-shadow:0 6px 12px rgba(0,0,0,0.3);
+      background:#000;
+    }
+    .slide { width:100%; display:none; border-radius:1rem 1rem 0 0; }
+    .slide.active { display:block; }
+    .counter {
+      position:absolute; right:.5rem; top:.5rem;
+      padding:.25rem .5rem; border-radius:.5rem;
+      background:rgba(0,0,0,.55); font-size:.9rem; color:#fff;
+    }
+    .slider-container button {
+      cursor:pointer; position:absolute; top:50%; transform:translateY(-50%);
+      padding:.5rem 1rem; color:#fff; font-size:2rem;
+      border-radius:.5rem; background:rgba(0,0,0,0.45); border:none;
+    }
+    .slider-container button:hover { background:rgba(0,0,0,0.75); }
+    .prev { left:.5rem; }
+    .next { right:.5rem; }
+    .caption {
+      background:#0b0b0b; padding:1rem 1.25rem;
+      border-top:1px solid rgba(255,255,255,.1);
+      border-radius:0 0 1rem 1rem;
+    }
+    .caption h3 { margin:.1rem 0 .35rem 0; font-size:1.05rem; font-weight:600; }
+    .caption p { margin:0; font-size:.95rem; color:rgba(255,255,255,.75); }
+
+    /* Boutons */
+    .button-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.6rem;
+      background: #2c3e50;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: #1abc9c; }
+
+    /* Séparation */
+    .separator {
+      margin: 3rem 0 2rem;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+
+    footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
+    footer a { color: #fff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Projet PowerBI - Suivi bancaire</h1>
+    <a href="index.html">← Retour à l’accueil</a>
+  </header>
+
+  <main>
+    <h2>Explications</h2>
+    Projet Power BI : Outil de suivi de comptes personnel<br>
+    <p>Ce projet de suivi bancaire, développé comme une démonstration personnelle, est un tableau de bord interactif pour l'analyse des finances. Il illustre l'utilisation de Power BI pour transformer des données brutes de transactions en informations visuelles claires et exploitables.</p>
+    <p>Les données utilisées sont fictives et anonymisées pour des raisons de confidentialité. L'outil permet de :</p>
+    <ul>
+      <li>Suivre les **revenus et les dépenses** par catégorie.</li>
+      <li>Comparer les **dépenses réelles** avec un budget prévisionnel.</li>
+      <li>Analyser l'**évolution de la trésorerie** au fil des mois.</li>
+      <li>Visualiser la répartition des dépenses par **type de paiement**.</li>
+    </ul>
+    <p>Ce projet met en évidence ma capacité à manipuler et visualiser des données financières pour créer des **rapports de gestion personnalisés** et intuitifs. Il s'agit d'une illustration de mes compétences en <strong>data visualisation</strong> et en maîtrise de Power BI.</p>
+    <p>Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
+
+    <div class="slider-container">
+      <img src="projet2/images/Projet suivi comptes_page-0001.jpg" alt="Page 1" class="slide active">
+      <img src="projet2/images/Projet suivi comptes_page-0002.jpg" alt="Page 2" class="slide">
+      <img src="projet2/images/Projet suivi comptes_page-0003.jpg" alt="Page 3" class="slide">
+      <img src="projet2/images/Projet suivi comptes_page-0004.jpg" alt="Page 4" class="slide">
+
+      <div class="counter" id="counter">1 / 4</div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+
+      <div class="caption">
+        <h3 id="caption-title">Tableau de bord : Suivi bancaire</h3>
+        <p id="caption-text">Vue d'ensemble et suivi des dépenses du mois d'août 2025.</p>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <a href="images/projet2/Projet suivi comptes.pdf" class="btn" target="_blank">📄 Télécharger le PDF</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2025 - Portfolio de Lydérick Henry</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const captionTitle = document.getElementById('caption-title');
+    const captionText = document.getElementById('caption-text');
+    const counter = document.getElementById('counter');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+
+    const captions = [
+      { title: "Tableau de bord : Suivi bancaire", text: "Vue d'ensemble et suivi des dépenses du mois d'août 2025." },
+      { title: "Analyse des flux financiers", text: "Détail des revenus et dépenses, suivi de la trésorerie mensuelle et de l'épargne totale." },
+      { title: "Analyse mensuelle détaillée", text: "Analyse fine des revenus et des dépenses d'août 2025, avec répartition par type de paiement." },
+      { title: "Comparaisons budgétaires", text: "Comparaison des dépenses réelles et du budget par catégorie, et écarts budgétaires par mois." }
+    ];
+
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      captionTitle = captions[index].title;
+      captionText = captions[index];
+      counter = `${index+1} / ${slides}`;
+    }
+
+    prev.addEventListener('click', () => {
+      current = (current - 1 + slides) % slides;
+      showSlide(current);
+    });
+
+    next.addEventListener('click', () => {
+      current = (current + 1) % slides;
+      showSlide(current);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>
