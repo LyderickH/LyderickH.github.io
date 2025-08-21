@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet 3 - SIG/CAF automatisé</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header { text-align: center; padding: 2rem 1rem; }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    header a { color: #f4f4f4; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #f4f4f4; }
+
+    main { flex: 1; max-width: 900px; margin: 0 auto; padding: 2rem; }
+    main h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+    main p, main ul { margin-bottom: 1.5rem; line-height: 1.6; }
+
+    /* Slider */
+    .slider-container {
+      position: relative;
+      max-width: 900px;
+      margin: 2rem auto;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      background: #000;
+    }
+    .slide { width: 100%; display: none; border-radius: 1rem 1rem 0 0; }
+    .slide.active { display: block; }
+    .counter {
+      position: absolute; right: .5rem; top: .5rem;
+      padding: .25rem .5rem; border-radius: .5rem;
+      background: rgba(0,0,0,.55); font-size: .9rem; color: #fff;
+    }
+    .slider-container button {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: .5rem 1rem;
+      color: #fff;
+      font-size: 2rem;
+      border-radius: .5rem;
+      background: rgba(0,0,0,0.45);
+      border: none;
+    }
+    .slider-container button:hover { background: rgba(0,0,0,0.75); }
+    .prev { left: .5rem; }
+    .next { right: .5rem; }
+    .caption {
+      background: #0b0b0b;
+      padding: 1rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+      border-radius: 0 0 1rem 1rem;
+    }
+    .caption h3 { margin: .1rem 0 .35rem 0; font-size: 1.05rem; font-weight: 600; }
+    .caption p { margin: 0; font-size: .95rem; color: rgba(255,255,255,.75); }
+
+    /* Boutons */
+    .button-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: .8rem 1.5rem;
+      border-radius: .6rem;
+      background: #2c3e50;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background .3s;
+    }
+    .btn:hover { background: #1abc9c; }
+
+    /* Séparation */
+    .separator {
+      margin: 3rem 0 2rem;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+
+    footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
+    footer a { color: #fff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Projet 3 - SIG/CAF automatisé</h1>
+    <a href="index.html">← Retour à l’accueil</a>
+  </header>
+
+  <main>
+    <h2>Explications</h2>
+    <p>Projet réalisé dans le cadre de la SAE en BUT GEA. L’objectif est d’analyser la performance financière d’une entreprise fictive à travers :</p>
+    <ul>
+      <li>Les <strong>Soldes intermédiaires de gestion (SIG)</strong> retraités pour rendre les comptes comparables.</li>
+      <li>La <strong>Capacité d’autofinancement (CAF)</strong> calculée à partir du Résultat Net et de l’EBE.</li>
+      <li>Différents <strong>ratios financiers</strong> pour évaluer la santé financière et la capacité à rembourser des dettes.</li>
+    </ul>
+    <p>Les calculs et tableaux ont été réalisés sur Google Sheet, permettant un accès collaboratif et des mises à jour en direct.</p>
+
+    <div class="slider-container">
+      <img src="images/projet3/sig.jpg" alt="SIG retraités" class="slide active">
+      <img src="images/projet3/caf.jpg" alt="CAF" class="slide">
+      <img src="images/projet3/ratios.jpg" alt="Ratios financiers" class="slide">
+
+      <div class="counter" id="counter">1 / 3</div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+
+      <div class="caption">
+        <h3 id="caption-title">SIG retraités</h3>
+        <p id="caption-text">Visualisation des Soldes Intermédiaires de Gestion retraités sur plusieurs années.</p>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <a href="images/projet3/projet3_SIG_CAF.pdf" class="btn" target="_blank">📄 Télécharger le PDF</a>
+      <a href="https://docs.google.com/spreadsheets/d/TON_GOOGLE_SHEET" class="btn" target="_blank">🗂️ Accéder au Google Sheet</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 - Portfolio de Lydérick Henry</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const captionTitle = document.getElementById('caption-title');
+    const captionText = document.getElementById('caption-text');
+    const counter = document.getElementById('counter');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+
+    const captions = [
+      { title: "SIG retraités", text: "Visualisation des Soldes Intermédiaires de Gestion retraités sur plusieurs années." },
+      { title: "CAF", text: "Analyse de la Capacité d’Autofinancement à partir du Résultat Net et de l’EBE." },
+      { title: "Ratios financiers", text: "Calcul et interprétation de différents ratios pour évaluer la santé financière." }
+    ];
+
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      captionTitle.textContent = captions[index].title;
+      captionText.textContent = captions[index].text;
+      counter.textContent = `${index + 1} / ${slides.length}`;
+    }
+
+    prev.addEventListener('click', () => {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    });
+
+    next.addEventListener('click', () => {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>
