@@ -160,7 +160,7 @@
       slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
       captionTitle.textContent = captions[index].title;
       captionText.textContent = captions[index].text;
-      counter.textContent = `${index + 1} / ${slides}`;
+      counter.textContent = `${index + 1} / ${slides.length}`;
     }
 
     prev.addEventListener('click', () => {
