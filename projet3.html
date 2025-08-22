@@ -91,20 +91,31 @@
     footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
     footer a { color: #fff; text-decoration: none; }
 
-    /* iframe Google Sheet avec dézoom */
+    /* iframe Google Sheet */
     .sheet-container {
       margin: 2rem 0;
       text-align: center;
     }
-    .sheet-container iframe {
+    #iframe-wrapper {
+      overflow: hidden;
+      width: 100%;
+      height: 500px;
       border: 1px solid #555;
       border-radius: 0.5rem;
-
-      /* Dézoom */
-      transform: scale(0.8);       /* 80% de la taille normale */
-      transform-origin: top left; /* point de départ du zoom */
-      width: 125%;                /* compense le scale pour occuper toute la largeur */
-      height: 625px;              /* hauteur augmentée pour conserver l’affichage */
+    }
+    #sheet-frame {
+      width: 125%;
+      height: 625px;
+      transform: scale(0.8);
+      transform-origin: top left;
+      border: none;
+    }
+    .zoom-controls {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .zoom-controls label {
+      margin-right: 0.5rem;
     }
   </style>
 </head>
@@ -146,8 +157,16 @@
 
     <div class="sheet-container">
       <p>Le fichier est également disponible ici :</p>
-      <iframe src="https://docs.google.com/spreadsheets/d/1Akv1w6jVtF9Mi24om-u94GVs7FM6zO_7/preview?gid=643758185" 
+      <div id="iframe-wrapper">
+        <iframe id="sheet-frame"
+          src="https://docs.google.com/spreadsheets/d/1Akv1w6jVtF9Mi24om-u94GVs7FM6zO_7/preview?gid=643758185"
           sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+      <div class="zoom-controls">
+        <label for="zoom-range">🔍 Zoom :</label>
+        <input type="range" id="zoom-range" min="50" max="120" value="80">
+        <span id="zoom-value">80%</span>
+      </div>
     </div>
   </main>
 
@@ -189,6 +208,19 @@
     });
 
     showSlide(current);
+
+    // Gestion du zoom sur l'iframe
+    const iframe = document.getElementById("sheet-frame");
+    const zoomRange = document.getElementById("zoom-range");
+    const zoomValue = document.getElementById("zoom-value");
+
+    zoomRange.addEventListener("input", () => {
+      let zoom = zoomRange.value;
+      iframe.style.transform = `scale(${zoom / 100})`;
+      iframe.style.width = `${10000 / zoom}%`;
+      iframe.style.height = `${50000 / zoom}px`;
+      zoomValue.textContent = zoom + "%";
+    });
   </script>
 </body>
 </html>
