@@ -127,7 +127,7 @@
 
   <main>
     <h2>Explications</h2>
-    <p>Projet réalisé dans le cadre de la Situation d'Apprentissage et d'évaluation (SAé) en BUT GEA. L’objectif est d’analyser la performance financière d’une entreprise fictive à travers :</p>
+    <p>Projet réalisé dans le cadre de la Situation d'Apprentissage et d'Évaluation (SAé) en BUT GEA. L’objectif est d’analyser la performance financière d’une entreprise fictive à travers :</p>
     <ul>
       <li>Les <strong>Soldes intermédiaires de gestion (SIG)</strong> retraités pour rendre les comptes comparables.</li>
       <li>La <strong>Capacité d’autofinancement (CAF)</strong> calculée à partir du Résultat Net et de l’EBE.</li>
@@ -136,9 +136,9 @@
     <p>Les calculs et tableaux ont été réalisés sur Google Sheet, permettant un accès collaboratif et des mises à jour en direct.</p>
 
     <div class="slider-container">
-      <img src="images/projet3/sig.jpg" alt="SIG retraités" class="slide active">
-      <img src="images/projet3/caf.jpg" alt="CAF" class="slide">
-      <img src="images/projet3/ratios.jpg" alt="Ratios financiers" class="slide">
+      <img src="images/projet3/SIG_CAF_RATIOS_page-0001.jpg" alt="SIG" class="slide active">
+      <img src="images/projet3/SIG_CAF_RATIOS_page-0002.jpg" alt="CAF" class="slide">
+      <img src="images/projet3/SIG_CAF_RATIOS_page-0003.jpg" alt="Ratios" class="slide">
 
       <div class="counter" id="counter">1 / 3</div>
       <button class="prev">&#10094;</button>
@@ -146,7 +146,7 @@
 
       <div class="caption">
         <h3 id="caption-title">SIG retraités</h3>
-        <p id="caption-text">Visualisation des Soldes Intermédiaires de Gestion retraités sur plusieurs années.</p>
+        <p id="caption-text">Cette page présente un tableau des Soldes Intermédiaires de Gestion (SIG) de la société AutoContrôle pour les années N-2 à N.</p>
       </div>
     </div>
 
@@ -183,9 +183,9 @@
     const next = document.querySelector('.next');
 
     const captions = [
-      { title: "SIG retraités", text: "Visualisation des Soldes Intermédiaires de Gestion retraités sur plusieurs années." },
-      { title: "CAF", text: "Analyse de la Capacité d’Autofinancement à partir du Résultat Net et de l’EBE." },
-      { title: "Ratios financiers", text: "Calcul et interprétation de différents ratios pour évaluer la santé financière." }
+      { title: "SIG retraités", text: "Cette page présente un tableau des Soldes Intermédiaires de Gestion (SIG) de la société AutoContrôle pour les années N-2 à N." },
+      { title: "CAF", text: "Cette page calcule la Capacité d'Autofinancement (CAF) de la société AutoContrôle en utilisant deux méthodes différentes." },
+      { title: "Ratios financiers", text: "Cette page analyse les ratios financiers d'AutoContrôle, comme le levier opérationnel et les taux de marge." }
     ];
 
     let current = 0;
