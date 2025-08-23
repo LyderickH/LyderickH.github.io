@@ -25,14 +25,19 @@
     /* Slider */
     .slider-container {
       position: relative;
-      max-width: 900px;
+      width: 100%;
       margin: 2rem auto;
       overflow: hidden;
       border-radius: 1rem;
       box-shadow: 0 6px 12px rgba(0,0,0,0.3);
       background: #000;
     }
-    .slide { width: 100%; display: none; border-radius: 1rem 1rem 0 0; }
+    .slide {
+      width: 100%;
+      height: auto;
+      display: none;
+      border-radius: 1rem 1rem 0 0;
+    }
     .slide.active { display: block; }
     .counter {
       position: absolute; right: .5rem; top: .5rem;
@@ -44,9 +49,9 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      padding: .5rem 1rem;
+      padding: .5rem .8rem;
       color: #fff;
-      font-size: 2rem;
+      font-size: 1.5rem;
       border-radius: .5rem;
       background: rgba(0,0,0,0.45);
       border: none;
@@ -66,19 +71,22 @@
     /* Boutons */
     .button-container {
       display: flex;
+      flex-wrap: wrap; /* permet de passer sur plusieurs lignes en mobile */
       gap: 1rem;
       justify-content: center;
       margin: 2rem 0;
     }
     .btn {
       display: inline-block;
-      padding: .8rem 1.5rem;
+      padding: .8rem 1.2rem;
       border-radius: .6rem;
       background: #2c3e50;
       color: #fff;
       text-decoration: none;
       font-weight: 600;
       transition: background .3s;
+      text-align: center;
+      min-width: 200px; /* lisible sur mobile */
     }
     .btn:hover { background: #1abc9c; }
 
@@ -90,6 +98,22 @@
 
     footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
     footer a { color: #fff; text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.5rem; }
+      main { padding: 1rem; }
+      .caption h3 { font-size: 1rem; }
+      .caption p { font-size: .85rem; }
+      .slider-container button { font-size: 1.2rem; padding: .4rem .6rem; }
+      .btn { min-width: auto; width: 100%; } /* boutons en pleine largeur sur mobile */
+    }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .caption h3 { font-size: .95rem; }
+      .caption p { font-size: .8rem; }
+    }
   </style>
 </head>
 <body>
