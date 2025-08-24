@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+    <head>
+        <title>Enhanced Feedly Subscriptions - IT Finance Audit Focus (Optimized)</title>
+    </head>
+    <body>
+        <outline text="Business" title="Business">
+            <outline type="rss" text="Daf-mag.fr" title="Daf-mag.fr" xmlUrl="https://www.daf-mag.fr/rss/toutelinfo" htmlUrl="https://www.daf-mag.fr/RSS/TouteLinfo"/>
+            <outline type="rss" text="Fonction finance Daf-mag.fr" title="Fonction finance Daf-mag.fr" xmlUrl="https://www.daf-mag.fr/rss/fonction-finance-1242.xml" htmlUrl="https://www.daf-mag.fr/RSS/fonction-finance.xml"/>
+            <outline type="rss" text="Le Figaro - Economie" title="Le Figaro - Economie" xmlUrl="http://www.lefigaro.fr/rss/figaro_economie.xml" htmlUrl="http://www.lefigaro.fr"/>
+            <outline type="rss" text="Financial Times - Business" title="Financial Times - Business" xmlUrl="http://www.ft.com/rss/companies" htmlUrl="https://www.ft.com/companies"/>
+            <outline type="rss" text="CFO.com" title="CFO.com" xmlUrl="https://www.cfo.com/feeds/news/" htmlUrl="https://www.cfo.com"/>
+            <outline type="rss" text="Journal of Accountancy" title="Journal of Accountancy" xmlUrl="https://www.journalofaccountancy.com/news/feed/" htmlUrl="https://www.journalofaccountancy.com"/>
+            <outline type="rss" text="Accounting Today" title="Accounting Today" xmlUrl="https://www.accountingtoday.com/feed?rss=true" htmlUrl="https://www.accountingtoday.com"/>
+        </outline>
+
+        <outline text="Tech" title="Tech">
+            <outline type="rss" text="TechCrunch" title="TechCrunch" xmlUrl="http://feeds.feedburner.com/TechCrunch" htmlUrl="https://techcrunch.com"/>
+            <outline type="rss" text="TechRepublic" title="TechRepublic" xmlUrl="https://www.techrepublic.com/rssfeeds/articles/" htmlUrl="https://www.techrepublic.com"/>
+            <outline type="rss" text="Next Inpact" title="Next Inpact" xmlUrl="https://next.ink/feed/free" htmlUrl="https://www.nextinpact.com"/>
+        </outline>
+
+        <outline text="Intelligence-artificielle" title="Intelligence-artificielle">
+            <outline type="rss" text="ActuIA" title="ActuIA" xmlUrl="https://www.actuia.com/feed/" htmlUrl="https://www.actuia.com"/>
+            <outline type="rss" text="VentureBeat - AI" title="VentureBeat - AI" xmlUrl="http://feeds.feedburner.com/venturebeat/SZYF" htmlUrl="https://venturebeat.com/category/ai/"/>
+            <outline type="rss" text="AI Trends" title="AI Trends" xmlUrl="https://www.aitrends.com/feed/" htmlUrl="https://www.aitrends.com"/>
+        </outline>
+
+        <outline text="Audit IT Finance" title="Audit IT Finance">
+            <outline type="rss" text="IT Audit Security Blog" title="IT Audit Security Blog" xmlUrl="https://itauditsecurity.wordpress.com/feed/" htmlUrl="https://itauditsecurity.wordpress.com"/>
+            <outline type="rss" text="Internal Audit 360" title="Internal Audit 360" xmlUrl="https://internalaudit360.com/feed/" htmlUrl="https://internalaudit360.com"/>
+            <outline type="rss" text="Audit Analytics" title="Audit Analytics" xmlUrl="https://blog.auditanalytics.com/feed/" htmlUrl="https://blog.auditanalytics.com"/>
+            <outline type="rss" text="Compliance Insights" title="Compliance Week" xmlUrl="https://feeds.feedburner.com/CorporateComplianceInsights" htmlUrl="https://www.corporatecomplianceinsights.com/"/>
+            <outline type="rss" text="European Central Bank" title="European Central Bank" xmlUrl="https://www.ecb.europa.eu/rss/press.xml" htmlUrl="https://www.ecb.europa.eu/rss/press.html"/>
+            <outline type="rss" text="AMF - Autorité des Marchés Financiers" title="AMF - Autorité des Marchés Financiers" xmlUrl="https://www.amf-france.org/fr/flux-rss/display/21" htmlUrl="https://www.amf-france.org/fr/actualites-publications/communiques-de-presse"/>
+        </outline>
+    </body>
+</opml>
