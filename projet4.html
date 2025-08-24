@@ -33,15 +33,24 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.3);
       background: #000;
     }
-    .slide {
+
+    .slide-wrapper {
       display: none;
+      height: 500px;               /* cadre fixe */
+      display: flex;
+      align-items: center;
+      justify-content: center;     /* centre l’image */
+      background: #000;
       border-radius: 1rem 1rem 0 0;
-      max-height: 500px;         /* hauteur max uniforme */
-      width: 100%;
-      object-fit: contain;       /* conserve proportions sans rogner */
-      background: #000;          /* fond noir si bandes */
     }
-    .slide.active { display: block; }
+    .slide-wrapper.active { display: flex; }
+
+    .slide {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;         /* jamais rognée */
+    }
+
     .counter {
       position: absolute; right: .5rem; top: .5rem;
       padding: .25rem .5rem; border-radius: .5rem;
@@ -171,11 +180,21 @@
     <div class="project-section">
       <h2>Démonstration en Images</h2>
       <div class="slider-container">
-        <img src="images/projet4/Dossiercontenu.png" alt="Dossier contenu" class="slide active">
-        <img src="images/projet4/DémoArticles.png" alt="Code Python et Word" class="slide">
-        <img src="images/projet4/exempleauditetfinance.png" alt="Extrait Word finance IT audit" class="slide">
-        <img src="images/projet4/exempletech.png" alt="Extrait Word tech" class="slide">
-        <img src="images/projet4/exemplefeedlyopml.png" alt="Exemple fichier Feedly OPML" class="slide">
+        <div class="slide-wrapper active">
+          <img src="images/projet4/Dossiercontenu.png" alt="Dossier contenu" class="slide">
+        </div>
+        <div class="slide-wrapper">
+          <img src="images/projet4/DémoArticles.png" alt="Code Python et Word" class="slide">
+        </div>
+        <div class="slide-wrapper">
+          <img src="images/projet4/exempleauditetfinance.png" alt="Extrait Word finance IT audit" class="slide">
+        </div>
+        <div class="slide-wrapper">
+          <img src="images/projet4/exempletech.png" alt="Extrait Word tech" class="slide">
+        </div>
+        <div class="slide-wrapper">
+          <img src="images/projet4/exemplefeedlyopml.png" alt="Exemple fichier Feedly OPML" class="slide">
+        </div>
 
         <div class="counter" id="counter">1 / 5</div>
         <button class="prev">&#10094;</button>
@@ -193,7 +212,7 @@
   </footer>
 
   <script>
-    const slides = document.querySelectorAll('.slider-container .slide');
+    const wrappers = document.querySelectorAll('.slide-wrapper');
     const captionTitle = document.getElementById('caption-title');
     const captionText = document.getElementById('caption-text');
     const counter = document.getElementById('counter');
@@ -211,19 +230,19 @@
     let current = 0;
 
     function showSlide(index) {
-      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      wrappers.forEach((wrap, i) => wrap.classList.toggle('active', i === index));
       captionTitle.textContent = captions[index].title;
       captionText.textContent = captions[index].text;
-      counter.textContent = `${index + 1} / ${slides.length}`;
+      counter.textContent = `${index + 1} / ${wrappers.length}`;
     }
 
     prev.addEventListener('click', () => {
-      current = (current - 1 + slides.length) % slides.length;
+      current = (current - 1 + wrappers.length) % wrappers.length;
       showSlide(current);
     });
 
     next.addEventListener('click', () => {
-      current = (current + 1) % slides.length;
+      current = (current + 1) % wrappers.length;
       showSlide(current);
     });
 
