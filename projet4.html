@@ -554,36 +554,36 @@
       <h2>Démonstration en Images</h2>
     </section>
 
-    <!-- Modern Slider -->
-    <div class="slider-container">
-      <div class="slider-wrapper">
-        <img src="images/projet4/Dossiercontenu.png" alt="Dossier contenu" class="slide active">
-        <img src="images/projet4/DémoArticles.png" alt="Code Python et Word" class="slide">
-        <img src="images/projet4/exempleauditetfinance.png" alt="Extrait Word finance IT audit" class="slide">
-        <img src="images/projet4/exempletech.png" alt="Extrait Word tech" class="slide">
-        <img src="images/projet4/exemplefeedlyopml.png" alt="Exemple fichier Feedly OPML" class="slide">
-
-        <div class="slide-controls">
-          <button class="slide-btn prev" aria-label="Image précédente">‹</button>
-          <button class="slide-btn next" aria-label="Image suivante">›</button>
-        </div>
-
-        <div class="slide-indicators">
-          <div class="indicator active" data-slide="0"></div>
-          <div class="indicator" data-slide="1"></div>
-          <div class="indicator" data-slide="2"></div>
-          <div class="indicator" data-slide="3"></div>
-          <div class="indicator" data-slide="4"></div>
-        </div>
-
-        <div class="counter" id="counter">1 / 5</div>
+  <!-- Modern Slider -->
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <img src="images/projet4/Dossiercontenu.png" alt="Dossier contenu" class="slide active">
+      <img src="images/projet4/DémoArticles.png" alt="Code Python et Word" class="slide">
+      <img src="images/projet4/exempleauditetfinance.png" alt="Extrait Word finance IT audit" class="slide">
+      <img src="images/projet4/exempletech.png" alt="Extrait Word tech" class="slide">
+      <img src="images/projet4/exemplefeedlyopml.png" alt="Exemple fichier Feedly OPML" class="slide">
+  
+      <div class="slide-controls">
+        <button class="slide-btn prev" aria-label="Image précédente">‹</button>
+        <button class="slide-btn next" aria-label="Image suivante">›</button>
       </div>
-
-      <div class="caption">
-        <h3 id="caption-title">Dossier après exécution</h3>
-        <p id="caption-text">Vue du dossier contenant tous les fichiers générés par le script.</p>
+  
+      <div class="slide-indicators">
+        <div class="indicator active" data-slide="0"></div>
+        <div class="indicator" data-slide="1"></div>
+        <div class="indicator" data-slide="2"></div>
+        <div class="indicator" data-slide="3"></div>
+        <div class="indicator" data-slide="4"></div>
       </div>
+  
+      <div class="counter" id="counter">1 / 5</div>
     </div>
+  
+    <div class="caption">
+      <h3 id="caption-title">Dossier après exécution</h3>
+      <p id="caption-text">Vue du dossier contenant tous les fichiers générés par le script.</p>
+    </div>
+  </div>
   </main>
 
   <footer>
@@ -616,14 +616,7 @@
     createParticles();
 
     // Slider functionality
-    const slides = document.querySelectorAll('.slide');
-    const captionTitle = document.getElementById('caption-title');
-    const captionText = document.getElementById('caption-text');
-    const counter = document.getElementById('counter');
-    const prev = document.querySelector('.prev');
-    const next = document.querySelector('.next');
-    const indicators = document.querySelectorAll('.indicator');
-
+   const slides = document.querySelectorAll('.slide');
     const captions = [
       { title: "Dossier après exécution", text: "Vue du dossier contenant tous les fichiers générés par le script." },
       { title: "Code et aperçu Word", text: "Le script Python et un extrait d'un fichier Word généré automatiquement." },
@@ -631,9 +624,16 @@
       { title: "Articles Tech", text: "Extrait Word illustrant les articles concernant la technologie." },
       { title: "Exemple Feedly OPML", text: "Exemple de fichier OPML exporté depuis Feedly utilisé pour la collecte des flux RSS." }
     ];
-
+    
+    const captionTitle = document.getElementById('caption-title');
+    const captionText = document.getElementById('caption-text');
+    const counter = document.getElementById('counter');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+    const indicators = document.querySelectorAll('.indicator');
+    
     let current = 0;
-
+    
     function showSlide(index) {
       slides.forEach((s, i) => s.classList.toggle('active', i === index));
       indicators.forEach((ind, i) => ind.classList.toggle('active', i === index));
@@ -641,26 +641,25 @@
       captionText.textContent = captions[index].text;
       counter.textContent = `${index + 1} / ${slides.length}`;
     }
-
+    
     prev.addEventListener('click', () => {
       current = (current - 1 + slides.length) % slides.length;
       showSlide(current);
     });
-
+    
     next.addEventListener('click', () => {
       current = (current + 1) % slides.length;
       showSlide(current);
     });
-
-    // Indicator clicks
-    indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
-        current = index;
+    
+    indicators.forEach((ind, i) => {
+      ind.addEventListener('click', () => {
+        current = i;
         showSlide(current);
       });
     });
-
-    // Keyboard navigation
+    
+    // Navigation clavier
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
         current = (current - 1 + slides.length) % slides.length;
@@ -670,8 +669,9 @@
         showSlide(current);
       }
     });
-
+    
     showSlide(current);
+
 
     // Smooth scroll behavior
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
