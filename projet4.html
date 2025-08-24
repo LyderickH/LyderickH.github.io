@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet - Revue de Presse Automatisée</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header { text-align: center; padding: 2rem 1rem; }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    header a { color: #f4f4f4; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #f4f4f4; }
+
+    main { flex: 1; max-width: 900px; margin: 0 auto; padding: 2rem; }
+    main h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+    main p, main ul { margin-bottom: 1.5rem; line-height: 1.6; }
+
+    /* Slider */
+    .slider-container {
+      position: relative;
+      max-width: 900px;
+      margin: 2rem auto;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      background: #000;
+    }
+    .slide { width: 100%; display: none; border-radius: 1rem 1rem 0 0; }
+    .slide.active { display: block; }
+    .counter {
+      position: absolute; right: .5rem; top: .5rem;
+      padding: .25rem .5rem; border-radius: .5rem;
+      background: rgba(0,0,0,.55); font-size: .9rem; color: #fff;
+    }
+    .slider-container button {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: .5rem 1rem;
+      color: #fff;
+      font-size: 2rem;
+      border-radius: .5rem;
+      background: rgba(0,0,0,0.45);
+      border: none;
+    }
+    .slider-container button:hover { background: rgba(0,0,0,0.75); }
+    .prev { left: .5rem; }
+    .next { right: .5rem; }
+    .caption {
+      background: #0b0b0b;
+      padding: 1rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+      border-radius: 0 0 1rem 1rem;
+    }
+    .caption h3 { margin: .1rem 0 .35rem 0; font-size: 1.05rem; font-weight: 600; }
+    .caption p { margin: 0; font-size: .95rem; color: rgba(255,255,255,.75); }
+
+    /* Boutons */
+    .button-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: .8rem 1.5rem;
+      border-radius: .6rem;
+      background: #2c3e50;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background .3s;
+    }
+    .btn:hover { background: #1abc9c; }
+
+    /* Séparation */
+    .separator {
+      margin: 3rem 0 2rem;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+
+    footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
+    footer a { color: #fff; text-decoration: none; }
+
+    /* Sections spécifiques au projet */
+    .project-section { margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Projet de Revue de Presse Automatisée</h1>
+    <a href="index.html">← Retour à l’accueil</a>
+  </header>
+
+  <main>
+    <div class="project-section">
+      <h2>Explications</h2>
+      <p>
+        Ce projet a pour but de démontrer ma capacité à développer une solution complète, de la collecte de données à la génération de documents finaux, en utilisant plusieurs bibliothèques et technologies modernes. L'objectif est de créer un outil qui automatise la veille et la synthèse d'articles de presse à partir de flux RSS, en générant des revues de presse au format Word (`.docx`).
+      </p>
+    </div>
+
+    ---
+
+    <div class="project-section">
+      <h2>Fonctionnalités Clés</h2>
+      <p>
+        Ce script Python, <code>rss_processor.py</code>, effectue les tâches suivantes de manière automatique :
+      </p>
+      <ul>
+        <li><strong>Récupération des Flux RSS :</strong> Il se connecte à des flux RSS à partir d'un fichier OPML (comme ceux exportés depuis Feedly) pour extraire les derniers articles.</li>
+        <li><strong>Extraction de Contenu :</strong> Le script utilise la bibliothèque <code>newspaper</code> pour télécharger et analyser le contenu complet des articles, au-delà du simple résumé fourni par le flux.</li>
+        <li><strong>Traduction Automatique :</strong> Il emploie plusieurs services et modèles de traduction (Hugging Face, MyMemory, LibreTranslate) pour traduire les titres et les contenus d'articles de l'anglais vers le français, garantissant une revue de presse dans une langue cohérente.</li>
+        <li><strong>Résumé d'Article :</strong> Le script résume les articles longs en utilisant un modèle de langage (BART) de la bibliothèque <code>Hugging Face Transformers</code>, pour créer des synthèses concises et pertinentes.</li>
+        <li><strong>Génération de Documents Word :</strong> Il compile les titres traduits, les sources, les dates, les liens et les résumés des articles dans un document Word (`.docx`), avec une mise en page soignée, incluant une table des matières, un en-tête et un pied de page.</li>
+        <li><strong>Traitement en Parallèle :</strong> L'utilisation de <code>ThreadPoolExecutor</code> permet de traiter plusieurs flux RSS simultanément, réduisant considérablement le temps nécessaire pour générer la revue de presse.</li>
+      </ul>
+    </div>
+
+    ---
+
+    <div class="project-section">
+      <h2>Téléchargements</h2>
+      <p>
+        Vous pouvez télécharger les fichiers du projet ci-dessous pour découvrir le code, les configurations et des exemples de sortie.
+      </p>
+      <div class="button-container">
+        <a href="rss_processor.py" class="btn" download>🐍 Télécharger le script Python</a>
+        <a href="feedly_example.opml" class="btn" download>📂 Télécharger un exemple Feedly</a>
+        <a href="README.md" class="btn" download>📖 Télécharger le README</a>
+      </div>
+    </div>
+
+    ---
+
+    <div class="project-section">
+      <h2>Démonstration en Images</h2>
+      <div class="slider-container">
+        <img src="images/presse/slide1.png" alt="Flux RSS Feedly" class="slide active">
+        <img src="images/presse/slide2.png" alt="Processus d'extraction" class="slide">
+        <img src="images/presse/slide3.png" alt="Modèle de traduction" class="slide">
+        <img src="images/presse/slide4.png" alt="Résumé d'article" class="slide">
+        <img src="images/presse/slide5.png" alt="Document Word final" class="slide">
+        <div class="counter" id="counter">1 / 5</div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+        <div class="caption">
+          <h3 id="caption-title">Collecte des articles</h3>
+          <p id="caption-text">Le script utilise un fichier OPML exporté depuis Feedly pour identifier les flux RSS à analyser.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 - Portfolio de Lydérick Henry</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slider-container .slide');
+    const captionTitle = document.getElementById('caption-title');
+    const captionText = document.getElementById('caption-text');
+    const counter = document.getElementById('counter');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+
+    const captions = [
+      { title: "Collecte des articles", text: "Le script utilise un fichier OPML exporté depuis Feedly pour identifier les flux RSS à analyser." },
+      { title: "Extraction de contenu", text: "Chaque article est téléchargé et son contenu complet est extrait pour un traitement ultérieur." },
+      { title: "Traduction automatique", text: "Les articles sont traduits en français en utilisant plusieurs services pour garantir la fiabilité de la traduction." },
+      { title: "Génération de résumés", text: "Un modèle de langage avancé résume les articles pour ne conserver que les informations les plus importantes." },
+      { title: "Document final", text: "Les articles sont assemblés dans un document Word formaté, prêt à être consulté." }
+    ];
+
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      captionTitle = captions[index].title;
+      captionText = captions[index];
+      counter = `${index + 1} / ${slides}`;
+    }
+
+    prev.addEventListener('click', () => {
+      current = (current - 1 + slides) % slides;
+      showSlide(current);
+    });
+
+    next.addEventListener('click', () => {
+      current = (current + 1) % slides;
+      showSlide(current);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>
