@@ -265,21 +265,8 @@
       box-shadow: var(--shadow);
     }
 
-    .slider-wrapper {
-      position: relative;
-      overflow: hidden;
-      border-radius: 2rem 2rem 0 0;
-      aspect-ratio: 16/10;
-      background: var(--bg-secondary);
-    }
-
-    .slide {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-      transition: opacity 0.5s ease;
-    }
+    .slider-wrapper { position:relative; width:100%; height:auto; background:var(--bg-secondary); }
+    .slide { width:100%; height:auto; display:none; object-fit:contain; }
 
     .slide.active {
       display: block;
