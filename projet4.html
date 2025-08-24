@@ -141,17 +141,18 @@
     <div class="project-section">
       <h2>Démonstration en Images</h2>
       <div class="slider-container">
-        <img src="images/presse/slide1.png" alt="Flux RSS Feedly" class="slide active">
-        <img src="images/presse/slide2.png" alt="Processus d'extraction" class="slide">
-        <img src="images/presse/slide3.png" alt="Modèle de traduction" class="slide">
-        <img src="images/presse/slide4.png" alt="Résumé d'article" class="slide">
-        <img src="images/presse/slide5.png" alt="Document Word final" class="slide">
+        <img src="images/projet4/Dossierconteenu.png" alt="Dossier contenu" class="slide active">
+        <img src="images/projet4/DémoArticles.png" alt="Code Python et Word" class="slide">
+        <img src="images/projet4/exempleauditetfinance.png" alt="Extrait Word finance IT audit" class="slide">
+        <img src="images/projet4/exempletech.png" alt="Extrait Word tech" class="slide">
+        <img src="images/projet4/exemplefeedlyopml.png" alt="Exemple fichier Feedly OPML" class="slide">
+
         <div class="counter" id="counter">1 / 5</div>
         <button class="prev">&#10094;</button>
         <button class="next">&#10095;</button>
         <div class="caption">
-          <h3 id="caption-title">Collecte des articles</h3>
-          <p id="caption-text">Le script utilise un fichier OPML exporté depuis Feedly pour identifier les flux RSS à analyser.</p>
+          <h3 id="caption-title">Dossier après exécution</h3>
+          <p id="caption-text">Vue du dossier contenant tous les fichiers générés par le script.</p>
         </div>
       </div>
     </div>
@@ -170,11 +171,11 @@
     const next = document.querySelector('.next');
 
     const captions = [
-      { title: "Collecte des articles", text: "Le script utilise un fichier OPML exporté depuis Feedly pour identifier les flux RSS à analyser." },
-      { title: "Extraction de contenu", text: "Chaque article est téléchargé et son contenu complet est extrait pour un traitement ultérieur." },
-      { title: "Traduction automatique", text: "Les articles sont traduits en français en utilisant plusieurs services pour garantir la fiabilité de la traduction." },
-      { title: "Génération de résumés", text: "Un modèle de langage avancé résume les articles pour ne conserver que les informations les plus importantes." },
-      { title: "Document final", text: "Les articles sont assemblés dans un document Word formaté, prêt à être consulté." }
+      { title: "Dossier après exécution", text: "Vue du dossier contenant tous les fichiers générés par le script." },
+      { title: "Code et aperçu Word", text: "Le script Python et un extrait d'un fichier Word généré automatiquement." },
+      { title: "Articles Finance / IT / Audit", text: "Extrait Word montrant les articles liés à la finance, IT et audit." },
+      { title: "Articles Tech", text: "Extrait Word illustrant les articles concernant la technologie." },
+      { title: "Exemple Feedly OPML", text: "Exemple de fichier OPML exporté depuis Feedly utilisé pour la collecte des flux RSS." }
     ];
 
     let current = 0;
