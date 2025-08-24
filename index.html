@@ -6,169 +6,554 @@
   <title>Portfolio - Lydérick Henry</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --bg-primary: #0f0f23;
+      --bg-secondary: #1a1a2e;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 35px 60px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
-      color: #f4f4f4;
-      display: flex;
-      flex-direction: column;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+      color: var(--text-primary);
       min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem 1rem;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    header p a {
-      color: #1E90FF; /* bleu pour le mail */
-      text-decoration: underline; /* souligné pour le rendre visible */
-      border-bottom: none; /* supprime la bordure */
-    }
-    header p {
-      margin: 0.3rem 0;
-    }
-    .intro-projects {
-      max-width: 800px;
-      margin: 1.5rem auto 3rem auto;
-      text-align: center;
-      background-color: rgba(255,255,255,0.05);
-      padding: 2rem 2rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .intro-projects h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #ffffff;
-    }
-    .intro-projects p {
-      color: #e0e0e0;
+      overflow-x: hidden;
       line-height: 1.6;
-      margin-bottom: 1rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Animated background particles */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.1; }
+      90% { opacity: 0.1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Header */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 4rem 0 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 4rem;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient 4s ease infinite;
+      letter-spacing: -0.02em;
+    }
+
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .contact-link:hover::before {
+      left: 100%;
+    }
+
+    .contact-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+    }
+
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Introduction section */
+    .intro-projects {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 3rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .intro-projects::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .intro-projects h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro-projects p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    /* Projects grid */
     .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2rem;
-      padding: 2rem;
-      flex: 1;
+      padding: 2rem 0;
+      margin-bottom: 4rem;
     }
+
     .project-card {
-      background: #333;
-      border-radius: 1rem;
-      padding: 1rem;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      group: card;
     }
-    .project-card:hover {
-      transform: translateY(-8px);
-    }
-    .project-card a img {
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
       width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-      background: #444;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .project-card .no-image {
+
+    .project-card:hover::before {
+      left: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .project-image-container {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      aspect-ratio: 16/10;
+      background: var(--bg-secondary);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: brightness(0.8);
+    }
+
+    .project-card:hover img {
+      transform: scale(1.1);
+      filter: brightness(1);
+    }
+
+    .project-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(99, 102, 241, 0.3), rgba(16, 185, 129, 0.3));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-card:hover .project-overlay {
+      opacity: 1;
+    }
+
+    .view-project {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--bg-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      text-decoration: none;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover .view-project {
+      transform: translateY(0);
+    }
+
+    .no-image {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 180px;
-      background: #444;
-      color: #ccc;
+      height: 100%;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
       font-size: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
+      border-radius: 1rem;
       display: none;
     }
-    .project-card a.project-title {
-      color: #fff;
-      font-weight: bold;
+
+    .project-title {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.25rem;
       text-decoration: none;
+      display: block;
+      transition: color 0.3s ease;
+      line-height: 1.4;
     }
+
+    .project-card:hover .project-title {
+      color: var(--primary);
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      padding: 1rem;
+      padding: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      margin-top: auto;
+    }
+
+    footer p {
+      color: var(--text-secondary);
       font-size: 0.9rem;
-      background: rgba(0,0,0,0.2);
     }
-    footer a {
-      color: #fff;
-      text-decoration: none;
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      header {
+        padding: 3rem 0 2rem;
+      }
+
+      .contact-links {
+        gap: 1rem;
+      }
+
+      .intro-projects {
+        padding: 2rem;
+        margin: 0 1rem 3rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        padding: 1.5rem;
+      }
     }
+
+    /* Scroll animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .project-card {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+    .project-card:nth-child(4) { animation-delay: 0.4s; }
   </style>
 </head>
 <body>
+  <div class="bg-particles" id="particles"></div>
+
   <header>
-    <h1>Lydérick Henry</h1>
-    <p><a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a></p>
-    <p><a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank">Voir mon CV et n°Tel sur LinkedIn</a> </p>
+    <div class="container">
+      <div class="header-content">
+        <h1>Lydérick Henry</h1>
+        <div class="contact-links">
+          <a href="mailto:lyderickhenry@hotmail.fr" class="contact-link">
+            <svg class="contact-icon" viewBox="0 0 24 24">
+              <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
+            </svg>
+            lyderickhenry@hotmail.fr
+          </a>
+          <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" class="contact-link">
+            <svg class="contact-icon" viewBox="0 0 24 24">
+              <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/>
+            </svg>
+            LinkedIn & CV
+          </a>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <div class="intro-projects">
+  <main class="container">
+    <section class="intro-projects">
       <h2>Mes Projets</h2>
       <p>Ce portfolio présente une sélection de projets personnels et académiques. Pour des raisons de confidentialité, je ne peux pas partager mes réalisations professionnelles.</p>
       <p>Ces quelques exemples concrets ont été choisis pour vous donner un aperçu de mes compétences et de ma passion pour la data. Ils illustrent ma capacité à transformer des idées en solutions concrètes et à produire des analyses visuelles et des tableaux de bord percutants.</p>
-    </div>
+    </section>
 
-    <div class="projects">
-      <div class="project-card">
-        <a href="projet1.html">
-          <img src="images/portfolio accueil immobilier.png" alt="portfolio accueil immobilier" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="no-image">Image non disponible</div>
-        </a>
-        <a href="projet1.html" class="project-title">Projet PowerBi - Analyse Immobilière</a>
-      </div>
+    <section class="projects">
+      <article class="project-card">
+        <div class="project-image-container">
+          <a href="projet1.html">
+            <img src="images/portfolio accueil immobilier.png" alt="Projet PowerBI - Analyse Immobilière" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="no-image">Image non disponible</div>
+          </a>
+          <div class="project-overlay">
+            <a href="projet1.html" class="view-project">Voir le projet</a>
+          </div>
+        </div>
+        <a href="projet1.html" class="project-title">Projet PowerBI - Analyse Immobilière</a>
+      </article>
 
-      <div class="project-card">
-        <a href="projet2.html">
-          <img src="images/Tableau de bord suivi bancaire.png" alt="Projet 2 illustration" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="no-image">Image non disponible</div>
-        </a>
-        <a href="projet2.html" class="project-title">Projet PowerBi - Tableau de bord suivi bancaire </a>
-      </div>
+      <article class="project-card">
+        <div class="project-image-container">
+          <a href="projet2.html">
+            <img src="images/Tableau de bord suivi bancaire.png" alt="Projet PowerBI - Tableau de bord suivi bancaire" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="no-image">Image non disponible</div>
+          </a>
+          <div class="project-overlay">
+            <a href="projet2.html" class="view-project">Voir le projet</a>
+          </div>
+        </div>
+        <a href="projet2.html" class="project-title">Projet PowerBI - Tableau de bord suivi bancaire</a>
+      </article>
 
-      <div class="project-card">
-        <a href="projet3.html">
-          <img src="images/Tableau des sig.png" alt="Projet 3 illustration" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="no-image">Image non disponible</div>
-        </a>
+      <article class="project-card">
+        <div class="project-image-container">
+          <a href="projet3.html">
+            <img src="images/Tableau des sig.png" alt="Projet Excel - Saé Sig/Caf/Ratios automatisés" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="no-image">Image non disponible</div>
+          </a>
+          <div class="project-overlay">
+            <a href="projet3.html" class="view-project">Voir le projet</a>
+          </div>
+        </div>
         <a href="projet3.html" class="project-title">Projet Excel - Saé Sig/Caf/Ratios automatisés</a>
-      </div>
+      </article>
 
-      <div class="project-card">
-        <a href="projet4.html">
-          <img src="images/DémoArticles.png" alt="Projet 4 illustration" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="no-image">Image non disponible</div>
-        </a>
+      <article class="project-card">
+        <div class="project-image-container">
+          <a href="projet4.html">
+            <img src="images/DémoArticles.png" alt="Projet - Revue de Presse Automatisée" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="no-image">Image non disponible</div>
+          </a>
+          <div class="project-overlay">
+            <a href="projet4.html" class="view-project">Voir le projet</a>
+          </div>
+        </div>
         <a href="projet4.html" class="project-title">Projet - Revue de Presse Automatisée</a>
-      </div>
-    </div>
+      </article>
+    </section>
   </main>
 
   <footer>
-    <p>© <span id="year"></span> - Portfolio de Lydérick Henry</p>
+    <div class="container">
+      <p>© <span id="year"></span> - Portfolio de Lydérick Henry</p>
+    </div>
   </footer>
 
   <script>
+    // Update year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.opacity = Math.random() * 0.1 + 0.05;
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize particles
+    createParticles();
+
+    // Smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add subtle parallax effect to header
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const header = document.querySelector('header');
+      if (header) {
+        header.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
   </script>
 </body>
 </html>
