@@ -251,16 +251,15 @@
       overflow: hidden;
       border-radius: 2rem 2rem 0 0;
       background: var(--bg-secondary);
-      height: auto; /* Supprime aspect-ratio pour garder la hauteur naturelle */
+      height: auto;
     }
     
     .slide {
       width: 100%;
-      height: auto; /* Reste proportionnelle */
-      display: block; /* Assure que l'image ne se déforme pas */
-      object-fit: contain; /* Affiche l'image entière sans la rogner */
+      height: auto;
+      display: none; /* <-- Correction ici */
+      object-fit: contain;
     }
-
 
     .slide.active {
       display: block;
@@ -697,12 +696,6 @@
         showSlide(current);
       }
     });
-
-    // Auto-play (optional, uncomment to enable)
-    // setInterval(() => {
-    //   current = (current + 1) % slides.length;
-    //   showSlide(current);
-    // }, 5000);
 
     showSlide(current);
 
