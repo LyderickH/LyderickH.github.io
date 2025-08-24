@@ -233,13 +233,26 @@
     /* Projects grid */
     .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: 1fr; /* Par défaut, une seule colonne pour les petits écrans */
       gap: 2rem;
       padding: 2rem 0;
       margin-bottom: 4rem;
-      justify-content: center;
     }
-
+    
+    /* Pour les tablettes et plus */
+    @media (min-width: 768px) {
+      .projects {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    /* Pour les grands écrans */
+    @media (min-width: 1024px) {
+      .projects {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
     .project-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
