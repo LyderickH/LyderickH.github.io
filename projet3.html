@@ -3,106 +3,484 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projet 3 - SIG/CAF automatisé</title>
+  <title>Projet Analyse et SIG/CAF automatisé - Lydérick Henry</title>
   <link rel="icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1c1c1c, #2c2c54);
-      color: #f4f4f4;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --bg-primary: #0f0f23;
+      --bg-secondary: #1a1a2e;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 35px 60px -12px rgba(0, 0, 0, 0.7);
     }
-    header { text-align: center; padding: 2rem 1rem; }
-    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    header a { color: #f4f4f4; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #f4f4f4; }
-    main { flex: 1; max-width: 900px; margin: 0 auto; padding: 2rem; }
-    main h2 { font-size: 1.5rem; margin-bottom: 1rem; }
-    main p, main ul { margin-bottom: 1.5rem; line-height: 1.6; }
 
-    /* Slider */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Animated background particles */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.1; }
+      90% { opacity: 0.1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Header */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 3rem 0 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 3rem;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient 4s ease infinite;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .back-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .back-link:hover::before {
+      left: 100%;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+    }
+
+    /* Main content */
+    main {
+      max-width: 1000px;
+      margin: 0 auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .content-section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 3rem;
+      margin-bottom: 3rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .content-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .content-section p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content-section li {
+      position: relative;
+      padding: 0.75rem 0 0.75rem 2rem;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .content-section li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .content-section code {
+      background: var(--bg-secondary);
+      color: var(--accent);
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+      font-size: 0.9rem;
+      border: 1px solid var(--glass-border);
+    }
+
+    /* Separator */
+    .separator {
+      margin: 4rem 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    }
+
+    /* Modern Slider */
     .slider-container {
       position: relative;
-      max-width: 900px;
-      margin: 2rem auto;
+      max-width: 1000px;
+      margin: 3rem auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
       overflow: hidden;
-      border-radius: 1rem;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-      background: #000;
+      box-shadow: var(--shadow);
     }
-    .slide { width: 100%; display: none; border-radius: 1rem 1rem 0 0; }
-    .slide.active { display: block; }
-    .counter {
-      position: absolute; right: .5rem; top: .5rem;
-      padding: .25rem .5rem; border-radius: .5rem;
-      background: rgba(0,0,0,.55); font-size: .9rem; color: #fff;
+
+    .slider-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem 2rem 0 0;
+      aspect-ratio: 16/10;
+      background: var(--bg-secondary);
     }
-    .slider-container button {
-      cursor: pointer;
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide-controls {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      padding: .5rem 1rem;
-      color: #fff;
-      font-size: 2rem;
-      border-radius: .5rem;
-      background: rgba(0,0,0,0.45);
-      border: none;
-    }
-    .slider-container button:hover { background: rgba(0,0,0,0.75); }
-    .prev { left: .5rem; }
-    .next { right: .5rem; }
-    .caption {
-      background: #0b0b0b;
-      padding: 1rem 1.25rem;
-      border-top: 1px solid rgba(255,255,255,.1);
-      border-radius: 0 0 1rem 1rem;
-    }
-    .caption h3 { margin: .1rem 0 .35rem 0; font-size: 1.05rem; font-weight: 600; }
-    .caption p { margin: 0; font-size: .95rem; color: rgba(255,255,255,.75); }
-
-    /* Boutons */
-    .button-container {
+      width: 100%;
       display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin: 2rem 0;
+      justify-content: space-between;
+      padding: 0 1rem;
+      pointer-events: none;
     }
-    .btn {
-      display: inline-block;
-      padding: .8rem 1.5rem;
-      border-radius: .6rem;
-      background: #2c3e50;
-      color: #fff;
+
+    .slide-btn {
+      pointer-events: all;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-btn:hover {
+      background: rgba(99, 102, 241, 0.8);
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .slide-indicators {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+
+    .indicator {
+      pointer-events: all;
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .indicator.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .counter {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .caption {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .caption h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .caption p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Modern Buttons */
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .modern-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.5rem;
+      color: var(--text-primary);
       text-decoration: none;
       font-weight: 600;
-      transition: background .3s;
-    }
-    .btn:hover { background: #1abc9c; }
-
-    /* Séparation */
-    .separator {
-      margin: 3rem 0 2rem;
-      border-top: 2px solid rgba(255,255,255,0.3);
+      font-size: 1rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
 
-    footer { text-align: center; padding: 1rem; font-size: 0.9rem; background: rgba(0,0,0,0.2); }
-    footer a { color: #fff; text-decoration: none; }
+    .modern-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
 
-    /* iframe Google Sheet */
+    .modern-btn:hover::before {
+      left: 100%;
+    }
+
+    .modern-btn:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
+    }
+
+    .btn-icon {
+      font-size: 1.25rem;
+    }
+
+    /* Google Sheet Container */
     .sheet-container {
-      margin: 2rem 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 2rem;
+      margin: 3rem 0;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sheet-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .sheet-container h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       text-align: center;
     }
+
+    .sheet-container p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
     #iframe-wrapper {
       overflow: hidden;
       width: 100%;
       height: 500px;
-      border: 1px solid #555;
-      border-radius: 0.5rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      background: var(--bg-secondary);
     }
+
     #sheet-frame {
       width: 125%;
       height: 625px;
@@ -110,39 +488,171 @@
       transform-origin: top left;
       border: none;
     }
+
     .zoom-controls {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
     }
+
     .zoom-controls label {
-      margin-right: 0.5rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    #zoom-range {
+      background: var(--bg-secondary);
+      border-radius: 0.5rem;
+      border: 1px solid var(--glass-border);
+      height: 0.5rem;
+      outline: none;
+    }
+
+    #zoom-value {
+      color: var(--primary);
+      font-weight: 600;
+      min-width: 2.5rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      margin-top: 4rem;
+    }
+
+    footer p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      header {
+        padding: 2rem 0 1.5rem;
+      }
+
+      main {
+        padding: 0 1rem;
+      }
+
+      .content-section {
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .sheet-container {
+        padding: 1.5rem;
+      }
+
+      .button-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .slide-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+      }
+
+      .zoom-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content-section {
+        padding: 1.5rem;
+      }
+
+      .slide-btn {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.9rem;
+      }
+
+      .sheet-container {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bg-particles" id="particles"></div>
+
   <header>
-    <h1>Projet Analyse et SIG/CAF automatisé</h1>
-    <a href="index.html">← Retour à l’accueil</a>
+    <div class="container">
+      <div class="header-content">
+        <h1>Projet Analyse et SIG/CAF automatisé</h1>
+        <a href="index.html" class="back-link">
+          <span>←</span>
+          Retour à l'accueil
+        </a>
+      </div>
+    </div>
   </header>
 
   <main>
-    <h2>Explications</h2>
-    <p>Projet réalisé dans le cadre de la Situation d'Apprentissage et d'Évaluation (SAé) en BUT GEA. L’objectif est d’analyser la performance financière d’une entreprise fictive à travers :</p>
-    <ul>
-      <li>Les <strong>Soldes intermédiaires de gestion (SIG)</strong> retraités pour rendre les comptes comparables.</li>
-      <li>La <strong>Capacité d’autofinancement (CAF)</strong> calculée à partir du Résultat Net et de l’EBE.</li>
-      <li>Différents <strong>ratios financiers</strong> pour évaluer la santé financière et la capacité à rembourser des dettes.</li>
-    </ul>
-    <p>Les calculs et tableaux ont été réalisés sur Google Sheet, permettant un accès collaboratif et des mises à jour en direct.</p>
+    <section class="content-section">
+      <h2>Explications</h2>
+      <p>
+        Projet réalisé dans le cadre de la Situation d'Apprentissage et d'Évaluation (SAé) en BUT GEA. L'objectif est d'analyser la performance financière d'une entreprise fictive à travers une approche méthodologique rigoureuse et des outils de calcul automatisés.
+      </p>
+      <p>
+        Cette analyse complète permet d'évaluer la santé financière de l'entreprise et sa capacité à générer des ressources internes pour financer sa croissance et rembourser ses dettes.
+      </p>
+    </section>
 
+    <div class="separator"></div>
+
+    <section class="content-section">
+      <h2>Composantes de l'Analyse</h2>
+      <ul>
+        <li><strong>Soldes intermédiaires de gestion (SIG) retraités :</strong> Calculs permettant de rendre les comptes comparables et d'analyser la formation du résultat.</li>
+        <li><strong>Capacité d'autofinancement (CAF) :</strong> Évaluation calculée à partir du Résultat Net et de l'Excédent Brut d'Exploitation pour mesurer la capacité de financement interne.</li>
+        <li><strong>Ratios financiers :</strong> Indicateurs clés pour évaluer la rentabilité, la solvabilité et la performance opérationnelle de l'entreprise.</li>
+        <li><strong>Analyse comparative :</strong> Étude sur trois exercices (N-2, N-1, N) pour identifier les tendances et évolutions.</li>
+      </ul>
+    </section>
+
+    <div class="separator"></div>
+
+    <section class="content-section">
+      <h2>Démonstration en Images</h2>
+    </section>
+
+    <!-- Modern Slider -->
     <div class="slider-container">
-      <img src="images/projet3/SIG_CAF_RATIOS_page-0001.png" alt="SIG" class="slide active">
-      <img src="images/projet3/SIG_CAF_RATIOS_page-0002.png" alt="CAF" class="slide">
-      <img src="images/projet3/SIG_CAF_RATIOS_page-0003.png" alt="Ratios" class="slide">
+      <div class="slider-wrapper">
+        <img src="images/projet3/SIG_CAF_RATIOS_page-0001.png" alt="SIG retraités" class="slide active">
+        <img src="images/projet3/SIG_CAF_RATIOS_page-0002.png" alt="CAF" class="slide">
+        <img src="images/projet3/SIG_CAF_RATIOS_page-0003.png" alt="Ratios financiers" class="slide">
 
-      <div class="counter" id="counter">1 / 3</div>
-      <button class="prev">&#10094;</button>
-      <button class="next">&#10095;</button>
+        <div class="slide-controls">
+          <button class="slide-btn prev" aria-label="Image précédente">‹</button>
+          <button class="slide-btn next" aria-label="Image suivante">›</button>
+        </div>
+
+        <div class="slide-indicators">
+          <div class="indicator active" data-slide="0"></div>
+          <div class="indicator" data-slide="1"></div>
+          <div class="indicator" data-slide="2"></div>
+        </div>
+
+        <div class="counter" id="counter">1 / 3</div>
+      </div>
 
       <div class="caption">
         <h3 id="caption-title">SIG retraités</h3>
@@ -150,20 +660,35 @@
       </div>
     </div>
 
-    <div class="button-container">
-      <a href="images/projet3/SIG_CAF_RATIOS.pdf" class="btn" target="_blank">📄 Télécharger le PDF</a>
-      <a href="SIG & CAF vierge.xlsx" class="btn" target="_blank">🗂️ Télécharger l'Excel</a>
-    </div>
+    <div class="separator"></div>
+
+    <section class="content-section">
+      <h2>Téléchargements</h2>
+      <p>Accédez aux documents et fichiers de travail du projet :</p>
+      <div class="button-container">
+        <a href="images/projet3/SIG_CAF_RATIOS.pdf" class="modern-btn" target="_blank">
+          <span class="btn-icon">📄</span>
+          Rapport PDF Complet
+        </a>
+        <a href="SIG & CAF vierge.xlsx" class="modern-btn" target="_blank">
+          <span class="btn-icon">📊</span>
+          Fichier Excel de Travail
+        </a>
+      </div>
+    </section>
+
+    <div class="separator"></div>
 
     <div class="sheet-container">
-      <p>Le fichier est également disponible ici :</p>
+      <h2>Consultation Interactive</h2>
+      <p>Le fichier de calculs est également disponible pour consultation directe :</p>
       <div id="iframe-wrapper">
         <iframe id="sheet-frame"
           src="https://docs.google.com/spreadsheets/d/1Akv1w6jVtF9Mi24om-u94GVs7FM6zO_7/preview?gid=643758185"
           sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <div class="zoom-controls">
-        <label for="zoom-range">🔍 Zoom :</label>
+        <label for="zoom-range">🔍 Niveau de zoom :</label>
         <input type="range" id="zoom-range" min="50" max="120" value="80">
         <span id="zoom-value">80%</span>
       </div>
@@ -171,27 +696,54 @@
   </main>
 
   <footer>
-    <p>© 2025 - Portfolio de Lydérick Henry</p>
+    <div class="container">
+      <p>© <span id="year"></span> - Portfolio de Lydérick Henry</p>
+    </div>
   </footer>
 
   <script>
+    // Update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.opacity = Math.random() * 0.1 + 0.05;
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize particles
+    createParticles();
+
+    // Slider functionality
     const slides = document.querySelectorAll('.slide');
     const captionTitle = document.getElementById('caption-title');
     const captionText = document.getElementById('caption-text');
     const counter = document.getElementById('counter');
     const prev = document.querySelector('.prev');
     const next = document.querySelector('.next');
+    const indicators = document.querySelectorAll('.indicator');
 
     const captions = [
       { title: "SIG retraités", text: "Cette page présente un tableau des Soldes Intermédiaires de Gestion (SIG) de la société AutoContrôle pour les années N-2 à N." },
-      { title: "CAF", text: "Cette page calcule la Capacité d'Autofinancement (CAF) de la société AutoContrôle en utilisant deux méthodes différentes." },
+      { title: "Capacité d'Autofinancement", text: "Cette page calcule la Capacité d'Autofinancement (CAF) de la société AutoContrôle en utilisant deux méthodes différentes." },
       { title: "Ratios financiers", text: "Cette page analyse les ratios financiers d'AutoContrôle, comme le levier opérationnel et les taux de marge." }
     ];
 
     let current = 0;
 
     function showSlide(index) {
-      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      indicators.forEach((ind, i) => ind.classList.toggle('active', i === index));
       captionTitle.textContent = captions[index].title;
       captionText.textContent = captions[index].text;
       counter.textContent = `${index + 1} / ${slides.length}`;
@@ -207,9 +759,28 @@
       showSlide(current);
     });
 
+    // Indicator clicks
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        current = index;
+        showSlide(current);
+      });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        current = (current - 1 + slides.length) % slides.length;
+        showSlide(current);
+      } else if (e.key === 'ArrowRight') {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+      }
+    });
+
     showSlide(current);
 
-    // Gestion du zoom sur l'iframe
+    // Zoom functionality for Google Sheet
     const iframe = document.getElementById("sheet-frame");
     const zoomRange = document.getElementById("zoom-range");
     const zoomValue = document.getElementById("zoom-value");
@@ -220,6 +791,26 @@
       iframe.style.width = `${10000 / zoom}%`;
       iframe.style.height = `${50000 / zoom}px`;
       zoomValue.textContent = zoom + "%";
+    });
+
+    // Smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Add subtle parallax effect to header
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const header = document.querySelector('header');
+      if (header) {
+        header.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
     });
   </script>
 </body>
