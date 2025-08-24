@@ -77,8 +77,8 @@
     .content-section li::before { content:'▸'; position:absolute; left:0; color:var(--primary); font-weight:bold; }
 
     .slider-container { margin:3rem auto; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:2rem; overflow:hidden; box-shadow:var(--shadow); }
-    .slider-wrapper { position:relative; aspect-ratio:16/10; background:var(--bg-secondary); }
-    .slide { width:100%; height:100%; object-fit:contain; display:none; background:var(--bg-secondary); }
+    .slider-wrapper { position:relative; width:100%; height:auto; background:var(--bg-secondary); }
+    .slide { width:100%; height:auto; display:none; object-fit:contain; }
     .slide.active { display:block; }
 
     .slide-controls { position:absolute; top:50%; width:100%; display:flex; justify-content:space-between; padding:0 1rem; pointer-events:none; }
