@@ -250,17 +250,17 @@
       position: relative;
       overflow: hidden;
       border-radius: 2rem 2rem 0 0;
-      aspect-ratio: 16/10;
       background: var(--bg-secondary);
+      height: auto; /* Supprime aspect-ratio pour garder la hauteur naturelle */
     }
-
+    
     .slide {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-      transition: opacity 0.5s ease;
+      height: auto; /* Reste proportionnelle */
+      display: block; /* Assure que l'image ne se déforme pas */
+      object-fit: contain; /* Affiche l'image entière sans la rogner */
     }
+
 
     .slide.active {
       display: block;
@@ -544,42 +544,45 @@
       <p>Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
     </section>
 
-    <!-- Modern Slider -->
-    <div class="slider-container">
-      <div class="slider-wrapper">
-        <img src="images/projet1/PowerBiImmo_page-0001.jpg" alt="Page 1" class="slide active">
-        <img src="images/projet1/PowerBiImmo_page-0002.jpg" alt="Page 2" class="slide">
-        <img src="images/projet1/PowerBiImmo_page-0003.jpg" alt="Page 3" class="slide">
-        <img src="images/projet1/PowerBiImmo_page-0004.jpg" alt="Page 4" class="slide">
-        <img src="images/projet1/PowerBiImmo_page-0005.jpg" alt="Page 5" class="slide">
-        <img src="images/projet1/PowerBiImmo_page-0006.jpg" alt="Page 6" class="slide">
-        <img src="images/projet1/PowerBiImmo_page-0007.jpg" alt="Page 7" class="slide">
-        <img src="images/projet1/PowerBiImmo_page-0008.jpg" alt="Page 8" class="slide">
+<!-- Modern Slider adapté -->
+<div class="slider-container">
+  <div class="slider-wrapper">
+    <img src="images/projet1/PowerBiImmo_page-0001.jpg" alt="Page 1" class="slide active">
+    <img src="images/projet1/PowerBiImmo_page-0002.jpg" alt="Page 2" class="slide">
+    <img src="images/projet1/PowerBiImmo_page-0003.jpg" alt="Page 3" class="slide">
+    <img src="images/projet1/PowerBiImmo_page-0004.jpg" alt="Page 4" class="slide">
+    <img src="images/projet1/PowerBiImmo_page-0005.jpg" alt="Page 5" class="slide">
+    <img src="images/projet1/PowerBiImmo_page-0006.jpg" alt="Page 6" class="slide">
+    <img src="images/projet1/PowerBiImmo_page-0007.jpg" alt="Page 7" class="slide">
+    <img src="images/projet1/PowerBiImmo_page-0008.jpg" alt="Page 8" class="slide">
 
-        <div class="slide-controls">
-          <button class="slide-btn prev" aria-label="Image précédente">‹</button>
-          <button class="slide-btn next" aria-label="Image suivante">›</button>
-        </div>
-
-        <div class="slide-indicators">
-          <div class="indicator active" data-slide="0"></div>
-          <div class="indicator" data-slide="1"></div>
-          <div class="indicator" data-slide="2"></div>
-          <div class="indicator" data-slide="3"></div>
-          <div class="indicator" data-slide="4"></div>
-          <div class="indicator" data-slide="5"></div>
-          <div class="indicator" data-slide="6"></div>
-          <div class="indicator" data-slide="7"></div>
-        </div>
-
-        <div class="counter" id="counter">1 / 8</div>
-      </div>
-
-      <div class="caption">
-        <h3 id="caption-title">Page d'accueil : L'immobilier en un rapport</h3>
-        <p id="caption-text">Page centrale servant de hub interactif vers les différentes sections du rapport.</p>
-      </div>
+    <!-- Contrôles -->
+    <div class="slide-controls">
+      <button class="slide-btn prev" aria-label="Image précédente">‹</button>
+      <button class="slide-btn next" aria-label="Image suivante">›</button>
     </div>
+
+    <!-- Indicateurs -->
+    <div class="slide-indicators">
+      <div class="indicator active" data-slide="0"></div>
+      <div class="indicator" data-slide="1"></div>
+      <div class="indicator" data-slide="2"></div>
+      <div class="indicator" data-slide="3"></div>
+      <div class="indicator" data-slide="4"></div>
+      <div class="indicator" data-slide="5"></div>
+      <div class="indicator" data-slide="6"></div>
+      <div class="indicator" data-slide="7"></div>
+    </div>
+
+    <!-- Compteur -->
+    <div class="counter" id="counter">1 / 8</div>
+  </div>
+
+  <div class="caption">
+    <h3 id="caption-title">Page d'accueil : L'immobilier en un rapport</h3>
+    <p id="caption-text">Page centrale servant de hub interactif vers les différentes sections du rapport.</p>
+  </div>
+</div>
 
     <!-- Modern Buttons -->
     <div class="button-container">
