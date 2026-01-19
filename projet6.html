@@ -120,8 +120,13 @@
     <div class="slider-container">
       <div class="slider-wrapper">
         <img src="images/projet6/projet tableau de bord.png" alt="Vue d'ensemble du Dashboard" class="slide active">
-        <img src="images/projet6/objectifs et finalités investissement.png" alt="Objectifs et Analyse" class="slide">
-        <img src="images/projet6/source de données.png" alt="Source de Données" class="slide">
+        <img src="images/projet6/0. source de données.png" alt="Source de Données" class="slide">
+        <img src="images/projet6/1. profil des répondants.png" alt="Profil des Répondants" class="slide">
+        <img src="images/projet6/2. classement des préférences d'investissement.png" alt="Classement des Préférences" class="slide">
+        <img src="images/projet6/3. horizon de placement vs rendement.png" alt="Horizon vs Rendement" class="slide">
+        <img src="images/projet6/4. objectifs et finalités investissement.png" alt="Objectifs et Finalités" class="slide">
+        <img src="images/projet6/5. sources d'informations.png" alt="Sources d'Informations" class="slide">
+        <img src="images/projet6/6. motivation par actif selectionné.png" alt="Motivation par Actif" class="slide">
 
         <div class="slide-controls">
           <button class="slide-btn prev">‹</button>
@@ -132,9 +137,14 @@
           <div class="indicator active" data-slide="0"></div>
           <div class="indicator" data-slide="1"></div>
           <div class="indicator" data-slide="2"></div>
+          <div class="indicator" data-slide="3"></div>
+          <div class="indicator" data-slide="4"></div>
+          <div class="indicator" data-slide="5"></div>
+          <div class="indicator" data-slide="6"></div>
+          <div class="indicator" data-slide="7"></div>
         </div>
 
-        <div class="counter" id="counter">1 / 3</div>
+        <div class="counter" id="counter">1 / 8</div>
       </div>
 
       <div class="caption">
@@ -182,8 +192,13 @@
 
     const captions = [
       { title: "Vue d'ensemble du Dashboard", text: "Vue complète permettant d'analyser les préférences d'investissement avec filtres dynamiques." },
-      { title: "Objectifs et Analyse", text: "Visualisation détaillée des objectifs et finalités des investissements." },
-      { title: "Source de Données", text: "Aperçu de la structure des données et des relations dans Tableau." }
+      { title: "Source de Données", text: "Aperçu du dataset initial et de sa structure." },
+      { title: "Profil des Répondants", text: "Analyse démographique des investisseurs (Genre, Âge, Situation)." },
+      { title: "Classement des Préférences", text: "Visualisation des actifs favoris avec échelle inversée pour plus de clarté." },
+      { title: "Horizon vs Rendement", text: "Comparaison des attentes de rendement selon l'horizon de placement." },
+      { title: "Objectifs & Finalités", text: "Analyse des motivations profondes et des buts de l'investissement." },
+      { title: "Sources d'Informations", text: "Canaux privilégiés par les investisseurs pour s'informer." },
+      { title: "Motivation par Actif", text: "Détail des motivations spécifiques pour chaque type d'actif (via Paramètre Dynamique)." }
     ];
 
     let current = 0;
