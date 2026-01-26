@@ -338,7 +338,7 @@
     <section class="content-section">
       <h2>Présentation du Projet</h2>
       <p><strong>Thème :</strong> Analyse automatisée de la perception de l'Intelligence Artificielle Générative (IAG) en cabinet d'audit.</p>
-      <p><strong>Objectif :</strong> Mise en œuvre d'une architecture Cloud complète pour transformer des données brutes de questionnaire en indicateurs de performance décisionnels.</p>
+      <p><strong>Objectif :</strong> Mise en œuvre d'une architecture Cloud pour transformer des données brutes de questionnaire en indicateurs de performance décisionnels.</p>
 
       <br />
 
@@ -346,8 +346,8 @@
       <ul>
         <li><strong>Infrastructure Cloud (GCP) :</strong> Déploiement sur Google Cloud avec paramétrage de facturation et alertes budgétaires pour la maîtrise des coûts.</li>
         <li><strong>Ingestion de Données :</strong> Flux automatisé entre Google Sheets (réponses Google Form) et BigQuery dans un dataset <code>audit_raw</code>.</li>
-        <li><strong>Transformation (Dataform) :</strong> Développement de scripts SQLX pour le nettoyage, le calcul de scores et le traitement des données imbriquées.</li>
-        <li><strong>Modélisation avancée :</strong> Création de vues pivotées au format long via la fonction <code>UNNEST</code>.</li>
+        <li><strong>Transformation (Dataform) :</strong> Développement de scripts SQLX pour le nettoyage, le calcul de scores et le traitement des données.</li>
+        <li><strong>Modélisation :</strong> Création de vues pivotées au format long via la fonction <code>UNNEST</code>.</li>
         <li><strong>Automatisation :</strong> Configuration de l'ordonnanceur Dataform pour la mise à jour automatique.</li>
       </ul>
     </section>
@@ -427,7 +427,7 @@
 
     const captions = [
       { title: "Gestion de la facturation Cloud", text: "Mise en place d'alertes budgétaires sur GCP pour garantir une utilisation sécurisée des services." },
-      { title: "Structure BigQuery", text: "Organisation en couches de données : audit_raw pour le brut et audit_clean pour les données traitées." },
+      { title: "Structure BigQuery", text: "Organisation en couches de données : audit_raw pour le brut et audit_final pour les données traitées." },
       { title: "Table source_responses", text: "Aperçu de la table BigQuery synchronisée avec le Google Sheet." },
       { title: "Scripts SQLX de nettoyage", text: "Utilisation de Dataform pour normaliser les réponses textuelles et calculer les scores." },
       { title: "Graphe de dépendances", text: "Visualisation du flux de données complet (Compiled Graph) dans Dataform." },
