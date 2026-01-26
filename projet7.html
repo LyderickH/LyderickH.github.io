@@ -183,7 +183,6 @@
       object-fit: contain;
       user-select: none;
       -webkit-user-drag: none;
-      /* Optimisation du rendu pour éviter le flou */
       image-rendering: -webkit-optimize-contrast;
       image-rendering: auto;
     }
@@ -355,13 +354,13 @@
 
     <div class="slider-container" aria-label="Galerie du projet">
       <div class="slider-wrapper">
-          <img src="images/projet7/cloud_billing.png" alt="Gestion de la facturation Cloud" class="slide active" />
-          <img src="images/projet7/bigquery_datasets.png" alt="Structure BigQuery" class="slide" />
-          <img src="images/projet7/bigquery_datasets_2.png" alt="Table source_responses" class="slide" />
-          <img src="images/projet7/dataform_cleaning.png" alt="Scripts SQLX de nettoyage" class="slide" />
-          <img src="images/projet7/dataform_projet7.png" alt="Graphe de dépendances" class="slide" />
-          <img src="images/projet7/looker_studio_p1.png" alt="Dashboard Looker Studio p1" class="slide" />
-          <img src="images/projet7/looker_studio_p2.png" alt="Dashboard Looker Studio p2" class="slide" />
+        <img src="images/projet7/cloud_billing.png" alt="Gestion de la facturation Cloud" class="slide active" />
+        <img src="images/projet7/bigquery_datasets.png" alt="Structure BigQuery" class="slide" />
+        <img src="images/projet7/bigquery_datasets_2.png" alt="Table source_responses" class="slide" />
+        <img src="images/projet7/dataform_cleaning.png" alt="Scripts SQLX de nettoyage" class="slide" />
+        <img src="images/projet7/dataform_projet7.png" alt="Graphe de dépendances" class="slide" />
+        <img src="images/projet7/looker_studio_p1.png" alt="Dashboard Looker Studio p1" class="slide" />
+        <img src="images/projet7/looker_studio_p2.png" alt="Dashboard Looker Studio p2" class="slide" />
 
         <div class="slide-controls">
           <button class="slide-btn prev" type="button" aria-label="Image précédente">‹</button>
@@ -399,14 +398,16 @@
   </footer>
 
   <script>
-    document.getElementById('year') = new Date().getFullYear();
+    // Date
+    document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Particles
     function createParticles() {
       const container = document.getElementById('particles');
       for (let i = 0; i < 30; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
-        p.style = (Math.random() * 100) + '%';
+        p.style.left = (Math.random() * 100) + '%';
         p.style.top = (Math.random() * 100) + '%';
         p.style.animationDuration = (Math.random() * 15 + 10) + 's';
         p.style.animationDelay = (Math.random() * 10) + 's';
@@ -415,10 +416,11 @@
     }
     createParticles();
 
+    // Slider logic
     const slides = document.querySelectorAll('.slide');
-    const captionTitle = document.getElementById('caption-title');
-    const captionText = document.getElementById('caption-text');
-    const counter = document.getElementById('counter');
+    const captionTitleEl = document.getElementById('caption-title');
+    const captionTextEl = document.getElementById('caption-text');
+    const counterEl = document.getElementById('counter');
     const prev = document.querySelector('.prev');
     const next = document.querySelector('.next');
     const indicators = document.querySelectorAll('.indicator');
@@ -436,23 +438,39 @@
     let current = 0;
 
     function showSlide(index) {
-      slides.forEach((s, i) => s.classList.toggle('active', i === index));
-      indicators.forEach((ind, i) => ind.classList.toggle('active', i === index));
-      captionTitle = captions[index].title;
-      captionText = captions[index];
-      counter = `${index + 1} / ${slides}`;
+      const total = slides.length;
+      if (!total) return;
+
+      current = (index + total) % total;
+
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      indicators.forEach((ind, i) => ind.classList.toggle('active', i === current));
+
+      const cap = captions[current] || { title: "", text: "" };
+      captionTitleEl.textContent = cap.title;
+      captionTextEl.textContent = cap.text;
+      counterEl.textContent = `${current + 1} / ${total}`;
     }
 
-    prev.addEventListener('click', () => { current = (current - 1 + slides) % slides; showSlide(current); });
-    next.addEventListener('click', () => { current = (current + 1) % slides; showSlide(current); });
-    indicators.forEach((ind, idx) => ind.addEventListener('click', () => { current = idx; showSlide(current); }));
+    prev.addEventListener('click', () => showSlide(current - 1));
+    next.addEventListener('click', () => showSlide(current + 1));
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') { current = (current - 1 + slides) % slides; showSlide(current); }
-      if (e.key === 'ArrowRight') { current = (current + 1) % slides; showSlide(current); }
+    indicators.forEach((ind, idx) => {
+      ind.addEventListener('click', () => showSlide(idx));
+      ind.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showSlide(idx);
+        }
+      });
     });
 
-    showSlide(current);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') showSlide(current - 1);
+      if (e.key === 'ArrowRight') showSlide(current + 1);
+    });
+
+    showSlide(0);
   </script>
 </body>
 </html>
