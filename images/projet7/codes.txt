@@ -1,0 +1,221 @@
+-- partie une audit cleaning
+config {
+    type: "table",
+    database: "project-6117e563-ffe2-49b3-9c7",
+    schema: "audit_final",
+    name: "audit_clean",
+    description: "Table cleanée : Accents supprimés + ARRAY (Post-it) + Colonnes de scores numériques (Q6, Q7, Q16, Q22)"
+}
+
+SELECT
+  Horodateur AS horodateur,
+  -- Q1-Q3 : Fréquence et Outils (Nettoyage accents)
+  REGEXP_REPLACE(NORMALIZE(Q1_____quelle_fr__quence_utilisez_vous_l_IA_g__n__rative_dans_le_cadre_de_votre_travail_en_audit___, NFD), r'\pM', '') AS q1_freq_usage,
+  REGEXP_REPLACE(NORMALIZE(Q2__Quel_type_d_IAG_utilisez_vous_principalement__, NFD), r'\pM', '') AS q2_type_iag_principal,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____Mistral_, NFD), r'\pM', '') AS q3_utilise_mistral,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____Copilot_, NFD), r'\pM', '') AS q3_utilise_copilot,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____ChatGPT_, NFD), r'\pM', '') AS q3_utilise_chatgpt,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____Gemini_, NFD), r'\pM', '') AS q3_utilise_gemini,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____Perplexity_, NFD), r'\pM', '') AS q3_utilise_perplexity,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____Claude_, NFD), r'\pM', '') AS q3_utilise_claude,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____Outils_IAG_sp__cifiques_cabinet_, NFD), r'\pM', '') AS q3_utilise_outils_iag_cabinet,
+  REGEXP_REPLACE(NORMALIZE(Q3__Quelles_IAG_utilisez_vous_dans_le_cadre_de_vos_missions_d_audit____Autres_, NFD), r'\pM', '') AS q3_utilise_autres_iag,
+  
+  -- Q4 : ARRAY (Post-it)
+  ARRAY(
+    SELECT x FROM UNNEST([
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "controle interne"), "🔎 Contrôle Interne", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "scripts"), "💻 Scripts (SQL, VBA)", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "traduction"), "🌍 Traduction", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "Redaction"), "📝 Rédaction docs", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "Rapprochement"), "📊 Rapprochement", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "format"), "🧹 Préparation Data", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "insights"), "💡 Analyse/Insights", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "technique"), "📚 Recherche Technique", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "estimations"), "📉 Revue Estimations", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "seuil"), "🎯 Seuil Signification", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "decision"), "🤖 Aide Décision", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "coherence"), "🖋️ Correction Docs", NULL),
+      IF(CONTAINS_SUBSTR(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, "Excel"), "📈 Formules Excel", NULL),
+      IF(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_ IS NOT NULL
+        AND NOT REGEXP_CONTAINS(Q4__Parmi_ces_t__ches__cochez_celles_que_vous_avez_d__j___effectu__es____l___aide_de_l___IA_g__n__rative_, r'(?i)controle interne|scripts|traduction|Redaction|Rapprochement|format|insights|technique|estimations|seuil|decision|coherence|Excel'), "❓ Autre tâche", NULL)
+    ]) AS x WHERE x IS NOT NULL
+  ) AS q4_liste_taches,
+
+  REGEXP_REPLACE(NORMALIZE(Q5__Vous_utilisez_l_IA_g__n__rative___, NFD), r'\pM', '') AS q5_usage_modalite,
+
+  -- Q6 : Productivité (Texte + Scores Numériques)
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Extraction_donn__es__financi__res__juridiques_______, NFD), r'\pM', '') AS q6_prod_extraction,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Extraction_donn__es__financi__res__juridiques_______, 1) AS INT64) AS q6_score_extraction,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____R__sum___donn__es___financi__res__juridiques_______, NFD), r'\pM', '') AS q6_prod_resume,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____R__sum___donn__es___financi__res__juridiques_______, 1) AS INT64) AS q6_score_resume,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____R__daction__rapports__synth__ses__notes__mails__, NFD), r'\pM', '') AS q6_prod_redaction,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____R__daction__rapports__synth__ses__notes__mails__, 1) AS INT64) AS q6_score_redaction,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Rapprochement_Comparaison_de_documents_, NFD), r'\pM', '') AS q6_prod_rapprochement,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Rapprochement_Comparaison_de_documents_, 1) AS INT64) AS q6_score_rapprochement,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____D__veloppement__scripts_SQL__VBA__, NFD), r'\pM', '') AS q6_prod_dev,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____D__veloppement__scripts_SQL__VBA__, 1) AS INT64) AS q6_score_dev,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____D__tection_de_fraude_, NFD), r'\pM', '') AS q6_prod_fraude,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____D__tection_de_fraude_, 1) AS INT64) AS q6_score_fraude,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Calcul_du_seuil_de_signification_, NFD), r'\pM', '') AS q6_prod_seuil,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Calcul_du_seuil_de_signification_, 1) AS INT64) AS q6_score_seuil,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Revue_d_estimations__provisions__, NFD), r'\pM', '') AS q6_prod_estimations,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Revue_d_estimations__provisions__, 1) AS INT64) AS q6_score_estimations,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Aide____la_d__cision_, NFD), r'\pM', '') AS q6_prod_aide_decision,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Aide____la_d__cision_, 1) AS INT64) AS q6_score_aide_decision,
+  REGEXP_REPLACE(NORMALIZE(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Pr__paration_de_donn__es__format__structuration__harmonisation_des_valeurs__, NFD), r'\pM', '') AS q6_prod_prepa_data,
+  SAFE_CAST(LEFT(Q6__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_productivit____pour_les_activit__s_suivantes____Pr__paration_de_donn__es__format__structuration__harmonisation_des_valeurs__, 1) AS INT64) AS q6_score_prepa_data,
+
+  -- Q7 : Qualité (Texte + Scores Numériques)
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Extraction_donn__es__financi__res__juridiques_______, NFD), r'\pM', '') AS q7_qual_extraction,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Extraction_donn__es__financi__res__juridiques_______, 1) AS INT64) AS q7_score_extraction,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____R__sum___donn__es___financi__res__juridiques_______, NFD), r'\pM', '') AS q7_qual_resume,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____R__sum___donn__es___financi__res__juridiques_______, 1) AS INT64) AS q7_score_resume,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____R__daction__rapports__synth__ses__notes__mails__, NFD), r'\pM', '') AS q7_qual_redaction,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____R__daction__rapports__synth__ses__notes__mails__, 1) AS INT64) AS q7_score_redaction,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Rapprochement_Comparaison_de_documents_, NFD), r'\pM', '') AS q7_qual_rapprochement,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Rapprochement_Comparaison_de_documents_, 1) AS INT64) AS q7_score_rapprochement,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____D__veloppement__scripts_SQL__VBA__, NFD), r'\pM', '') AS q7_qual_dev,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____D__veloppement__scripts_SQL__VBA__, 1) AS INT64) AS q7_score_dev,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____D__tection_de_fraude_, NFD), r'\pM', '') AS q7_qual_fraude,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____D__tection_de_fraude_, 1) AS INT64) AS q7_score_fraude,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Calcul_du_seuil_de_signification_, NFD), r'\pM', '') AS q7_qual_seuil,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Calcul_du_seuil_de_signification_, 1) AS INT64) AS q7_score_seuil,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Revue_d_estimations__provisions__, NFD), r'\pM', '') AS q7_qual_estimations,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Revue_d_estimations__provisions__, 1) AS INT64) AS q7_score_estimations,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Aide____la_d__cision_, NFD), r'\pM', '') AS q7_qual_aide_decision,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Aide____la_d__cision_, 1) AS INT64) AS q7_score_aide_decision,
+  REGEXP_REPLACE(NORMALIZE(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Pr__paration_de_donn__es__format__structuration__harmonisation_des_valeurs__, NFD), r'\pM', '') AS q7_qual_prepa_data,
+  SAFE_CAST(LEFT(Q7__Dans_quelle_mesure_jugez_vous_utile_l___IA_g__n__rative__pour_am__liorer_la_qualit____pour_les_activit__s_suivantes_____Pr__paration_de_donn__es__format__structuration__harmonisation_des_valeurs__, 1) AS INT64) AS q7_score_prepa_data,
+
+  -- Q8-Q15 : Scores
+  Q8___L_utilisation_de_l_IA_g__n__rative_me_fait_gagner_du_temps_ AS q8_gain_temps,
+  REGEXP_REPLACE(NORMALIZE(Q9__Comment_jugez_vous_la_prise_en_main_des_outils_d_IA_g__n__rative__, NFD), r'\pM', '') AS q9_prise_en_main,
+  REGEXP_REPLACE(NORMALIZE(Q10___L_int__gration_de_l_IA_g__n__rative_dans_mon_flux_de_travail_quotidien_se_fait_naturellement__, NFD), r'\pM', '') AS q10_integration,
+  Q11___Apprendre____utiliser_l_IA_g__n__rative_efficacement_requiert_une_formation_ AS q11_besoin_formation,
+  Q12___L_IA_g__n__rative_peut_produire_des_informations_inexactes_ou_trompeuses_dans_le_contexte_de_l_audit_ AS q12_risque_erreur,
+  Q13____Partager_des_donn__es_avec_l_IA_g__n__rative_pr__sente_des_risques_pour_la_confidentialit___ AS q13_confidentialite,
+  Q14____La_nature_opaque_des_mod__les_d_IA_g__n__rative_____bo__te_noire_____rend_difficile_de_comprendre_et_de_justifier_comment_les_r__sultats_ont___t___produits_en_audit_ AS q14_boite_noire,
+  Q15__Je_m_inqui__te_d___tre_tenu_pour_responsable_si_l_IAG_fait_une_erreur_dans_mon_travail_ AS q15_responsabilite,
+
+  -- Q16 : Risques (Texte + Scores Numériques)
+  REGEXP_REPLACE(NORMALIZE(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Hallucinations___Production_d_informations_fausses_mais_cr__dibles__, NFD), r'\pM', '') AS q16_imp_hallucination,
+  SAFE_CAST(LEFT(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Hallucinations___Production_d_informations_fausses_mais_cr__dibles__, 1) AS INT64) AS q16_score_hallucination,
+  REGEXP_REPLACE(NORMALIZE(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Confidentialit_____Risque_de_fuite_ou_d_usage_illicite_de_donn__es_clients__, NFD), r'\pM', '') AS q16_imp_confid,
+  SAFE_CAST(LEFT(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Confidentialit_____Risque_de_fuite_ou_d_usage_illicite_de_donn__es_clients__, 1) AS INT64) AS q16_score_confid,
+  REGEXP_REPLACE(NORMALIZE(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Bo__te_noire___Opacit___des_algorithmes_et_difficult______justifier_un_r__sultat__, NFD), r'\pM', '') AS q16_imp_boite_noire,
+  SAFE_CAST(LEFT(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Bo__te_noire___Opacit___des_algorithmes_et_difficult______justifier_un_r__sultat__, 1) AS INT64) AS q16_score_boite_noire,
+  REGEXP_REPLACE(NORMALIZE(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Responsabilit_____Risque_d_assumer_seul_les_erreurs_commises_par_l_IA__, NFD), r'\pM', '') AS q16_imp_responsabilite,
+  SAFE_CAST(LEFT(Q16___Quel_est_le_niveau_d_importance_de_ce_risque_pour_votre_travail___Responsabilit_____Risque_d_assumer_seul_les_erreurs_commises_par_l_IA__, 1) AS INT64) AS q16_score_responsabilite,
+
+  -- Q17-Q21
+  Q17___Ces_risques_m_emp__chent_d_augmenter_mon_usage_de_l_IAG AS q17_frein_risques,
+  Q18___Si_les_risques___taient___limin__s__j_utiliserais_davantage_l_IAG AS q18_usage_futur,
+  REGEXP_REPLACE(NORMALIZE(Q19__Votre_niveau_global_de_formation__interne_ou_auto_apprentissage___, NFD), r'\pM', '') AS q19_niveau_formation,
+  Q20___Je_me_sens_capable_d_orienter_les_r__ponses_de_l_IAG_pour_limiter_les_risques_d_impr__cisions_ou_d_erreurs__ AS q20_capacite_orienter,
+  Q21___Je_me_sens_capable_d_identifier_les_erreurs_g__n__r__es_par_l_IAG__ AS q21_capacite_identifier,
+
+  -- Q22 : Confiance (Texte + Score Numérique)
+  REGEXP_REPLACE(NORMALIZE(Q22____Lorsque_l___IAG_vous_propose_un_r__sultat__il_vous_arrive_de_vous_y_fier_sans_v__rifier_en_d__tail_par_vous___m__me_, NFD), r'\pM', '') AS q22_confiance_aveugle,
+  SAFE_CAST(LEFT(Q22____Lorsque_l___IAG_vous_propose_un_r__sultat__il_vous_arrive_de_vous_y_fier_sans_v__rifier_en_d__tail_par_vous___m__me_, 1) AS INT64) AS q22_score_confiance,
+
+  -- Q23-Q30
+  Q23_____quelle_fr__quence_v__rifiez_vous_la_source_d_origine_face____une_r__ponse_de_l_IAG__ AS q23_verif_sources,
+  Q24__Estimez_vous_que_votre_jugement_professionnel_en_audit_reste_fort_malgr___l_utilisation_r__guli__re_de_l_IAG_ AS q24_jugement_pro,
+  Q25____Il_m_arrive_de_remettre_en_question_mon_jugement_professionnel_quand_l_IAG_me_propose_une_conclusion_diff__rente_de_la_mienne_ AS q25_remise_en_question,
+  Q26____En_pratique__il_m_arrive_de_conclure_avant_d_avoir_r__uni_toutes_les_preuves_que_je_jugerais_id__alement_n__cessaires_ AS q26_conclusion_hative,
+  REGEXP_REPLACE(NORMALIZE(Q27__Pr__voyez_vous_d_augmenter_votre_usage_de_l_IAG_dans_les_6_prochains_mois__, NFD), r'\pM', '') AS q27_prev_augmentation,
+  Q28__Probabilit___d_augmenter_votre_usage_de_l_IAG_si_vous_receviez_une_formation____l_avenir__ AS q28_si_formation,
+  REGEXP_REPLACE(NORMALIZE(Q29__Pour_garantir_la_pr__cision_statistique_des_r__sultats__merci_de_s__lectionner_la_r__ponse__Neutre__ici___, NFD), r'\pM', '') AS q29_ctrl_neutre,
+  Q30__Quelle_est_votre_perception_sur_l___quilibre_b__n__fices_risques_de_l_IAG_en_audit__ AS q30_perception_equilibre,
+
+  -- Q31-Q34 : Profil
+  REGEXP_REPLACE(NORMALIZE(Q31__Tranche_d___ge, NFD), r'\pM', '') AS q31_age,
+  REGEXP_REPLACE(NORMALIZE(Q32__Genre, NFD), r'\pM', '') AS q32_genre,
+  REGEXP_REPLACE(NORMALIZE(Q33__Votre_niveau_hi__rarchique, NFD), r'\pM', '') AS q33_hierarchie,
+  REGEXP_REPLACE(NORMALIZE(Q34__Votre_nombre_d_ann__es_d_exp__rience__, NFD), r'\pM', '') AS q34_experience,
+
+  -- Q35 : ARRAY (Métiers)
+  ARRAY(
+    SELECT x FROM UNNEST([
+      IF(CONTAINS_SUBSTR(Q35__Votre_c__ur_de_m__tier, "Financier"), "Audit Financier", NULL),
+      IF(CONTAINS_SUBSTR(Q35__Votre_c__ur_de_m__tier, "IT"), "Audit IT", NULL),
+      IF(CONTAINS_SUBSTR(Q35__Votre_c__ur_de_m__tier, "Interne"), "Audit Interne", NULL),
+      IF(CONTAINS_SUBSTR(Q35__Votre_c__ur_de_m__tier, "Expertise"), "Expertise Comptable", NULL),
+      IF(CONTAINS_SUBSTR(Q35__Votre_c__ur_de_m__tier, "acquisition"), "Audit Acquisition/TS", NULL),
+      IF(CONTAINS_SUBSTR(Q35__Votre_c__ur_de_m__tier, "RECRUTEMENT"), "RH / Recrutement", NULL),
+      IF(Q35__Votre_c__ur_de_m__tier IS NOT NULL
+        AND NOT REGEXP_CONTAINS(Q35__Votre_c__ur_de_m__tier, r'(?i)Financier|IT|Interne|Expertise|acquisition|RECRUTEMENT'), "Autre Métier", NULL)
+    ]) AS x WHERE x IS NOT NULL
+  ) AS q35_liste_metiers,
+
+  -- Q36 et Commentaire
+  REGEXP_REPLACE(NORMALIZE(Q36__Taille_de_votre_cabinet, NFD), r'\pM', '') AS q36_taille_cabinet,
+  REGEXP_REPLACE(NORMALIZE(Avant_de_terminer__souhaitez_vous_partager_votre_opinion_ou_vos_impressions_sur_l___IA_g__n__rative____facultatif_, NFD), r'\pM', '') AS avis_libre
+FROM
+  ${ref("source_responses")}
+
+
+-- partie deux view 
+type: "view",
+    schema: "audit_final",
+    name: "audit_viz_long",
+    description: "Vue pivotée (format long) pour les graphiques de comparaison Productivité vs Qualité"
+}
+
+SELECT
+  horodateur,
+  q31_age,
+  q32_genre,
+  q33_hierarchie,
+  q34_experience,
+  q36_taille_cabinet,
+  task_name,
+  score_productivite,
+  score_qualite,
+  (score_productivite - score_qualite) AS gap_prod_qual
+FROM ${ref("audit_clean")},
+UNNEST([
+  STRUCT('Extraction' AS task_name, q6_score_extraction AS score_productivite, q7_score_extraction AS score_qualite),
+  STRUCT('Résumé' AS task_name, q6_score_resume AS score_productivite, q7_score_resume AS score_qualite),
+  STRUCT('Rédaction' AS task_name, q6_score_redaction AS score_productivite, q7_score_redaction AS score_qualite),
+  STRUCT('Rapprochement' AS task_name, q6_score_rapprochement AS score_productivite, q7_score_rapprochement AS score_qualite),
+  STRUCT('Scripts/VBA' AS task_name, q6_score_dev AS score_productivite, q7_score_dev AS score_qualite),
+  STRUCT('Dét. Fraude' AS task_name, q6_score_fraude AS score_productivite, q7_score_fraude AS score_qualite),
+  STRUCT('Seuil Signif.' AS task_name, q6_score_seuil AS score_productivite, q7_score_seuil AS score_qualite),
+  STRUCT('Estimations' AS task_name, q6_score_estimations AS score_productivite, q7_score_estimations AS score_qualite),
+  STRUCT('Aide Décision' AS task_name, q6_score_aide_decision AS score_productivite, q7_score_aide_decision AS score_qualite),
+  STRUCT('Prépa Data' AS task_name, q6_score_prepa_data AS score_productivite, q7_score_prepa_data AS score_qualite)
+])
+-- partie trois view: 
+config {
+    type: "view",
+    schema: "audit_final",
+    name: "audit_viz_long",
+    description: "Vue pivotée (format long) pour les graphiques de comparaison Productivité vs Qualité"
+}
+
+SELECT
+  horodateur,
+  q31_age,
+  q32_genre,
+  q33_hierarchie,
+  q34_experience,
+  q36_taille_cabinet,
+  task_name,
+  score_productivite,
+  score_qualite,
+  (score_productivite - score_qualite) AS gap_prod_qual
+FROM ${ref("audit_clean")},
+UNNEST([
+  STRUCT('Extraction' AS task_name, q6_score_extraction AS score_productivite, q7_score_extraction AS score_qualite),
+  STRUCT('Résumé' AS task_name, q6_score_resume AS score_productivite, q7_score_resume AS score_qualite),
+  STRUCT('Rédaction' AS task_name, q6_score_redaction AS score_productivite, q7_score_redaction AS score_qualite),
+  STRUCT('Rapprochement' AS task_name, q6_score_rapprochement AS score_productivite, q7_score_rapprochement AS score_qualite),
+  STRUCT('Scripts/VBA' AS task_name, q6_score_dev AS score_productivite, q7_score_dev AS score_qualite),
+  STRUCT('Dét. Fraude' AS task_name, q6_score_fraude AS score_productivite, q7_score_fraude AS score_qualite),
+  STRUCT('Seuil Signif.' AS task_name, q6_score_seuil AS score_productivite, q7_score_seuil AS score_qualite),
+  STRUCT('Estimations' AS task_name, q6_score_estimations AS score_productivite, q7_score_estimations AS score_qualite),
+  STRUCT('Aide Décision' AS task_name, q6_score_aide_decision AS score_productivite, q7_score_aide_decision AS score_qualite),
+  STRUCT('Prépa Data' AS task_name, q6_score_prepa_data AS score_productivite, q7_score_prepa_data AS score_qualite)
+])
