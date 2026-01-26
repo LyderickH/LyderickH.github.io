@@ -159,7 +159,7 @@
       font-weight: bold;
     }
 
-    /* Slider */
+    /* Slider (Version Projet 6 pour la netteté) */
     .slider-container {
       margin: 3rem auto;
       background: var(--glass-bg);
@@ -172,27 +172,20 @@
     .slider-wrapper {
       position: relative;
       width: 100%;
+      height: auto;
       background: var(--bg-secondary);
-      overflow: hidden;
-    }
-
-    /* Astuce: hauteur stable + image centrée */
-    .slider-stage {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      display: grid;
-      place-items: center;
-      background: rgba(0,0,0,0.15);
     }
 
     .slide {
       width: 100%;
-      height: 100%;
+      height: auto;
       display: none;
       object-fit: contain;
-      padding: 1.25rem;
       user-select: none;
       -webkit-user-drag: none;
+      /* Optimisation du rendu pour éviter le flou */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: auto;
     }
 
     .slide.active { display: block; }
@@ -222,7 +215,6 @@
       align-items: center;
       justify-content: center;
       font-size: 1.6rem;
-      line-height: 1;
       backdrop-filter: blur(8px);
     }
 
@@ -286,7 +278,6 @@
 
     .caption p { color: var(--text-secondary); }
 
-    /* Boutons */
     .button-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -331,7 +322,6 @@
     @media (max-width: 640px) {
       main { padding: 0 1rem; }
       .content-section { padding: 2rem; }
-      .slide { padding: .75rem; }
       .slide-btn { width: 2.75rem; height: 2.75rem; }
     }
   </style>
@@ -357,15 +347,14 @@
       <ul>
         <li><strong>Infrastructure Cloud (GCP) :</strong> Déploiement sur Google Cloud avec paramétrage de facturation et alertes budgétaires pour la maîtrise des coûts.</li>
         <li><strong>Ingestion de Données :</strong> Flux automatisé entre Google Sheets (réponses Google Form) et BigQuery dans un dataset <code>audit_raw</code>.</li>
-        <li><strong>Transformation (Dataform) :</strong> Développement de scripts SQLX pour le nettoyage (formats, accents), le calcul de scores et le traitement des données imbriquées.</li>
-        <li><strong>Modélisation avancée :</strong> Création de vues pivotées au format long (<code>audit_viz_long</code>) via la fonction <code>UNNEST</code> pour comparer les scores de productivité vs qualité par tâche.</li>
-        <li><strong>Automatisation :</strong> Configuration de l'ordonnanceur Dataform pour la mise à jour automatique des modèles et des visualisations Looker Studio.</li>
+        <li><strong>Transformation (Dataform) :</strong> Développement de scripts SQLX pour le nettoyage, le calcul de scores et le traitement des données imbriquées.</li>
+        <li><strong>Modélisation avancée :</strong> Création de vues pivotées au format long via la fonction <code>UNNEST</code>.</li>
+        <li><strong>Automatisation :</strong> Configuration de l'ordonnanceur Dataform pour la mise à jour automatique.</li>
       </ul>
     </section>
 
     <div class="slider-container" aria-label="Galerie du projet">
       <div class="slider-wrapper">
-        <div class="slider-stage">
           <img src="images/projet7/cloud_billing.png" alt="Gestion de la facturation Cloud" class="slide active" />
           <img src="images/projet7/bigquery_datasets.png" alt="Structure BigQuery" class="slide" />
           <img src="images/projet7/bigquery_datasets_2.png" alt="Table source_responses" class="slide" />
@@ -373,7 +362,6 @@
           <img src="images/projet7/dataform_projet7.png" alt="Graphe de dépendances" class="slide" />
           <img src="images/projet7/looker_studio_p1.png" alt="Dashboard Looker Studio p1" class="slide" />
           <img src="images/projet7/looker_studio_p2.png" alt="Dashboard Looker Studio p2" class="slide" />
-        </div>
 
         <div class="slide-controls">
           <button class="slide-btn prev" type="button" aria-label="Image précédente">‹</button>
@@ -381,13 +369,13 @@
         </div>
 
         <div class="slide-indicators" aria-label="Indicateurs du slider">
-          <div class="indicator active" data-slide="0" role="button" tabindex="0" aria-label="Aller à l'image 1"></div>
-          <div class="indicator" data-slide="1" role="button" tabindex="0" aria-label="Aller à l'image 2"></div>
-          <div class="indicator" data-slide="2" role="button" tabindex="0" aria-label="Aller à l'image 3"></div>
-          <div class="indicator" data-slide="3" role="button" tabindex="0" aria-label="Aller à l'image 4"></div>
-          <div class="indicator" data-slide="4" role="button" tabindex="0" aria-label="Aller à l'image 5"></div>
-          <div class="indicator" data-slide="5" role="button" tabindex="0" aria-label="Aller à l'image 6"></div>
-          <div class="indicator" data-slide="6" role="button" tabindex="0" aria-label="Aller à l'image 7"></div>
+          <div class="indicator active" data-slide="0" role="button" tabindex="0"></div>
+          <div class="indicator" data-slide="1" role="button" tabindex="0"></div>
+          <div class="indicator" data-slide="2" role="button" tabindex="0"></div>
+          <div class="indicator" data-slide="3" role="button" tabindex="0"></div>
+          <div class="indicator" data-slide="4" role="button" tabindex="0"></div>
+          <div class="indicator" data-slide="5" role="button" tabindex="0"></div>
+          <div class="indicator" data-slide="6" role="button" tabindex="0"></div>
         </div>
 
         <div class="counter" id="counter">1 / 7</div>
@@ -400,26 +388,9 @@
     </div>
 
     <div class="button-container">
-      <a href="images/projet7/scripts_sqlx.txt" class="modern-btn" download>
-        <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M14,2L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2H14M18,20V9H13V4H6V20H18M12,12L16,16H13V19H11V16H8L12,12Z"/>
-        </svg>
-        Obtenir les 3 fichiers .sqlx
-      </a>
-
-      <a href="images/projet7/Projet Looker Studio.pdf" class="modern-btn" target="_blank" rel="noopener">
-        <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M11.2,18.46L15,13.45L13.8,12.55L10,17.56L11.2,18.46Z"/>
-        </svg>
-        Consulter le rapport PDF
-      </a>
-
-      <a href="https://docs.google.com/spreadsheets/d/1PDI1qQNvVHDRTVQIJJxQc4GsGnYnVD5sRJNjK0-Hm1A/edit?usp=sharing" class="modern-btn" target="_blank" rel="noopener">
-        <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M15.8,20H14L12,16.6L10,20H8.2L11.1,15.5L8.2,11H10L12,14.4L14,11H15.8L12.9,15.5L15.8,20Z"/>
-        </svg>
-        Lien Google Sheet (Lecture seule)
-      </a>
+      <a href="images/projet7/codes.txt" class="modern-btn" download>Obtenir les 3 fichiers .sqlx</a>
+      <a href="images/projet7/Projet Looker Studio.pdf" class="modern-btn" target="_blank">Consulter le rapport PDF</a>
+      <a href="https://docs.google.com/spreadsheets/d/1PDI1qQNvVHDRTVQIJJxQc4GsGnYnVD5sRJNjK0-Hm1A/edit?usp=sharing" class="modern-btn" target="_blank">Lien Google Sheet (Lecture seule)</a>
     </div>
   </main>
 
@@ -428,16 +399,14 @@
   </footer>
 
   <script>
-    // Année
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('year') = new Date().getFullYear();
 
-    // Particules (corrigé)
     function createParticles() {
       const container = document.getElementById('particles');
       for (let i = 0; i < 30; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
-        p.style.left = (Math.random() * 100) + '%';
+        p.style = (Math.random() * 100) + '%';
         p.style.top = (Math.random() * 100) + '%';
         p.style.animationDuration = (Math.random() * 15 + 10) + 's';
         p.style.animationDelay = (Math.random() * 10) + 's';
@@ -446,7 +415,6 @@
     }
     createParticles();
 
-    // Slider
     const slides = document.querySelectorAll('.slide');
     const captionTitle = document.getElementById('caption-title');
     const captionText = document.getElementById('caption-text');
@@ -470,44 +438,20 @@
     function showSlide(index) {
       slides.forEach((s, i) => s.classList.toggle('active', i === index));
       indicators.forEach((ind, i) => ind.classList.toggle('active', i === index));
-
-      captionTitle.textContent = captions[index].title;
-      captionText.textContent = captions[index].text;
-      counter.textContent = `${index + 1} / ${slides.length}`;
+      captionTitle = captions[index].title;
+      captionText = captions[index];
+      counter = `${index + 1} / ${slides}`;
     }
 
-    function goPrev() {
-      current = (current - 1 + slides.length) % slides.length;
-      showSlide(current);
-    }
+    prev.addEventListener('click', () => { current = (current - 1 + slides) % slides; showSlide(current); });
+    next.addEventListener('click', () => { current = (current + 1) % slides; showSlide(current); });
+    indicators.forEach((ind, idx) => ind.addEventListener('click', () => { current = idx; showSlide(current); }));
 
-    function goNext() {
-      current = (current + 1) % slides.length;
-      showSlide(current);
-    }
-
-    prev.addEventListener('click', goPrev);
-    next.addEventListener('click', goNext);
-
-    indicators.forEach((ind, idx) => {
-      const goTo = () => { current = idx; showSlide(current); };
-
-      ind.addEventListener('click', goTo);
-      ind.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          goTo();
-        }
-      });
-    });
-
-    // Clavier (gauche/droite)
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') goPrev();
-      if (e.key === 'ArrowRight') goNext();
+      if (e.key === 'ArrowLeft') { current = (current - 1 + slides) % slides; showSlide(current); }
+      if (e.key === 'ArrowRight') { current = (current + 1) % slides; showSlide(current); }
     });
 
-    // Init
     showSlide(current);
   </script>
 </body>
