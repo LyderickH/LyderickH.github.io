@@ -39,11 +39,10 @@
       }
     }
 
-
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
-      background-image: 
+      background-image:
         radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
@@ -93,7 +92,7 @@
     header {
       position: relative;
       text-align: center;
-      padding: 4rem 0 2rem;
+      padding: 4.5rem 0 2.5rem;
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--glass-border);
@@ -108,7 +107,7 @@
     header h1 {
       font-size: clamp(2.5rem, 8vw, 4rem);
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
       background-size: 200% 200%;
       -webkit-background-clip: text;
@@ -123,12 +122,45 @@
       50% { background-position: 100% 50%; }
     }
 
+    /* Subtitle / role badges */
+    .header-subtitle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-pill {
+      padding: 0.3rem 0.85rem;
+      border-radius: 2rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+    }
+
+    .role-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .role-sep {
+      color: var(--glass-border);
+      font-size: 0.8rem;
+    }
+
     .contact-links {
       display: flex;
       justify-content: center;
       gap: 2rem;
       flex-wrap: wrap;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
 
     .contact-link {
@@ -224,40 +256,92 @@
       text-align: center;
     }
 
+    /* Skills grid inside intro */
+    .skills-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+      margin: 2rem 0 1.75rem;
+    }
+
+    .skills-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: center;
+    }
+
+    .skill-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.25s ease;
+    }
+
+    .skill-badge:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      color: var(--text-primary);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .skill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
     /* Projects grid */
     .projects {
       display: grid;
-      grid-template-columns: 1fr; /* Par défaut, une seule colonne pour les petits écrans */
+      grid-template-columns: 1fr;
       gap: 2rem;
       padding: 2rem 0;
       margin-bottom: 4rem;
     }
-    
-    /* Pour les tablettes et plus */
+
     @media (min-width: 768px) {
       .projects {
         grid-template-columns: repeat(2, 1fr);
       }
     }
-    
-    /* Pour les grands écrans */
+
     @media (min-width: 1024px) {
       .projects {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
       }
     }
+
     .project-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       border-radius: 1.5rem;
-      padding: 2rem;
+      padding: 1.75rem;
       box-shadow: var(--shadow);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
-      group: card;
+      display: flex;
+      flex-direction: column;
     }
 
     .project-card::before {
@@ -278,14 +362,34 @@
     .project-card:hover {
       transform: translateY(-10px) scale(1.02);
       box-shadow: var(--shadow-hover);
-      border-color: var(--primary);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    /* Card number badge */
+    .card-number {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      z-index: 2;
+      letter-spacing: 0;
     }
 
     .project-image-container {
       position: relative;
       border-radius: 1rem;
       overflow: hidden;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       aspect-ratio: 16/10;
       background: var(--bg-secondary);
     }
@@ -352,7 +456,7 @@
     .project-title {
       color: var(--text-primary);
       font-weight: 600;
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       text-decoration: none;
       display: block;
       transition: color 0.3s ease;
@@ -362,6 +466,50 @@
     .project-card:hover .project-title {
       color: var(--primary);
     }
+
+    /* Project description */
+    .project-description {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin-top: 0.45rem;
+      flex-grow: 1;
+    }
+
+    /* Tech tags */
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      padding: 0.2rem 0.55rem;
+      border-radius: 0.3rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .tag:hover {
+      transform: translateY(-1px);
+    }
+
+    .tag-powerbi  { background: rgba(242, 200, 17, 0.12); color: #f2c811; border-color: rgba(242, 200, 17, 0.25); }
+    .tag-python   { background: rgba(55, 118, 171, 0.12); color: #78b4e0; border-color: rgba(55, 118, 171, 0.3); }
+    .tag-excel    { background: rgba(33, 115, 70, 0.12);  color: #4ec97e; border-color: rgba(33, 115, 70, 0.3); }
+    .tag-tableau  { background: rgba(233, 118, 39, 0.12); color: #f0954a; border-color: rgba(233, 118, 39, 0.3); }
+    .tag-gcp      { background: rgba(66, 133, 244, 0.12); color: #7ab4ff; border-color: rgba(66, 133, 244, 0.3); }
+    .tag-bigquery { background: rgba(66, 133, 244, 0.1);  color: #7ab4ff; border-color: rgba(66, 133, 244, 0.25); }
+    .tag-dataform { background: rgba(52, 168, 83, 0.12);  color: #5dc87a; border-color: rgba(52, 168, 83, 0.3); }
+    .tag-looker   { background: rgba(123, 79, 233, 0.12); color: #b085f5; border-color: rgba(123, 79, 233, 0.3); }
+    .tag-dax      { background: rgba(99, 102, 241, 0.12); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.3); }
+    .tag-nlp      { background: rgba(236, 72, 153, 0.12); color: #f0abca; border-color: rgba(236, 72, 153, 0.3); }
+    .tag-kaggle   { background: rgba(32, 189, 188, 0.12); color: #5ee7e6; border-color: rgba(32, 189, 188, 0.3); }
 
     /* Footer */
     footer {
@@ -406,18 +554,14 @@
       .project-card {
         padding: 1.5rem;
       }
+
+      .role-sep { display: none; }
     }
 
     /* Scroll animations */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .project-card {
@@ -431,6 +575,7 @@
     .project-card:nth-child(4) { animation-delay: 0.4s; }
     .project-card:nth-child(5) { animation-delay: 0.5s; }
     .project-card:nth-child(6) { animation-delay: 0.6s; }
+    .project-card:nth-child(7) { animation-delay: 0.7s; }
   </style>
 </head>
 <body>
@@ -440,6 +585,13 @@
     <div class="container">
       <div class="header-content">
         <h1>Lydérick Henry</h1>
+        <div class="header-subtitle">
+          <span class="role-pill">Data Analyst</span>
+          <span class="role-sep">·</span>
+          <span class="role-pill">Business Intelligence</span>
+          <span class="role-sep">·</span>
+          <span class="role-pill">Data Engineering</span>
+        </div>
         <div class="contact-links">
           <a href="mailto:lyderickhenry@hotmail.fr" class="contact-link">
             <svg class="contact-icon" viewBox="0 0 24 24">
@@ -463,13 +615,29 @@
       <h2>Mes Projets</h2>
       <p>Ce portfolio présente une sélection de projets personnels et académiques. Pour des raisons de confidentialité, je ne peux pas partager mes réalisations professionnelles.</p>
       <p>Ces quelques exemples concrets ont été choisis pour vous donner un aperçu de mes compétences et de ma passion pour la data. Ils illustrent ma capacité à transformer des idées en solutions concrètes et à produire des analyses visuelles et des tableaux de bord percutants.</p>
+
+      <div class="skills-divider"></div>
+      <div class="skills-label">Outils & technologies</div>
+      <div class="skills-grid">
+        <span class="skill-badge"><span class="skill-dot" style="background:#f2c811"></span>Power BI</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#4ec97e"></span>Excel / VBA</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#78b4e0"></span>Python</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#f0954a"></span>Tableau</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#7ab4ff"></span>BigQuery</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#5dc87a"></span>Dataform</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#b085f5"></span>Looker Studio</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#a5b4fc"></span>DAX</span>
+        <span class="skill-badge"><span class="skill-dot" style="background:#f0abca"></span>NLP / IA</span>
+      </div>
     </section>
 
     <section class="projects">
+
       <article class="project-card">
+        <span class="card-number">01</span>
         <div class="project-image-container">
           <a href="projet1.html">
-            <img src="images/portfolio accueil immobilier.png" alt="Projet PowerBI - Analyse Immobilière" 
+            <img src="images/portfolio accueil immobilier.png" alt="Projet PowerBI - Analyse Immobilière"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="no-image">Image non disponible</div>
           </a>
@@ -477,13 +645,19 @@
             <a href="projet1.html" class="view-project">Voir le projet</a>
           </div>
         </div>
-        <a href="projet1.html" class="project-title">Projet PowerBI - Analyse Immobilière</a>
+        <a href="projet1.html" class="project-title">Projet PowerBI — Analyse Immobilière</a>
+        <p class="project-description">Simulateur d'achat et analyse du marché immobilier français sur la période 2019–2024, avec données Data.gouv.</p>
+        <div class="project-tags">
+          <span class="tag tag-powerbi">Power BI</span>
+          <span class="tag tag-dax">DAX</span>
+        </div>
       </article>
 
       <article class="project-card">
+        <span class="card-number">02</span>
         <div class="project-image-container">
           <a href="projet2.html">
-            <img src="images/Tableau de bord suivi bancaire.png" alt="Projet PowerBI - Tableau de bord suivi bancaire" 
+            <img src="images/Tableau de bord suivi bancaire.png" alt="Projet PowerBI - Tableau de bord suivi bancaire"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="no-image">Image non disponible</div>
           </a>
@@ -491,13 +665,19 @@
             <a href="projet2.html" class="view-project">Voir le projet</a>
           </div>
         </div>
-        <a href="projet2.html" class="project-title">Projet PowerBI - Tableau de bord suivi bancaire</a>
+        <a href="projet2.html" class="project-title">Projet PowerBI — Suivi Bancaire</a>
+        <p class="project-description">Tableau de bord personnel de suivi des dépenses, flux financiers et comparaison budgétaire par catégorie.</p>
+        <div class="project-tags">
+          <span class="tag tag-powerbi">Power BI</span>
+          <span class="tag tag-dax">DAX</span>
+        </div>
       </article>
 
       <article class="project-card">
+        <span class="card-number">03</span>
         <div class="project-image-container">
           <a href="projet3.html">
-            <img src="images/Tableau des sig.png" alt="Projet Excel - Saé Sig/Caf/Ratios automatisés" 
+            <img src="images/Tableau des sig.png" alt="Projet Excel - Saé Sig/Caf/Ratios automatisés"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="no-image">Image non disponible</div>
           </a>
@@ -505,13 +685,18 @@
             <a href="projet3.html" class="view-project">Voir le projet</a>
           </div>
         </div>
-        <a href="projet3.html" class="project-title">Projet Excel - Saé Sig/Caf/Ratios automatisés</a>
+        <a href="projet3.html" class="project-title">Projet Excel — SIG / CAF / Ratios</a>
+        <p class="project-description">Automatisation des états financiers : Soldes Intermédiaires de Gestion, Capacité d'Autofinancement et ratios comptables.</p>
+        <div class="project-tags">
+          <span class="tag tag-excel">Excel</span>
+        </div>
       </article>
 
       <article class="project-card">
+        <span class="card-number">04</span>
         <div class="project-image-container">
           <a href="projet4.html">
-            <img src="images/DémoArticles.png" alt="Projet - Revue de Presse Automatisée" 
+            <img src="images/DémoArticles.png" alt="Projet - Revue de Presse Automatisée"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="no-image">Image non disponible</div>
           </a>
@@ -519,13 +704,19 @@
             <a href="projet4.html" class="view-project">Voir le projet</a>
           </div>
         </div>
-        <a href="projet4.html" class="project-title">Projet - Revue de Presse Automatisée</a>
+        <a href="projet4.html" class="project-title">Revue de Presse Automatisée</a>
+        <p class="project-description">Génération automatique de revues de presse via flux RSS, résumé IA (BART) et traduction, exportée en document Word.</p>
+        <div class="project-tags">
+          <span class="tag tag-python">Python</span>
+          <span class="tag tag-nlp">NLP / IA</span>
+        </div>
       </article>
 
       <article class="project-card">
+        <span class="card-number">05</span>
         <div class="project-image-container">
           <a href="projet5.html">
-            <img src="images/projet5/accueil.png" alt="Projet PowerBI - L'Atelier des Saveurs" 
+            <img src="images/projet5/accueil.png" alt="Projet PowerBI - L'Atelier des Saveurs"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="no-image">Image non disponible</div>
           </a>
@@ -533,13 +724,19 @@
             <a href="projet5.html" class="view-project">Voir le projet</a>
           </div>
         </div>
-        <a href="projet5.html" class="project-title">Projet PowerBI - Dashboard Restauration (L'Atelier des Saveurs)</a>
+        <a href="projet5.html" class="project-title">PowerBI — Dashboard Restauration</a>
+        <p class="project-description">Dashboard analytique pour "L'Atelier des Saveurs" : vue globale, suivi budgétaire et simulateur de ventes.</p>
+        <div class="project-tags">
+          <span class="tag tag-powerbi">Power BI</span>
+          <span class="tag tag-dax">DAX</span>
+        </div>
       </article>
 
       <article class="project-card">
+        <span class="card-number">06</span>
         <div class="project-image-container">
           <a href="projet6.html">
-            <img src="images/projet6/projet tableau de bord.png" alt="Projet Tableau - Dashboard Investissements" 
+            <img src="images/projet6/projet tableau de bord.png" alt="Projet Tableau - Dashboard Investissements"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="no-image">Image non disponible</div>
           </a>
@@ -547,13 +744,19 @@
             <a href="projet6.html" class="view-project">Voir le projet</a>
           </div>
         </div>
-        <a href="projet6.html" class="project-title">Dashboard Tableau : Analyse Financière (Kaggle)</a>
+        <a href="projet6.html" class="project-title">Tableau — Analyse Financière (Kaggle)</a>
+        <p class="project-description">Analyse d'investissements et classification des profils d'investisseurs à partir d'un dataset Kaggle.</p>
+        <div class="project-tags">
+          <span class="tag tag-tableau">Tableau</span>
+          <span class="tag tag-kaggle">Kaggle</span>
+        </div>
       </article>
 
       <article class="project-card">
+        <span class="card-number">07</span>
         <div class="project-image-container">
           <a href="projet7.html">
-            <img src="images/projet7/dataform_projet7.png" alt="Pipeline BigQuery Dataform Looker" 
+            <img src="images/projet7/dataform_projet7.png" alt="Pipeline BigQuery Dataform Looker"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="no-image">Image non disponible</div>
           </a>
@@ -561,7 +764,14 @@
             <a href="projet7.html" class="view-project">Voir le projet</a>
           </div>
         </div>
-        <a href="projet7.html" class="project-title">Pipeline de Données GCP (BigQuery, Dataform, Looker)</a>
+        <a href="projet7.html" class="project-title">Pipeline de Données GCP</a>
+        <p class="project-description">Pipeline cloud-native sur GCP : ingestion BigQuery, modélisation Dataform (style dbt) et visualisation Looker Studio.</p>
+        <div class="project-tags">
+          <span class="tag tag-bigquery">BigQuery</span>
+          <span class="tag tag-dataform">Dataform</span>
+          <span class="tag tag-looker">Looker</span>
+          <span class="tag tag-gcp">GCP</span>
+        </div>
       </article>
 
     </section>
@@ -569,19 +779,16 @@
 
   <footer>
     <div class="container">
-      <p>© <span id="year"></span> - Portfolio de Lydérick Henry</p>
+      <p>© <span id="year"></span> — Portfolio de Lydérick Henry</p>
     </div>
   </footer>
 
   <script>
-    // Update year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Create floating particles
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
       const particleCount = 50;
-
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
@@ -592,21 +799,15 @@
         particlesContainer.appendChild(particle);
       }
     }
-
-    // Initialize particles
     createParticles();
 
-    // Smooth scroll behavior
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
     });
 
-    // Add subtle parallax effect to header
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
       const header = document.querySelector('header');
