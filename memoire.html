@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mémoire M2 CGAO ACG — IAG & Audit - Lydérick Henry</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --bg-primary: #0f0f23;
+      --bg-secondary: #1a1a2e;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+    .particle { position: absolute; width: 2px; height: 2px; background: var(--primary); border-radius: 50%; animation: float 20s infinite linear; opacity: 0.1; }
+
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.1; }
+      90%  { opacity: 0.1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 3rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: .5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: .3s;
+    }
+
+    .back-link:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(99,102,241,0.2); }
+
+    main { max-width: 1100px; margin: 0 auto 4rem; padding: 0 2rem; }
+
+    .content-section {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 3rem;
+      margin-bottom: 3rem;
+      box-shadow: var(--shadow);
+    }
+
+    .content-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .content-section h3 { margin: 1.5rem 0 .75rem; color: var(--text-primary); font-size: 1.1rem; }
+
+    .content-section p, .content-section li {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .content-section ul { list-style: none; }
+    .content-section li { padding-left: 1.75rem; position: relative; margin-bottom: .4rem; }
+    .content-section li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .kpi-card {
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .kpi-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .kpi-label { font-size: .8rem; color: var(--text-secondary); margin-top: .2rem; }
+
+    /* Charts */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .chart-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .chart-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .chart-card canvas { max-height: 280px; }
+
+    .chart-card.wide {
+      grid-column: span 2;
+    }
+
+    .chart-card.wide canvas { max-height: 320px; }
+
+    /* Buttons */
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .modern-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      padding: 1rem 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.5rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: .3s;
+      text-align: center;
+    }
+
+    .modern-btn:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(99,102,241,0.2);
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(16,185,129,0.1));
+    }
+
+    footer { text-align: center; padding: 2rem; background: var(--glass-bg); border-top: 1px solid var(--glass-border); }
+    footer p { color: var(--text-secondary); font-size: .9rem; }
+
+    @media (max-width: 768px) {
+      .charts-grid { grid-template-columns: 1fr; }
+      .chart-card.wide { grid-column: span 1; }
+      .button-container { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      main { padding: 0 1rem; }
+      .content-section { padding: 1.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-particles" id="particles"></div>
+
+  <header>
+    <h1>Mémoire de M2 CGAO — ACG</h1>
+    <p>Perception et adoption de l'IA Générative en cabinet d'audit — Analyse empirique (N = 67)</p>
+    <a href="index.html" class="back-link">← Retour à l'accueil</a>
+  </header>
+
+  <main>
+    <!-- Présentation -->
+    <section class="content-section">
+      <h2>Présentation du mémoire</h2>
+      <p><strong>Thème :</strong> Perception et adoption de l'Intelligence Artificielle Générative (IAG) par les professionnels de l'audit en cabinet.</p>
+      <p><strong>Cadre théorique :</strong> Modèle TAM (Technology Acceptance Model, Davis 1989), enrichi de variables de scepticisme professionnel et de motivation.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-value">67</span>
+          <span class="kpi-label">Répondants retenus</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-value">85</span>
+          <span class="kpi-label">Réponses brutes</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-value">70,1 %</span>
+          <span class="kpi-label">Usage ≥ plusieurs fois/sem.</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-value">5,0</span>
+          <span class="kpi-label">Fréquence médiane (sur 7)</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-value">77,3 %</span>
+          <span class="kpi-label">Bénéfices perçus > risques</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-value">79,1 %</span>
+          <span class="kpi-label">Score risques perçus / éch.</span>
+        </div>
+      </div>
+
+      <h3>Variables du modèle</h3>
+      <ul>
+        <li><strong>SUP</strong> — Utilité perçue (21 items, échelle 1-5) · Moy. 3,40</li>
+        <li><strong>SFU</strong> — Facilité d'utilisation perçue (3 items, échelle 1-7) · Moy. 4,77</li>
+        <li><strong>SRP</strong> — Risques perçus (4 items, échelle 1-7) · Moy. 5,54</li>
+        <li><strong>SMF</strong> — Motivation (3 items, échelle 1-7) · Moy. 4,78</li>
+        <li><strong>SSP</strong> — Scepticisme professionnel (5 items, échelle 1-7) · Moy. 4,96</li>
+      </ul>
+    </section>
+
+    <!-- Dataviz -->
+    <div class="charts-grid">
+
+      <div class="chart-card">
+        <h3>Fréquence d'usage IAG (Q1) — N = 67</h3>
+        <canvas id="chartQ1"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Équilibre bénéfices / risques (Q30) — N = 66</h3>
+        <canvas id="chartQ30"></canvas>
+      </div>
+
+      <div class="chart-card wide">
+        <h3>Outils IAG utilisés (Q3, multi-réponses) — N = 67</h3>
+        <canvas id="chartQ3"></canvas>
+      </div>
+
+      <div class="chart-card wide">
+        <h3>Tâches réalisées avec l'IAG (Q4, multi-réponses) — N = 67</h3>
+        <canvas id="chartQ4"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Scores composites (% de l'échelle max)</h3>
+        <canvas id="chartRadar"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Environnement d'usage (Q2) — N = 67</h3>
+        <canvas id="chartQ2"></canvas>
+      </div>
+
+    </div>
+
+    <!-- Downloads -->
+    <div class="button-container">
+      <a href="projets/memoire/memoire.pdf" class="modern-btn" target="_blank">
+        Lire le mémoire (PDF)
+      </a>
+      <a href="projets/memoire/analyse_empirique_IAG_executed.ipynb" class="modern-btn" download>
+        Notebook Python exécuté (.ipynb)
+      </a>
+      <a href="projets/memoire/Protocole_GRAPHS_v2_1.xlsx" class="modern-btn" download>
+        Données sources (.xlsx)
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> — Portfolio de Lydérick Henry</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function createParticles() {
+      const c = document.getElementById('particles');
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = (Math.random() * 100) + '%';
+        p.style.top = (Math.random() * 100) + '%';
+        p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+        p.style.animationDelay = (Math.random() * 10) + 's';
+        c.appendChild(p);
+      }
+    }
+    createParticles();
+
+    const PURPLE = 'rgba(99,102,241,';
+    const GREEN  = 'rgba(16,185,129,';
+    const AMBER  = 'rgba(245,158,11,';
+
+    const gridColor = 'rgba(255,255,255,0.07)';
+    const tickColor = '#a1a1aa';
+    const font = { family: 'Inter', size: 12 };
+
+    // ── Q1 : Fréquence d'usage ─────────────────────────────────────────────
+    new Chart(document.getElementById('chartQ1'), {
+      type: 'bar',
+      data: {
+        labels: ['Très rarement\n<1×/mois', 'Rarement\n1-3×/mois', 'Parfois\n~1×/sem.', 'Régulièrement\nplx/sem.', 'Quotidiennement\n1×/jour', 'Très fréquemment\nplx/jour'],
+        datasets: [{
+          label: '% répondants',
+          data: [4.5, 9.0, 16.4, 38.8, 13.4, 17.9],
+          backgroundColor: [
+            PURPLE+'0.4)', PURPLE+'0.5)', PURPLE+'0.6)', PURPLE+'0.85)', GREEN+'0.7)', GREEN+'0.85)'
+          ],
+          borderColor: [
+            PURPLE+'0.8)', PURPLE+'0.8)', PURPLE+'0.8)', PURPLE+'1)', GREEN+'0.9)', GREEN+'1)'
+          ],
+          borderWidth: 1,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
+          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 50 }
+        }
+      }
+    });
+
+    // ── Q30 : Bénéfices vs risques ─────────────────────────────────────────
+    new Chart(document.getElementById('chartQ30'), {
+      type: 'bar',
+      data: {
+        labels: ['1\nRisques dominent', '3', '4', '5', '6', '7\nBénéfices dominent'],
+        datasets: [{
+          label: '% répondants',
+          data: [3.0, 7.6, 12.1, 37.9, 25.8, 13.6],
+          backgroundColor: [
+            'rgba(239,68,68,0.6)', 'rgba(239,68,68,0.4)',
+            AMBER+'0.5)', GREEN+'0.5)', GREEN+'0.7)', GREEN+'0.9)'
+          ],
+          borderColor: [
+            'rgba(239,68,68,0.9)', 'rgba(239,68,68,0.7)',
+            AMBER+'0.8)', GREEN+'0.8)', GREEN+'0.9)', GREEN+'1)'
+          ],
+          borderWidth: 1,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
+          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 50 }
+        }
+      }
+    });
+
+    // ── Q3 : Outils utilisés ───────────────────────────────────────────────
+    new Chart(document.getElementById('chartQ3'), {
+      type: 'bar',
+      data: {
+        labels: ['Copilot', 'ChatGPT', 'Outils cabinet', 'Gemini', 'Mistral', 'Claude', 'Perplexity', 'Grok', 'Autres'],
+        datasets: [{
+          label: '% utilisateurs',
+          data: [73.1, 53.7, 29.9, 22.4, 13.4, 11.9, 10.4, 6.0, 7.5],
+          backgroundColor: PURPLE+'0.6)',
+          borderColor: PURPLE+'1)',
+          borderWidth: 1,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
+          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 90 }
+        }
+      }
+    });
+
+    // ── Q4 : Tâches ────────────────────────────────────────────────────────
+    new Chart(document.getElementById('chartQ4'), {
+      type: 'bar',
+      data: {
+        labels: ['Reformulation', 'Rédaction', 'Recherche', 'Correction', 'Prép. données', 'Automatisation', 'Analyse données', 'Rapprochement', 'Aide décision', 'Éval. CI'],
+        datasets: [{
+          label: '% répondants',
+          data: [74.6, 73.1, 70.1, 34.3, 26.9, 25.4, 25.4, 20.9, 19.4, 11.9],
+          backgroundColor: GREEN+'0.6)',
+          borderColor: GREEN+'1)',
+          borderWidth: 1,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
+          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 90 }
+        }
+      }
+    });
+
+    // ── Radar scores composites ────────────────────────────────────────────
+    new Chart(document.getElementById('chartRadar'), {
+      type: 'radar',
+      data: {
+        labels: ['SUP\n(Utilité)', 'SFU\n(Facilité)', 'SRP\n(Risques)', 'SMF\n(Motivation)', 'SSP\n(Scepticisme)'],
+        datasets: [{
+          label: '% échelle max',
+          data: [68.0, 68.1, 79.1, 68.3, 70.8],
+          backgroundColor: PURPLE+'0.2)',
+          borderColor: PURPLE+'0.9)',
+          pointBackgroundColor: PURPLE+'1)',
+          borderWidth: 2,
+          pointRadius: 4,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          r: {
+            min: 50, max: 90,
+            ticks: { color: tickColor, font, stepSize: 10, callback: v => v + '%', backdropColor: 'transparent' },
+            grid: { color: gridColor },
+            pointLabels: { color: tickColor, font },
+            angleLines: { color: gridColor },
+          }
+        }
+      }
+    });
+
+    // ── Q2 : Environnement d'usage ─────────────────────────────────────────
+    new Chart(document.getElementById('chartQ2'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Outils cabinet (Copilot sécurisé…)', 'Mix des deux', 'Outils grand public (ChatGPT…)'],
+        datasets: [{
+          data: [49.3, 31.3, 19.4],
+          backgroundColor: [PURPLE+'0.75)', GREEN+'0.7)', AMBER+'0.7)'],
+          borderColor: [PURPLE+'1)', GREEN+'1)', AMBER+'1)'],
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: tickColor, font, padding: 16, boxWidth: 14 }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

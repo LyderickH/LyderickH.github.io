@@ -511,6 +511,99 @@
     .tag-nlp      { background: rgba(236, 72, 153, 0.12); color: #f0abca; border-color: rgba(236, 72, 153, 0.3); }
     .tag-kaggle   { background: rgba(32, 189, 188, 0.12); color: #5ee7e6; border-color: rgba(32, 189, 188, 0.3); }
 
+    /* Mémoire section */
+    .memoire-section {
+      max-width: 900px;
+      margin: 4rem auto 2rem;
+    }
+
+    .memoire-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .memoire-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .memoire-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    }
+
+    .memoire-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 35px 60px -12px rgba(0,0,0,0.7);
+    }
+
+    .memoire-icon {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      border-radius: 1.25rem;
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(16,185,129,0.2));
+      border: 1px solid rgba(99,102,241,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .memoire-body { flex: 1; min-width: 0; }
+
+    .memoire-body h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .memoire-body p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .memoire-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .memoire-cta {
+      flex-shrink: 0;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 1rem;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .memoire-card { flex-direction: column; text-align: center; gap: 1.5rem; }
+      .memoire-tags { justify-content: center; }
+      .memoire-cta { width: 100%; text-align: center; }
+    }
+
     /* Footer */
     footer {
       text-align: center;
@@ -796,6 +889,25 @@
       </article>
 
     </section>
+
+    <!-- Mémoire M2 -->
+    <div class="memoire-section container">
+      <p class="memoire-label">Travail de recherche</p>
+      <a href="memoire.html" class="memoire-card">
+        <div class="memoire-icon">📄</div>
+        <div class="memoire-body">
+          <h3>Mémoire de M2 CGAO — ACG</h3>
+          <p>Perception et adoption de l'IA Générative en cabinet d'audit — Analyse empirique sur 67 professionnels. Modèle TAM enrichi, tests de Spearman, alpha de Cronbach.</p>
+          <div class="memoire-tags">
+            <span class="tag tag-python">Python</span>
+            <span class="tag tag-nlp">NLP / IA</span>
+            <span class="tag tag-excel">Excel</span>
+          </div>
+        </div>
+        <span class="memoire-cta">Voir le mémoire →</span>
+      </a>
+    </div>
+
   </main>
 
   <footer>
