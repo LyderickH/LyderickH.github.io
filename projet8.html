@@ -221,9 +221,17 @@
 
     .button-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       margin: 3rem 0;
+    }
+
+    @media (max-width: 900px) {
+      .button-container { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .button-container { grid-template-columns: 1fr; }
     }
 
     .modern-btn {
@@ -334,13 +342,16 @@
 
     <div class="button-container">
       <a href="projets/projet8/pbi.pdf" class="modern-btn" target="_blank">
-        Consulter le rapport Power BI (PDF)
+        Rapport Power BI (PDF)
+      </a>
+      <a href="projets/projet8/pbi.pbix" class="modern-btn" download>
+        Télécharger le fichier Power BI (.pbix)
       </a>
       <a href="projets/projet8/0623 - Cas d'usage - Assurance.pdf" class="modern-btn" target="_blank">
         Cas d'usage Assurance (PDF)
       </a>
       <a href="projets/projet8/OOTBox_Accidents_France_2021_v3.pptx" class="modern-btn" download>
-        Télécharger la présentation (PPTX)
+        Présentation (PPTX)
       </a>
     </div>
   </main>
