@@ -3,995 +3,778 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Lydérick Henry</title>
+  <title>Lydérick Henry — Data Analyst</title>
+  <meta name="description" content="Data Analyst — je transforme la donnée en décisions business concrètes. Business Intelligence, automatisation, IA.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <style>
-    :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #10b981;
-      --accent: #f59e0b;
-      --bg-primary: #0f0f23;
-      --bg-secondary: #1a1a2e;
-      --bg-card: rgba(255, 255, 255, 0.03);
-      --text-primary: #ffffff;
-      --text-secondary: #a1a1aa;
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      --shadow-hover: 0 35px 60px -12px rgba(0, 0, 0, 0.7);
+    :root,
+    [data-theme="light"] {
+      --bg-primary: #FAFAF7;
+      --bg-secondary: #FFFFFF;
+      --bg-muted: #F2F2EE;
+      --text-primary: #1A1A1A;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --accent: #1E3A8A;
+      --accent-soft: rgba(30, 58, 138, 0.08);
+      --border: #E5E5E0;
+      --border-strong: #D4D4CE;
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+      --shadow-hover: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    [data-theme="dark"] {
+      --bg-primary: #0F0F12;
+      --bg-secondary: #17171C;
+      --bg-muted: #1F1F26;
+      --text-primary: #F5F5F5;
+      --text-secondary: #B0B0B8;
+      --text-muted: #808088;
+      --accent: #93C5FD;
+      --accent-soft: rgba(147, 197, 253, 0.12);
+      --border: #2A2A30;
+      --border-strong: #3A3A42;
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
+      --shadow-hover: 0 4px 16px rgba(0,0,0,0.5), 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 64px;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
       }
     }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      background-image:
-        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+    h1, h2, h3, h4 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
       color: var(--text-primary);
-      min-height: 100vh;
-      overflow-x: hidden;
-      padding-top: 52px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 2rem;
     }
 
-    /* Animated background particles */
-    .bg-particles {
+    /* ─── Navbar ─── */
+    .site-nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 64px;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
       height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--primary);
-      border-radius: 50%;
-      animation: float 20s infinite linear;
-      opacity: 0.1;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.1; }
-      90% { opacity: 0.1; }
-      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-    }
-
-    /* Header */
-    header {
-      position: relative;
-      text-align: center;
-      padding: 4.5rem 0 2.5rem;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      margin-bottom: 4rem;
-    }
-
-    .header-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    header h1 {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradient 4s ease infinite;
-      letter-spacing: -0.02em;
-    }
-
-    @keyframes gradient {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    /* Subtitle / role badges */
-    .header-subtitle {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
+      justify-content: space-between;
     }
-
-    .role-pill {
-      padding: 0.3rem 0.85rem;
-      border-radius: 2rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      letter-spacing: 0.02em;
-      transition: all 0.3s ease;
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
     }
-
-    .role-pill:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: rgba(99, 102, 241, 0.08);
-    }
-
-    .role-sep {
-      color: var(--glass-border);
-      font-size: 0.8rem;
-    }
-
-    .contact-links {
+    .nav-links {
       display: flex;
-      justify-content: center;
       gap: 2rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
+      align-items: center;
     }
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: var(--accent); }
 
-    .contact-link {
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-toggle .icon-sun { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 5rem 0 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-muted);
+    }
+    .hero-name {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .hero-role {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--border-strong);
+      margin: 1.25rem 0;
+    }
+    .hero-pitch {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin-bottom: 2rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 2rem;
-      color: var(--text-primary);
-      text-decoration: none;
+      padding: 0.7rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
       font-weight: 500;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
+      text-decoration: none;
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    [data-theme="dark"] .btn-primary { color: var(--bg-primary); }
+    .btn-primary:hover {
+      opacity: 0.9;
+      color: #fff;
+    }
+    [data-theme="dark"] .btn-primary:hover { color: var(--bg-primary); }
+    .btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: left;
+      }
+      .hero-photo {
+        width: 140px;
+        height: 140px;
+      }
     }
 
-    .contact-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.5s;
+    /* ─── À propos / Skills ─── */
+    .about {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
     }
-
-    .contact-link:hover::before {
-      left: 100%;
-    }
-
-    .contact-link:hover {
-      transform: translateY(-2px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
-    }
-
-    .contact-icon {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    /* Introduction section */
-    html { scroll-behavior: smooth; }
-    .intro-projects {
-      max-width: 900px;
-      margin: 0 auto 4rem;
-      scroll-margin-top: 70px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 2rem;
-      padding: 3rem;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-      animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes slideUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .intro-projects::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    }
-
-    .intro-projects h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .intro-projects p {
+    .about-text {
+      max-width: 720px;
+      font-size: 1rem;
       color: var(--text-secondary);
-      font-size: 1.1rem;
       line-height: 1.8;
+    }
+    .about-text p + p { margin-top: 1rem; }
+    .section-title {
+      font-size: 1.75rem;
       margin-bottom: 1.5rem;
-      text-align: center;
     }
-
-    /* Skills grid inside intro */
-    .skills-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
-      margin: 2rem 0 1.75rem;
-    }
-
-    .skills-label {
-      text-align: center;
+    .section-eyebrow {
+      font-family: 'Inter', sans-serif;
       font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .skills-groups {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .skills-group h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-secondary);
-      margin-bottom: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
     }
-
-    .skills-grid {
+    .skills-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.65rem;
-      justify-content: center;
+      gap: 0.5rem;
     }
-
-    .skill-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.45rem 0.9rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--glass-border);
-      border-radius: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      transition: all 0.25s ease;
-    }
-
-    .skill-badge:hover {
-      transform: translateY(-2px);
-      border-color: var(--primary);
+    .skill-chip {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.85rem;
       color: var(--text-primary);
-      background: rgba(99, 102, 241, 0.08);
+      background: var(--bg-secondary);
     }
 
-    .skill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      flex-shrink: 0;
+    /* ─── Projet phare ─── */
+    .featured {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
     }
-
-    /* Projects grid */
-    .projects {
+    .featured-card {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      padding: 2rem 0;
-      margin-bottom: 4rem;
-    }
-
-    @media (min-width: 768px) {
-      .projects {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .projects {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-      }
-    }
-
-    .project-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 1.5rem;
-      padding: 1.75rem;
-      box-shadow: var(--shadow);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
       overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s ease;
+    }
+    .featured-card:hover { box-shadow: var(--shadow-hover); }
+    .featured-image {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+      background: var(--bg-muted);
+    }
+    .featured-body {
+      padding: 2.5rem 2.5rem 2.5rem 0;
       display: flex;
       flex-direction: column;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-      transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .project-card:hover::before {
-      left: 100%;
-    }
-
-    .project-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: var(--shadow-hover);
-      border-color: rgba(99, 102, 241, 0.4);
-    }
-
-    /* Card number badge */
-    .card-number {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      width: 1.75rem;
-      height: 1.75rem;
-      background: rgba(99, 102, 241, 0.12);
-      border: 1px solid rgba(99, 102, 241, 0.25);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
       justify-content: center;
+    }
+    .badge-mission {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 0.3rem 0.7rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 4px;
       font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--primary);
-      z-index: 2;
-      letter-spacing: 0;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .featured-title {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+    .featured-desc {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .featured-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .featured-cta {
+      align-self: flex-start;
     }
 
-    .project-image-container {
-      position: relative;
-      border-radius: 1rem;
+    @media (max-width: 768px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-body { padding: 2rem; }
+      .featured-image { min-height: 220px; }
+    }
+
+    /* ─── Tags techno ─── */
+    .tag {
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      background: var(--bg-muted);
+      color: var(--text-secondary);
+    }
+
+    /* ─── Grille projets ─── */
+    .projects-section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+    @media (min-width: 768px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .project-image {
+      width: 100%;
       aspect-ratio: 16/10;
-      background: var(--bg-secondary);
-    }
-
-    .project-card img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      filter: brightness(0.8);
+      background: var(--bg-muted);
+      border-bottom: 1px solid var(--border);
     }
-
-    .project-card:hover img {
-      transform: scale(1.1);
-      filter: brightness(1);
-    }
-
-    .project-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, rgba(99, 102, 241, 0.3), rgba(16, 185, 129, 0.3));
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .project-body {
+      padding: 1.5rem;
       display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .project-card:hover .project-overlay {
-      opacity: 1;
-    }
-
-    .view-project {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--bg-primary);
-      padding: 0.75rem 1.5rem;
-      border-radius: 2rem;
-      font-weight: 600;
-      text-decoration: none;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-    }
-
-    .project-card:hover .view-project {
-      transform: translateY(0);
-    }
-
-    .no-image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      background: var(--bg-secondary);
-      color: var(--text-secondary);
-      font-size: 1rem;
-      border-radius: 1rem;
-      display: none;
-    }
-
-    .project-title {
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: 1.05rem;
-      text-decoration: none;
-      display: block;
-      transition: color 0.3s ease;
-      line-height: 1.4;
-    }
-
-    .project-card:hover .project-title {
-      color: var(--primary);
-    }
-
-    /* Project description */
-    .project-description {
-      color: var(--text-secondary);
-      font-size: 0.82rem;
-      line-height: 1.55;
-      margin-top: 0.45rem;
+      flex-direction: column;
       flex-grow: 1;
     }
-
-    /* Tech tags */
+    .project-title {
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .project-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
     .project-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
-      margin-top: 1rem;
     }
 
-    .tag {
-      padding: 0.2rem 0.55rem;
-      border-radius: 0.3rem;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
+    /* ─── Recherche & démos ─── */
+    .research {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
     }
-
-    .tag:hover {
-      transform: translateY(-1px);
-    }
-
-    .tag-powerbi  { background: rgba(242, 200, 17, 0.12); color: #f2c811; border-color: rgba(242, 200, 17, 0.25); }
-    .tag-python   { background: rgba(55, 118, 171, 0.12); color: #78b4e0; border-color: rgba(55, 118, 171, 0.3); }
-    .tag-excel    { background: rgba(33, 115, 70, 0.12);  color: #4ec97e; border-color: rgba(33, 115, 70, 0.3); }
-    .tag-tableau  { background: rgba(233, 118, 39, 0.12); color: #f0954a; border-color: rgba(233, 118, 39, 0.3); }
-    .tag-gcp      { background: rgba(66, 133, 244, 0.12); color: #7ab4ff; border-color: rgba(66, 133, 244, 0.3); }
-    .tag-bigquery { background: rgba(66, 133, 244, 0.1);  color: #7ab4ff; border-color: rgba(66, 133, 244, 0.25); }
-    .tag-dataform { background: rgba(52, 168, 83, 0.12);  color: #5dc87a; border-color: rgba(52, 168, 83, 0.3); }
-    .tag-looker   { background: rgba(123, 79, 233, 0.12); color: #b085f5; border-color: rgba(123, 79, 233, 0.3); }
-    .tag-dax      { background: rgba(99, 102, 241, 0.12); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.3); }
-    .tag-nlp      { background: rgba(236, 72, 153, 0.12); color: #f0abca; border-color: rgba(236, 72, 153, 0.3); }
-    .tag-kaggle   { background: rgba(32, 189, 188, 0.12); color: #5ee7e6; border-color: rgba(32, 189, 188, 0.3); }
-
-    /* Highlights section (mémoire + démos) */
-    .highlights-section {
-      max-width: 920px;
-      margin: 0 auto 4rem;
-    }
-
-    .highlights-label {
-      text-align: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      margin-bottom: 1.25rem;
-    }
-
-    .highlights-grid {
+    .research-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      gap: 1.75rem;
     }
-
-    @media (max-width: 640px) {
-      .highlights-grid { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .research-grid { grid-template-columns: 1fr; }
     }
-
-    .highlight-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 2rem;
-      padding: 2rem;
-      box-shadow: var(--shadow);
+    .research-card {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
+      gap: 1.25rem;
+      padding: 1.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
     }
-
-    .highlight-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    .research-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-hover);
     }
-
-    .highlight-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(99, 102, 241, 0.4);
-      box-shadow: 0 35px 60px -12px rgba(0,0,0,0.7);
-    }
-
-    .highlight-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 1rem;
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(16,185,129,0.2));
-      border: 1px solid rgba(99,102,241,0.3);
+    .research-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.75rem;
-      flex-shrink: 0;
     }
-
-    .highlight-body { flex: 1; }
-
-    .highlight-body h3 {
+    .research-icon svg { width: 24px; height: 24px; }
+    .research-body h3 {
       font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-primary);
       margin-bottom: 0.4rem;
       line-height: 1.3;
     }
-
-    .highlight-body p {
-      color: var(--text-secondary);
-      font-size: 0.88rem;
-      line-height: 1.6;
-      margin-bottom: 0.85rem;
-    }
-
-    .highlight-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-
-    .highlight-cta {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.65rem 1.25rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 0.85rem;
-      color: white;
-      font-weight: 600;
-      font-size: 0.85rem;
-      align-self: flex-start;
-    }
-
-    .tag-hf { background: rgba(255, 161, 0, 0.12); color: #ffbb45; border-color: rgba(255, 161, 0, 0.3); }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid var(--glass-border);
-      margin-top: auto;
-    }
-
-    footer p {
+    .research-body p {
       color: var(--text-secondary);
       font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .research-link {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 500;
     }
 
-    /* Responsive */
+    /* ─── Footer ─── */
+    footer {
+      padding: 3rem 0 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer p { margin-bottom: 0.4rem; }
+
     @media (max-width: 768px) {
-      .container {
-        padding: 0 1rem;
-      }
-
-      header {
-        padding: 3rem 0 2rem;
-      }
-
-      .contact-links {
-        gap: 1rem;
-      }
-
-      .intro-projects {
-        padding: 2rem;
-        margin: 0 1rem 3rem;
-      }
-
-      .projects {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-        gap: 1.5rem;
-      }
-
-      .project-card {
-        padding: 1.5rem;
-      }
-
-      .role-sep { display: none; }
+      .container { padding: 0 1.25rem; }
+      .nav-inner { padding: 0 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      .nav-link[data-secondary="true"] { display: none; }
+      .hero { padding: 3rem 0 2.5rem; }
+      .about, .featured, .projects-section, .research { padding: 3rem 0; }
     }
-
-    /* Scroll animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .project-card {
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 0;
-    }
-
-    .project-card:nth-child(1) { animation-delay: 0.1s; }
-    .project-card:nth-child(2) { animation-delay: 0.2s; }
-    .project-card:nth-child(3) { animation-delay: 0.3s; }
-    .project-card:nth-child(4) { animation-delay: 0.4s; }
-    .project-card:nth-child(5) { animation-delay: 0.5s; }
-    .project-card:nth-child(6) { animation-delay: 0.6s; }
-    .project-card:nth-child(7) { animation-delay: 0.7s; }
-    .project-card:nth-child(8) { animation-delay: 0.8s; }
-    .site-nav { position:fixed; top:0; left:0; right:0; z-index:100; height:52px; background:rgba(20,20,42,0.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.18); box-shadow:0 2px 18px rgba(0,0,0,0.45); }
-    .nav-inner { max-width:1200px; margin:0 auto; padding:0 2rem; height:100%; display:flex; align-items:center; justify-content:space-between; }
-    .nav-logo { font-size:1rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:0.05em; }
-    .nav-links { display:flex; gap:2rem; align-items:center; }
-    .nav-link { color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.25s ease; }
-    .nav-link:hover { color:var(--primary); }
   </style>
 </head>
 <body>
-  <div class="bg-particles" id="particles"></div>
 
   <nav class="site-nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">LH</a>
+      <a href="index.html" class="nav-logo">Lydérick Henry</a>
       <div class="nav-links">
         <a href="#projets" class="nav-link">Projets</a>
-        <a href="memoire.html" class="nav-link">Mémoire</a>
-        <a href="explorateur.html" class="nav-link">MCP Data.gouv</a>
+        <a href="memoire.html" class="nav-link" data-secondary="true">Mémoire</a>
+        <a href="explorateur.html" class="nav-link" data-secondary="true">Démo IA</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Basculer le thème clair / sombre" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
       </div>
     </div>
   </nav>
 
-  <header>
+  <header class="hero">
     <div class="container">
-      <div class="header-content">
-        <h1>Lydérick Henry</h1>
-        <div class="header-subtitle">
-          <span class="role-pill">Data Analyst</span>
-          <span class="role-sep">·</span>
-          <span class="role-pill">Business Intelligence</span>
-          <span class="role-sep">·</span>
-          <span class="role-pill">Data Engineering</span>
-        </div>
-        <div class="contact-links">
-          <a href="mailto:lyderickhenry@hotmail.fr" class="contact-link">
-            <svg class="contact-icon" viewBox="0 0 24 24">
-              <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
-            </svg>
-            lyderickhenry@hotmail.fr
-          </a>
-          <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" class="contact-link">
-            <svg class="contact-icon" viewBox="0 0 24 24">
-              <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/>
-            </svg>
-            LinkedIn & CV
-          </a>
+      <div class="hero-inner">
+        <img src="Photo%20professionnel.jpeg" alt="Lydérick Henry" class="hero-photo">
+        <div>
+          <h1 class="hero-name">Lydérick Henry</h1>
+          <p class="hero-role">Data Analyst</p>
+          <div class="hero-divider"></div>
+          <p class="hero-pitch">Je transforme la donnée en décisions business concrètes — Business Intelligence, automatisation et IA appliquée.</p>
+          <div class="hero-actions">
+            <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener" class="btn btn-primary">
+              <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>
+              LinkedIn
+            </a>
+            <a href="mailto:lyderickhenry@hotmail.fr" class="btn">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>
+              Email
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="intro-projects" id="projets">
-      <h2>Mes Projets</h2>
-      <p>Ce portfolio présente une sélection de projets personnels et académiques. Pour des raisons de confidentialité, je ne peux pas partager mes réalisations professionnelles.</p>
-      <p>Ces quelques exemples concrets ont été choisis pour vous donner un aperçu de mes compétences et de ma passion pour la data. Ils illustrent ma capacité à transformer des idées en solutions concrètes et à produire des analyses visuelles et des tableaux de bord percutants.</p>
-
-      <div class="skills-divider"></div>
-      <div class="skills-label">Outils & technologies</div>
-      <div class="skills-grid">
-        <span class="skill-badge"><span class="skill-dot" style="background:#f2c811"></span>Power BI</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#4ec97e"></span>Excel / VBA</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#78b4e0"></span>Python</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#f0954a"></span>Tableau</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#7ab4ff"></span>BigQuery</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#5dc87a"></span>Dataform</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#b085f5"></span>Looker Studio</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#a5b4fc"></span>DAX</span>
-        <span class="skill-badge"><span class="skill-dot" style="background:#f0abca"></span>NLP / IA</span>
+  <section class="about">
+    <div class="container">
+      <p class="section-eyebrow">À propos</p>
+      <h2 class="section-title">Du chiffre au métier, en passant par le code</h2>
+      <div class="about-text">
+        <p>M2 CGAO-ACG (IAE Lille), spécialisation data analytics. Je relie une formation comptable et audit à des compétences techniques solides en BI, programmation et cloud — pour livrer des analyses qui parlent aux décideurs comme aux équipes data.</p>
+        <p>Les projets ci-dessous sont personnels ou académiques. Pour des raisons de confidentialité, je ne peux pas partager mes réalisations professionnelles, mais ces exemples concrets illustrent ma méthode : comprendre le besoin, structurer la donnée, livrer un résultat actionnable.</p>
       </div>
-    </section>
 
-    <!-- Mémoire & Démos -->
-    <div class="highlights-section">
-      <p class="highlights-label">Travaux de recherche &amp; Démos interactives</p>
-      <div class="highlights-grid">
+      <div class="skills-groups">
+        <div class="skills-group">
+          <h4>Visualisation &amp; BI</h4>
+          <div class="skills-list">
+            <span class="skill-chip">Power BI</span>
+            <span class="skill-chip">Tableau</span>
+            <span class="skill-chip">Looker Studio</span>
+            <span class="skill-chip">DAX</span>
+            <span class="skill-chip">Excel / VBA</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <h4>Programmation &amp; Data</h4>
+          <div class="skills-list">
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">SQL</span>
+            <span class="skill-chip">BigQuery</span>
+            <span class="skill-chip">Dataform</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <h4>Méthodes &amp; IA</h4>
+          <div class="skills-list">
+            <span class="skill-chip">NLP</span>
+            <span class="skill-chip">Statistiques appliquées</span>
+            <span class="skill-chip">Modélisation dbt-style</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <a href="memoire.html" class="highlight-card">
-          <div class="highlight-icon">📄</div>
-          <div class="highlight-body">
-            <h3>Mémoire de M2 CGAO — ACG</h3>
-            <p>Perception et adoption de l'IA Générative en cabinet d'audit — Analyse empirique sur 67 professionnels. Modèle TAM enrichi, tests de Spearman, alpha de Cronbach.</p>
-            <div class="highlight-tags">
-              <span class="tag tag-python">Python</span>
-              <span class="tag tag-nlp">NLP / IA</span>
-              <span class="tag tag-excel">Excel</span>
+  <section class="featured" id="projets">
+    <div class="container">
+      <p class="section-eyebrow">Projet phare</p>
+      <div class="featured-card">
+        <img src="projets/projet8/cover.png" alt="Dashboard PowerBI accidents routiers et assurance" class="featured-image">
+        <div class="featured-body">
+          <span class="badge-mission">Mission client</span>
+          <h2 class="featured-title">Power BI — Analyse Accidents &amp; Assurance</h2>
+          <p class="featured-desc">Réponse à une commande client : production d'un dashboard Power BI et d'une restitution PowerPoint selon l'angle d'analyse imposé. Données BAAC 2021 — analyse des risques d'accidents routiers appliquée à la tarification d'assurance automobile.</p>
+          <div class="featured-tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">DAX</span>
+            <span class="tag">PowerPoint</span>
+          </div>
+          <a href="projet8.html" class="btn btn-primary featured-cta">Voir le projet →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="container">
+      <p class="section-eyebrow">Autres réalisations</p>
+      <h2 class="section-title">Une sélection de projets</h2>
+
+      <div class="projects-grid">
+
+        <a href="projet1.html" class="project-card">
+          <img src="projets/portfolio accueil immobilier.png" alt="PowerBI - Analyse Immobilière" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Power BI — Analyse Immobilière</h3>
+            <p class="project-description">Simulateur d'achat et analyse du marché immobilier français sur la période 2019–2024, à partir des données data.gouv.</p>
+            <div class="project-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">DAX</span>
             </div>
           </div>
-          <span class="highlight-cta">Voir le mémoire →</span>
         </a>
 
-        <a href="explorateur.html" class="highlight-card">
-          <div class="highlight-icon">🔍</div>
-          <div class="highlight-body">
-            <h3>Explorateur data.gouv.fr</h3>
-            <p>Démo interactive de recherche et d'exploration dans l'open data français, hébergée sur Hugging Face Spaces.</p>
-            <div class="highlight-tags">
-              <span class="tag tag-python">Python</span>
-              <span class="tag tag-hf">Hugging Face</span>
+        <a href="projet2.html" class="project-card">
+          <img src="projets/Tableau de bord suivi bancaire.png" alt="PowerBI - Suivi bancaire" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Power BI — Suivi Bancaire</h3>
+            <p class="project-description">Tableau de bord personnel de suivi des dépenses, flux financiers et comparaison budgétaire par catégorie.</p>
+            <div class="project-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">DAX</span>
             </div>
           </div>
-          <span class="highlight-cta">Voir la démo →</span>
+        </a>
+
+        <a href="projet3.html" class="project-card">
+          <img src="projets/Tableau des sig.png" alt="Excel - SIG/CAF/Ratios" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Excel — SIG, CAF &amp; Ratios</h3>
+            <p class="project-description">Automatisation des états financiers : Soldes Intermédiaires de Gestion, Capacité d'Autofinancement et ratios comptables.</p>
+            <div class="project-tags">
+              <span class="tag">Excel</span>
+              <span class="tag">VBA</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="projet4.html" class="project-card">
+          <img src="projets/DémoArticles.png" alt="Revue de presse automatisée" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Revue de presse automatisée</h3>
+            <p class="project-description">Génération automatique de revues de presse via flux RSS, résumé par IA (BART) et traduction, exportée en document Word.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">NLP</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="projet5.html" class="project-card">
+          <img src="projets/projet5/accueil.png" alt="PowerBI - Restauration" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Power BI — Dashboard Restauration</h3>
+            <p class="project-description">Dashboard analytique pour "L'Atelier des Saveurs" : vue globale, suivi budgétaire et simulateur de ventes.</p>
+            <div class="project-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">DAX</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="projet6.html" class="project-card">
+          <img src="projets/projet6/projet tableau de bord.png" alt="Tableau - Analyse financière" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Tableau — Analyse Financière</h3>
+            <p class="project-description">Analyse d'investissements et classification de profils d'investisseurs à partir d'un dataset Kaggle.</p>
+            <div class="project-tags">
+              <span class="tag">Tableau</span>
+              <span class="tag">Kaggle</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="projet7.html" class="project-card">
+          <img src="projets/projet7/dataform_projet7.png" alt="Pipeline GCP" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Pipeline de données GCP</h3>
+            <p class="project-description">Pipeline cloud-native sur GCP : ingestion BigQuery, modélisation Dataform (style dbt) et visualisation Looker Studio.</p>
+            <div class="project-tags">
+              <span class="tag">BigQuery</span>
+              <span class="tag">Dataform</span>
+              <span class="tag">Looker</span>
+              <span class="tag">GCP</span>
+            </div>
+          </div>
         </a>
 
       </div>
     </div>
+  </section>
 
-    <section class="projects">
+  <section class="research">
+    <div class="container">
+      <p class="section-eyebrow">Recherche &amp; démos</p>
+      <h2 class="section-title">Au-delà des projets</h2>
 
-      <article class="project-card">
-        <span class="card-number">01</span>
-        <div class="project-image-container">
-          <a href="projet1.html">
-            <img src="projets/portfolio accueil immobilier.png" alt="Projet PowerBI - Analyse Immobilière"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet1.html" class="view-project">Voir le projet</a>
+      <div class="research-grid">
+        <a href="memoire.html" class="research-card">
+          <div class="research-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </div>
-        </div>
-        <a href="projet1.html" class="project-title">Projet PowerBI — Analyse Immobilière</a>
-        <p class="project-description">Simulateur d'achat et analyse du marché immobilier français sur la période 2019–2024, avec données Data.gouv.</p>
-        <div class="project-tags">
-          <span class="tag tag-powerbi">Power BI</span>
-          <span class="tag tag-dax">DAX</span>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <span class="card-number">02</span>
-        <div class="project-image-container">
-          <a href="projet2.html">
-            <img src="projets/Tableau de bord suivi bancaire.png" alt="Projet PowerBI - Tableau de bord suivi bancaire"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet2.html" class="view-project">Voir le projet</a>
+          <div class="research-body">
+            <h3>Mémoire M2 — IA générative en audit</h3>
+            <p>Étude empirique de la perception et de l'adoption de l'IA générative en cabinet d'audit. 67 répondants, modèle TAM enrichi, tests de Spearman, alpha de Cronbach.</p>
+            <span class="research-link">Lire le mémoire →</span>
           </div>
-        </div>
-        <a href="projet2.html" class="project-title">Projet PowerBI — Suivi Bancaire</a>
-        <p class="project-description">Tableau de bord personnel de suivi des dépenses, flux financiers et comparaison budgétaire par catégorie.</p>
-        <div class="project-tags">
-          <span class="tag tag-powerbi">Power BI</span>
-          <span class="tag tag-dax">DAX</span>
-        </div>
-      </article>
+        </a>
 
-      <article class="project-card">
-        <span class="card-number">03</span>
-        <div class="project-image-container">
-          <a href="projet3.html">
-            <img src="projets/Tableau des sig.png" alt="Projet Excel - Saé Sig/Caf/Ratios automatisés"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet3.html" class="view-project">Voir le projet</a>
+        <a href="explorateur.html" class="research-card">
+          <div class="research-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-        </div>
-        <a href="projet3.html" class="project-title">Projet Excel — SIG / CAF / Ratios</a>
-        <p class="project-description">Automatisation des états financiers : Soldes Intermédiaires de Gestion, Capacité d'Autofinancement et ratios comptables.</p>
-        <div class="project-tags">
-          <span class="tag tag-excel">Excel</span>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <span class="card-number">04</span>
-        <div class="project-image-container">
-          <a href="projet4.html">
-            <img src="projets/DémoArticles.png" alt="Projet - Revue de Presse Automatisée"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet4.html" class="view-project">Voir le projet</a>
+          <div class="research-body">
+            <h3>Démo IA — explorateur data.gouv.fr</h3>
+            <p>Démo interactive d'exploration intelligente de l'open data français. Recherche assistée par IA, hébergée sur Hugging Face Spaces.</p>
+            <span class="research-link">Essayer la démo →</span>
           </div>
-        </div>
-        <a href="projet4.html" class="project-title">Revue de Presse Automatisée</a>
-        <p class="project-description">Génération automatique de revues de presse via flux RSS, résumé IA (BART) et traduction, exportée en document Word.</p>
-        <div class="project-tags">
-          <span class="tag tag-python">Python</span>
-          <span class="tag tag-nlp">NLP / IA</span>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <span class="card-number">05</span>
-        <div class="project-image-container">
-          <a href="projet5.html">
-            <img src="projets/projet5/accueil.png" alt="Projet PowerBI - L'Atelier des Saveurs"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet5.html" class="view-project">Voir le projet</a>
-          </div>
-        </div>
-        <a href="projet5.html" class="project-title">PowerBI — Dashboard Restauration</a>
-        <p class="project-description">Dashboard analytique pour "L'Atelier des Saveurs" : vue globale, suivi budgétaire et simulateur de ventes.</p>
-        <div class="project-tags">
-          <span class="tag tag-powerbi">Power BI</span>
-          <span class="tag tag-dax">DAX</span>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <span class="card-number">06</span>
-        <div class="project-image-container">
-          <a href="projet6.html">
-            <img src="projets/projet6/projet tableau de bord.png" alt="Projet Tableau - Dashboard Investissements"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet6.html" class="view-project">Voir le projet</a>
-          </div>
-        </div>
-        <a href="projet6.html" class="project-title">Tableau — Analyse Financière (Kaggle)</a>
-        <p class="project-description">Analyse d'investissements et classification des profils d'investisseurs à partir d'un dataset Kaggle.</p>
-        <div class="project-tags">
-          <span class="tag tag-tableau">Tableau</span>
-          <span class="tag tag-kaggle">Kaggle</span>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <span class="card-number">07</span>
-        <div class="project-image-container">
-          <a href="projet7.html">
-            <img src="projets/projet7/dataform_projet7.png" alt="Pipeline BigQuery Dataform Looker"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet7.html" class="view-project">Voir le projet</a>
-          </div>
-        </div>
-        <a href="projet7.html" class="project-title">Pipeline de Données GCP</a>
-        <p class="project-description">Pipeline cloud-native sur GCP : ingestion BigQuery, modélisation Dataform (style dbt) et visualisation Looker Studio.</p>
-        <div class="project-tags">
-          <span class="tag tag-bigquery">BigQuery</span>
-          <span class="tag tag-dataform">Dataform</span>
-          <span class="tag tag-looker">Looker</span>
-          <span class="tag tag-gcp">GCP</span>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <span class="card-number">08</span>
-        <div class="project-image-container">
-          <a href="projet8.html">
-            <img src="projets/projet8/cover.png" alt="Power BI - Analyse Accidents Routiers & Assurance"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="no-image">Image non disponible</div>
-          </a>
-          <div class="project-overlay">
-            <a href="projet8.html" class="view-project">Voir le projet</a>
-          </div>
-        </div>
-        <a href="projet8.html" class="project-title">Power BI — Analyse Accidents & Assurance</a>
-        <p class="project-description">Dashboard analytique des accidents routiers 2021 (BAAC) pour l'analyse des risques et la stratégie de tarification d'assurance automobile.</p>
-        <div class="project-tags">
-          <span class="tag tag-powerbi">Power BI</span>
-          <span class="tag tag-dax">DAX</span>
-        </div>
-      </article>
-
-    </section>
-
-  </main>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <div class="container">
-      <p>© <span id="year"></span> — Portfolio de Lydérick Henry</p>
+      <p>Lydérick Henry · Data Analyst · Lille, France</p>
+      <p>© <span id="year"></span> — Tous droits réservés</p>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 50;
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.opacity = Math.random() * 0.1 + 0.05;
-        particlesContainer.appendChild(particle);
-      }
-    }
-    createParticles();
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    var toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        var current = document.documentElement.getAttribute('data-theme') || 'light';
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
       });
-    });
+    }
 
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const header = document.querySelector('header');
-      if (header) {
-        header.style.transform = `translateY(${scrolled * 0.5}px)`;
-      }
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
   </script>
 </body>

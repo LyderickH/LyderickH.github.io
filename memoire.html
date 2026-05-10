@@ -3,242 +3,291 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mémoire M2 CGAO ACG — IAG & Audit - Lydérick Henry</title>
+  <title>Mémoire M2 — IA générative en audit · Lydérick Henry</title>
   <link rel="icon" href="favicon.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
 
   <style>
-    :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #10b981;
-      --accent: #f59e0b;
-      --bg-primary: #0f0f23;
-      --bg-secondary: #1a1a2e;
-      --text-primary: #ffffff;
-      --text-secondary: #a1a1aa;
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    :root,
+    [data-theme="light"] {
+      --bg-primary: #FAFAF7;
+      --bg-secondary: #FFFFFF;
+      --bg-muted: #F2F2EE;
+      --text-primary: #1A1A1A;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --accent: #1E3A8A;
+      --accent-soft: rgba(30, 58, 138, 0.08);
+      --border: #E5E5E0;
+      --border-strong: #D4D4CE;
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0F0F12;
+      --bg-secondary: #17171C;
+      --bg-muted: #1F1F26;
+      --text-primary: #F5F5F5;
+      --text-secondary: #B0B0B8;
+      --text-muted: #808088;
+      --accent: #93C5FD;
+      --accent-soft: rgba(147, 197, 253, 0.12);
+      --border: #2A2A30;
+      --border-strong: #3A3A42;
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
-      background-image:
-        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
       color: var(--text-primary);
-      min-height: 100vh;
-      overflow-x: hidden;
-      padding-top: 52px;
-      line-height: 1.6;
+      line-height: 1.65;
+      padding-top: 64px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
-    .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-    .particle { position: absolute; width: 2px; height: 2px; background: var(--primary); border-radius: 50%; animation: float 20s infinite linear; opacity: 0.1; }
-
-    @keyframes float {
-      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10%  { opacity: 0.1; }
-      90%  { opacity: 0.1; }
-      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    h1, h2, h3 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
     }
 
-    header {
+    /* Navbar */
+    .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px; background: var(--bg-primary); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s ease; }
+    .nav-link:hover { color: var(--accent); }
+    .theme-toggle { background: transparent; border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s ease; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-toggle .icon-sun { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    /* Header */
+    header.page-header {
       text-align: center;
-      padding: 3rem 0 2rem;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
+      padding: 4rem 2rem 3rem;
+      border-bottom: 1px solid var(--border);
       margin-bottom: 3rem;
     }
-
-    header h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: .5rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    header.page-header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      margin-bottom: 0.75rem;
     }
-
-    header p {
+    header.page-header p {
       color: var(--text-secondary);
       font-size: 1rem;
-      margin-bottom: 1rem;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
     }
-
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .back-link:hover { border-color: var(--accent); color: var(--accent); }
 
     main { max-width: 1100px; margin: 0 auto 4rem; padding: 0 2rem; }
 
+    /* Sections */
     .content-section {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 2rem;
-      padding: 3rem;
-      margin-bottom: 3rem;
-      box-shadow: var(--shadow);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-card);
     }
 
     .content-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
     }
 
-    .content-section h3 { margin: 1.5rem 0 .75rem; color: var(--text-primary); font-size: 1.1rem; }
+    .content-section h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 1.75rem 0 0.75rem;
+    }
 
     .content-section p, .content-section li {
       color: var(--text-secondary);
-      font-size: 1rem;
-      line-height: 1.8;
+      font-size: 0.98rem;
+      line-height: 1.75;
     }
 
+    .content-section strong { color: var(--text-primary); }
+
     .content-section ul { list-style: none; }
-    .content-section li { padding-left: 1.75rem; position: relative; margin-bottom: .4rem; }
-    .content-section li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+    .content-section li {
+      padding-left: 1.25rem;
+      position: relative;
+      margin-bottom: 0.4rem;
+    }
+    .content-section li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1.4rem;
+      line-height: 1;
+      top: 0.1rem;
+    }
 
     /* KPIs */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1rem;
       margin: 1.5rem 0;
     }
-
     .kpi-card {
-      background: rgba(99,102,241,0.08);
-      border: 1px solid rgba(99,102,241,0.2);
-      border-radius: 1.25rem;
+      background: var(--bg-muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       padding: 1.25rem;
       text-align: center;
     }
-
     .kpi-value {
+      font-family: 'Fraunces', serif;
       font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+      color: var(--accent);
       display: block;
     }
-
-    .kpi-label { font-size: .8rem; color: var(--text-secondary); margin-top: .2rem; }
+    .kpi-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 0.3rem;
+    }
 
     /* Charts */
     .charts-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      gap: 1.5rem;
       margin-bottom: 3rem;
     }
-
     .chart-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 2rem;
-      padding: 2rem;
-      box-shadow: var(--shadow);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-card);
     }
-
     .chart-card h3 {
-      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 1.25rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      letter-spacing: .05em;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
     }
-
     .chart-card canvas { max-height: 280px; }
-
-    .chart-card.wide {
-      grid-column: span 2;
-    }
-
+    .chart-card.wide { grid-column: span 2; }
     .chart-card.wide canvas { max-height: 320px; }
 
-    /* Buttons */
+    /* Downloads */
     .button-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
       margin: 3rem 0;
     }
-
     .modern-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: .75rem;
-      padding: 1rem 1.5rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 1.5rem;
+      gap: 0.5rem;
+      padding: 0.85rem 1.25rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       color: var(--text-primary);
       text-decoration: none;
-      font-weight: 600;
-      font-size: .95rem;
-      transition: .3s;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
       text-align: center;
     }
-
     .modern-btn:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(99,102,241,0.2);
-      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(16,185,129,0.1));
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
-    footer { text-align: center; padding: 2rem; background: var(--glass-bg); border-top: 1px solid var(--glass-border); }
-    footer p { color: var(--text-secondary); font-size: .9rem; }
+    footer {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    footer p { margin-bottom: 0.3rem; }
 
     @media (max-width: 768px) {
       .charts-grid { grid-template-columns: 1fr; }
       .chart-card.wide { grid-column: span 1; }
-      .button-container { grid-template-columns: 1fr; }
+      .nav-inner { padding: 0 1.25rem; }
+      .nav-links { gap: 1.25rem; }
     }
-
     @media (max-width: 640px) {
-      main { padding: 0 1rem; }
-      .content-section { padding: 1.5rem; }
+      main { padding: 0 1.25rem; }
+      .content-section { padding: 1.75rem; }
     }
-    .back-link { display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1.25rem; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:2rem; color:var(--text-primary); text-decoration:none; font-weight:500; font-size:.9rem; transition:.3s; }
-    .back-link:hover { transform:translateY(-2px); border-color:var(--primary); box-shadow:0 10px 25px rgba(99,102,241,0.2); }
-    .site-nav { position:fixed; top:0; left:0; right:0; z-index:100; height:52px; background:rgba(20,20,42,0.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.18); box-shadow:0 2px 18px rgba(0,0,0,0.45); }
-    .nav-inner { max-width:1200px; margin:0 auto; padding:0 2rem; height:100%; display:flex; align-items:center; justify-content:space-between; }
-    .nav-logo { font-size:1rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:0.05em; }
-    .nav-links { display:flex; gap:2rem; align-items:center; }
-    .nav-link { color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.25s ease; }
-    .nav-link:hover { color:var(--primary); }
   </style>
 </head>
 
 <body>
-  <div class="bg-particles" id="particles"></div>
 
   <nav class="site-nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">LH</a>
+      <a href="index.html" class="nav-logo">Lydérick Henry</a>
       <div class="nav-links">
         <a href="index.html#projets" class="nav-link">Projets</a>
         <a href="memoire.html" class="nav-link">Mémoire</a>
-        <a href="explorateur.html" class="nav-link">MCP Data.gouv</a>
+        <a href="explorateur.html" class="nav-link">Démo IA</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Basculer le thème clair / sombre" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
       </div>
     </div>
   </nav>
 
-  <header>
+  <header class="page-header">
     <h1>Mémoire de M2 CGAO — ACG</h1>
-    <p>Perception et adoption de l'IA Générative en cabinet d'audit — Analyse empirique (N = 67)</p>
+    <p>Perception et adoption de l'IA générative en cabinet d'audit — Analyse empirique (N = 67)</p>
     <a href="index.html" class="back-link">← Retour à l'accueil</a>
   </header>
 
@@ -246,34 +295,16 @@
     <!-- Présentation -->
     <section class="content-section">
       <h2>Présentation du mémoire</h2>
-      <p><strong>Thème :</strong> Perception et adoption de l'Intelligence Artificielle Générative (IAG) par les professionnels de l'audit en cabinet.</p>
+      <p><strong>Thème :</strong> Perception et adoption de l'intelligence artificielle générative (IAG) par les professionnels de l'audit en cabinet.</p>
       <p><strong>Cadre théorique :</strong> Modèle TAM (Technology Acceptance Model, Davis 1989), enrichi de variables de scepticisme professionnel et de motivation.</p>
 
       <div class="kpi-grid">
-        <div class="kpi-card">
-          <span class="kpi-value">67</span>
-          <span class="kpi-label">Répondants retenus</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value">85</span>
-          <span class="kpi-label">Réponses brutes</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value">70,1 %</span>
-          <span class="kpi-label">Usage ≥ plusieurs fois/sem.</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value">5,0</span>
-          <span class="kpi-label">Fréquence médiane (sur 7)</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value">77,3 %</span>
-          <span class="kpi-label">Bénéfices perçus > risques</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value">79,1 %</span>
-          <span class="kpi-label">Score risques perçus / éch.</span>
-        </div>
+        <div class="kpi-card"><span class="kpi-value">67</span><span class="kpi-label">Répondants retenus</span></div>
+        <div class="kpi-card"><span class="kpi-value">85</span><span class="kpi-label">Réponses brutes</span></div>
+        <div class="kpi-card"><span class="kpi-value">70,1 %</span><span class="kpi-label">Usage ≥ plusieurs fois/sem.</span></div>
+        <div class="kpi-card"><span class="kpi-value">5,0</span><span class="kpi-label">Fréquence médiane (sur 7)</span></div>
+        <div class="kpi-card"><span class="kpi-value">77,3 %</span><span class="kpi-label">Bénéfices perçus &gt; risques</span></div>
+        <div class="kpi-card"><span class="kpi-value">79,1 %</span><span class="kpi-label">Score risques perçus / éch.</span></div>
       </div>
 
       <h3>Variables du modèle</h3>
@@ -323,208 +354,158 @@
 
     <!-- Downloads -->
     <div class="button-container">
-      <a href="projets/memoire/Mémoire M2 CGAO ACG.pdf" class="modern-btn" target="_blank">
-        Lire le mémoire (PDF)
-      </a>
-      <a href="projets/memoire/analyse_empirique_IAG_executed.ipynb" class="modern-btn" download>
-        Notebook Python exécuté (.ipynb)
-      </a>
-      <a href="projets/memoire/Protocole_GRAPHS_v2_1.xlsx" class="modern-btn" download>
-        Données sources (.xlsx)
-      </a>
-      <a href="projets/memoire/explorateur_donnees_67_2.html" class="modern-btn" target="_blank">
-        Exploration des données
-      </a>
+      <a href="projets/memoire/Mémoire M2 CGAO ACG.pdf" class="modern-btn" target="_blank">Lire le mémoire (PDF)</a>
+      <a href="projets/memoire/analyse_empirique_IAG_executed.ipynb" class="modern-btn" download>Notebook Python (.ipynb)</a>
+      <a href="projets/memoire/Protocole_GRAPHS_v2_1.xlsx" class="modern-btn" download>Données sources (.xlsx)</a>
+      <a href="projets/memoire/explorateur_donnees_67_2.html" class="modern-btn" target="_blank">Exploration des données</a>
     </div>
   </main>
 
   <footer>
-    <p>© <span id="year"></span> — Portfolio de Lydérick Henry</p>
+    <p>Lydérick Henry · Data Analyst · Lille, France</p>
+    <p>© <span id="year"></span> — Tous droits réservés</p>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    function createParticles() {
-      const c = document.getElementById('particles');
-      for (let i = 0; i < 30; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = (Math.random() * 100) + '%';
-        p.style.top = (Math.random() * 100) + '%';
-        p.style.animationDuration = (Math.random() * 15 + 10) + 's';
-        p.style.animationDelay = (Math.random() * 10) + 's';
-        c.appendChild(p);
-      }
+    // Theme toggle
+    var toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        var current = document.documentElement.getAttribute('data-theme') || 'light';
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        // Re-render charts with new theme colors
+        renderCharts();
+      });
     }
-    createParticles();
 
-    const PURPLE = 'rgba(99,102,241,';
-    const GREEN  = 'rgba(16,185,129,';
-    const AMBER  = 'rgba(245,158,11,';
+    // Theme-aware colors for charts
+    function themeColors() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      return {
+        tick: isDark ? '#B0B0B8' : '#555555',
+        grid: isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)',
+        accent: isDark ? 'rgba(147,197,253,' : 'rgba(30,58,138,',
+        positive: 'rgba(16,185,129,',
+        negative: 'rgba(239,68,68,',
+        warn: 'rgba(245,158,11,'
+      };
+    }
 
-    const gridColor = 'rgba(255,255,255,0.07)';
-    const tickColor = '#a1a1aa';
-    const font = { family: 'Inter', size: 12 };
+    var chartInstances = {};
+    function destroyCharts() {
+      Object.keys(chartInstances).forEach(function (k) {
+        if (chartInstances[k]) chartInstances[k].destroy();
+      });
+      chartInstances = {};
+    }
 
-    // ── Q1 : Fréquence d'usage ─────────────────────────────────────────────
-    new Chart(document.getElementById('chartQ1'), {
-      type: 'bar',
-      data: {
-        labels: ['Très rarement\n<1×/mois', 'Rarement\n1-3×/mois', 'Parfois\n~1×/sem.', 'Régulièrement\nplx/sem.', 'Quotidiennement\n1×/jour', 'Très fréquemment\nplx/jour'],
-        datasets: [{
-          label: '% répondants',
-          data: [4.5, 9.0, 16.4, 38.8, 13.4, 17.9],
-          backgroundColor: [
-            PURPLE+'0.4)', PURPLE+'0.5)', PURPLE+'0.6)', PURPLE+'0.85)', GREEN+'0.7)', GREEN+'0.85)'
-          ],
-          borderColor: [
-            PURPLE+'0.8)', PURPLE+'0.8)', PURPLE+'0.8)', PURPLE+'1)', GREEN+'0.9)', GREEN+'1)'
-          ],
-          borderWidth: 1,
-          borderRadius: 6,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
-          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 50 }
-        }
-      }
-    });
+    function renderCharts() {
+      destroyCharts();
+      var C = themeColors();
+      var font = { family: 'Inter', size: 12 };
 
-    // ── Q30 : Bénéfices vs risques ─────────────────────────────────────────
-    new Chart(document.getElementById('chartQ30'), {
-      type: 'bar',
-      data: {
-        labels: ['1\nRisques dominent', '3', '4', '5', '6', '7\nBénéfices dominent'],
-        datasets: [{
-          label: '% répondants',
-          data: [3.0, 7.6, 12.1, 37.9, 25.8, 13.6],
-          backgroundColor: [
-            'rgba(239,68,68,0.6)', 'rgba(239,68,68,0.4)',
-            AMBER+'0.5)', GREEN+'0.5)', GREEN+'0.7)', GREEN+'0.9)'
-          ],
-          borderColor: [
-            'rgba(239,68,68,0.9)', 'rgba(239,68,68,0.7)',
-            AMBER+'0.8)', GREEN+'0.8)', GREEN+'0.9)', GREEN+'1)'
-          ],
-          borderWidth: 1,
-          borderRadius: 6,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
-          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 50 }
-        }
-      }
-    });
-
-    // ── Q3 : Outils utilisés ───────────────────────────────────────────────
-    new Chart(document.getElementById('chartQ3'), {
-      type: 'bar',
-      data: {
-        labels: ['Copilot', 'ChatGPT', 'Outils cabinet', 'Gemini', 'Mistral', 'Claude', 'Perplexity', 'Grok', 'Autres'],
-        datasets: [{
-          label: '% utilisateurs',
-          data: [73.1, 53.7, 29.9, 22.4, 13.4, 11.9, 10.4, 6.0, 7.5],
-          backgroundColor: PURPLE+'0.6)',
-          borderColor: PURPLE+'1)',
-          borderWidth: 1,
-          borderRadius: 6,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
-          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 90 }
-        }
-      }
-    });
-
-    // ── Q4 : Tâches ────────────────────────────────────────────────────────
-    new Chart(document.getElementById('chartQ4'), {
-      type: 'bar',
-      data: {
-        labels: ['Reformulation', 'Rédaction', 'Recherche', 'Correction', 'Prép. données', 'Automatisation', 'Analyse données', 'Rapprochement', 'Aide décision', 'Éval. CI'],
-        datasets: [{
-          label: '% répondants',
-          data: [74.6, 73.1, 70.1, 34.3, 26.9, 25.4, 25.4, 20.9, 19.4, 11.9],
-          backgroundColor: GREEN+'0.6)',
-          borderColor: GREEN+'1)',
-          borderWidth: 1,
-          borderRadius: 6,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: tickColor, font }, grid: { color: gridColor } },
-          y: { ticks: { color: tickColor, font, callback: v => v + ' %' }, grid: { color: gridColor }, max: 90 }
-        }
-      }
-    });
-
-    // ── Radar scores composites ────────────────────────────────────────────
-    new Chart(document.getElementById('chartRadar'), {
-      type: 'radar',
-      data: {
-        labels: ['SUP\n(Utilité)', 'SFU\n(Facilité)', 'SRP\n(Risques)', 'SMF\n(Motivation)', 'SSP\n(Scepticisme)'],
-        datasets: [{
-          label: '% échelle max',
-          data: [68.0, 68.1, 79.1, 68.3, 70.8],
-          backgroundColor: PURPLE+'0.2)',
-          borderColor: PURPLE+'0.9)',
-          pointBackgroundColor: PURPLE+'1)',
-          borderWidth: 2,
-          pointRadius: 4,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          r: {
-            min: 50, max: 90,
-            ticks: { color: tickColor, font, stepSize: 10, callback: v => v + '%', backdropColor: 'transparent' },
-            grid: { color: gridColor },
-            pointLabels: { color: tickColor, font },
-            angleLines: { color: gridColor },
+      chartInstances.Q1 = new Chart(document.getElementById('chartQ1'), {
+        type: 'bar',
+        data: {
+          labels: ['Très rarement\n<1×/mois', 'Rarement\n1-3×/mois', 'Parfois\n~1×/sem.', 'Régulièrement\nplx/sem.', 'Quotidiennement\n1×/jour', 'Très fréquemment\nplx/jour'],
+          datasets: [{
+            data: [4.5, 9.0, 16.4, 38.8, 13.4, 17.9],
+            backgroundColor: [C.accent+'0.4)', C.accent+'0.5)', C.accent+'0.6)', C.accent+'0.85)', C.positive+'0.7)', C.positive+'0.85)'],
+            borderColor: [C.accent+'0.9)', C.accent+'0.9)', C.accent+'0.9)', C.accent+'1)', C.positive+'0.9)', C.positive+'1)'],
+            borderWidth: 1, borderRadius: 6
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
+            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 50 }
           }
         }
-      }
-    });
+      });
 
-    // ── Q2 : Environnement d'usage ─────────────────────────────────────────
-    new Chart(document.getElementById('chartQ2'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Outils cabinet (Copilot sécurisé…)', 'Mix des deux', 'Outils grand public (ChatGPT…)'],
-        datasets: [{
-          data: [49.3, 31.3, 19.4],
-          backgroundColor: [PURPLE+'0.75)', GREEN+'0.7)', AMBER+'0.7)'],
-          borderColor: [PURPLE+'1)', GREEN+'1)', AMBER+'1)'],
-          borderWidth: 2,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { color: tickColor, font, padding: 16, boxWidth: 14 }
+      chartInstances.Q30 = new Chart(document.getElementById('chartQ30'), {
+        type: 'bar',
+        data: {
+          labels: ['1\nRisques dominent', '3', '4', '5', '6', '7\nBénéfices dominent'],
+          datasets: [{
+            data: [3.0, 7.6, 12.1, 37.9, 25.8, 13.6],
+            backgroundColor: [C.negative+'0.6)', C.negative+'0.4)', C.warn+'0.5)', C.positive+'0.5)', C.positive+'0.7)', C.positive+'0.9)'],
+            borderColor: [C.negative+'0.9)', C.negative+'0.7)', C.warn+'0.8)', C.positive+'0.8)', C.positive+'0.9)', C.positive+'1)'],
+            borderWidth: 1, borderRadius: 6
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
+            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 50 }
           }
         }
-      }
-    });
+      });
+
+      chartInstances.Q3 = new Chart(document.getElementById('chartQ3'), {
+        type: 'bar',
+        data: {
+          labels: ['Copilot', 'ChatGPT', 'Outils cabinet', 'Gemini', 'Mistral', 'Claude', 'Perplexity', 'Grok', 'Autres'],
+          datasets: [{ data: [73.1, 53.7, 29.9, 22.4, 13.4, 11.9, 10.4, 6.0, 7.5],
+            backgroundColor: C.accent+'0.6)', borderColor: C.accent+'1)', borderWidth: 1, borderRadius: 6 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
+            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 90 }
+          }
+        }
+      });
+
+      chartInstances.Q4 = new Chart(document.getElementById('chartQ4'), {
+        type: 'bar',
+        data: {
+          labels: ['Reformulation', 'Rédaction', 'Recherche', 'Correction', 'Prép. données', 'Automatisation', 'Analyse données', 'Rapprochement', 'Aide décision', 'Éval. CI'],
+          datasets: [{ data: [74.6, 73.1, 70.1, 34.3, 26.9, 25.4, 25.4, 20.9, 19.4, 11.9],
+            backgroundColor: C.positive+'0.6)', borderColor: C.positive+'1)', borderWidth: 1, borderRadius: 6 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
+            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 90 }
+          }
+        }
+      });
+
+      chartInstances.Radar = new Chart(document.getElementById('chartRadar'), {
+        type: 'radar',
+        data: {
+          labels: ['SUP\n(Utilité)', 'SFU\n(Facilité)', 'SRP\n(Risques)', 'SMF\n(Motivation)', 'SSP\n(Scepticisme)'],
+          datasets: [{ data: [68.0, 68.1, 79.1, 68.3, 70.8],
+            backgroundColor: C.accent+'0.2)', borderColor: C.accent+'0.9)', pointBackgroundColor: C.accent+'1)', borderWidth: 2, pointRadius: 4 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } },
+          scales: {
+            r: { min: 50, max: 90,
+              ticks: { color: C.tick, font, stepSize: 10, callback: function (v) { return v + '%'; }, backdropColor: 'transparent' },
+              grid: { color: C.grid }, pointLabels: { color: C.tick, font }, angleLines: { color: C.grid }
+            }
+          }
+        }
+      });
+
+      chartInstances.Q2 = new Chart(document.getElementById('chartQ2'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Outils cabinet (Copilot sécurisé…)', 'Mix des deux', 'Outils grand public (ChatGPT…)'],
+          datasets: [{ data: [49.3, 31.3, 19.4],
+            backgroundColor: [C.accent+'0.75)', C.positive+'0.7)', C.warn+'0.7)'],
+            borderColor: [C.accent+'1)', C.positive+'1)', C.warn+'1)'], borderWidth: 2 }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: C.tick, font, padding: 16, boxWidth: 14 } } } }
+      });
+    }
+
+    renderCharts();
   </script>
 </body>
 </html>
