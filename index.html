@@ -209,9 +209,11 @@
     }
 
     /* Introduction section */
+    html { scroll-behavior: smooth; }
     .intro-projects {
       max-width: 900px;
       margin: 0 auto 4rem;
+      scroll-margin-top: 70px;
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
@@ -694,9 +696,9 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">LH</a>
       <div class="nav-links">
-        <a href="index.html" class="nav-link">Projets</a>
+        <a href="#projets" class="nav-link">Projets</a>
         <a href="memoire.html" class="nav-link">Mémoire</a>
-        <a href="explorateur.html" class="nav-link">Explorateur</a>
+        <a href="explorateur.html" class="nav-link">MCP Data.gouv</a>
       </div>
     </div>
   </nav>
@@ -731,7 +733,7 @@
   </header>
 
   <main class="container">
-    <section class="intro-projects">
+    <section class="intro-projects" id="projets">
       <h2>Mes Projets</h2>
       <p>Ce portfolio présente une sélection de projets personnels et académiques. Pour des raisons de confidentialité, je ne peux pas partager mes réalisations professionnelles.</p>
       <p>Ces quelques exemples concrets ont été choisis pour vous donner un aperçu de mes compétences et de ma passion pour la data. Ils illustrent ma capacité à transformer des idées en solutions concrètes et à produire des analyses visuelles et des tableaux de bord percutants.</p>
