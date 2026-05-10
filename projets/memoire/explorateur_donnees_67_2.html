@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier d'analyse — Mémoire IAG en audit (N=67)</title>
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f23;
+    --surface: rgba(255,255,255,0.05);
+    --surface-2: rgba(255,255,255,0.08);
+    --ink: #ffffff;
+    --ink-soft: rgba(255,255,255,0.82);
+    --ink-mute: #a1a1aa;
+    --line: rgba(255,255,255,0.12);
+    --line-soft: rgba(255,255,255,0.07);
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --accent-bg: rgba(99,102,241,0.15);
+    --ok: #10b981;
+    --ok-bg: rgba(16,185,129,0.15);
+    --ko: #f87171;
+    --ko-bg: rgba(248,113,113,0.15);
+    --warn: #f59e0b;
+    --warn-bg: rgba(245,158,11,0.15);
+    --ramp-1: #6366f1;
+    --ramp-2: #818cf8;
+    --ramp-3: #f59e0b;
+    --ramp-4: #10b981;
+    --ramp-5: #f97316;
+    --serif: 'Inter', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --mono: "SF Mono", Monaco, "Courier New", monospace;
+    --primary: #6366f1;
+    --secondary: #10b981;
+    --shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(99,102,241,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(16,185,129,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(245,158,11,0.1) 0%, transparent 50%);
+    font-family: var(--sans);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding-bottom: 40px;
+    padding-top: 52px;
+  }
+
+  /* ========== NAVBAR ========== */
+  .site-nav { position:fixed; top:0; left:0; right:0; z-index:100; height:52px; background:rgba(20,20,42,0.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.18); box-shadow:0 2px 18px rgba(0,0,0,0.45); }
+  .nav-inner { max-width:1200px; margin:0 auto; padding:0 2rem; height:100%; display:flex; align-items:center; justify-content:space-between; }
+  .nav-logo { font-size:1rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:0.05em; }
+  .nav-links { display:flex; gap:2rem; align-items:center; }
+  .nav-link { color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.25s ease; }
+  .nav-link:hover { color:var(--primary); }
+  .back-link { display:inline-flex; align-items:center; gap:.5rem; padding:.5rem 1rem; background:var(--surface); border:1px solid var(--line); border-radius:2rem; color:var(--ink); text-decoration:none; font-weight:500; font-size:.85rem; transition:.3s; }
+  .back-link:hover { transform:translateY(-2px); border-color:var(--primary); box-shadow:0 10px 25px rgba(99,102,241,0.2); }
+
+  /* ========== HEADER ========== */
+  header.top {
+    background: rgba(20,20,42,0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header.top .brand {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  header.top .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    text-align: right;
+  }
+  header.top .sub {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    flex-basis: 100%;
+  }
+
+  /* ========== LAYOUT ========== */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 32px;
+  }
+
+  .workspace {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 28px;
+    align-items: flex-start;
+  }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    position: sticky;
+    top: 68px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+  .sidebar h3 {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .sidebar .divider {
+    border-top: 0.5px solid var(--line-soft);
+    margin: 20px 0;
+  }
+
+  .filter-block { margin-bottom: 16px; }
+  .filter-label {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .filter-label .count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-mute);
+  }
+  select, input[type="text"] {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink);
+  }
+  select option { background: #1a1a2e; color: var(--ink); }
+  select:focus, input:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .chip {
+    font-size: 11px;
+    padding: 3px 9px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--accent-light); color: var(--ink); }
+  .chip.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  button.btn {
+    padding: 7px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  button.btn:hover { border-color: var(--accent); color: var(--ink); }
+  button.btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+  button.btn.full { width: 100%; }
+
+  /* ========== MAIN ========== */
+  .main-area { min-width: 0; }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .stat .s-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 4px;
+  }
+  .stat .s-value {
+    font-family: var(--serif);
+    font-size: 24px;
+    color: var(--ink);
+    line-height: 1;
+    font-weight: 400;
+  }
+  .stat .s-sub {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    font-family: var(--mono);
+  }
+
+  /* ========== TABS ========== */
+  .tabs {
+    display: flex;
+    gap: 2px;
+    border-bottom: 0.5px solid var(--line);
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+  .tab {
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    font-family: var(--sans);
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--ink-soft); }
+  .tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ========== PANELS ========== */
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .section-sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    max-width: 800px;
+    line-height: 1.55;
+  }
+
+  /* ========== CARDS ========== */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .card-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+  }
+
+  /* ========== CHART AREA ========== */
+  .chart-wrap { width: 100%; position: relative; }
+  .chart-wrap.with-svg { min-height: 280px; }
+  .chart-wrap.with-svg.large { min-height: 420px; }
+
+  svg { display: block; width: 100%; height: 100%; }
+  .chart-wrap.with-svg > svg { height: 100%; }
+
+  /* ========== HTML BAR CHART ========== */
+  .hbar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px 0;
+  }
+  .hbar-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 3fr auto;
+    gap: 12px;
+    align-items: center;
+    font-size: 12px;
+  }
+  .hbar-label {
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    text-align: right;
+    line-height: 1.3;
+    font-size: 12px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .hbar-track {
+    position: relative;
+    height: 18px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .hbar-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.25s ease, opacity 0.15s;
+    cursor: pointer;
+  }
+  .hbar-fill:hover { opacity: 0.85; }
+  .hbar-value {
+    font-family: var(--mono);
+    color: var(--ink);
+    font-size: 12px;
+    white-space: nowrap;
+    min-width: 32px;
+    text-align: right;
+  }
+  .hbar-value .pct {
+    color: var(--ink-mute);
+    font-size: 10px;
+    margin-left: 4px;
+  }
+
+  /* ========== AXIS + BARS (SVG) ========== */
+  .axis-line { stroke: var(--line); stroke-width: 0.5; }
+  .grid-line { stroke: var(--line-soft); stroke-width: 0.5; stroke-dasharray: 2,2; }
+  .axis-label { font-size: 11px; fill: var(--ink-mute); font-family: var(--mono); }
+  .axis-title { font-size: 12px; fill: var(--ink-soft); font-family: var(--sans); }
+  .bar { transition: opacity 0.15s; }
+  .bar:hover { opacity: 0.85; cursor: pointer; }
+  .data-point {
+    fill: var(--accent);
+    stroke: rgba(255,255,255,0.3);
+    stroke-width: 0.5;
+    opacity: 0.7;
+    transition: all 0.15s;
+  }
+  .data-point:hover { opacity: 1; r: 6; }
+  .data-point.highlight { fill: var(--ramp-3); opacity: 0.95; }
+
+  /* ========== TABLE ========== */
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  table.data th, table.data td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 0.5px solid var(--line-soft);
+  }
+  table.data th {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    background: rgba(20,20,42,0.97);
+    z-index: 2;
+  }
+  table.data tr:hover td { background: var(--surface-2); }
+  table.data td.num { font-family: var(--mono); text-align: right; }
+  .table-wrap { max-height: 520px; overflow-y: auto; border: 1px solid var(--line); border-radius: 10px; }
+
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    letter-spacing: 0.03em;
+  }
+  .pill.freq-2, .pill.freq-3 { background: var(--warn-bg); color: var(--warn); }
+  .pill.freq-4, .pill.freq-5 { background: var(--accent-bg); color: var(--accent); }
+  .pill.freq-6, .pill.freq-7 { background: var(--ok-bg); color: var(--ok); }
+  .pill.verdict-ok { background: var(--ok-bg); color: var(--ok); font-weight: 500; }
+  .pill.verdict-ko { background: var(--ko-bg); color: var(--ko); font-weight: 500; }
+
+  /* ========== SANDBOX (explorer) ========== */
+  .explorer-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: end;
+  }
+  .control-group label {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .result-highlight {
+    background: var(--accent-bg);
+    border: 1px solid rgba(99,102,241,0.3);
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .result-highlight .rh-big {
+    font-family: var(--mono);
+    font-size: 26px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .result-highlight .rh-label {
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .result-highlight .rh-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* ========== HYPOTHESIS CARDS ========== */
+  .hypo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .hypo-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .hypo-card.ok { border-left-color: var(--ok); }
+  .hypo-card.ko { border-left-color: var(--ko); }
+  .hypo-card h4 {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .hypo-card .hc-stmt {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .hypo-card .hc-rho {
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .hypo-card .hc-p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-top: 2px;
+  }
+  .hypo-card .hc-interp {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 0.5px solid var(--line-soft);
+  }
+
+  /* ========== TOOLTIP ========== */
+  .tooltip {
+    position: absolute;
+    background: #1a1a1a;
+    color: #e8e5dc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: var(--mono);
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .tooltip.show { opacity: 1; }
+  .tooltip strong { color: white; font-weight: 500; }
+
+  /* ========== EMPTY STATE ========== */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-mute);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  /* ========== LEGEND ========== */
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
+
+  @media (max-width: 900px) {
+    .workspace { grid-template-columns: 1fr; }
+    .sidebar { position: static; max-height: none; }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .hypo-grid { grid-template-columns: 1fr; }
+    .explorer-controls { grid-template-columns: 1fr; }
+    .result-highlight { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo">LH</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Projets</a>
+      <a href="../../memoire.html" class="nav-link">Mémoire</a>
+      <a href="../../explorateur.html" class="nav-link">Explorateur</a>
+    </div>
+  </div>
+</nav>
+
+<header class="top">
+  <div>
+    <div class="brand">Atelier d'analyse — Perception et adoption de l'IAG en audit</div>
+    <div class="sub">Jouer avec les 67 réponses du terrain · Mémoire M2 CGAO · L. Henry, 2025-2026</div>
+    <a href="../../memoire.html" class="back-link" style="margin-top:14px;">← Retour au mémoire</a>
+  </div>
+  <div class="meta">
+    N = 67 · janv. – mars 2026<br>
+    Données filtrées (Q1 ≠ Jamais, Q29 = Neutre)
+  </div>
+</header>
+
+<div class="container">
+  <div class="workspace">
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar">
+      <h3>Filtres</h3>
+
+      <div class="filter-block">
+        <div class="filter-label">
+          <span>Grade (regroupé)</span>
+          <span class="count" id="count-grade"></span>
+        </div>
+        <div class="chip-group" id="filter-grade"></div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-label"><span>Type de cabinet</span></div>
+        <div class="chip-group" id="filter-cabinet"></div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-label"><span>Tranche d'âge</span></div>
+        <div class="chip-group" id="filter-age"></div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-label"><span>Genre</span></div>
+        <div class="chip-group" id="filter-genre"></div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-label"><span>Fréquence d'usage (Q1)</span></div>
+        <div class="chip-group" id="filter-q1"></div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-label"><span>Type d'outil (Q2)</span></div>
+        <div class="chip-group" id="filter-q2"></div>
+      </div>
+
+      <div class="divider"></div>
+      <button class="btn full" onclick="resetFilters()">Réinitialiser les filtres</button>
+    </aside>
+
+    <!-- ==================== MAIN ==================== -->
+    <main class="main-area">
+
+      <!-- Stats strip -->
+      <div class="stat-strip">
+        <div class="stat">
+          <div class="s-label">Répondants</div>
+          <div class="s-value" id="stat-n">67</div>
+          <div class="s-sub">sur 67 au total</div>
+        </div>
+        <div class="stat">
+          <div class="s-label">SUP moyen</div>
+          <div class="s-value" id="stat-sup">—</div>
+          <div class="s-sub" id="sub-sup">utilité perçue / 5</div>
+        </div>
+        <div class="stat">
+          <div class="s-label">SFU moyen</div>
+          <div class="s-value" id="stat-sfu">—</div>
+          <div class="s-sub" id="sub-sfu">facilité / 7</div>
+        </div>
+        <div class="stat">
+          <div class="s-label">SRP moyen</div>
+          <div class="s-value" id="stat-srp">—</div>
+          <div class="s-sub" id="sub-srp">risques perçus / 7</div>
+        </div>
+        <div class="stat">
+          <div class="s-label">Q1 moyen</div>
+          <div class="s-value" id="stat-q1">—</div>
+          <div class="s-sub" id="sub-q1">fréquence / 7</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('profile')">Profil</button>
+        <button class="tab" onclick="switchTab('scores')">Scores composites</button>
+        <button class="tab" onclick="switchTab('hypotheses')">Hypothèses testées</button>
+        <button class="tab" onclick="switchTab('explorer')">Explorateur croisé</button>
+        <button class="tab" onclick="switchTab('risks')">Risques</button>
+        <button class="tab" onclick="switchTab('table')">Données brutes</button>
+      </div>
+
+      <!-- =========== PANEL: PROFIL =========== -->
+      <div class="panel active" id="panel-profile">
+        <h2 class="section-title">Profil de l'échantillon filtré</h2>
+        <p class="section-sub">
+          Distribution sociodémographique et d'usage. Les filtres de gauche recalculent ces graphiques en direct — comparer par exemple les juniors vs seniors-managers sur la fréquence d'usage, ou les cabinets internationaux vs régionaux sur le type d'outil utilisé.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="card">
+            <div class="card-head"><div class="card-title">Grade hiérarchique</div><div class="card-meta" id="meta-grade"></div></div>
+            <div class="chart-wrap" id="chart-grade"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Taille de cabinet</div><div class="card-meta" id="meta-cabinet"></div></div>
+            <div class="chart-wrap" id="chart-cabinet"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Tranche d'âge</div><div class="card-meta" id="meta-age"></div></div>
+            <div class="chart-wrap" id="chart-age"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Fréquence d'usage (Q1)</div><div class="card-meta" id="meta-q1dist"></div></div>
+            <div class="chart-wrap" id="chart-q1"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Type d'outil principal (Q2)</div><div class="card-meta" id="meta-q2"></div></div>
+            <div class="chart-wrap" id="chart-q2"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Mode d'usage (Q5)</div><div class="card-meta" id="meta-q5"></div></div>
+            <div class="chart-wrap" id="chart-q5"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========== PANEL: SCORES =========== -->
+      <div class="panel" id="panel-scores">
+        <h2 class="section-title">Cinq scores composites</h2>
+        <p class="section-sub">
+          Les cinq construits du mémoire, calculés par répondant. Chaque point = un auditeur. Les bandes colorées montrent la distribution (boxplot simplifié : médiane, quartiles, min-max) pour le sous-ensemble filtré.
+        </p>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Distribution des scores (boxplot)</div></div>
+          <div class="chart-wrap with-svg large" id="chart-boxplot"></div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-swatch" style="background: var(--ramp-1)"></div><span>SUP · Utilité perçue (1-5)</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background: var(--ramp-2)"></div><span>SFU · Facilité (1-7)</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background: var(--ramp-3)"></div><span>SRP · Risques (1-7)</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background: var(--ramp-4)"></div><span>SMF · Maîtrise (1-7)</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background: var(--ramp-5)"></div><span>SS · Scepticisme (1-7)</span></div>
+          </div>
+          <div style="font-size: 11px; color: var(--ink-mute); margin-top: 10px; line-height: 1.5;">
+            Le losange blanc au centre de chaque boîte indique la moyenne. La moustache grise épaisse à droite indique la plage <strong>moy ± σ</strong> (écart-type). La boîte indique l'écart interquartile (Q1-Q3).
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Statistiques descriptives détaillées</div><div class="card-meta">Recalculé sur l'échantillon filtré</div></div>
+          <div class="table-wrap" style="max-height: none;">
+            <table class="data">
+              <thead>
+                <tr>
+                  <th>Score</th>
+                  <th style="text-align: right;">n</th>
+                  <th style="text-align: right;">Moyenne</th>
+                  <th style="text-align: right;">Écart-type σ</th>
+                  <th style="text-align: right;">Médiane</th>
+                  <th style="text-align: right;">Min — Max</th>
+                  <th style="text-align: right;">CV</th>
+                  <th style="text-align: right;">α Cronbach (mém.)</th>
+                  <th>Échelle</th>
+                </tr>
+              </thead>
+              <tbody id="scores-table-body"></tbody>
+            </table>
+          </div>
+          <div style="font-size: 11px; color: var(--ink-mute); margin-top: 10px; line-height: 1.5;">
+            <strong>CV</strong> = coefficient de variation (σ/moyenne × 100) — indique la dispersion relative. L'<strong>α de Cronbach</strong> est celui du mémoire sur les 67 répondants complets (il ne varie pas avec les filtres car il mesure la cohérence interne du construit, pas de l'échantillon).
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Moyennes par grade (Kruskal-Wallis visuel)</div></div>
+          <div class="chart-wrap with-svg" id="chart-scores-by-grade"></div>
+        </div>
+      </div>
+
+      <!-- =========== PANEL: HYPOTHESES =========== -->
+      <div class="panel" id="panel-hypotheses">
+        <h2 class="section-title">Les six hypothèses, recalculées sur ton sélection</h2>
+        <p class="section-sub">
+          Les coefficients de Spearman sont recalculés en direct à partir du sous-échantillon filtré. <strong>Attention</strong> : sur de petits sous-groupes (N &lt; 20), la p-value peut devenir instable — c'est une lecture exploratoire, pas un test confirmatoire.
+        </p>
+
+        <div class="hypo-grid" id="hypo-grid"></div>
+      </div>
+
+      <!-- =========== PANEL: EXPLORER =========== -->
+      <div class="panel" id="panel-explorer">
+        <h2 class="section-title">Explorateur croisé</h2>
+        <p class="section-sub">
+          Choisis deux variables pour observer leur relation sur l'échantillon filtré. Nuage de points avec régression de Spearman calculée en direct. Teste tes propres hypothèses.
+        </p>
+
+        <div class="card">
+          <div class="explorer-controls">
+            <div class="control-group">
+              <label>Variable X (abscisse)</label>
+              <select id="var-x"></select>
+            </div>
+            <div class="control-group">
+              <label>Variable Y (ordonnée)</label>
+              <select id="var-y"></select>
+            </div>
+            <button class="btn primary" onclick="swapAxes()">↔ Inverser</button>
+          </div>
+
+          <div class="chart-wrap with-svg large" id="chart-scatter"></div>
+
+          <div class="result-highlight">
+            <div>
+              <div class="rh-label">Corrélation de Spearman</div>
+              <div class="rh-big" id="rh-rho">—</div>
+            </div>
+            <div>
+              <div class="rh-label">p-value (approx. Student)</div>
+              <div class="rh-big" id="rh-p">—</div>
+            </div>
+            <div>
+              <div class="rh-label">Lecture</div>
+              <div class="rh-note" id="rh-interp">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Raccourcis : hypothèses du mémoire</div><div class="card-meta">Clique pour charger la paire</div></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button class="btn" onclick="loadPair('SUP','Q1')">H1 · SUP → Q1</button>
+            <button class="btn" onclick="loadPair('SFU','Q1')">H2 · SFU → Q1</button>
+            <button class="btn" onclick="loadPair('Q10','Q1')">Q10 → Q1 (résultat star)</button>
+            <button class="btn" onclick="loadPair('SRP','Q17')">H3 · SRP → Q17</button>
+            <button class="btn" onclick="loadPair('Q15','Q17')">Q15 → Q17 (responsabilité)</button>
+            <button class="btn" onclick="loadPair('SMF','SS')">H4b · SMF → SS</button>
+            <button class="btn" onclick="loadPair('Q20','Q1')">Q20 → Q1 (prompting)</button>
+            <button class="btn" onclick="loadPair('Q21','Q1')">Q21 → Q1 (détection)</button>
+            <button class="btn" onclick="loadPair('SRP','SS')">H4c · SRP → SS</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========== PANEL: RISKS =========== -->
+      <div class="panel" id="panel-risks">
+        <h2 class="section-title">Cartographie des risques perçus</h2>
+        <p class="section-sub">
+          Niveau d'importance déclaré par risque (Q16) vs corrélation avec le frein effectif (Q17). Le décalage entre les deux est le cœur du résultat H3 : le risque le plus déclaré n'est pas celui qui freine le plus.
+        </p>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Importance déclarée (Q16) — moyenne sur 5</div></div>
+          <div class="chart-wrap" id="chart-risks-q16"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Le décalage déclaré vs effectif</div><div class="card-meta">Corrélation de chaque risque avec Q17 (frein effectif)</div></div>
+          <div class="chart-wrap" id="chart-risks-corr"></div>
+        </div>
+      </div>
+
+      <!-- =========== PANEL: TABLE =========== -->
+      <div class="panel" id="panel-table">
+        <h2 class="section-title">Données brutes filtrées</h2>
+        <p class="section-sub">
+          Les 67 répondants (anonymisés, identifiés par un numéro de ligne). Clique sur une en-tête pour trier. Les colonnes scalaires sont sur 1-7 sauf SUP qui est sur 1-5.
+        </p>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Table des répondants</div>
+            <div class="card-meta"><span id="table-count"></span></div>
+          </div>
+          <div class="table-wrap">
+            <table class="data" id="data-table">
+              <thead><tr id="table-head"></tr></thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const RAW_DATA = [{"id":1,"age":"26-35","genre":"Femme","grade":"Senior","grade_group":"Senior-Manager","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":3,"Q1_label":"3. Rarement (1 à 3 fois par mois)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":2,"Q9":5,"Q10":5,"Q11":2,"Q12":7,"Q13":7,"Q14":4,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":5,"Q17":4,"Q18":5,"Q19":4,"Q20":7,"Q21":7,"Q22":2,"Q23":6,"Q24":7,"Q25":1,"Q26":1,"Q27":null,"Q28":1,"Q30":1,"SUP":1.413,"SFU":5.333,"SRP":6.25,"SMF":6.0,"SS":6.6},{"id":2,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":6,"Q11":4,"Q12":7,"Q13":4,"Q14":7,"Q15":7,"Q16_hallu":5,"Q16_conf":4,"Q16_bn":4,"Q16_resp":5,"Q17":4,"Q18":4,"Q19":3,"Q20":5,"Q21":5,"Q22":3,"Q23":5,"Q24":6,"Q25":5,"Q26":3,"Q27":null,"Q28":5,"Q30":6,"SUP":2.016,"SFU":5.0,"SRP":6.25,"SMF":4.333,"SS":4.8},{"id":3,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":5,"Q10":1,"Q11":5,"Q12":1,"Q13":4,"Q14":4,"Q15":6,"Q16_hallu":4,"Q16_conf":4,"Q16_bn":4,"Q16_resp":4,"Q17":5,"Q18":5,"Q19":5,"Q20":6,"Q21":5,"Q22":4,"Q23":5,"Q24":4,"Q25":6,"Q26":4,"Q27":null,"Q28":7,"Q30":3,"SUP":3.333,"SFU":3.0,"SRP":3.75,"SMF":5.333,"SS":3.8},{"id":4,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit IT","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":6,"Q10":6,"Q11":4,"Q12":4,"Q13":7,"Q14":5,"Q15":6,"Q16_hallu":3,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":4,"Q18":6,"Q19":3,"Q20":5,"Q21":4,"Q22":4,"Q23":4,"Q24":6,"Q25":6,"Q26":4,"Q27":null,"Q28":6,"Q30":5,"SUP":4.095,"SFU":5.333,"SRP":5.5,"SMF":4.0,"SS":4.0},{"id":5,"age":"18-25","genre":"Homme","grade":"Stagiaire","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":6,"Q10":6,"Q11":3,"Q12":6,"Q13":6,"Q14":6,"Q15":4,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":6,"Q18":7,"Q19":1,"Q20":5,"Q21":6,"Q22":5,"Q23":4,"Q24":6,"Q25":5,"Q26":2,"Q27":null,"Q28":4,"Q30":5,"SUP":4.587,"SFU":5.667,"SRP":5.5,"SMF":4.0,"SS":4.4},{"id":6,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":5,"Q10":5,"Q11":5,"Q12":5,"Q13":5,"Q14":4,"Q15":2,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":4,"Q18":5,"Q19":4,"Q20":6,"Q21":6,"Q22":2,"Q23":6,"Q24":6,"Q25":5,"Q26":2,"Q27":null,"Q28":4,"Q30":4,"SUP":2.46,"SFU":4.333,"SRP":4.0,"SMF":5.333,"SS":5.4},{"id":7,"age":"26-35","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":3,"Q1_label":"3. Rarement (1 à 3 fois par mois)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":5,"Q9":6,"Q10":3,"Q11":6,"Q12":7,"Q13":6,"Q14":6,"Q15":2,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":3,"Q17":6,"Q18":7,"Q19":4,"Q20":4,"Q21":4,"Q22":2,"Q23":7,"Q24":5,"Q25":5,"Q26":2,"Q27":null,"Q28":6,"Q30":4,"SUP":2.889,"SFU":3.667,"SRP":5.25,"SMF":4.0,"SS":5.4},{"id":8,"age":"18-25","genre":"Homme","grade":"Alternant","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":3,"Q1_label":"3. Rarement (1 à 3 fois par mois)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":4,"Q9":6,"Q10":5,"Q11":3,"Q12":7,"Q13":3,"Q14":7,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":3,"Q17":6,"Q18":5,"Q19":3,"Q20":5,"Q21":5,"Q22":4,"Q23":5,"Q24":4,"Q25":5,"Q26":2,"Q27":null,"Q28":3,"Q30":5,"SUP":2.429,"SFU":5.333,"SRP":6.0,"SMF":4.333,"SS":4.4},{"id":9,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":7,"Q10":6,"Q11":3,"Q12":5,"Q13":7,"Q14":7,"Q15":7,"Q16_hallu":4,"Q16_conf":4,"Q16_bn":4,"Q16_resp":4,"Q17":5,"Q18":7,"Q19":6,"Q20":4,"Q21":4,"Q22":1,"Q23":6,"Q24":5,"Q25":5,"Q26":6,"Q27":null,"Q28":7,"Q30":null,"SUP":2.381,"SFU":6.0,"SRP":6.5,"SMF":4.667,"SS":4.6},{"id":10,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":7,"Q10":5,"Q11":3,"Q12":7,"Q13":7,"Q14":1,"Q15":7,"Q16_hallu":3,"Q16_conf":5,"Q16_bn":1,"Q16_resp":4,"Q17":6,"Q18":7,"Q19":3,"Q20":5,"Q21":6,"Q22":4,"Q23":5,"Q24":6,"Q25":2,"Q26":2,"Q27":null,"Q28":7,"Q30":5,"SUP":3.524,"SFU":5.667,"SRP":5.5,"SMF":4.667,"SS":5.4},{"id":11,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":7,"Q10":6,"Q11":5,"Q12":7,"Q13":7,"Q14":7,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":4,"Q18":6,"Q19":3,"Q20":6,"Q21":6,"Q22":4,"Q23":7,"Q24":7,"Q25":7,"Q26":2,"Q27":null,"Q28":7,"Q30":7,"SUP":3.317,"SFU":5.333,"SRP":7.0,"SMF":5.0,"SS":5.0},{"id":12,"age":"26-35","genre":"Homme","grade":"Senior Manager","grade_group":"Senior-Manager","experience":"Plus de 10 ans","metier":"Audit IT","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Usage mix des deux","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":7,"Q9":7,"Q10":7,"Q11":2,"Q12":7,"Q13":7,"Q14":5,"Q15":6,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":1,"Q18":4,"Q19":6,"Q20":7,"Q21":7,"Q22":1,"Q23":6,"Q24":6,"Q25":7,"Q26":1,"Q27":null,"Q28":7,"Q30":7,"SUP":3.619,"SFU":6.667,"SRP":6.25,"SMF":6.667,"SS":5.4},{"id":13,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"6  - 7 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":7,"Q10":6,"Q11":2,"Q12":7,"Q13":4,"Q14":7,"Q15":6,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":3,"Q16_resp":5,"Q17":4,"Q18":7,"Q19":6,"Q20":5,"Q21":3,"Q22":4,"Q23":5,"Q24":4,"Q25":6,"Q26":3,"Q27":null,"Q28":2,"Q30":6,"SUP":3.587,"SFU":6.333,"SRP":6.0,"SMF":4.667,"SS":4.0},{"id":14,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":3,"Q1_label":"3. Rarement (1 à 3 fois par mois)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":4,"Q9":4,"Q10":5,"Q11":6,"Q12":6,"Q13":7,"Q14":6,"Q15":3,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":3,"Q17":4,"Q18":5,"Q19":5,"Q20":6,"Q21":6,"Q22":4,"Q23":6,"Q24":4,"Q25":3,"Q26":5,"Q27":null,"Q28":7,"Q30":3,"SUP":3.524,"SFU":3.667,"SRP":5.5,"SMF":5.667,"SS":4.4},{"id":15,"age":"26-35","genre":"Homme","grade":"Senior","grade_group":"Senior-Manager","experience":"4  - 5 ans","metier":"Audit IT","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":6,"Q10":6,"Q11":3,"Q12":7,"Q13":7,"Q14":3,"Q15":7,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":3,"Q16_resp":4,"Q17":5,"Q18":7,"Q19":4,"Q20":6,"Q21":6,"Q22":3,"Q23":4,"Q24":5,"Q25":4,"Q26":5,"Q27":null,"Q28":5,"Q30":6,"SUP":3.27,"SFU":5.667,"SRP":6.0,"SMF":5.333,"SS":4.2},{"id":16,"age":"26-35","genre":"Homme","grade":"Senior","grade_group":"Senior-Manager","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":5,"Q11":6,"Q12":5,"Q13":4,"Q14":3,"Q15":2,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":2,"Q18":4,"Q19":4,"Q20":5,"Q21":5,"Q22":2,"Q23":6,"Q24":6,"Q25":7,"Q26":6,"Q27":null,"Q28":6,"Q30":6,"SUP":3.778,"SFU":4.0,"SRP":3.5,"SMF":4.667,"SS":4.2},{"id":17,"age":"26-35","genre":"Homme","grade":"Superviseur","grade_group":"Senior-Manager","experience":"6  - 7 ans","metier":"Audit Financier","cabinet":"National et membre d'un réseau","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":4,"Q9":4,"Q10":2,"Q11":6,"Q12":7,"Q13":7,"Q14":3,"Q15":5,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":3,"Q17":6,"Q18":7,"Q19":6,"Q20":5,"Q21":5,"Q22":3,"Q23":6,"Q24":4,"Q25":5,"Q26":2,"Q27":null,"Q28":6,"Q30":5,"SUP":3.476,"SFU":2.667,"SRP":5.5,"SMF":5.333,"SS":4.8},{"id":18,"age":"26-35","genre":"Femme","grade":"Senior","grade_group":"Senior-Manager","experience":"4  - 5 ans","metier":"Audit Financier, Audit Interne, Audit acquisition","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":7,"Q10":6,"Q11":3,"Q12":5,"Q13":6,"Q14":5,"Q15":2,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":3,"Q16_resp":1,"Q17":1,"Q18":7,"Q19":6,"Q20":5,"Q21":4,"Q22":4,"Q23":5,"Q24":6,"Q25":5,"Q26":3,"Q27":null,"Q28":6,"Q30":4,"SUP":3.54,"SFU":6.0,"SRP":4.5,"SMF":5.0,"SS":4.6},{"id":19,"age":"46-55","genre":"Homme","grade":"Manager","grade_group":"Senior-Manager","experience":"Plus de 10 ans","metier":"Audit Financier, Audit IT, Audit Interne","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":6,"Q10":7,"Q11":2,"Q12":7,"Q13":1,"Q14":7,"Q15":7,"Q16_hallu":3,"Q16_conf":3,"Q16_bn":1,"Q16_resp":1,"Q17":7,"Q18":7,"Q19":4,"Q20":7,"Q21":7,"Q22":4,"Q23":4,"Q24":7,"Q25":7,"Q26":1,"Q27":null,"Q28":7,"Q30":7,"SUP":2.667,"SFU":6.333,"SRP":5.5,"SMF":6.0,"SS":4.6},{"id":20,"age":"26-35","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":3,"Q1_label":"3. Rarement (1 à 3 fois par mois)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":6,"Q10":3,"Q11":3,"Q12":7,"Q13":7,"Q14":7,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":7,"Q18":7,"Q19":2,"Q20":5,"Q21":7,"Q22":2,"Q23":7,"Q24":4,"Q25":2,"Q26":2,"Q27":null,"Q28":1,"Q30":1,"SUP":3.27,"SFU":4.667,"SRP":7.0,"SMF":4.667,"SS":5.8},{"id":21,"age":"26-35","genre":"Homme","grade":"Senior","grade_group":"Senior-Manager","experience":"4  - 5 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":2,"Q1_label":"2. Très rarement (Moins d'une fois par mois)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":5,"Q10":5,"Q11":5,"Q12":6,"Q13":6,"Q14":5,"Q15":5,"Q16_hallu":3,"Q16_conf":3,"Q16_bn":3,"Q16_resp":3,"Q17":4,"Q18":6,"Q19":2,"Q20":4,"Q21":4,"Q22":4,"Q23":4,"Q24":5,"Q25":5,"Q26":3,"Q27":null,"Q28":5,"Q30":5,"SUP":2.317,"SFU":4.333,"SRP":5.5,"SMF":3.333,"SS":4.2},{"id":22,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":5,"Q10":6,"Q11":2,"Q12":2,"Q13":3,"Q14":3,"Q15":6,"Q16_hallu":3,"Q16_conf":2,"Q16_bn":3,"Q16_resp":4,"Q17":4,"Q18":7,"Q19":2,"Q20":6,"Q21":5,"Q22":2,"Q23":6,"Q24":7,"Q25":7,"Q26":6,"Q27":null,"Q28":4,"Q30":7,"SUP":3.397,"SFU":5.667,"SRP":3.5,"SMF":4.333,"SS":4.4},{"id":23,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit IT","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":6,"Q11":3,"Q12":5,"Q13":6,"Q14":6,"Q15":4,"Q16_hallu":4,"Q16_conf":4,"Q16_bn":3,"Q16_resp":4,"Q17":6,"Q18":6,"Q19":2,"Q20":6,"Q21":3,"Q22":2,"Q23":6,"Q24":3,"Q25":5,"Q26":2,"Q27":null,"Q28":2,"Q30":5,"SUP":3.302,"SFU":5.333,"SRP":5.25,"SMF":3.667,"SS":4.8},{"id":24,"age":"18-25","genre":"Homme","grade":"Senior","grade_group":"Senior-Manager","experience":"4  - 5 ans","metier":"Audit IT","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":6,"Q10":7,"Q11":4,"Q12":7,"Q13":7,"Q14":2,"Q15":7,"Q16_hallu":5,"Q16_conf":2,"Q16_bn":2,"Q16_resp":4,"Q17":2,"Q18":4,"Q19":5,"Q20":6,"Q21":6,"Q22":3,"Q23":5,"Q24":5,"Q25":5,"Q26":5,"Q27":null,"Q28":2,"Q30":5,"SUP":3.508,"SFU":5.667,"SRP":5.75,"SMF":5.667,"SS":4.2},{"id":25,"age":"36-45","genre":"Homme","grade":"Manager","grade_group":"Senior-Manager","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":5,"Q9":3,"Q10":5,"Q11":6,"Q12":6,"Q13":3,"Q14":3,"Q15":6,"Q16_hallu":5,"Q16_conf":4,"Q16_bn":3,"Q16_resp":3,"Q17":5,"Q18":6,"Q19":6,"Q20":5,"Q21":5,"Q22":2,"Q23":6,"Q24":6,"Q25":6,"Q26":3,"Q27":null,"Q28":5,"Q30":5,"SUP":3.556,"SFU":3.333,"SRP":4.5,"SMF":5.333,"SS":5.0},{"id":26,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":2,"Q1_label":"2. Très rarement (Moins d'une fois par mois)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":6,"Q10":6,"Q11":4,"Q12":4,"Q13":5,"Q14":4,"Q15":5,"Q16_hallu":3,"Q16_conf":3,"Q16_bn":3,"Q16_resp":4,"Q17":5,"Q18":5,"Q19":5,"Q20":5,"Q21":4,"Q22":4,"Q23":5,"Q24":5,"Q25":4,"Q26":5,"Q27":null,"Q28":5,"Q30":5,"SUP":3.921,"SFU":5.333,"SRP":4.5,"SMF":4.667,"SS":4.2},{"id":27,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier, Audit RSE","cabinet":"Cabinet international","Q1":2,"Q1_label":"2. Très rarement (Moins d'une fois par mois)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":3,"Q10":5,"Q11":7,"Q12":7,"Q13":7,"Q14":5,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":3,"Q17":5,"Q18":5,"Q19":3,"Q20":6,"Q21":5,"Q22":3,"Q23":7,"Q24":4,"Q25":3,"Q26":2,"Q27":null,"Q28":7,"Q30":5,"SUP":2.556,"SFU":3.0,"SRP":6.5,"SMF":4.667,"SS":5.4},{"id":28,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":5,"Q9":5,"Q10":5,"Q11":5,"Q12":5,"Q13":4,"Q14":4,"Q15":6,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":3,"Q16_resp":4,"Q17":3,"Q18":5,"Q19":4,"Q20":5,"Q21":5,"Q22":2,"Q23":4,"Q24":6,"Q25":4,"Q26":2,"Q27":null,"Q28":7,"Q30":6,"SUP":3.317,"SFU":4.333,"SRP":4.75,"SMF":4.667,"SS":5.2},{"id":29,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":6,"Q10":6,"Q11":4,"Q12":6,"Q13":7,"Q14":5,"Q15":3,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":5,"Q16_resp":3,"Q17":3,"Q18":7,"Q19":2,"Q20":6,"Q21":6,"Q22":5,"Q23":5,"Q24":6,"Q25":5,"Q26":1,"Q27":null,"Q28":7,"Q30":7,"SUP":3.476,"SFU":5.333,"SRP":5.25,"SMF":4.667,"SS":4.8},{"id":30,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":6,"Q11":5,"Q12":5,"Q13":6,"Q14":5,"Q15":3,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":3,"Q17":6,"Q18":6,"Q19":1,"Q20":3,"Q21":6,"Q22":4,"Q23":4,"Q24":6,"Q25":3,"Q26":4,"Q27":null,"Q28":5,"Q30":5,"SUP":3.635,"SFU":4.667,"SRP":4.75,"SMF":3.333,"SS":4.6},{"id":31,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":6,"Q10":5,"Q11":3,"Q12":7,"Q13":7,"Q14":7,"Q15":4,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":3,"Q18":3,"Q19":2,"Q20":1,"Q21":5,"Q22":6,"Q23":2,"Q24":4,"Q25":5,"Q26":3,"Q27":null,"Q28":3,"Q30":5,"SUP":3.429,"SFU":5.333,"SRP":6.25,"SMF":2.667,"SS":3.2},{"id":32,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":6,"Q10":6,"Q11":3,"Q12":5,"Q13":4,"Q14":4,"Q15":2,"Q16_hallu":4,"Q16_conf":2,"Q16_bn":3,"Q16_resp":3,"Q17":2,"Q18":7,"Q19":4,"Q20":6,"Q21":6,"Q22":2,"Q23":6,"Q24":5,"Q25":5,"Q26":2,"Q27":null,"Q28":7,"Q30":7,"SUP":4.064,"SFU":5.667,"SRP":3.75,"SMF":5.333,"SS":5.2},{"id":33,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier, Audit RSE","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":6,"Q11":5,"Q12":7,"Q13":6,"Q14":5,"Q15":4,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":3,"Q17":6,"Q18":6,"Q19":2,"Q20":5,"Q21":5,"Q22":6,"Q23":7,"Q24":7,"Q25":2,"Q26":1,"Q27":null,"Q28":5,"Q30":5,"SUP":3.159,"SFU":4.667,"SRP":5.5,"SMF":4.0,"SS":5.8},{"id":34,"age":"26-35","genre":"Homme","grade":"Senior","grade_group":"Senior-Manager","experience":"4  - 5 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":5,"Q10":5,"Q11":4,"Q12":6,"Q13":7,"Q14":4,"Q15":5,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":6,"Q18":6,"Q19":4,"Q20":5,"Q21":5,"Q22":2,"Q23":5,"Q24":6,"Q25":6,"Q26":3,"Q27":null,"Q28":6,"Q30":3,"SUP":2.873,"SFU":4.667,"SRP":5.5,"SMF":4.667,"SS":4.8},{"id":35,"age":"26-35","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"6  - 7 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":6,"Q10":6,"Q11":6,"Q12":7,"Q13":7,"Q14":7,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":6,"Q18":7,"Q19":6,"Q20":6,"Q21":2,"Q22":5,"Q23":6,"Q24":4,"Q25":5,"Q26":6,"Q27":null,"Q28":5,"Q30":5,"SUP":3.492,"SFU":4.667,"SRP":7.0,"SMF":4.667,"SS":3.6},{"id":36,"age":"36-45","genre":"Homme","grade":"Manager","grade_group":"Senior-Manager","experience":"Plus de 10 ans","metier":"Audit Financier, Audit Interne","cabinet":"Cabinet local","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":5,"Q11":5,"Q12":7,"Q13":7,"Q14":7,"Q15":7,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":5,"Q18":7,"Q19":3,"Q20":5,"Q21":6,"Q22":2,"Q23":6,"Q24":6,"Q25":4,"Q26":4,"Q27":null,"Q28":7,"Q30":6,"SUP":3.921,"SFU":4.333,"SRP":7.0,"SMF":4.667,"SS":5.2},{"id":37,"age":"46-55","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":3,"Q10":6,"Q11":6,"Q12":6,"Q13":7,"Q14":5,"Q15":4,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":3,"Q16_resp":3,"Q17":3,"Q18":7,"Q19":5,"Q20":5,"Q21":6,"Q22":2,"Q23":5,"Q24":5,"Q25":5,"Q26":2,"Q27":null,"Q28":7,"Q30":6,"SUP":3.937,"SFU":3.667,"SRP":5.5,"SMF":5.333,"SS":5.0},{"id":38,"age":"56-65","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier, Audit Interne","cabinet":"Cabinet régional","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Usage mix des deux","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":7,"Q9":6,"Q10":6,"Q11":7,"Q12":7,"Q13":7,"Q14":7,"Q15":5,"Q16_hallu":5,"Q16_conf":4,"Q16_bn":4,"Q16_resp":5,"Q17":6,"Q18":7,"Q19":7,"Q20":6,"Q21":6,"Q22":4,"Q23":5,"Q24":6,"Q25":6,"Q26":4,"Q27":null,"Q28":7,"Q30":6,"SUP":4.095,"SFU":4.333,"SRP":6.5,"SMF":6.333,"SS":4.2},{"id":39,"age":"46-55","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":4,"Q9":4,"Q10":6,"Q11":6,"Q12":6,"Q13":7,"Q14":5,"Q15":5,"Q16_hallu":2,"Q16_conf":4,"Q16_bn":3,"Q16_resp":2,"Q17":3,"Q18":4,"Q19":5,"Q20":4,"Q21":5,"Q22":3,"Q23":6,"Q24":6,"Q25":4,"Q26":2,"Q27":null,"Q28":7,"Q30":6,"SUP":3.381,"SFU":4.0,"SRP":5.75,"SMF":4.667,"SS":5.4},{"id":40,"age":"36-45","genre":"Femme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier, Audit RSE","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":5,"Q10":5,"Q11":7,"Q12":7,"Q13":7,"Q14":5,"Q15":6,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":3,"Q17":4,"Q18":7,"Q19":6,"Q20":5,"Q21":5,"Q22":3,"Q23":6,"Q24":6,"Q25":3,"Q26":1,"Q27":null,"Q28":4,"Q30":4,"SUP":2.937,"SFU":3.667,"SRP":6.25,"SMF":5.333,"SS":5.8},{"id":41,"age":"26-35","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":7,"Q9":6,"Q10":4,"Q11":6,"Q12":6,"Q13":3,"Q14":2,"Q15":7,"Q16_hallu":5,"Q16_conf":1,"Q16_bn":2,"Q16_resp":5,"Q17":1,"Q18":7,"Q19":5,"Q20":6,"Q21":7,"Q22":6,"Q23":6,"Q24":7,"Q25":7,"Q26":5,"Q27":null,"Q28":4,"Q30":7,"SUP":4.619,"SFU":4.0,"SRP":4.5,"SMF":6.0,"SS":3.8},{"id":42,"age":"36-45","genre":"Homme","grade":"Manager","grade_group":"Senior-Manager","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":5,"Q10":6,"Q11":4,"Q12":7,"Q13":7,"Q14":6,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":3,"Q18":7,"Q19":4,"Q20":7,"Q21":7,"Q22":4,"Q23":5,"Q24":7,"Q25":2,"Q26":1,"Q27":null,"Q28":4,"Q30":6,"SUP":4.048,"SFU":5.0,"SRP":6.75,"SMF":6.0,"SS":5.8},{"id":43,"age":"36-45","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":4,"Q10":5,"Q11":5,"Q12":6,"Q13":6,"Q14":5,"Q15":6,"Q16_hallu":4,"Q16_conf":4,"Q16_bn":4,"Q16_resp":4,"Q17":6,"Q18":6,"Q19":4,"Q20":4,"Q21":5,"Q22":3,"Q23":5,"Q24":5,"Q25":3,"Q26":1,"Q27":null,"Q28":6,"Q30":5,"SUP":3.54,"SFU":4.0,"SRP":5.75,"SMF":4.333,"SS":5.4},{"id":44,"age":"46-55","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier, Audit Interne","cabinet":"Cabinet régional","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":3,"Q9":5,"Q10":5,"Q11":6,"Q12":6,"Q13":4,"Q14":6,"Q15":5,"Q16_hallu":4,"Q16_conf":3,"Q16_bn":4,"Q16_resp":4,"Q17":4,"Q18":6,"Q19":2,"Q20":5,"Q21":5,"Q22":4,"Q23":5,"Q24":5,"Q25":4,"Q26":4,"Q27":null,"Q28":4,"Q30":6,"SUP":3.063,"SFU":4.0,"SRP":5.25,"SMF":4.0,"SS":4.4},{"id":45,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier, Consolidation","cabinet":"Cabinet local","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":4,"Q10":6,"Q11":4,"Q12":7,"Q13":7,"Q14":6,"Q15":2,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":3,"Q17":1,"Q18":5,"Q19":5,"Q20":7,"Q21":7,"Q22":1,"Q23":7,"Q24":7,"Q25":3,"Q26":2,"Q27":null,"Q28":2,"Q30":5,"SUP":2.873,"SFU":4.667,"SRP":5.5,"SMF":6.333,"SS":6.4},{"id":46,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":6,"Q10":6,"Q11":4,"Q12":5,"Q13":5,"Q14":6,"Q15":6,"Q16_hallu":4,"Q16_conf":2,"Q16_bn":4,"Q16_resp":4,"Q17":2,"Q18":6,"Q19":2,"Q20":6,"Q21":5,"Q22":5,"Q23":2,"Q24":5,"Q25":5,"Q26":3,"Q27":null,"Q28":6,"Q30":5,"SUP":4.302,"SFU":5.333,"SRP":5.5,"SMF":4.333,"SS":3.6},{"id":47,"age":"36-45","genre":"Femme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":7,"Q10":7,"Q11":5,"Q12":6,"Q13":7,"Q14":7,"Q15":4,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":3,"Q17":3,"Q18":3,"Q19":1,"Q20":5,"Q21":4,"Q22":2,"Q23":6,"Q24":7,"Q25":4,"Q26":3,"Q27":null,"Q28":5,"Q30":6,"SUP":4.016,"SFU":5.667,"SRP":6.0,"SMF":3.333,"SS":5.6},{"id":48,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":4,"Q10":5,"Q11":4,"Q12":7,"Q13":7,"Q14":4,"Q15":3,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":4,"Q18":4,"Q19":4,"Q20":6,"Q21":6,"Q22":2,"Q23":6,"Q24":7,"Q25":3,"Q26":1,"Q27":null,"Q28":5,"Q30":3,"SUP":2.937,"SFU":4.333,"SRP":5.25,"SMF":5.333,"SS":6.2},{"id":49,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":5,"Q10":5,"Q11":5,"Q12":7,"Q13":5,"Q14":3,"Q15":2,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":5,"Q17":2,"Q18":3,"Q19":5,"Q20":5,"Q21":5,"Q22":1,"Q23":4,"Q24":5,"Q25":5,"Q26":2,"Q27":null,"Q28":5,"Q30":5,"SUP":3.27,"SFU":4.333,"SRP":4.25,"SMF":5.0,"SS":5.0},{"id":50,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":6,"Q10":5,"Q11":6,"Q12":7,"Q13":6,"Q14":2,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":4,"Q17":5,"Q18":5,"Q19":4,"Q20":5,"Q21":5,"Q22":4,"Q23":3,"Q24":5,"Q25":3,"Q26":4,"Q27":null,"Q28":2,"Q30":6,"SUP":3.635,"SFU":4.333,"SRP":5.5,"SMF":4.667,"SS":4.2},{"id":51,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":6,"Q10":5,"Q11":2,"Q12":7,"Q13":5,"Q14":6,"Q15":7,"Q16_hallu":5,"Q16_conf":3,"Q16_bn":3,"Q16_resp":5,"Q17":4,"Q18":6,"Q19":3,"Q20":5,"Q21":5,"Q22":4,"Q23":6,"Q24":6,"Q25":7,"Q26":4,"Q27":null,"Q28":6,"Q30":6,"SUP":3.016,"SFU":5.667,"SRP":6.25,"SMF":4.333,"SS":4.2},{"id":52,"age":"26-35","genre":"Femme","grade":"Senior","grade_group":"Senior-Manager","experience":"4  - 5 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":7,"Q10":7,"Q11":2,"Q12":7,"Q13":4,"Q14":5,"Q15":6,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":5,"Q17":5,"Q18":7,"Q19":3,"Q20":6,"Q21":5,"Q22":1,"Q23":7,"Q24":6,"Q25":4,"Q26":1,"Q27":null,"Q28":5,"Q30":5,"SUP":3.778,"SFU":6.667,"SRP":5.5,"SMF":4.667,"SS":6.2},{"id":53,"age":"18-25","genre":"Homme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":7,"Q1_label":"7. Très fréquemment (Plusieurs fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":7,"Q9":5,"Q10":6,"Q11":6,"Q12":7,"Q13":2,"Q14":5,"Q15":5,"Q16_hallu":4,"Q16_conf":3,"Q16_bn":3,"Q16_resp":5,"Q17":3,"Q18":3,"Q19":4,"Q20":5,"Q21":5,"Q22":3,"Q23":6,"Q24":6,"Q25":5,"Q26":2,"Q27":null,"Q28":6,"Q30":7,"SUP":3.286,"SFU":4.333,"SRP":4.75,"SMF":4.667,"SS":5.2},{"id":54,"age":"26-35","genre":"Femme","grade":"Senior","grade_group":"Senior-Manager","experience":"2 - 3 ans","metier":"Audit Financier, Audit Interne","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":7,"Q9":7,"Q10":6,"Q11":2,"Q12":6,"Q13":5,"Q14":4,"Q15":3,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":1,"Q18":7,"Q19":5,"Q20":7,"Q21":6,"Q22":1,"Q23":7,"Q24":7,"Q25":5,"Q26":1,"Q27":null,"Q28":7,"Q30":7,"SUP":3.762,"SFU":6.333,"SRP":4.5,"SMF":6.0,"SS":6.2},{"id":55,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"Moins de 2 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":6,"Q10":6,"Q11":6,"Q12":6,"Q13":2,"Q14":4,"Q15":5,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":5,"Q18":6,"Q19":5,"Q20":5,"Q21":5,"Q22":3,"Q23":5,"Q24":6,"Q25":5,"Q26":2,"Q27":null,"Q28":5,"Q30":5,"SUP":3.794,"SFU":4.667,"SRP":4.25,"SMF":5.0,"SS":5.0},{"id":56,"age":"26-35","genre":"Homme","grade":"Senior","grade_group":"Senior-Manager","experience":"2 - 3 ans","metier":"Audit Financier, Audit Interne","cabinet":"Cabinet local","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":5,"Q11":4,"Q12":6,"Q13":7,"Q14":6,"Q15":4,"Q16_hallu":5,"Q16_conf":4,"Q16_bn":4,"Q16_resp":3,"Q17":3,"Q18":7,"Q19":4,"Q20":5,"Q21":5,"Q22":2,"Q23":6,"Q24":5,"Q25":1,"Q26":1,"Q27":null,"Q28":5,"Q30":4,"SUP":3.873,"SFU":4.667,"SRP":5.75,"SMF":4.667,"SS":6.2},{"id":57,"age":"36-45","genre":"Femme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet régional","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":5,"Q9":5,"Q10":5,"Q11":5,"Q12":7,"Q13":7,"Q14":5,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":7,"Q18":5,"Q19":3,"Q20":6,"Q21":5,"Q22":2,"Q23":6,"Q24":7,"Q25":4,"Q26":5,"Q27":null,"Q28":6,"Q30":5,"SUP":3.222,"SFU":4.333,"SRP":6.5,"SMF":4.667,"SS":5.2},{"id":58,"age":"+65","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":6,"Q9":4,"Q10":5,"Q11":4,"Q12":7,"Q13":7,"Q14":7,"Q15":5,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":5,"Q18":5,"Q19":2,"Q20":5,"Q21":5,"Q22":1,"Q23":6,"Q24":7,"Q25":5,"Q26":4,"Q27":null,"Q28":5,"Q30":6,"SUP":3.587,"SFU":4.333,"SRP":6.5,"SMF":4.0,"SS":5.4},{"id":59,"age":"26-35","genre":"Femme","grade":"Associé","grade_group":"Associe","experience":"8 - 10 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":7,"Q10":7,"Q11":5,"Q12":7,"Q13":7,"Q14":4,"Q15":1,"Q16_hallu":1,"Q16_conf":5,"Q16_bn":1,"Q16_resp":1,"Q17":1,"Q18":1,"Q19":7,"Q20":7,"Q21":7,"Q22":1,"Q23":7,"Q24":7,"Q25":1,"Q26":1,"Q27":null,"Q28":1,"Q30":4,"SUP":3.032,"SFU":5.667,"SRP":4.75,"SMF":7.0,"SS":7.0},{"id":60,"age":"46-55","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"EXPERTISE COMPTABLE ET COMMISSARIAT AUX COMPTES","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":5,"Q9":3,"Q10":5,"Q11":7,"Q12":4,"Q13":6,"Q14":6,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":5,"Q16_resp":5,"Q17":4,"Q18":6,"Q19":3,"Q20":6,"Q21":5,"Q22":3,"Q23":4,"Q24":6,"Q25":6,"Q26":3,"Q27":null,"Q28":6,"Q30":6,"SUP":3.603,"SFU":3.0,"SRP":5.75,"SMF":4.667,"SS":4.4},{"id":61,"age":"56-65","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier, Audit IT, Audit Interne","cabinet":"Cabinet international","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":5,"Q9":6,"Q10":6,"Q11":4,"Q12":6,"Q13":5,"Q14":5,"Q15":5,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":4,"Q17":3,"Q18":3,"Q19":4,"Q20":6,"Q21":6,"Q22":2,"Q23":5,"Q24":6,"Q25":5,"Q26":2,"Q27":null,"Q28":6,"Q30":6,"SUP":4.175,"SFU":5.333,"SRP":5.25,"SMF":5.333,"SS":5.2},{"id":62,"age":"36-45","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":3,"Q9":4,"Q10":3,"Q11":7,"Q12":7,"Q13":7,"Q14":7,"Q15":7,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":3,"Q16_resp":5,"Q17":7,"Q18":4,"Q19":3,"Q20":2,"Q21":2,"Q22":1,"Q23":7,"Q24":7,"Q25":4,"Q26":1,"Q27":null,"Q28":5,"Q30":3,"SUP":2.968,"SFU":2.667,"SRP":7.0,"SMF":2.333,"SS":6.4},{"id":63,"age":"36-45","genre":"Femme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":3,"Q1_label":"3. Rarement (1 à 3 fois par mois)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":5,"Q10":5,"Q11":6,"Q12":7,"Q13":7,"Q14":7,"Q15":5,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":5,"Q16_resp":4,"Q17":5,"Q18":7,"Q19":4,"Q20":4,"Q21":6,"Q22":1,"Q23":7,"Q24":6,"Q25":5,"Q26":5,"Q27":null,"Q28":7,"Q30":5,"SUP":4.032,"SFU":4.0,"SRP":6.5,"SMF":4.667,"SS":5.2},{"id":64,"age":"26-35","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"4  - 5 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Usage mix des deux","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":6,"Q9":5,"Q10":6,"Q11":5,"Q12":7,"Q13":7,"Q14":6,"Q15":1,"Q16_hallu":4,"Q16_conf":5,"Q16_bn":4,"Q16_resp":1,"Q17":7,"Q18":7,"Q19":1,"Q20":6,"Q21":6,"Q22":2,"Q23":6,"Q24":7,"Q25":5,"Q26":6,"Q27":null,"Q28":5,"Q30":4,"SUP":3.492,"SFU":4.667,"SRP":5.25,"SMF":4.333,"SS":4.8},{"id":65,"age":"18-25","genre":"Homme","grade":"Senior","grade_group":"Senior-Manager","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":5,"Q1_label":"5. Régulièrement (Plusieurs fois par semaine)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":5,"Q9":6,"Q10":6,"Q11":6,"Q12":6,"Q13":6,"Q14":6,"Q15":6,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":5,"Q17":5,"Q18":7,"Q19":4,"Q20":4,"Q21":4,"Q22":2,"Q23":5,"Q24":2,"Q25":4,"Q26":4,"Q27":null,"Q28":6,"Q30":5,"SUP":3.651,"SFU":4.667,"SRP":6.0,"SMF":4.0,"SS":4.2},{"id":66,"age":"56-65","genre":"Homme","grade":"Associé","grade_group":"Associe","experience":"Plus de 10 ans","metier":"Audit Financier","cabinet":"Cabinet local","Q1":4,"Q1_label":"4. Parfois (Environ une fois par semaine)","Q2":"Outils grand public (ex: ChatGPT, Gemini )","Q5":"De manière VOLONTAIRE (vous avez choisi vous-même)","Q8":5,"Q9":4,"Q10":5,"Q11":5,"Q12":6,"Q13":6,"Q14":6,"Q15":4,"Q16_hallu":4,"Q16_conf":4,"Q16_bn":5,"Q16_resp":4,"Q17":5,"Q18":7,"Q19":2,"Q20":5,"Q21":4,"Q22":2,"Q23":6,"Q24":4,"Q25":4,"Q26":2,"Q27":null,"Q28":6,"Q30":4,"SUP":3.317,"SFU":4.0,"SRP":5.5,"SMF":3.667,"SS":5.2},{"id":67,"age":"18-25","genre":"Femme","grade":"Junior","grade_group":"Junior","experience":"2 - 3 ans","metier":"Audit Financier","cabinet":"Cabinet international","Q1":6,"Q1_label":"6. Quotidiennement (Une fois par jour)","Q2":"Outils fournis/agréés par le cabinet (ex: Copilot sécurisé)","Q5":"De manière RECOMMANDÉE (cabinet encourage, mais facultatif)","Q8":7,"Q9":7,"Q10":6,"Q11":3,"Q12":7,"Q13":7,"Q14":4,"Q15":7,"Q16_hallu":5,"Q16_conf":5,"Q16_bn":3,"Q16_resp":5,"Q17":7,"Q18":7,"Q19":2,"Q20":7,"Q21":7,"Q22":2,"Q23":7,"Q24":4,"Q25":7,"Q26":1,"Q27":null,"Q28":7,"Q30":5,"SUP":3.381,"SFU":6.0,"SRP":6.25,"SMF":5.333,"SS":5.0}];
+
+
+// ================= ETAT GLOBAL =================
+let filters = { grade: new Set(), cabinet: new Set(), age: new Set(), genre: new Set(), q1: new Set(), q2: new Set() };
+let activeTab = 'profile';
+
+// ================= HELPERS =================
+const $ = (id) => document.getElementById(id);
+
+function unique(arr) { return [...new Set(arr)]; }
+function mean(arr) { return arr.length ? arr.reduce((a,b) => a+b, 0) / arr.length : 0; }
+function stdev(arr) {
+  if (arr.length < 2) return 0;
+  const m = mean(arr);
+  const sq = arr.reduce((s, v) => s + (v - m) ** 2, 0);
+  return Math.sqrt(sq / (arr.length - 1));
+}
+function median(arr) {
+  if (!arr.length) return 0;
+  const s = [...arr].sort((a,b) => a-b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m-1] + s[m]) / 2;
+}
+function quartile(arr, q) {
+  if (!arr.length) return 0;
+  const s = [...arr].sort((a,b) => a-b);
+  const pos = (s.length - 1) * q;
+  const base = Math.floor(pos);
+  const rest = pos - base;
+  return s[base + 1] !== undefined ? s[base] + rest * (s[base+1] - s[base]) : s[base];
+}
+function round(n, d=2) { return Math.round(n * 10**d) / 10**d; }
+
+// Spearman correlation + p-value approximation
+function rank(vals) {
+  const indexed = vals.map((v, i) => ({ v, i }));
+  indexed.sort((a, b) => a.v - b.v);
+  const ranks = new Array(vals.length);
+  let i = 0;
+  while (i < indexed.length) {
+    let j = i;
+    while (j + 1 < indexed.length && indexed[j+1].v === indexed[i].v) j++;
+    const avg = (i + j) / 2 + 1;
+    for (let k = i; k <= j; k++) ranks[indexed[k].i] = avg;
+    i = j + 1;
+  }
+  return ranks;
+}
+
+function spearman(x, y) {
+  const pairs = [];
+  for (let i = 0; i < x.length; i++) {
+    if (x[i] != null && y[i] != null && !isNaN(x[i]) && !isNaN(y[i])) {
+      pairs.push([x[i], y[i]]);
+    }
+  }
+  if (pairs.length < 3) return { rho: null, p: null, n: pairs.length };
+  const xs = pairs.map(p => p[0]);
+  const ys = pairs.map(p => p[1]);
+  const rx = rank(xs);
+  const ry = rank(ys);
+  const n = rx.length;
+  const mx = rx.reduce((a,b) => a+b, 0) / n;
+  const my = ry.reduce((a,b) => a+b, 0) / n;
+  let num = 0, dx = 0, dy = 0;
+  for (let i = 0; i < n; i++) {
+    num += (rx[i] - mx) * (ry[i] - my);
+    dx += (rx[i] - mx) ** 2;
+    dy += (ry[i] - my) ** 2;
+  }
+  const rho = num / Math.sqrt(dx * dy);
+  // Approximation p-value via Student t
+  let p = null;
+  if (Math.abs(rho) < 0.9999 && n > 2) {
+    const t = rho * Math.sqrt((n - 2) / (1 - rho * rho));
+    p = 2 * (1 - studentCDF(Math.abs(t), n - 2));
+  } else if (n > 2) {
+    p = 0;
+  }
+  return { rho, p, n };
+}
+
+// Student t CDF approximation
+function studentCDF(t, df) {
+  // Hill's approximation for two-sided t
+  if (df < 1) return NaN;
+  const x = df / (df + t * t);
+  return 1 - 0.5 * incompleteBeta(x, df/2, 0.5);
+}
+
+function incompleteBeta(x, a, b) {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const bt = Math.exp(logGamma(a+b) - logGamma(a) - logGamma(b) + a * Math.log(x) + b * Math.log(1-x));
+  if (x < (a+1)/(a+b+2)) return bt * betaCF(x, a, b) / a;
+  return 1 - bt * betaCF(1-x, b, a) / b;
+}
+
+function logGamma(z) {
+  const g = 7;
+  const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  if (z < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * z)) - logGamma(1 - z);
+  z -= 1;
+  let x = c[0];
+  for (let i = 1; i < g + 2; i++) x += c[i] / (z + i);
+  const t = z + g + 0.5;
+  return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+}
+
+function betaCF(x, a, b) {
+  const maxIt = 100, eps = 3e-7;
+  const qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab * x / qap;
+  if (Math.abs(d) < 1e-30) d = 1e-30;
+  d = 1 / d;
+  let h = d;
+  for (let m = 1; m <= maxIt; m++) {
+    const m2 = 2 * m;
+    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d;
+    if (Math.abs(d) < 1e-30) d = 1e-30;
+    c = 1 + aa / c;
+    if (Math.abs(c) < 1e-30) c = 1e-30;
+    d = 1 / d;
+    h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d;
+    if (Math.abs(d) < 1e-30) d = 1e-30;
+    c = 1 + aa / c;
+    if (Math.abs(c) < 1e-30) c = 1e-30;
+    d = 1 / d;
+    const del = d * c;
+    h *= del;
+    if (Math.abs(del - 1) < eps) break;
+  }
+  return h;
+}
+
+function significance(p) {
+  if (p == null) return '';
+  if (p < 0.001) return '***';
+  if (p < 0.01) return '**';
+  if (p < 0.05) return '*';
+  if (p < 0.1) return '.';
+  return 'NS';
+}
+
+// ================= FILTRES =================
+function getFiltered() {
+  return RAW_DATA.filter(r => {
+    if (filters.grade.size > 0 && !filters.grade.has(r.grade_group)) return false;
+    if (filters.cabinet.size > 0 && !filters.cabinet.has(r.cabinet)) return false;
+    if (filters.age.size > 0 && !filters.age.has(r.age)) return false;
+    if (filters.genre.size > 0 && !filters.genre.has(r.genre)) return false;
+    if (filters.q1.size > 0 && !filters.q1.has(String(r.Q1))) return false;
+    if (filters.q2.size > 0 && !filters.q2.has(r.Q2)) return false;
+    return true;
+  });
+}
+
+function buildFilterChips() {
+  const configs = [
+    { id: 'filter-grade',  key: 'grade',  field: 'grade_group' },
+    { id: 'filter-cabinet',key: 'cabinet',field: 'cabinet' },
+    { id: 'filter-age',    key: 'age',    field: 'age' },
+    { id: 'filter-genre',  key: 'genre',  field: 'genre' },
+    { id: 'filter-q1',     key: 'q1',     field: 'Q1',   valueTransform: v => String(v), label: v => freqLabel(v) },
+    { id: 'filter-q2',     key: 'q2',     field: 'Q2',   label: v => shortenQ2(v) },
+  ];
+  configs.forEach(cfg => {
+    const container = $(cfg.id);
+    container.innerHTML = '';
+    const values = unique(RAW_DATA.map(r => r[cfg.field])).filter(v => v != null);
+    values.sort();
+    values.forEach(v => {
+      const stored = cfg.valueTransform ? cfg.valueTransform(v) : v;
+      const display = cfg.label ? cfg.label(v) : String(v);
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = display;
+      chip.title = String(v);
+      chip.onclick = () => {
+        if (filters[cfg.key].has(stored)) {
+          filters[cfg.key].delete(stored);
+          chip.classList.remove('active');
+        } else {
+          filters[cfg.key].add(stored);
+          chip.classList.add('active');
+        }
+        refresh();
+      };
+      container.appendChild(chip);
+    });
+  });
+}
+
+function resetFilters() {
+  Object.keys(filters).forEach(k => filters[k].clear());
+  document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
+  refresh();
+}
+
+function freqLabel(n) {
+  const labels = { 2: '2 · Très rarement', 3: '3 · Rarement', 4: '4 · Parfois', 5: '5 · Régulièrement', 6: '6 · Quotidien', 7: '7 · Plusieurs/j' };
+  return labels[n] || String(n);
+}
+
+function shortenQ2(v) {
+  if (!v) return '';
+  if (v.includes('grand public')) return 'Grand public';
+  if (v.includes('Copilot')) return 'Cabinet (Copilot)';
+  if (v.includes('mix')) return 'Mix';
+  return v.substring(0, 20);
+}
+
+// ================= TOOLTIP =================
+const tip = $('tooltip');
+function showTip(evt, html) {
+  tip.innerHTML = html;
+  tip.classList.add('show');
+  const rect = tip.getBoundingClientRect();
+  let x = evt.pageX + 12;
+  let y = evt.pageY - rect.height - 10;
+  if (x + rect.width > window.innerWidth) x = evt.pageX - rect.width - 12;
+  if (y < window.scrollY) y = evt.pageY + 12;
+  tip.style.left = x + 'px';
+  tip.style.top = y + 'px';
+}
+function hideTip() { tip.classList.remove('show'); }
+
+// ================= CHARTS SVG =================
+function createSVG(selector, defaultW, h) {
+  const el = typeof selector === 'string' ? $(selector) : selector;
+  el.innerHTML = '';
+  // Mesurer la largeur réelle du container. Si 0 (panel caché), utiliser le parent visible ou le fallback.
+  let actualW = el.clientWidth;
+  if (actualW < 50) {
+    // chercher un ancêtre visible
+    let p = el.parentElement;
+    while (p && p.clientWidth < 50) p = p.parentElement;
+    actualW = p ? p.clientWidth - 40 : defaultW;
+  }
+  if (actualW < 200) actualW = defaultW;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', `0 0 ${actualW} ${h}`);
+  svg.setAttribute('preserveAspectRatio', 'xMinYMin meet');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', h);
+  svg.style.height = h + 'px';
+  svg.style.width = '100%';
+  svg.style.display = 'block';
+  el.appendChild(svg);
+  svg._actualW = actualW;
+  return svg;
+}
+
+function svgEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  if (attrs) Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+  return el;
+}
+
+// Bar chart horizontal
+function barChartH(container, data, opts = {}) {
+  const {
+    colorFn = null,
+    valueFn = d => d.n,
+    totalN = null,
+    labelFn = d => d.label,
+    valueFormat = null,     // null = afficher v + % | 'decimal' = afficher v.toFixed(2)
+    showPercent = true,
+  } = opts;
+  const el = typeof container === 'string' ? $(container) : container;
+  el.innerHTML = '';
+  if (!data.length) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.style.padding = '24px 0';
+    empty.textContent = 'Aucune donnée pour ce filtre';
+    el.appendChild(empty);
+    return;
+  }
+  const maxV = Math.max(...data.map(valueFn));
+  const total = totalN ?? data.reduce((a, d) => a + valueFn(d), 0);
+
+  const list = document.createElement('div');
+  list.className = 'hbar-list';
+
+  data.forEach((d, i) => {
+    const v = valueFn(d);
+    const pct = maxV > 0 ? (v / maxV) * 100 : 0;
+    const globalPct = total > 0 ? ((v / total) * 100).toFixed(1) : '0.0';
+    const color = colorFn ? colorFn(d, i) : 'var(--accent)';
+
+    const row = document.createElement('div');
+    row.className = 'hbar-row';
+
+    const lbl = document.createElement('div');
+    lbl.className = 'hbar-label';
+    lbl.textContent = labelFn(d);
+    lbl.title = labelFn(d);
+    row.appendChild(lbl);
+
+    const track = document.createElement('div');
+    track.className = 'hbar-track';
+    const fill = document.createElement('div');
+    fill.className = 'hbar-fill';
+    fill.style.width = pct + '%';
+    fill.style.background = color;
+    track.appendChild(fill);
+    track.addEventListener('mousemove', e => {
+      const txt = valueFormat === 'decimal'
+        ? `<strong>${labelFn(d)}</strong><br>moyenne = ${v.toFixed(2)}`
+        : `<strong>${labelFn(d)}</strong><br>${v}${showPercent && total > 0 ? ' · ' + globalPct + '%' : ''}`;
+      showTip(e, txt);
+    });
+    track.addEventListener('mouseleave', hideTip);
+    row.appendChild(track);
+
+    const val = document.createElement('div');
+    val.className = 'hbar-value';
+    if (valueFormat === 'decimal') {
+      val.textContent = v.toFixed(2);
+    } else {
+      val.innerHTML = `${v}${showPercent && total > 0 ? `<span class="pct">${globalPct}%</span>` : ''}`;
+    }
+    row.appendChild(val);
+
+    list.appendChild(row);
+  });
+
+  el.appendChild(list);
+}
+
+// Scatter plot
+function scatterPlot(container, data, opts = {}) {
+  const { w: defaultW = 720, h = 420, xKey, yKey, xLabel, yLabel, xMin = null, xMax = null, yMin = null, yMax = null } = opts;
+  const padL = 54, padR = 24, padT = 18, padB = 44;
+  const svg = createSVG(container, defaultW, h);
+  const w = svg._actualW;
+  const innerW = w - padL - padR;
+  const innerH = h - padT - padB;
+  const pairs = data.filter(d => d[xKey] != null && d[yKey] != null);
+  if (pairs.length < 2) {
+    svg.appendChild(svgEl('text', { x: w/2, y: h/2, 'text-anchor': 'middle', class: 'axis-label' })).textContent = 'Pas assez de données';
+    return;
+  }
+  const xs = pairs.map(p => p[xKey]);
+  const ys = pairs.map(p => p[yKey]);
+  const xLo = xMin ?? Math.min(...xs);
+  const xHi = xMax ?? Math.max(...xs);
+  const yLo = yMin ?? Math.min(...ys);
+  const yHi = yMax ?? Math.max(...ys);
+  const xR = xHi - xLo || 1;
+  const yR = yHi - yLo || 1;
+  const xScale = v => padL + ((v - xLo) / xR) * innerW;
+  const yScale = v => padT + innerH - ((v - yLo) / yR) * innerH;
+
+  // Grid
+  for (let i = 0; i <= 5; i++) {
+    const y = padT + (i / 5) * innerH;
+    svg.appendChild(svgEl('line', { x1: padL, x2: padL + innerW, y1: y, y2: y, class: 'grid-line' }));
+  }
+  for (let i = 0; i <= 5; i++) {
+    const x = padL + (i / 5) * innerW;
+    svg.appendChild(svgEl('line', { x1: x, x2: x, y1: padT, y2: padT + innerH, class: 'grid-line' }));
+  }
+
+  // Axis labels (ticks)
+  for (let i = 0; i <= 5; i++) {
+    const xv = xLo + (i / 5) * xR;
+    const t = svgEl('text', { x: padL + (i/5) * innerW, y: padT + innerH + 16, 'text-anchor': 'middle', class: 'axis-label' });
+    t.textContent = round(xv, 1);
+    svg.appendChild(t);
+    const yv = yLo + (i / 5) * yR;
+    const t2 = svgEl('text', { x: padL - 8, y: padT + innerH - (i/5) * innerH + 3, 'text-anchor': 'end', class: 'axis-label' });
+    t2.textContent = round(yv, 1);
+    svg.appendChild(t2);
+  }
+
+  // Axis titles
+  const xt = svgEl('text', { x: padL + innerW/2, y: h - 6, 'text-anchor': 'middle', class: 'axis-title' });
+  xt.textContent = xLabel; svg.appendChild(xt);
+  const yt = svgEl('text', { x: 14, y: padT + innerH/2, 'text-anchor': 'middle', class: 'axis-title', transform: `rotate(-90 14 ${padT + innerH/2})` });
+  yt.textContent = yLabel; svg.appendChild(yt);
+
+  // Jitter very slightly to show overlapping points
+  const jitter = () => (Math.random() - 0.5) * (innerW * 0.012);
+
+  // Bubbles: count duplicates to size
+  const bucketMap = new Map();
+  pairs.forEach(p => {
+    const k = `${p[xKey]},${p[yKey]}`;
+    bucketMap.set(k, (bucketMap.get(k) || 0) + 1);
+  });
+
+  const plotted = new Set();
+  pairs.forEach(p => {
+    const k = `${p[xKey]},${p[yKey]}`;
+    if (plotted.has(k)) return;
+    plotted.add(k);
+    const count = bucketMap.get(k);
+    const r = 4 + Math.min(count - 1, 8) * 0.8;
+    const cx = xScale(p[xKey]);
+    const cy = yScale(p[yKey]);
+    const c = svgEl('circle', { cx, cy, r, class: 'data-point' });
+    c.addEventListener('mousemove', e => {
+      showTip(e, `<strong>x = ${p[xKey]}</strong> · <strong>y = ${p[yKey]}</strong><br>${count} répondant${count > 1 ? 's' : ''}`);
+    });
+    c.addEventListener('mouseleave', hideTip);
+    svg.appendChild(c);
+  });
+
+  // Ligne de tendance linéaire (sur rangs → mais on trace sur valeurs brutes via OLS simple)
+  if (pairs.length >= 3) {
+    const mx = mean(xs);
+    const my = mean(ys);
+    let num = 0, den = 0;
+    for (let i = 0; i < xs.length; i++) {
+      num += (xs[i] - mx) * (ys[i] - my);
+      den += (xs[i] - mx) ** 2;
+    }
+    if (den > 0) {
+      const slope = num / den;
+      const intercept = my - slope * mx;
+      const x1 = xLo, x2 = xHi;
+      const y1 = slope * x1 + intercept;
+      const y2 = slope * x2 + intercept;
+      const line = svgEl('line', {
+        x1: xScale(x1), y1: yScale(Math.max(yLo, Math.min(yHi, y1))),
+        x2: xScale(x2), y2: yScale(Math.max(yLo, Math.min(yHi, y2))),
+        stroke: 'var(--ramp-3)', 'stroke-width': 1.5, 'stroke-dasharray': '4,3', opacity: 0.7
+      });
+      svg.appendChild(line);
+    }
+  }
+}
+
+// Boxplot
+function boxPlot(container, series, opts = {}) {
+  const { w: defaultW = 720, h = 400 } = opts;
+  const padL = 60, padR = 30, padT = 42, padB = 40;
+  const svg = createSVG(container, defaultW, h);
+  const w = svg._actualW;
+  const innerW = w - padL - padR;
+  const innerH = h - padT - padB;
+  if (!series.length) return;
+
+  // Unified scale 0-7
+  const yLo = 0, yHi = 7;
+  const yScale = v => padT + innerH - ((v - yLo) / (yHi - yLo)) * innerH;
+
+  // y-axis ticks
+  for (let i = 0; i <= 7; i++) {
+    svg.appendChild(svgEl('line', { x1: padL, x2: padL + innerW, y1: yScale(i), y2: yScale(i), class: 'grid-line' }));
+    const t = svgEl('text', { x: padL - 8, y: yScale(i) + 3, 'text-anchor': 'end', class: 'axis-label' });
+    t.textContent = i;
+    svg.appendChild(t);
+  }
+
+  const bandW = innerW / series.length;
+  const boxW = Math.min(bandW * 0.55, 70);
+
+  series.forEach((s, i) => {
+    if (!s.values.length) return;
+    const cx = padL + bandW * (i + 0.5);
+    const q1 = quartile(s.values, 0.25);
+    const q2 = median(s.values);
+    const q3 = quartile(s.values, 0.75);
+    const vmin = Math.min(...s.values);
+    const vmax = Math.max(...s.values);
+    const mu = mean(s.values);
+    const sd = stdev(s.values);
+    const color = s.color || 'var(--accent)';
+
+    // whisker
+    svg.appendChild(svgEl('line', { x1: cx, x2: cx, y1: yScale(vmin), y2: yScale(vmax), stroke: color, 'stroke-width': 1 }));
+    // caps
+    svg.appendChild(svgEl('line', { x1: cx - 10, x2: cx + 10, y1: yScale(vmin), y2: yScale(vmin), stroke: color, 'stroke-width': 1 }));
+    svg.appendChild(svgEl('line', { x1: cx - 10, x2: cx + 10, y1: yScale(vmax), y2: yScale(vmax), stroke: color, 'stroke-width': 1 }));
+    // box
+    const box = svgEl('rect', { x: cx - boxW/2, y: yScale(q3), width: boxW, height: yScale(q1) - yScale(q3), fill: color, opacity: 0.25, stroke: color, 'stroke-width': 1, rx: 2 });
+    box.addEventListener('mousemove', e => {
+      showTip(e, `<strong>${s.label}</strong><br>n=${s.values.length} · moy=${round(mu, 2)} ± ${round(sd, 2)}<br>méd=${round(q2, 2)} · q1=${round(q1,2)} · q3=${round(q3,2)}<br>min=${round(vmin, 2)} · max=${round(vmax, 2)}`);
+    });
+    box.addEventListener('mouseleave', hideTip);
+    svg.appendChild(box);
+    // median line
+    svg.appendChild(svgEl('line', { x1: cx - boxW/2, x2: cx + boxW/2, y1: yScale(q2), y2: yScale(q2), stroke: color, 'stroke-width': 2 }));
+    // mean marker (diamond)
+    const meanY = yScale(mu);
+    svg.appendChild(svgEl('path', {
+      d: `M ${cx} ${meanY - 5} L ${cx + 5} ${meanY} L ${cx} ${meanY + 5} L ${cx - 5} ${meanY} Z`,
+      fill: 'white', stroke: color, 'stroke-width': 1.5
+    }));
+    // ± σ whisker (plus épais, à droite du boxplot, bien décalé)
+    const sigmaX = cx + boxW/2 + 14;
+    const sigHigh = yScale(Math.min(yHi, mu + sd));
+    const sigLow = yScale(Math.max(yLo, mu - sd));
+    svg.appendChild(svgEl('line', { x1: sigmaX, x2: sigmaX, y1: sigHigh, y2: sigLow, stroke: color, 'stroke-width': 2.5, opacity: 0.7 }));
+    svg.appendChild(svgEl('line', { x1: sigmaX - 4, x2: sigmaX + 4, y1: sigHigh, y2: sigHigh, stroke: color, 'stroke-width': 2, opacity: 0.7 }));
+    svg.appendChild(svgEl('line', { x1: sigmaX - 4, x2: sigmaX + 4, y1: sigLow, y2: sigLow, stroke: color, 'stroke-width': 2, opacity: 0.7 }));
+    // individual points (jittered)
+    s.values.forEach(v => {
+      const jx = cx + (Math.random() - 0.5) * boxW * 0.5;
+      svg.appendChild(svgEl('circle', { cx: jx, cy: yScale(v), r: 2.2, fill: color, opacity: 0.4 }));
+    });
+    // label (nom du score)
+    const lbl = svgEl('text', { x: cx, y: h - 12, 'text-anchor': 'middle', class: 'axis-title' });
+    lbl.style.fontSize = '12px';
+    lbl.style.fontWeight = '500';
+    lbl.textContent = s.label;
+    svg.appendChild(lbl);
+    // header : moy ± σ
+    const muLabel = svgEl('text', { x: cx, y: padT - 14, 'text-anchor': 'middle' });
+    muLabel.textContent = round(mu, 2);
+    muLabel.style.fontSize = '12px';
+    muLabel.style.fill = color;
+    muLabel.style.fontWeight = '500';
+    svg.appendChild(muLabel);
+    const sdLabel = svgEl('text', { x: cx, y: padT - 2, 'text-anchor': 'middle' });
+    sdLabel.textContent = '± ' + round(sd, 2);
+    sdLabel.style.fontSize = '10px';
+    sdLabel.style.fill = 'var(--ink-mute)';
+    sdLabel.style.fontFamily = 'var(--mono)';
+    svg.appendChild(sdLabel);
+  });
+
+  // x axis
+  svg.appendChild(svgEl('line', { x1: padL, x2: padL + innerW, y1: yScale(0), y2: yScale(0), class: 'axis-line' }));
+}
+
+// Grouped bars (moyennes par groupe)
+function groupedBars(container, groups, series, opts = {}) {
+  const { w: defaultW = 720, h = 320, yMax = 7, yLabel = 'moyenne' } = opts;
+  const padL = 50, padR = 30, padT = 20, padB = 60;
+  const svg = createSVG(container, defaultW, h);
+  const w = svg._actualW;
+  const innerW = w - padL - padR;
+  const innerH = h - padT - padB;
+
+  if (!groups.length) return;
+  const bandW = innerW / groups.length;
+  const nSeries = series.length;
+  const innerBarW = Math.min((bandW * 0.75) / nSeries, 28);
+
+  // y grid
+  for (let i = 0; i <= yMax; i++) {
+    const y = padT + innerH - (i / yMax) * innerH;
+    svg.appendChild(svgEl('line', { x1: padL, x2: padL + innerW, y1: y, y2: y, class: 'grid-line' }));
+    const t = svgEl('text', { x: padL - 6, y: y + 3, 'text-anchor': 'end', class: 'axis-label' });
+    t.textContent = i;
+    svg.appendChild(t);
+  }
+
+  groups.forEach((g, gi) => {
+    const groupX = padL + bandW * (gi + 0.5);
+    series.forEach((s, si) => {
+      const val = s.values[gi];
+      if (val == null || isNaN(val)) return;
+      const sd = s.stdevs ? s.stdevs[gi] : 0;
+      const barH = (val / yMax) * innerH;
+      const x = groupX - (nSeries * innerBarW) / 2 + si * innerBarW;
+      const y = padT + innerH - barH;
+      const barCx = x + (innerBarW - 2) / 2;
+      const rect = svgEl('rect', { x, y, width: innerBarW - 2, height: barH, fill: s.color, rx: 1.5, class: 'bar' });
+      rect.addEventListener('mousemove', e => showTip(e, `<strong>${g} · ${s.label}</strong><br>moyenne = ${round(val, 2)}${sd ? ' ± ' + round(sd, 2) : ''}`));
+      rect.addEventListener('mouseleave', hideTip);
+      svg.appendChild(rect);
+      // Error bar (±σ) : ligne verticale au centre de la barre avec caps
+      if (sd > 0) {
+        const topVal = Math.min(yMax, val + sd);
+        const botVal = Math.max(0, val - sd);
+        const yTop = padT + innerH - (topVal / yMax) * innerH;
+        const yBot = padT + innerH - (botVal / yMax) * innerH;
+        const capW = Math.min(innerBarW * 0.35, 6);
+        svg.appendChild(svgEl('line', { x1: barCx, x2: barCx, y1: yTop, y2: yBot, stroke: 'var(--ink)', 'stroke-width': 1, opacity: 0.65 }));
+        svg.appendChild(svgEl('line', { x1: barCx - capW, x2: barCx + capW, y1: yTop, y2: yTop, stroke: 'var(--ink)', 'stroke-width': 1, opacity: 0.65 }));
+        svg.appendChild(svgEl('line', { x1: barCx - capW, x2: barCx + capW, y1: yBot, y2: yBot, stroke: 'var(--ink)', 'stroke-width': 1, opacity: 0.65 }));
+      }
+    });
+    const lbl = svgEl('text', { x: groupX, y: padT + innerH + 16, 'text-anchor': 'middle', class: 'axis-title' });
+    lbl.style.fontSize = '12px';
+    lbl.textContent = g;
+    svg.appendChild(lbl);
+  });
+
+  // legend
+  const legX = padL;
+  const legY = h - 18;
+  let offset = 0;
+  series.forEach(s => {
+    const g = svgEl('g', { transform: `translate(${legX + offset}, ${legY})` });
+    g.appendChild(svgEl('rect', { x: 0, y: -8, width: 10, height: 10, fill: s.color, rx: 1.5 }));
+    const t = svgEl('text', { x: 14, y: 0, class: 'axis-label' });
+    t.style.fontSize = '11px';
+    t.textContent = s.label;
+    g.appendChild(t);
+    svg.appendChild(g);
+    offset += s.label.length * 6.5 + 28;
+  });
+}
+
+// ================= VUES =================
+
+function refresh() {
+  const data = getFiltered();
+  updateStats(data);
+  if (activeTab === 'profile') renderProfile(data);
+  if (activeTab === 'scores') renderScores(data);
+  if (activeTab === 'hypotheses') renderHypotheses(data);
+  if (activeTab === 'explorer') renderExplorer(data);
+  if (activeTab === 'risks') renderRisks(data);
+  if (activeTab === 'table') renderTable(data);
+}
+
+function updateStats(data) {
+  $('stat-n').textContent = data.length;
+  const sup = data.map(r => r.SUP).filter(v => v != null);
+  const sfu = data.map(r => r.SFU).filter(v => v != null);
+  const srp = data.map(r => r.SRP).filter(v => v != null);
+  const q1 = data.map(r => r.Q1).filter(v => v != null);
+  $('stat-sup').textContent = sup.length ? round(mean(sup), 2) : '—';
+  $('stat-sfu').textContent = sfu.length ? round(mean(sfu), 2) : '—';
+  $('stat-srp').textContent = srp.length ? round(mean(srp), 2) : '—';
+  $('stat-q1').textContent = q1.length ? round(mean(q1), 2) : '—';
+  // σ dans les sous-titres
+  const setSub = (id, vals, lbl) => {
+    const el = $(id);
+    if (!el) return;
+    if (vals.length >= 2) {
+      el.textContent = `σ = ${round(stdev(vals), 2)} · ${lbl}`;
+    } else {
+      el.textContent = lbl;
+    }
+  };
+  setSub('sub-sup', sup, 'utilité perçue / 5');
+  setSub('sub-sfu', sfu, 'facilité / 7');
+  setSub('sub-srp', srp, 'risques perçus / 7');
+  setSub('sub-q1',  q1,  'fréquence / 7');
+}
+
+function countBy(data, key, labelFn = v => String(v)) {
+  const counts = new Map();
+  data.forEach(r => {
+    const v = r[key];
+    if (v == null) return;
+    counts.set(v, (counts.get(v) || 0) + 1);
+  });
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([v, n]) => ({ label: labelFn(v), value: v, n }));
+}
+
+function renderProfile(data) {
+  $('meta-grade').textContent = `n = ${data.length}`;
+  barChartH('chart-grade', countBy(data, 'grade_group'), { totalN: data.length, colorFn: (d, i) => ['var(--ramp-1)', 'var(--ramp-2)', 'var(--ramp-3)'][i % 3] });
+
+  barChartH('chart-cabinet', countBy(data, 'cabinet'), { totalN: data.length, colorFn: () => 'var(--ramp-2)' });
+  barChartH('chart-age', countBy(data, 'age'), { totalN: data.length, colorFn: () => 'var(--ramp-4)' });
+
+  barChartH('chart-q1', countBy(data, 'Q1', v => freqLabel(v)), { totalN: data.length, colorFn: (d) => {
+    const v = d.value;
+    if (v <= 3) return 'var(--warn)';
+    if (v <= 5) return 'var(--accent-light)';
+    return 'var(--ok)';
+  }});
+
+  barChartH('chart-q2', countBy(data, 'Q2', v => shortenQ2(v)), { totalN: data.length, colorFn: () => 'var(--ramp-1)' });
+  barChartH('chart-q5', countBy(data, 'Q5', v => v && v.includes('VOLONTAIRE') ? 'Volontaire' : v && v.includes('RECOMMAND') ? 'Recommandé' : v), { totalN: data.length, colorFn: () => 'var(--ramp-5)' });
+}
+
+function renderScores(data) {
+  // Boxplot des 5 scores
+  const scoreDefs = [
+    { key: 'SUP', color: 'var(--ramp-1)', range: '1-5',  bookAlpha: 0.898 },
+    { key: 'SFU', color: 'var(--ramp-2)', range: '1-7',  bookAlpha: 0.663 },
+    { key: 'SRP', color: 'var(--ramp-3)', range: '1-7',  bookAlpha: 0.316 },
+    { key: 'SMF', color: 'var(--ramp-4)', range: '1-7',  bookAlpha: 0.452 },
+    { key: 'SS',  color: 'var(--ramp-5)', range: '1-7',  bookAlpha: 0.511 },
+  ];
+  const series = scoreDefs.map(s => ({
+    label: s.key,
+    values: data.map(r => r[s.key]).filter(v => v != null),
+    color: s.color
+  }));
+  boxPlot('chart-boxplot', series);
+
+  // Tableau récapitulatif sous le boxplot
+  const tableEl = $('scores-table-body');
+  if (tableEl) {
+    tableEl.innerHTML = '';
+    scoreDefs.forEach(s => {
+      const vals = data.map(r => r[s.key]).filter(v => v != null);
+      const tr = document.createElement('tr');
+      const mu = vals.length ? mean(vals) : null;
+      const sd = vals.length >= 2 ? stdev(vals) : null;
+      const med = vals.length ? median(vals) : null;
+      const cv = (mu && sd) ? (sd / mu) * 100 : null;
+      tr.innerHTML = `
+        <td><span style="display:inline-block;width:10px;height:10px;background:${s.color};border-radius:2px;margin-right:6px;vertical-align:middle;"></span><strong>${s.key}</strong></td>
+        <td class="num">${vals.length}</td>
+        <td class="num">${mu == null ? '—' : round(mu, 2).toFixed(2)}</td>
+        <td class="num" style="color: var(--ink); font-weight: 500;">${sd == null ? '—' : '± ' + round(sd, 2).toFixed(2)}</td>
+        <td class="num">${med == null ? '—' : round(med, 2).toFixed(2)}</td>
+        <td class="num">${vals.length ? round(Math.min(...vals), 2).toFixed(2) + ' — ' + round(Math.max(...vals), 2).toFixed(2) : '—'}</td>
+        <td class="num">${cv == null ? '—' : round(cv, 1).toFixed(1) + '%'}</td>
+        <td class="num" style="color: var(--ink-mute);">${s.bookAlpha.toFixed(3)}</td>
+        <td style="font-size: 11px; color: var(--ink-mute);">${s.range}</td>
+      `;
+      tableEl.appendChild(tr);
+    });
+  }
+
+  // Scores par grade (avec stdev pour les error bars)
+  const grades = ['Junior', 'Senior-Manager', 'Associe'];
+  const actual = grades.filter(g => data.some(r => r.grade_group === g));
+  const series2 = scoreDefs.map(s => {
+    const valsByGroup = actual.map(g => data.filter(r => r.grade_group === g).map(r => r[s.key]).filter(v => v != null));
+    return {
+      label: s.key,
+      color: s.color,
+      values: valsByGroup.map(vs => vs.length ? mean(vs) : null),
+      stdevs: valsByGroup.map(vs => vs.length >= 2 ? stdev(vs) : 0)
+    };
+  });
+  groupedBars('chart-scores-by-grade', actual, series2);
+}
+
+const HYPO_DEFS = [
+  { id: 'H1',  x: 'SUP', y: 'Q1',  label: 'Utilité perçue → Usage', expected: 'Confirmée si ρ > 0 *', book: 0.168, bookVerdict: 'ko', xLbl: 'SUP · Utilité perçue', yLbl: 'Q1 · Fréquence d\'usage' },
+  { id: 'H2',  x: 'SFU', y: 'Q1',  label: 'Facilité d\'usage → Usage', expected: 'Confirmée si ρ > 0 *', book: 0.325, bookVerdict: 'ok', xLbl: 'SFU · Facilité perçue', yLbl: 'Q1 · Fréquence d\'usage' },
+  { id: 'H3',  x: 'SRP', y: 'Q17', label: 'Risques perçus → Frein', expected: 'Confirmée si ρ > 0 *', book: 0.310, bookVerdict: 'ok', xLbl: 'SRP · Risques perçus', yLbl: 'Q17 · Frein effectif' },
+  { id: 'H4a', x: 'SRP', y: 'Q1',  label: 'Risques → Usage (modérée par SMF)', expected: 'Neg. attendue', book: -0.231, bookVerdict: 'ok', xLbl: 'SRP · Risques perçus', yLbl: 'Q1 · Fréquence d\'usage' },
+  { id: 'H4b', x: 'SMF', y: 'SS',  label: 'Maîtrise → Scepticisme', expected: 'Confirmée si ρ > 0 *', book: 0.190, bookVerdict: 'ko', xLbl: 'SMF · Maîtrise fonctionnelle', yLbl: 'SS · Scepticisme' },
+  { id: 'H4c', x: 'SRP', y: 'SS',  label: 'Risques perçus → Scepticisme', expected: 'Neg. attendue', book: 0.113, bookVerdict: 'ko', xLbl: 'SRP · Risques perçus', yLbl: 'SS · Scepticisme' },
+];
+
+function renderHypotheses(data) {
+  const grid = $('hypo-grid');
+  grid.innerHTML = '';
+  HYPO_DEFS.forEach(h => {
+    const xs = data.map(r => r[h.x]);
+    const ys = data.map(r => r[h.y]);
+    const { rho, p, n } = spearman(xs, ys);
+    const sig = significance(p);
+    const verdictClass = (rho != null && p != null && p < 0.05) ? 'ok' : 'ko';
+    const rhoStr = rho == null ? '—' : round(rho, 3).toFixed(3);
+    const pStr = p == null ? '—' : p < 0.001 ? '< 0.001' : p.toFixed(3);
+    const diff = rho != null ? (rho - h.book) : null;
+    const card = document.createElement('div');
+    card.className = 'hypo-card ' + verdictClass;
+    const isAllData = data.length === RAW_DATA.length;
+    card.innerHTML = `
+      <h4>${h.id} <span style="opacity:0.5;"> · </span> ${h.label}</h4>
+      <div class="hc-stmt">${h.expected}</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+        <div>
+          <div style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.08em; text-transform: uppercase;">ρ Spearman</div>
+          <div class="hc-rho">${rhoStr} <span style="font-size: 12px; color: var(--ink-mute);">${sig}</span></div>
+          <div class="hc-p">n = ${n}</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.08em; text-transform: uppercase;">p-value</div>
+          <div class="hc-rho" style="font-size: 15px;">${pStr}</div>
+          <div class="hc-p">&nbsp;</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.08em; text-transform: uppercase;">Mémoire (N=67)</div>
+          <div class="hc-rho" style="font-size: 15px; color: var(--ink-mute);">${h.book >= 0 ? '+' : ''}${h.book.toFixed(3)}</div>
+          <div class="hc-p">${isAllData ? 'valeur publiée' : (diff != null ? (diff >= 0 ? '+' : '') + diff.toFixed(3) + ' vs mém.' : '')}</div>
+        </div>
+      </div>
+      <div class="hc-interp">${interpretRho(rho, p, h)}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function interpretRho(rho, p, h) {
+  if (rho == null) return 'Pas assez d\'observations pour calculer la corrélation.';
+  const absRho = Math.abs(rho);
+  const dir = rho >= 0 ? 'positive' : 'négative';
+  const strength = absRho < 0.1 ? 'quasi-nulle' : absRho < 0.2 ? 'très faible' : absRho < 0.3 ? 'faible' : absRho < 0.5 ? 'modérée' : absRho < 0.7 ? 'forte' : 'très forte';
+  const sigTxt = p == null ? '' : p < 0.05 ? ` · significative (p${p<0.001?' < 0.001':' = '+p.toFixed(3)})` : ` · non significative (p = ${p.toFixed(3)})`;
+  return `Corrélation ${dir} ${strength}${sigTxt}. Sur la sous-population sélectionnée (n=${getFiltered().length}), ${h.x} et ${h.y} ${absRho < 0.2 ? 'apparaissent peu liées' : absRho < 0.5 ? 'montrent une tendance' : 'sont nettement liées'}.`;
+}
+
+// ================= EXPLORER =================
+const VAR_DEFS = [
+  // meta
+  { key: 'Q1', label: 'Q1 · Fréquence d\'usage (2-7)' },
+  // scores composites
+  { key: 'SUP', label: 'SUP · Utilité perçue (1-5)' },
+  { key: 'SFU', label: 'SFU · Facilité d\'usage (1-7)' },
+  { key: 'SRP', label: 'SRP · Risques perçus (1-7)' },
+  { key: 'SMF', label: 'SMF · Maîtrise fonctionnelle (1-7)' },
+  { key: 'SS',  label: 'SS · Scepticisme professionnel (1-7)' },
+  // items individuels
+  { key: 'Q8',  label: 'Q8 · Gain de temps (1-7)' },
+  { key: 'Q9',  label: 'Q9 · Facilité prise en main (1-7)' },
+  { key: 'Q10', label: 'Q10 · Intégration workflow (1-7)' },
+  { key: 'Q11', label: 'Q11 · Besoin formation (1-7)' },
+  { key: 'Q12', label: 'Q12 · Risque hallucinations (1-7)' },
+  { key: 'Q13', label: 'Q13 · Risque confidentialité (1-7)' },
+  { key: 'Q14', label: 'Q14 · Risque boîte noire (1-7)' },
+  { key: 'Q15', label: 'Q15 · Risque responsabilité (1-7)' },
+  { key: 'Q16_hallu', label: 'Q16 · Importance hallucinations (1-5)' },
+  { key: 'Q16_conf',  label: 'Q16 · Importance confidentialité (1-5)' },
+  { key: 'Q16_bn',    label: 'Q16 · Importance boîte noire (1-5)' },
+  { key: 'Q16_resp',  label: 'Q16 · Importance responsabilité (1-5)' },
+  { key: 'Q17', label: 'Q17 · Frein effectif (1-7)' },
+  { key: 'Q18', label: 'Q18 · Usage si risques éliminés (1-7)' },
+  { key: 'Q19', label: 'Q19 · Niveau de formation (1-6)' },
+  { key: 'Q20', label: 'Q20 · Capacité de prompting (1-7)' },
+  { key: 'Q21', label: 'Q21 · Détection d\'erreurs (1-7)' },
+  { key: 'Q22', label: 'Q22 · Se fier sans vérifier (1-7, inv.)' },
+  { key: 'Q23', label: 'Q23 · Vérification des sources (1-7)' },
+  { key: 'Q24', label: 'Q24 · Jugement reste fort (1-7)' },
+  { key: 'Q25', label: 'Q25 · Se fie à l\'IAG vs soi-même (1-7, inv.)' },
+  { key: 'Q26', label: 'Q26 · Conclut avant d\'avoir tout (1-7, inv.)' },
+  { key: 'Q27', label: 'Q27 · Intention augmenter usage (1-7)' },
+  { key: 'Q28', label: 'Q28 · Levier formation (1-7)' },
+  { key: 'Q30', label: 'Q30 · Équilibre bénéfice/risque (1-7)' },
+];
+
+function buildVarSelects() {
+  const xSel = $('var-x');
+  const ySel = $('var-y');
+  VAR_DEFS.forEach(v => {
+    xSel.appendChild(new Option(v.label, v.key));
+    ySel.appendChild(new Option(v.label, v.key));
+  });
+  xSel.value = 'Q10';
+  ySel.value = 'Q1';
+  xSel.addEventListener('change', () => renderExplorer(getFiltered()));
+  ySel.addEventListener('change', () => renderExplorer(getFiltered()));
+}
+
+function getVarLabel(key) {
+  return VAR_DEFS.find(v => v.key === key)?.label || key;
+}
+
+function loadPair(x, y) {
+  $('var-x').value = x;
+  $('var-y').value = y;
+  switchTab('explorer');
+}
+
+function swapAxes() {
+  const xSel = $('var-x');
+  const ySel = $('var-y');
+  const tmp = xSel.value;
+  xSel.value = ySel.value;
+  ySel.value = tmp;
+  renderExplorer(getFiltered());
+}
+
+function renderExplorer(data) {
+  const xKey = $('var-x').value;
+  const yKey = $('var-y').value;
+  const xLabel = getVarLabel(xKey);
+  const yLabel = getVarLabel(yKey);
+
+  scatterPlot('chart-scatter', data, { xKey, yKey, xLabel, yLabel });
+
+  const xs = data.map(r => r[xKey]);
+  const ys = data.map(r => r[yKey]);
+  const { rho, p, n } = spearman(xs, ys);
+  const sig = significance(p);
+  $('rh-rho').textContent = (rho == null ? '—' : round(rho, 3).toFixed(3) + ' ' + sig);
+  $('rh-p').textContent = p == null ? '—' : (p < 0.001 ? '< 0.001' : p.toFixed(3));
+
+  let interp;
+  if (rho == null) {
+    interp = 'Pas assez de données pour calculer.';
+  } else {
+    const absRho = Math.abs(rho);
+    const strength = absRho < 0.1 ? 'quasi-nulle' : absRho < 0.2 ? 'très faible' : absRho < 0.3 ? 'faible' : absRho < 0.5 ? 'modérée' : absRho < 0.7 ? 'forte' : 'très forte';
+    const dir = rho >= 0 ? 'positive' : 'négative';
+    const sigTxt = p < 0.05 ? 'significative' : 'non significative';
+    interp = `Relation ${dir} ${strength}, ${sigTxt} (n=${n}).`;
+  }
+  $('rh-interp').textContent = interp;
+}
+
+// ================= RISKS =================
+function renderRisks(data) {
+  const risks = [
+    { id: 'hallu', q16: 'Q16_hallu', q15eq: 'Q12', label: 'Hallucinations' },
+    { id: 'conf',  q16: 'Q16_conf',  q15eq: 'Q13', label: 'Confidentialité' },
+    { id: 'bn',    q16: 'Q16_bn',    q15eq: 'Q14', label: 'Boîte noire' },
+    { id: 'resp',  q16: 'Q16_resp',  q15eq: 'Q15', label: 'Responsabilité' },
+  ];
+
+  // Importance moyenne Q16
+  const importance = risks.map(r => ({ label: r.label, value: r.id, n: round(mean(data.map(d => d[r.q16]).filter(v => v != null)), 2) }))
+    .sort((a, b) => b.n - a.n);
+  barChartH('chart-risks-q16', importance, { totalN: null, valueFn: d => d.n, valueFormat: 'decimal', showPercent: false, colorFn: () => 'var(--ramp-3)' });
+  // On ne peut pas afficher un %, donc on injecte juste la valeur
+  const svgQ16 = $('chart-risks-q16').querySelector('svg');
+
+  // Corrélation item Q12-Q15 avec Q17
+  const q17 = data.map(r => r.Q17);
+  const corrData = risks.map(r => {
+    const { rho, p } = spearman(data.map(d => d[r.q15eq]), q17);
+    return { label: r.label, value: r.id, rho, p };
+  });
+  corrData.sort((a, b) => Math.abs(b.rho ?? 0) - Math.abs(a.rho ?? 0));
+
+  // Rendu HTML : barre signée autour d'un axe vertical central
+  const container = $('chart-risks-corr');
+  container.innerHTML = '';
+  const maxAbs = Math.max(0.5, ...corrData.map(d => Math.abs(d.rho ?? 0)));
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display: flex; flex-direction: column; gap: 12px; padding: 8px 4px;';
+
+  corrData.forEach(d => {
+    const rho = d.rho ?? 0;
+    const sig = significance(d.p);
+    const isSig = d.p != null && d.p < 0.05;
+    const color = isSig ? 'var(--ramp-3)' : 'var(--ink-mute)';
+    const widthPct = (Math.abs(rho) / maxAbs) * 50; // 50% de chaque côté
+
+    const row = document.createElement('div');
+    row.style.cssText = 'display: grid; grid-template-columns: minmax(0, 200px) 1fr auto; gap: 14px; align-items: center; font-size: 12px;';
+
+    const lbl = document.createElement('div');
+    lbl.textContent = d.label;
+    lbl.style.cssText = 'color: var(--ink-soft); text-align: right; line-height: 1.3;';
+    row.appendChild(lbl);
+
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position: relative; height: 22px; background: var(--surface-2); border-radius: 3px;';
+    // axe zéro vertical
+    const zero = document.createElement('div');
+    zero.style.cssText = 'position: absolute; top: -2px; bottom: -2px; left: 50%; width: 1px; background: var(--line);';
+    bar.appendChild(zero);
+    // fill
+    const fill = document.createElement('div');
+    fill.style.cssText = `position: absolute; top: 0; bottom: 0; background: ${color}; border-radius: 2px; transition: all 0.25s;`;
+    if (rho >= 0) {
+      fill.style.left = '50%';
+      fill.style.width = widthPct + '%';
+    } else {
+      fill.style.right = '50%';
+      fill.style.width = widthPct + '%';
+    }
+    bar.appendChild(fill);
+    bar.addEventListener('mousemove', e => showTip(e, `<strong>${d.label}</strong><br>ρ = ${rho.toFixed(3)}${sig}<br>p = ${d.p == null ? 'NA' : d.p.toFixed(3)}`));
+    bar.addEventListener('mouseleave', hideTip);
+    row.appendChild(bar);
+
+    const val = document.createElement('div');
+    val.style.cssText = `font-family: var(--mono); font-size: 12px; color: ${isSig ? 'var(--ramp-3)' : 'var(--ink-mute)'}; white-space: nowrap; min-width: 54px; font-weight: 500;`;
+    val.textContent = (rho >= 0 ? '+' : '') + rho.toFixed(2) + ' ' + sig;
+    row.appendChild(val);
+
+    wrap.appendChild(row);
+  });
+
+  // Axe de légende
+  const axisRow = document.createElement('div');
+  axisRow.style.cssText = 'display: grid; grid-template-columns: minmax(0, 200px) 1fr auto; gap: 14px; margin-top: 6px; padding-top: 8px; border-top: 0.5px solid var(--line-soft);';
+  axisRow.innerHTML = `
+    <div></div>
+    <div style="position: relative; font-family: var(--mono); font-size: 10px; color: var(--ink-mute);">
+      <span style="position: absolute; left: 0;">−${maxAbs.toFixed(1)}</span>
+      <span style="position: absolute; left: 50%; transform: translateX(-50%);">ρ = 0</span>
+      <span style="position: absolute; right: 0;">+${maxAbs.toFixed(1)}</span>
+    </div>
+    <div style="min-width: 54px;"></div>
+  `;
+  wrap.appendChild(axisRow);
+
+  // légende sig
+  const leg = document.createElement('div');
+  leg.style.cssText = 'margin-top: 14px; padding-top: 10px; border-top: 0.5px solid var(--line-soft); display: flex; gap: 18px; font-size: 11px; color: var(--ink-soft);';
+  leg.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 6px;"><div style="width: 12px; height: 12px; background: var(--ramp-3); border-radius: 2px;"></div>Significatif (p &lt; 0.05)</div>
+    <div style="display: flex; align-items: center; gap: 6px;"><div style="width: 12px; height: 12px; background: var(--ink-mute); border-radius: 2px;"></div>Non significatif</div>
+  `;
+  wrap.appendChild(leg);
+
+  container.appendChild(wrap);
+}
+
+// ================= TABLE =================
+const TABLE_COLS = [
+  { key: 'id', label: '#', num: true },
+  { key: 'grade_group', label: 'Grade' },
+  { key: 'cabinet', label: 'Cabinet' },
+  { key: 'age', label: 'Âge' },
+  { key: 'Q1', label: 'Q1', num: true, pill: 'freq' },
+  { key: 'SUP', label: 'SUP', num: true },
+  { key: 'SFU', label: 'SFU', num: true },
+  { key: 'SRP', label: 'SRP', num: true },
+  { key: 'SMF', label: 'SMF', num: true },
+  { key: 'SS',  label: 'SS',  num: true },
+  { key: 'Q10', label: 'Q10', num: true },
+  { key: 'Q15', label: 'Q15', num: true },
+  { key: 'Q17', label: 'Q17', num: true },
+  { key: 'Q20', label: 'Q20', num: true },
+  { key: 'Q21', label: 'Q21', num: true },
+];
+let sortKey = 'id';
+let sortDir = 1;
+
+function renderTable(data) {
+  const head = $('table-head');
+  const body = $('table-body');
+  head.innerHTML = '';
+  body.innerHTML = '';
+  TABLE_COLS.forEach(col => {
+    const th = document.createElement('th');
+    th.textContent = col.label + (sortKey === col.key ? (sortDir > 0 ? ' ↑' : ' ↓') : '');
+    th.style.cursor = 'pointer';
+    th.onclick = () => {
+      if (sortKey === col.key) sortDir *= -1;
+      else { sortKey = col.key; sortDir = col.num ? -1 : 1; }
+      renderTable(getFiltered());
+    };
+    if (col.num) th.style.textAlign = 'right';
+    head.appendChild(th);
+  });
+
+  const sorted = [...data].sort((a, b) => {
+    const va = a[sortKey], vb = b[sortKey];
+    if (va == null && vb == null) return 0;
+    if (va == null) return 1;
+    if (vb == null) return -1;
+    if (typeof va === 'number' && typeof vb === 'number') return (va - vb) * sortDir;
+    return String(va).localeCompare(String(vb)) * sortDir;
+  });
+
+  sorted.forEach(r => {
+    const tr = document.createElement('tr');
+    TABLE_COLS.forEach(col => {
+      const td = document.createElement('td');
+      if (col.num) td.classList.add('num');
+      const v = r[col.key];
+      if (col.pill === 'freq' && v != null) {
+        td.innerHTML = `<span class="pill freq-${v}">${v}</span>`;
+      } else {
+        td.textContent = v == null ? '—' : (typeof v === 'number' ? String(v) : v);
+      }
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+  $('table-count').textContent = `${sorted.length} ligne${sorted.length > 1 ? 's' : ''}`;
+}
+
+// ================= TABS =================
+function switchTab(name) {
+  activeTab = name;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event && event.target && event.target.classList && event.target.classList.add('active');
+  // fallback : trouver le bouton par son onclick
+  document.querySelectorAll('.tab').forEach(t => {
+    if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(`'${name}'`)) t.classList.add('active');
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  $('panel-' + name).classList.add('active');
+  refresh();
+}
+
+// ================= INIT =================
+buildFilterChips();
+buildVarSelects();
+refresh();
+</script>
+
+</body>
+</html>
