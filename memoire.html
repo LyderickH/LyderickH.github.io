@@ -10,26 +10,12 @@
   <script>
     (function () {
       var saved = localStorage.getItem('theme');
-      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
     })();
   </script>
 
   <style>
     :root,
-    [data-theme="light"] {
-      --bg-primary: #FAFAF7;
-      --bg-secondary: #FFFFFF;
-      --bg-muted: #F2F2EE;
-      --text-primary: #1A1A1A;
-      --text-secondary: #555555;
-      --text-muted: #888888;
-      --accent: #1E3A8A;
-      --accent-soft: rgba(30, 58, 138, 0.08);
-      --border: #E5E5E0;
-      --border-strong: #D4D4CE;
-      --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
-    }
-
     [data-theme="dark"] {
       --bg-primary: #0F0F12;
       --bg-secondary: #17171C;
@@ -42,6 +28,20 @@
       --border: #2A2A30;
       --border-strong: #3A3A42;
       --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #FAFAF7;
+      --bg-secondary: #FFFFFF;
+      --bg-muted: #F2F2EE;
+      --text-primary: #1A1A1A;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --accent: #1E3A8A;
+      --accent-soft: rgba(30, 58, 138, 0.08);
+      --border: #E5E5E0;
+      --border-strong: #D4D4CE;
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -275,6 +275,7 @@
       <a href="index.html" class="nav-logo">Lydérick Henry</a>
       <div class="nav-links">
         <a href="index.html#projets" class="nav-link">Projets</a>
+        <a href="cv.html" class="nav-link">CV</a>
         <a href="memoire.html" class="nav-link">Mémoire</a>
         <a href="explorateur.html" class="nav-link">Démo IA</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Basculer le thème clair / sombre" type="button">

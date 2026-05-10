@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV LH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --dark-blue: #1e3a5f;
+            --main-red: #c7253e;
+            --main-gold: #e8b86d;
+            --dark-gold: #d4a056;
+            --dark-grey: #2c3e50;
+            --light-grey: #5a6c7d;
+            --bg-grey: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        html, body {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            color-adjust: exact;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        .resume-container {
+            display: flex;
+            /* Inversion visuelle pour garder le sidebar à gauche alors qu'il est après le main dans le HTML */
+            flex-direction: row-reverse;
+            width: 210mm;
+            height: 297mm;
+            background-color: #ffffff;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 73.5mm;
+            background-color: var(--dark-blue);
+            color: #ffffff;
+            padding: 8mm;
+            position: relative;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            color-adjust: exact;
+        }
+
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .profile-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 55mm;
+            background-color: var(--dark-blue);
+            border-bottom-left-radius: 50% 15mm;
+            border-bottom-right-radius: 50% 15mm;
+            z-index: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .profile-pic-wrapper {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin-top: 6mm;
+            margin-bottom: 6mm;
+        }
+
+        .profile-pic {
+            width: 38mm;
+            height: 38mm;
+            border-radius: 50%;
+            border: 1.5mm solid #ffffff;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11pt;
+            color: #333;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+
+        .sidebar-section {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 5mm;
+        }
+
+        .sidebar-section h2 {
+            font-size: 1.3em;
+            text-transform: uppercase;
+            color: #ffffff;
+            border-bottom: 0.5mm solid var(--main-gold);
+            padding-bottom: 1mm;
+            margin-bottom: 3mm;
+            font-weight: 700;
+        }
+
+        .sidebar-section p {
+            margin-bottom: 3mm;
+            font-size: 0.95em;
+            font-weight: 300;
+            line-height: 1.3;
+            text-align: justify;
+        }
+
+        .sidebar-section h3 {
+            font-size: 1.05em;
+            color: var(--main-gold);
+            margin-top: 3mm;
+            margin-bottom: 2mm;
+            font-weight: 700;
+        }
+
+        .sidebar ul {
+            list-style-type: disc;
+            padding-left: 4mm;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 1.5mm;
+            font-weight: 300;
+            font-size: 0.9em;
+            line-height: 1.3;
+        }
+
+        .links p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2mm;
+            font-weight: 400;
+            font-size: 0.9em;
+        }
+
+        .links .icon {
+            color: var(--main-gold);
+            font-size: 1.1em;
+            width: 5mm;
+            text-align: center;
+            margin-right: 2mm;
+            flex-shrink: 0;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            width: 136.5mm;
+            padding: 8mm 10mm;
+        }
+
+        .main-content a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .main-header {
+            border-bottom: 1mm solid var(--main-red);
+            padding-bottom: 3mm;
+            margin-bottom: 2mm;
+        }
+
+        .main-header h1 {
+            font-size: 2.6em;
+            color: var(--main-red);
+            margin: 0 0 1mm 0;
+            text-transform: uppercase;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .main-header h2 {
+            font-size: 1.15em;
+            color: var(--dark-grey);
+            margin: 0;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .main-header .highlight {
+            color: var(--dark-gold);
+            font-weight: 700;
+        }
+
+        .contact-info {
+            margin-top: 3mm;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5mm 3mm;
+            font-size: 0.85em;
+            color: var(--light-grey);
+        }
+
+        .contact-info p {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            line-height: 1.3;
+        }
+
+        .contact-info .icon {
+            color: var(--main-red);
+            width: 4mm;
+            text-align: center;
+            margin-right: 1.5mm;
+            font-size: 1em;
+            flex-shrink: 0;
+        }
+
+        .footer-note {
+            font-style: italic;
+            color: #777;
+            text-align: center;
+            font-size: 0.8em;
+            margin-top: 3mm;
+            margin-bottom: 3mm;
+        }
+
+        .footer-note .text-blue {
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .timeline-section {
+            margin-top: 5mm;
+        }
+
+        .timeline-section h2 {
+            font-size: 1.4em;
+            color: var(--dark-grey);
+            border-bottom: 0.5mm solid var(--main-red);
+            padding-bottom: 1mm;
+            margin-bottom: 4mm;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .timeline {
+            position: relative;
+            border-left: 0.8mm solid var(--dark-grey);
+            padding-left: 6mm;
+        }
+
+        .timeline-item {
+            margin-bottom: 5mm;
+            position: relative;
+            page-break-inside: avoid;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9mm;
+            top: 0.5mm;
+            width: 3.5mm;
+            height: 3.5mm;
+            background: var(--dark-grey);
+            border: 0.8mm solid #ffffff;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item h3 {
+            font-size: 1.1em;
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin: 0 0 1mm 0;
+            line-height: 1.2;
+        }
+
+        .timeline-item h4 {
+            font-size: 0.95em;
+            color: var(--light-grey);
+            font-style: italic;
+            margin: 0 0 2mm 0;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .timeline-item h4 .date {
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .timeline-item > p {
+            font-weight: 700;
+            margin: 1mm 0 2mm 0;
+            font-size: 0.95em;
+        }
+
+        .timeline-item ul {
+            list-style-type: disc;
+            padding-left: 4mm;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .timeline-item li {
+            margin-bottom: 1mm;
+            line-height: 1.3;
+        }
+
+        /* PRINT SPECIFIC */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+            }
+
+            .sidebar {
+                background-color: var(--dark-blue) !important;
+            }
+
+            .profile-header-bg {
+                background-color: var(--dark-blue) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Lydérick HENRY</h1>
+                <h2> CDI | <span class="highlight"> M2 CGAO ACG</span></h2>
+                
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope icon" aria-hidden="true"></i>&nbsp; <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a></p>
+                    <p><i class="fas fa-birthday-cake icon" aria-hidden="true"></i>&nbsp;22 ans</p>
+                    <p><i class="fas fa-phone icon" aria-hidden="true"></i>&nbsp; <a href="tel:0619833633">06.19.83.36.33</a></p>
+                    <p><i class="fas fa-map-marker-alt icon" aria-hidden="true"></i>&nbsp;8 Allée des coursives, Villeneuve d'Ascq 59650</p>
+                </div>
+            </header>
+
+            <div class="footer-note">
+                Les entreprises, formations et profils de ce CV sont <span class="text-blue">cliquables</span>.
+            </div>
+
+            <section class="timeline-section">
+                <h2>EXPÉRIENCES PROFESSIONNELLES</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3><a href="https://www.forvismazars.com/fr/" target="_blank">Auditeur IT - Alternance</a></h3>
+                        <h4>Forvis Mazars France - <span class="date">Depuis sept. 2025</span></h4>
+                        <ul>
+                            <li>Analyse de l'environnement des systèmes d'information (SI).</li>
+                            <li>Projets Data (PowerBI et AlteryX)</li>
+                            <li>Évaluation du contrôle interne IT et évaluation des risques.</li>
+                            <li>Réalisation des contrôles généraux informatiques (ITGC).</li>
+                            <li>Revue de processus Métier et IT.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3><a href="https://www.cic.fr/fr/index.html" target="_blank">Contrôleur de gestion - Alternance</a></h3>
+                        <h4>CIC Nord Ouest - <span class="date">De sept. 2024 à août 2025</span></h4>
+                        <ul>
+                            <li>Automatisation du reporting via Excel & VBA pour fiabiliser et accélérer les traitements récurrents.</li>
+                            <li>Développement d'un outil d'analyse des RBE négatifs pour diagnostiquer des écarts de performance.</li>
+                            <li>Audit et contrôle de délégations d'autorisation et droits (macros Excel).</li>
+                            <li>Réalisation du Comité des Taux mensuel et d'analyses financières pour la tarification.</li>
+                            <li>Contrôle des frais généraux, suivi et participation au processus budgétaire</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3><a href="https://humafin.coop/" target="_blank">Collaborateur comptable - Alternance</a></h3>
+                        <h4>Humafin Coop Lille - <span class="date">De juin 2022 à août 2024</span></h4>
+                        <ul>
+                            <li>Réalisation de la TVA mensuelle et trimestrielle pour 25 dossiers clients.</li>
+                            <li>Établissement des liasses fiscales et bilans prévisionnels.</li>
+                            <li>Suivi et mise à jour des mandats, paramétrage des logiciels comptables.</li>
+                            <li>Référent logiciel Welyb (formation interne et lien fournisseur).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="timeline-section">
+                <h2>ÉTUDES & FORMATIONS</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3><a href="https://iaelille.fr/formations/master-2-audit-comptable-et-financier/" target="_blank">Master 2 - Contrôle de gestion et audit organisationnel (BIG DATA)</a></h3>
+                        <h4>IAE Lille - <span class="date">Sept. 2024 - Août 2026</span></h4>
+                        <p>Major de promotion</p>
+                        <ul>
+                            <li>Formation orientée audit, contrôle de gestion et systèmes d'information, avec spécialisation en data et transformation numérique.</li>
+                            <li>Systèmes d'information (ERP, Power BI, Power Platform, IA)</li>
+                            <li>Audit & contrôle de gestion (industriel, social, RSE)</li>
+                            <li>Comptabilité / Finance (IFRS, fusion, budget, trésorerie)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3><a href="https://iaelille.fr/formations/licence-3-comptabilite-controle-audit/" target="_blank">Licence CCA (Comptabilité, Contrôle, Audit)</a></h3>
+                        <h4>IAE Lille - <span class="date">Août 2023 - Août 2024</span></h4>
+                        <p>Major de promotion</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3><a href="https://iut.univ-lille.fr/" target="_blank">BUT GEA (option GC2F)</a></h3>
+                        <h4>IUT A - Université de Lille - <span class="date">Janv. 2022 - Juil. 2023</span></h4>
+                        <p>Major de promotion</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="profile-header-bg"></div>
+
+            <div class="profile-pic-wrapper">
+                <img src="file:/C:\Users\lydérick\Desktop\cv\cv.png" alt="Photo de profil" class="profile-pic" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="profile-pic" style="display: none;">Pas d'image</div>
+            </div>
+
+            <section class="sidebar-section">
+                <h2>À PROPOS</h2>
+                <p>
+                    Actuellement en M2 CGAO (Big Data) chez Forvis Mazars jusqu'en <b>août 2026.</b> </p>
+                    <p>
+                </p>
+            </section>
+
+            <section class="sidebar-section">
+                <h2>COMPÉTENCES</h2>
+                
+                <h3>Compétences informatiques</h3>
+                <ul>
+                    <li><b>BI </b>: Power BI (DAX, DataViz), Tableau, Alteryx</li>
+                    <li><b>Excel avancé </b>(TCD, VBA, Power Query)</li>
+                    <li><b>GCP </b> (GCS, BigQuery, Dataform, Looker Studio) </b></li>
+                    <li><b>Outils comptables & financiers </b>: SAP, RCA, MyUnisoft, MEG</li>
+                    <li><b>Langages de programmation </b>: Python, HTML/CSS</li>
+                    <li><b>Bases de données</b> : MySQL, PostgreSQL, Access</li>
+                    <li><b>Bureautique </b>: Word, PowerPoint, Suite Google</li>
+                </ul>
+
+                <h3>Communication</h3>
+                <ul>
+                    <li>Teams, Slack, Outlook, Meet</li>
+                    <li>Jira, Trello</li>
+                    <li>Welyb</li>
+                </ul>
+            </section>
+
+            <section class="sidebar-section">
+                <h2>LANGUES</h2>
+                <ul>
+                    <li>Français</li>
+                    <li>Anglais (Toeic 900/990)</li>
+                </ul>
+            </section>
+
+            <section class="sidebar-section">
+                <h2>SAVOIR-ÊTRE</h2>
+                <ul>
+                    <li>Force de proposition</li>
+                    <li>Curiosité</li>
+                    <li>Flexibilité et adaptabilité</li>
+                    <li>Aisance relationnelle</li>
+                </ul>
+            </section>
+
+            <section class="sidebar-section links">
+                <h2>LIENS</h2>
+                <p><i class="fab fa-linkedin icon" aria-hidden="true"></i>&nbsp; <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank">@LydérickHenry</a></p>
+                <p><i class="fas fa-briefcase icon" aria-hidden="true"></i>&nbsp; <a href="https://lyderickh.github.io/" target="_blank">Portfolio : lyderickh.github.io/</a></p>
+            </section>
+        </aside>
+    </div>
+</body>
+</html>
