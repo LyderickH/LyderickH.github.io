@@ -412,7 +412,14 @@
       chartInstances.Q1 = new Chart(document.getElementById('chartQ1'), {
         type: 'bar',
         data: {
-          labels: ['Très rarement\n<1×/mois', 'Rarement\n1-3×/mois', 'Parfois\n~1×/sem.', 'Régulièrement\nplx/sem.', 'Quotidiennement\n1×/jour', 'Très fréquemment\nplx/jour'],
+          labels: [
+            ['Très rarement', '<1×/mois'],
+            ['Rarement', '1-3×/mois'],
+            ['Parfois', '~1×/sem.'],
+            ['Régulièrement', 'plx/sem.'],
+            ['Quotidiennement', '1×/jour'],
+            ['Très fréquemment', 'plx/jour']
+          ],
           datasets: [{
             data: [4.5, 9.0, 16.4, 38.8, 13.4, 17.9],
             backgroundColor: [C.accent+'0.4)', C.accent+'0.5)', C.accent+'0.6)', C.accent+'0.85)', C.positive+'0.7)', C.positive+'0.85)'],
@@ -431,7 +438,11 @@
       chartInstances.Q30 = new Chart(document.getElementById('chartQ30'), {
         type: 'bar',
         data: {
-          labels: ['1\nRisques dominent', '3', '4', '5', '6', '7\nBénéfices dominent'],
+          labels: [
+            ['1', 'Risques dominent'],
+            '3', '4', '5', '6',
+            ['7', 'Bénéfices dominent']
+          ],
           datasets: [{
             data: [3.0, 7.6, 12.1, 37.9, 25.8, 13.6],
             backgroundColor: [C.negative+'0.6)', C.negative+'0.4)', C.warn+'0.5)', C.positive+'0.5)', C.positive+'0.7)', C.positive+'0.9)'],
@@ -477,18 +488,34 @@
         }
       });
 
+      var isDarkRadar = document.documentElement.getAttribute('data-theme') === 'dark';
       chartInstances.Radar = new Chart(document.getElementById('chartRadar'), {
         type: 'radar',
         data: {
-          labels: ['SUP\n(Utilité)', 'SFU\n(Facilité)', 'SRP\n(Risques)', 'SMF\n(Motivation)', 'SSP\n(Scepticisme)'],
+          labels: [
+            ['SUP', '(Utilité)'],
+            ['SFU', '(Facilité)'],
+            ['SRP', '(Risques)'],
+            ['SMF', '(Maitrise Fonctionnelle)'],
+            ['SSP', '(Scepticisme)']
+          ],
           datasets: [{ data: [68.0, 68.1, 79.1, 68.3, 70.8],
             backgroundColor: C.accent+'0.2)', borderColor: C.accent+'0.9)', pointBackgroundColor: C.accent+'1)', borderWidth: 2, pointRadius: 4 }]
         },
         options: { responsive: true, plugins: { legend: { display: false } },
           scales: {
             r: { min: 50, max: 90,
-              ticks: { color: C.tick, font, stepSize: 10, callback: function (v) { return v + '%'; }, backdropColor: 'transparent' },
-              grid: { color: C.grid }, pointLabels: { color: C.tick, font }, angleLines: { color: C.grid }
+              ticks: {
+                color: C.tick,
+                font: { family: 'Inter', size: 10 },
+                stepSize: 10,
+                callback: function (v) { return v + '%'; },
+                backdropColor: isDarkRadar ? 'rgba(15,15,18,0.85)' : 'rgba(250,250,247,0.85)',
+                backdropPadding: 2
+              },
+              grid: { color: C.grid },
+              pointLabels: { color: C.tick, font: { family: 'Inter', size: 11, weight: '500' } },
+              angleLines: { color: C.grid }
             }
           }
         }
