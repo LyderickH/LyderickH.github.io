@@ -28,14 +28,33 @@ function assetPrefix(filePath) {
 
 function ensureThemeScript(content) {
   const themeScript =
-    '<script>\n    (function () {\n      var saved = localStorage.getItem(\'theme\');\n      document.documentElement.setAttribute(\'data-theme\', saved === \'light\' ? \'light\' : \'dark\');\n    })();\n  </script>';
+    '<script>\n    (function () {\n      var saved = localStorage.getItem(\'theme\');\n      document.documentElement.setAttribute(\'data-theme\', saved === \'dark\' ? \'dark\' : \'light\');\n    })();\n  </script>';
+  content = content.replace(
+    /saved === 'light' \? 'light' : 'dark'/g,
+    "saved === 'dark' ? 'dark' : 'light'"
+  );
   if (content.includes("localStorage.getItem('theme')")) return content;
   return content.replace('</head>', '\n  ' + themeScript + '\n</head>');
 }
 
 function ensureAssets(content, prefix) {
+  const themeHref = prefix + 'css/theme.css';
   const cssHref = prefix + 'css/site-nav.css';
   const jsSrc = prefix + 'js/site-nav.js';
+
+  if (!content.includes('css/theme.css')) {
+    if (content.includes('css/site-nav.css')) {
+      content = content.replace(
+        `<link rel="stylesheet" href="${cssHref}">`,
+        `  <link rel="stylesheet" href="${themeHref}">\n  <link rel="stylesheet" href="${cssHref}">`
+      );
+    } else {
+      content = content.replace(
+        '</head>',
+        `  <link rel="stylesheet" href="${themeHref}">\n  <link rel="stylesheet" href="${cssHref}">\n</head>`
+      );
+    }
+  }
 
   if (!content.includes('css/site-nav.css')) {
     content = content.replace(

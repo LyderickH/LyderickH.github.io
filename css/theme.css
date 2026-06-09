@@ -1,0 +1,133 @@
+/* Palette & ton professionnel — audit, finance, data */
+:root,
+[data-theme="light"] {
+  --bg-primary: #F7F6F3;
+  --bg-secondary: #FFFFFF;
+  --bg-muted: #EFEDE8;
+  --text-primary: #1A1A1C;
+  --text-secondary: #4D4D55;
+  --text-muted: #76767E;
+  --accent: #1B365D;
+  --accent-soft: rgba(27, 54, 93, 0.07);
+  --border: #E2E0DA;
+  --border-strong: #CBC9C2;
+  --shadow-card: 0 1px 2px rgba(26, 26, 28, 0.04), 0 6px 20px rgba(26, 26, 28, 0.05);
+  --shadow-hover: 0 10px 28px rgba(26, 26, 28, 0.09);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #131315;
+  --bg-secondary: #1A1A1D;
+  --bg-muted: #232326;
+  --text-primary: #F3F3F4;
+  --text-secondary: #A9A9B0;
+  --text-muted: #707078;
+  --accent: #8EADC8;
+  --accent-soft: rgba(142, 173, 200, 0.1);
+  --border: #2C2C30;
+  --border-strong: #3A3A40;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.35), 0 4px 14px rgba(0, 0, 0, 0.22);
+  --shadow-hover: 0 6px 22px rgba(0, 0, 0, 0.38);
+}
+
+/* Éléments décoratifs retirés sur les pages projet */
+.bg-particles,
+.particle {
+  display: none !important;
+}
+
+.card-num {
+  display: none;
+}
+
+.section-eyebrow::before,
+.cv-subtitle::before,
+.meta-label::after {
+  content: none !important;
+}
+
+.section-eyebrow,
+.cv-subtitle {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem !important;
+  font-weight: 600;
+}
+
+.hero-eyebrow {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.tag,
+.btn-more,
+.footer-contacts a,
+.footer-meta,
+.back-link,
+.counter,
+.slide-btn,
+.cv-meta,
+.skill-tag {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.tag {
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  font-weight: 600;
+}
+
+.btn-more {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Titres projet : sobre, sans dégradé animé */
+header h1,
+.content-section h2 {
+  background: none !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+  animation: none !important;
+  font-family: 'Fraunces', Georgia, serif !important;
+  font-weight: 500 !important;
+}
+
+header {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.project-card:hover,
+.research-card:hover,
+.featured-card:hover {
+  transform: translateY(-1px);
+}
+
+.nav-logo {
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .btn-primary {
+  color: #131315 !important;
+}
+
+.research-link,
+.featured-cta {
+  letter-spacing: 0.01em;
+}

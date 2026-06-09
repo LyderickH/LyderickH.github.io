@@ -10,7 +10,7 @@
   <script>
     (function () {
       var saved = localStorage.getItem('theme');
-      document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
     })();
   </script>
 
@@ -371,12 +371,13 @@
       .container { padding: 0 1.25rem; }
 }
   </style>
+    <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/site-nav.css">
   <script src="js/site-nav.js" defer></script>
 </head>
 <body>
 
-      <nav class="site-nav"></nav>
+        <nav class="site-nav"></nav>
 
   <header class="cv-hero">
     <div class="container">
@@ -384,7 +385,7 @@
         <img src="Photo%20professionnel.jpeg" alt="Lydérick Henry" class="cv-photo">
         <div>
           <h1 class="cv-name">Lydérick Henry</h1>
-          <p class="cv-subtitle">Data × Finance × Automation · M2 CGAO ACG · Forvis Mazars (alternance)</p>
+          <p class="cv-subtitle">Data & Finance · M2 CGAO · Forvis Mazars</p>
           <p class="cv-bio">22 ans, en M2 CGAO Big Data à l'IAE Lille jusqu'en août 2026, actuellement auditeur IT en alternance chez Forvis Mazars. Major de promotion à chaque cycle. Je relie une formation comptable et audit à des compétences data solides (BI, Python, GCP).</p>
           <div class="cv-meta">
             <span><span class="meta-label">email →</span> <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a></span>

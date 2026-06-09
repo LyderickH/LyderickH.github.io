@@ -1006,16 +1006,17 @@
 <script>
     (function () {
       var saved = localStorage.getItem('theme');
-      document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
     })();
   </script>
+    <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/site-nav.css">
   <script src="js/site-nav.js" defer></script>
 </head>
 <body>
   <div class="bg-particles" id="particles"></div>
 
-      <nav class="site-nav"></nav>
+        <nav class="site-nav"></nav>
 
   <header>
     <h1>Dashboard Tableau : Analyse Financière (Kaggle)</h1>
