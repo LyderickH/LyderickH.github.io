@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atelier d'analyse — Mémoire IAG en audit (N=67)</title>
 <link rel="icon" href="../../favicon.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0f0f23;
@@ -53,20 +53,9 @@
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
     padding-bottom: 40px;
-    padding-top: 52px;
+    padding-top: 64px;
   }
-
-  /* ========== NAVBAR ========== */
-  .site-nav { position:fixed; top:0; left:0; right:0; z-index:100; height:52px; background:rgba(20,20,42,0.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.18); box-shadow:0 2px 18px rgba(0,0,0,0.45); }
-  .nav-inner { max-width:1200px; margin:0 auto; padding:0 2rem; height:100%; display:flex; align-items:center; justify-content:space-between; }
-  .nav-logo { font-size:1rem; font-weight:700; text-decoration:none; background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:0.05em; }
-  .nav-links { display:flex; gap:2rem; align-items:center; }
-  .nav-link { color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.25s ease; }
-  .nav-link:hover { color:var(--primary); }
-  .back-link { display:inline-flex; align-items:center; gap:.5rem; padding:.5rem 1rem; background:var(--surface); border:1px solid var(--line); border-radius:2rem; color:var(--ink); text-decoration:none; font-weight:500; font-size:.85rem; transition:.3s; }
-  .back-link:hover { transform:translateY(-2px); border-color:var(--primary); box-shadow:0 10px 25px rgba(99,102,241,0.2); }
-
-  /* ========== HEADER ========== */
+/* ========== HEADER ========== */
   header.top {
     background: rgba(20,20,42,0.6);
     backdrop-filter: blur(20px);
@@ -588,19 +577,19 @@
     .result-highlight { grid-template-columns: 1fr; gap: 12px; }
   }
 </style>
+
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+    })();
+  </script>
+  <link rel="stylesheet" href="../../css/site-nav.css">
+  <script src="../../js/site-nav.js" defer></script>
 </head>
 <body>
 
-<nav class="site-nav">
-  <div class="nav-inner">
-    <a href="../../index.html" class="nav-logo">LH</a>
-    <div class="nav-links">
-      <a href="../../index.html#projets" class="nav-link">Projets</a>
-      <a href="../../memoire.html" class="nav-link">Mémoire</a>
-      <a href="../../explorateur.html" class="nav-link">MCP Data.gouv</a>
-    </div>
-  </div>
-</nav>
+    <nav class="site-nav"></nav>
 
 <header class="top">
   <div>
@@ -1972,6 +1961,5 @@ buildFilterChips();
 buildVarSelects();
 refresh();
 </script>
-
 </body>
 </html>
