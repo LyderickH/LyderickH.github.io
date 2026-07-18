@@ -1268,6 +1268,8 @@
       @media (max-width: 640px) { .pbi-kpis { grid-template-columns: repeat(2, 1fr); } .pbi-charts { grid-template-columns: 1fr; } }
       .pbi-model { background: #1e1e1e; border: 1px solid #333; border-radius: 10px; overflow-x: auto; padding: 4px; }
       .pbi-model svg { display: block; min-width: 660px; width: 100%; }
+      /* captures réelles (Power BI Desktop) */
+      .p9-shot { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow-card); }
     </style>
 
     <section class="content-section">
@@ -1290,40 +1292,8 @@
       </div>
 
       <div class="p9-fig">
-        <div class="pbi-mock">
-          <h4>Ventes 2025 : l'Électronique tire la croissance, marge stable autour de 35 %</h4>
-          <div class="sub">Jeu de données de test (fictif) — 144 transactions, 4 régions, 3 catégories — janvier à décembre 2025</div>
-          <div class="pbi-kpis">
-            <div class="pbi-kpi" style="--c:#0072B2"><div class="v">$3M</div><div class="l">Ventes totales</div></div>
-            <div class="pbi-kpi" style="--c:#1F8A6C"><div class="v">878,57K</div><div class="l">Profit total</div></div>
-            <div class="pbi-kpi" style="--c:#C77D22"><div class="v">7K</div><div class="l">Unités vendues</div></div>
-            <div class="pbi-kpi" style="--c:#C13E8E"><div class="v">34,3 %</div><div class="l">Marge bénéficiaire</div></div>
-          </div>
-          <div class="pbi-charts">
-            <div class="pbi-box">
-              <div class="ct">Tendance des ventes par mois</div>
-              <svg viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true">
-                <polygon points="0,48 27,53 55,80 82,35 109,43 136,27 164,18 191,34 218,18 245,16 273,30 300,72 300,90 0,90" fill="#0072B2" opacity="0.16"/>
-                <polyline points="0,48 27,53 55,80 82,35 109,43 136,27 164,18 191,34 218,18 245,16 273,30 300,72" fill="none" stroke="#0072B2" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="pbi-box">
-              <div class="ct">Ventes par catégorie</div>
-              <svg viewBox="0 0 240 90" aria-hidden="true">
-                <text x="0" y="12" font-size="8" fill="#5b6472">Electronics</text>
-                <rect x="0" y="15" width="200" height="13" fill="#0072B2"/>
-                <text x="204" y="25" font-size="8" fill="#5b6472">1 915K</text>
-                <text x="0" y="44" font-size="8" fill="#5b6472">Home Goods</text>
-                <rect x="0" y="47" width="47" height="13" fill="#0072B2"/>
-                <text x="51" y="57" font-size="8" fill="#5b6472">448K</text>
-                <text x="0" y="76" font-size="8" fill="#5b6472">Apparel</text>
-                <rect x="0" y="79" width="21" height="13" fill="#0072B2"/>
-                <text x="25" y="89" font-size="8" fill="#5b6472">200K</text>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="p9-figcap">Projet 1 — le dashboard de test généré par l'agent (rendu Power BI Desktop, reproduit ici en HTML).</div>
+        <img class="p9-shot" src="projets/projet9/image-1784405810415.png" alt="Dashboard de test « Ventes 2025 » généré par l'agent — 4 cartes KPI, courbe de tendance mensuelle et ventes par catégorie" loading="lazy" />
+        <div class="p9-figcap">Projet 1 — le dashboard de test généré par l'agent (capture Power BI Desktop).</div>
       </div>
     </section>
 
@@ -1400,88 +1370,8 @@
       <p>Deux tables de faits (<span class="p9-code">Comptabilite</span> au jour le jour, <span class="p9-code">Budget</span> au mois) partagent trois dimensions (<span class="p9-code">Ref_Services</span>, <span class="p9-code">Ref_Comptes</span>, <span class="p9-code">CALENDRIER</span>). Le calendrier n'est pas importé mais <strong>calculé en DAX</strong> (<span class="p9-code">CALENDARAUTO()</span> + colonnes ANNEE-MOIS, TRIMESTRE, SEMAINE, année fiscale), conformément à la consigne de la formation.</p>
 
       <div class="p9-fig">
-        <div class="pbi-model">
-          <svg viewBox="0 0 680 430" role="img" aria-label="Schéma du modèle de données Power BI">
-            <g stroke="#7a7a7a" stroke-width="1.2" fill="none">
-              <line x1="255" y1="46" x2="150" y2="150"/>
-              <line x1="400" y1="48" x2="452" y2="120"/>
-              <line x1="205" y1="205" x2="170" y2="205"/>
-              <line x1="345" y1="200" x2="380" y2="182"/>
-              <line x1="250" y1="360" x2="110" y2="246"/>
-              <line x1="410" y1="360" x2="455" y2="228"/>
-            </g>
-            <g font-family="'JetBrains Mono', monospace" font-size="9" fill="#9a9a9a">
-              <text x="238" y="60">1</text><text x="150" y="145">*</text>
-              <text x="404" y="62">1</text><text x="454" y="118">*</text>
-              <text x="188" y="200">1</text><text x="172" y="200">*</text>
-              <text x="348" y="196">1</text><text x="366" y="180">*</text>
-              <text x="252" y="356">1</text><text x="108" y="242">*</text>
-              <text x="412" y="356">1</text><text x="458" y="224">*</text>
-            </g>
-            <!-- Ref_Services -->
-            <g font-family="'Inter', sans-serif">
-              <rect x="250" y="8" width="150" height="64" rx="6" fill="#252526" stroke="#3c3c3c"/>
-              <rect x="250" y="8" width="150" height="22" rx="6" fill="#2d2d30"/>
-              <text x="262" y="23" font-size="11" font-weight="700" fill="#fff">Ref_Services</text>
-              <text x="262" y="45" font-size="10" fill="#cfcfcf">SERVICE</text>
-              <text x="262" y="60" font-size="10" fill="#cfcfcf">SERVICE_ID</text>
-            </g>
-            <!-- Budget -->
-            <g font-family="'Inter', sans-serif">
-              <rect x="20" y="150" width="150" height="100" rx="6" fill="#252526" stroke="#3c3c3c"/>
-              <rect x="20" y="150" width="150" height="22" rx="6" fill="#2d2d30"/>
-              <text x="32" y="165" font-size="11" font-weight="700" fill="#fff">Budget</text>
-              <text x="32" y="187" font-size="10" fill="#cfcfcf">DATE</text>
-              <text x="32" y="202" font-size="10" fill="#cfcfcf">MONTANT_BUDGET</text>
-              <text x="32" y="217" font-size="10" fill="#cfcfcf">N_COMPTE</text>
-              <text x="32" y="232" font-size="10" fill="#cfcfcf">SERVICE</text>
-            </g>
-            <!-- CALENDRIER -->
-            <g font-family="'Inter', sans-serif">
-              <rect x="205" y="150" width="140" height="115" rx="6" fill="#252526" stroke="#3c3c3c"/>
-              <rect x="205" y="150" width="140" height="22" rx="6" fill="#2d2d30"/>
-              <text x="217" y="165" font-size="11" font-weight="700" fill="#fff">CALENDRIER</text>
-              <text x="217" y="187" font-size="10" fill="#cfcfcf">ANNEE</text>
-              <text x="217" y="202" font-size="10" fill="#cfcfcf">ANNEE-MOIS</text>
-              <text x="217" y="217" font-size="10" fill="#cfcfcf">DATE</text>
-              <text x="217" y="232" font-size="10" fill="#cfcfcf">SEMAINE</text>
-              <text x="217" y="247" font-size="10" fill="#cfcfcf">TRIMESTRE</text>
-            </g>
-            <!-- Comptabilite -->
-            <g font-family="'Inter', sans-serif">
-              <rect x="380" y="120" width="150" height="115" rx="6" fill="#252526" stroke="#3c3c3c"/>
-              <rect x="380" y="120" width="150" height="22" rx="6" fill="#2d2d30"/>
-              <text x="392" y="135" font-size="11" font-weight="700" fill="#fff">Comptabilite</text>
-              <text x="392" y="157" font-size="10" fill="#cfcfcf">DATE</text>
-              <text x="392" y="172" font-size="10" fill="#cfcfcf">FOURNISSEUR</text>
-              <text x="392" y="187" font-size="10" fill="#cfcfcf">MONTANT_HT</text>
-              <text x="392" y="202" font-size="10" fill="#cfcfcf">N_COMPTE</text>
-              <text x="392" y="217" font-size="10" fill="#cfcfcf">SERVICE_ID</text>
-            </g>
-            <!-- Ref_Comptes -->
-            <g font-family="'Inter', sans-serif">
-              <rect x="250" y="320" width="160" height="82" rx="6" fill="#252526" stroke="#3c3c3c"/>
-              <rect x="250" y="320" width="160" height="22" rx="6" fill="#2d2d30"/>
-              <text x="262" y="335" font-size="11" font-weight="700" fill="#fff">Ref_Comptes</text>
-              <text x="262" y="357" font-size="10" fill="#cfcfcf">N_COMPTE</text>
-              <text x="262" y="372" font-size="10" fill="#cfcfcf">NATURE_CHARGE</text>
-              <text x="262" y="387" font-size="10" fill="#cfcfcf">REGROUPEMENT</text>
-            </g>
-            <!-- _Mesures -->
-            <g font-family="'Inter', sans-serif">
-              <rect x="560" y="120" width="112" height="135" rx="6" fill="#252526" stroke="#3c3c3c"/>
-              <rect x="560" y="120" width="112" height="22" rx="6" fill="#2d2d30"/>
-              <text x="572" y="135" font-size="11" font-weight="700" fill="#fff">_Mesures</text>
-              <text x="572" y="157" font-size="9.5" fill="#cfcfcf">Alerte</text>
-              <text x="572" y="172" font-size="9.5" fill="#cfcfcf">Analyse des dérives</text>
-              <text x="572" y="187" font-size="9.5" fill="#cfcfcf">Budget HT</text>
-              <text x="572" y="202" font-size="9.5" fill="#cfcfcf">Écart %</text>
-              <text x="572" y="217" font-size="9.5" fill="#cfcfcf">Écart €</text>
-              <text x="572" y="232" font-size="9.5" fill="#cfcfcf">Fournisseur Principal</text>
-            </g>
-          </svg>
-        </div>
-        <div class="p9-figcap">Le modèle en flocon : deux tables de faits (Comptabilite, Budget), trois dimensions (Ref_Services, Ref_Comptes, CALENDRIER) et la table _Mesures — reproduit ici en SVG.</div>
+        <img class="p9-shot" src="projets/projet9/image-1784405806793.png" alt="Schéma du modèle de données Power BI : Comptabilite et Budget (faits), Ref_Services, Ref_Comptes, CALENDRIER (dimensions) et _Mesures" loading="lazy" />
+        <div class="p9-figcap">Le modèle en flocon : deux tables de faits (Comptabilite, Budget), trois dimensions (Ref_Services, Ref_Comptes, CALENDRIER) et la table _Mesures — vue Modèle de Power BI Desktop.</div>
       </div>
 
       <h3>La partie la plus intéressante : le commentaire automatique</h3>
@@ -1499,25 +1389,11 @@
         )</pre>
 
       <h3>Le visuel obtenu</h3>
-      <p>Reconstitution du rendu final (page « Suivi Réel vs Budget ») : hiérarchie Service → Charges de personnel / externes → nature de charge, avec pastille d'alerte et écart en € et %.</p>
-      <div class="p9-matrix-frame">
-        <table class="p9-matrix">
-          <thead>
-            <tr><th>Service</th><th>Réel HT</th><th>Budget HT</th><th>Écart €</th><th>Écart %</th><th>Alerte</th></tr>
-          </thead>
-          <tbody>
-            <tr class="lvl1"><td>Commercial &amp; Ventes</td><td>719 080 €</td><td>1 078 472 €</td><td>−359 392 €</td><td>−33,3 %</td><td><span class="p9-dot"></span></td></tr>
-            <tr class="lvl2"><td>Charges de personnel</td><td>466 963 €</td><td>700 911 €</td><td>−233 948 €</td><td>−33,4 %</td><td><span class="p9-dot"></span></td></tr>
-            <tr class="lvl3"><td>Charges sociales</td><td>139 268 €</td><td>210 786 €</td><td>−71 518 €</td><td>−33,9 %</td><td><span class="p9-dot"></span></td></tr>
-            <tr class="lvl3"><td>Salaires &amp; traitements</td><td>327 696 €</td><td>490 125 €</td><td>−162 430 €</td><td>−33,1 %</td><td><span class="p9-dot"></span></td></tr>
-            <tr class="lvl2"><td>Charges externes</td><td>252 117 €</td><td>377 560 €</td><td>−125 444 €</td><td>−33,2 %</td><td><span class="p9-dot"></span></td></tr>
-            <tr class="lvl3"><td>Marketing &amp; publicité</td><td>138 164 €</td><td>208 685 €</td><td>−70 522 €</td><td>−33,8 %</td><td><span class="p9-dot"></span></td></tr>
-            <tr class="lvl3"><td>Honoraires &amp; conseils</td><td>40 530 €</td><td>61 245 €</td><td>−20 714 €</td><td>−33,8 %</td><td><span class="p9-dot"></span></td></tr>
-            <tr class="total"><td>Total</td><td>5 977 704 €</td><td>8 979 232 €</td><td>−3 001 528 €</td><td>−33,4 %</td><td><span class="p9-dot"></span></td></tr>
-          </tbody>
-        </table>
+      <p>Le rendu final de la page « Suivi Réel vs Budget » : hiérarchie Service → Charges de personnel / externes → nature de charge, avec pastille d'alerte, écart en € et %, et la colonne « Analyse des dérives » qui se remplit sur les dépassements.</p>
+      <div class="p9-fig">
+        <img class="p9-shot" src="projets/projet9/image-1784405802425.png" alt="Matrice Power BI « Suivi Réel vs Budget — Analyse par Service » : Réel HT, Budget HT, écart en € et %, pastille d'alerte et commentaire automatique de dérive" loading="lazy" />
+        <div class="p9-figcap">Capture Power BI Desktop. La ligne en alerte rouge affiche le commentaire automatique : « Dépassement +45 € — concentré sur Lyreco (38 % du réel) ».</div>
       </div>
-      <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.75rem;"><em>Extrait recomposé à partir des chiffres réellement produits par le modèle (capture Power BI Desktop). La colonne « Analyse des dérives » se remplit uniquement sur les natures de charge en dépassement.</em></p>
     </section>
 
     <section class="content-section">
