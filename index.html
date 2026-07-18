@@ -485,21 +485,6 @@
 
       <div class="projects-grid" id="projects-grid">
 
-        <a href="projet9.html" class="project-card">
-          <span class="card-num">09</span>
-          <img src="projets/projet9/cover.svg" alt="Power BI x Claude - rapport construit par une IA agentique" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Power BI × Claude</h3>
-            <p class="project-description">Faire construire un rapport Power BI complet par une IA agentique (Claude Code) : dataset Python, modèle TMDL/DAX et débogage jusqu'au rendu vérifié.</p>
-            <div class="project-tags">
-              <span class="tag">Power BI</span>
-              <span class="tag">DAX</span>
-              <span class="tag">Claude</span>
-              <span class="tag">IA</span>
-            </div>
-          </div>
-        </a>
-
         <a href="projet1.html" class="project-card">
           <span class="card-num">01</span>
           <img src="projets/portfolio accueil immobilier.png" alt="PowerBI - Analyse Immobilière" class="project-image">
@@ -580,7 +565,7 @@
           </div>
         </a>
 
-        <a href="projet3.html" class="project-card hidden" data-extra="true">
+        <a href="projet3.html" class="project-card">
           <span class="card-num">03</span>
           <img src="projets/Tableau des sig.png" alt="Excel - SIG/CAF/Ratios" class="project-image">
           <div class="project-body">
@@ -593,10 +578,21 @@
           </div>
         </a>
 
-      </div>
+        <a href="projet9.html" class="project-card">
+          <span class="card-num">09</span>
+          <img src="projets/projet9/cover.svg" alt="Power BI x Claude - rapport construit par une IA agentique" class="project-image">
+          <div class="project-body">
+            <h3 class="project-title">Power BI × Claude</h3>
+            <p class="project-description">Faire construire un rapport Power BI complet par une IA agentique (Claude Code) : dataset Python, modèle TMDL/DAX et débogage jusqu'au rendu vérifié.</p>
+            <div class="project-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">DAX</span>
+              <span class="tag">Claude</span>
+              <span class="tag">IA</span>
+            </div>
+          </div>
+        </a>
 
-      <div class="projects-more" id="projects-more">
-        <button type="button" class="btn-more" id="btn-more">Voir plus de projets</button>
       </div>
     </div>
   </section>
@@ -656,17 +652,6 @@
         }
       });
     });
-
-    var btnMore = document.getElementById('btn-more');
-    if (btnMore) {
-      btnMore.addEventListener('click', function () {
-        document.querySelectorAll('.project-card.hidden').forEach(function (card) {
-          card.classList.remove('hidden');
-        });
-        var wrap = document.getElementById('projects-more');
-        if (wrap) wrap.style.display = 'none';
-      });
-    }
   </script>
 </body>
 </html>
