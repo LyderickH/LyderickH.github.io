@@ -1251,6 +1251,23 @@
       .p9-err li::before { content: '✓'; position: absolute; left: 0; top: 0.9rem; color: #1AAB40; font-weight: 700; }
       .p9-err li:last-child { border-bottom: none; }
       .p9-err b { color: var(--text-primary); }
+      /* figures reproduites */
+      .p9-fig { margin: 1.75rem 0 0.5rem; }
+      .p9-figcap { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.6rem; text-align: center; font-style: italic; }
+      .pbi-mock { background: #f7f7f5; border: 1px solid #e1e4e8; border-radius: 10px; padding: 18px 20px; color: #1c2430; }
+      .pbi-mock h4 { font-family: 'Inter', sans-serif; color: #1c2430; font-size: 1.02rem; margin: 0 0 2px; line-height: 1.3; }
+      .pbi-mock .sub { font-size: 0.7rem; color: #5b6472; margin-bottom: 14px; }
+      .pbi-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+      .pbi-kpi { background: #fff; border-left: 4px solid var(--c); border-radius: 6px; padding: 9px 12px; box-shadow: 0 1px 2px rgba(28,36,48,.08); }
+      .pbi-kpi .v { font-weight: 700; font-size: 1.3rem; color: #1c2430; }
+      .pbi-kpi .l { font-size: 0.66rem; color: #5b6472; margin-top: 2px; }
+      .pbi-charts { display: grid; grid-template-columns: 1.05fr 1fr; gap: 10px; }
+      .pbi-box { background: #fff; border-radius: 6px; padding: 10px 12px 6px; box-shadow: 0 1px 2px rgba(28,36,48,.08); }
+      .pbi-box .ct { font-size: 0.7rem; font-weight: 700; color: #1c2430; margin-bottom: 6px; }
+      .pbi-box svg { width: 100%; display: block; }
+      @media (max-width: 640px) { .pbi-kpis { grid-template-columns: repeat(2, 1fr); } .pbi-charts { grid-template-columns: 1fr; } }
+      .pbi-model { background: #1e1e1e; border: 1px solid #333; border-radius: 10px; overflow-x: auto; padding: 4px; }
+      .pbi-model svg { display: block; min-width: 660px; width: 100%; }
     </style>
 
     <section class="content-section">
@@ -1271,17 +1288,85 @@
           <p style="color:var(--text-secondary);">Reproduire fidèlement une matrice de pilotage budgétaire vue dans une <strong>vidéo de formation Power BI</strong> : Réel vs Budget par service, décomposé jusqu'à la nature de charge, avec alerte colorée et un commentaire qui explique automatiquement les dépassements. Aucune donnée réelle : tout est généré en Python.</p>
         </div>
       </div>
+
+      <div class="p9-fig">
+        <div class="pbi-mock">
+          <h4>Ventes 2025 : l'Électronique tire la croissance, marge stable autour de 35 %</h4>
+          <div class="sub">Jeu de données de test (fictif) — 144 transactions, 4 régions, 3 catégories — janvier à décembre 2025</div>
+          <div class="pbi-kpis">
+            <div class="pbi-kpi" style="--c:#0072B2"><div class="v">$3M</div><div class="l">Ventes totales</div></div>
+            <div class="pbi-kpi" style="--c:#1F8A6C"><div class="v">878,57K</div><div class="l">Profit total</div></div>
+            <div class="pbi-kpi" style="--c:#C77D22"><div class="v">7K</div><div class="l">Unités vendues</div></div>
+            <div class="pbi-kpi" style="--c:#C13E8E"><div class="v">34,3 %</div><div class="l">Marge bénéficiaire</div></div>
+          </div>
+          <div class="pbi-charts">
+            <div class="pbi-box">
+              <div class="ct">Tendance des ventes par mois</div>
+              <svg viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true">
+                <polygon points="0,48 27,53 55,80 82,35 109,43 136,27 164,18 191,34 218,18 245,16 273,30 300,72 300,90 0,90" fill="#0072B2" opacity="0.16"/>
+                <polyline points="0,48 27,53 55,80 82,35 109,43 136,27 164,18 191,34 218,18 245,16 273,30 300,72" fill="none" stroke="#0072B2" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="pbi-box">
+              <div class="ct">Ventes par catégorie</div>
+              <svg viewBox="0 0 240 90" aria-hidden="true">
+                <text x="0" y="12" font-size="8" fill="#5b6472">Electronics</text>
+                <rect x="0" y="15" width="200" height="13" fill="#0072B2"/>
+                <text x="204" y="25" font-size="8" fill="#5b6472">1 915K</text>
+                <text x="0" y="44" font-size="8" fill="#5b6472">Home Goods</text>
+                <rect x="0" y="47" width="47" height="13" fill="#0072B2"/>
+                <text x="51" y="57" font-size="8" fill="#5b6472">448K</text>
+                <text x="0" y="76" font-size="8" fill="#5b6472">Apparel</text>
+                <rect x="0" y="79" width="21" height="13" fill="#0072B2"/>
+                <text x="25" y="89" font-size="8" fill="#5b6472">200K</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="p9-figcap">Projet 1 — le dashboard de test généré par l'agent (rendu Power BI Desktop, reproduit ici en HTML).</div>
+      </div>
     </section>
 
     <section class="content-section">
       <h2>La stack &amp; les dépôts utilisés</h2>
-      <p>Le cœur de l'approche : ne jamais deviner le format des fichiers Power BI, mais s'appuyer sur les outils officiels Microsoft pour valider chaque étape.</p>
+      <p>Le principe : ne jamais deviner le format des fichiers Power BI, mais s'appuyer sur l'outillage officiel Microsoft pour <strong>guider</strong>, <strong>valider</strong> et <strong>vérifier</strong> chaque étape.</p>
+
+      <div class="p9-callout">
+        <p><strong>Ce que je retiens sur le choix d'outils :</strong> le plus fiable est de partir des <strong>skills officielles Microsoft (<span class="p9-code">skills-for-fabric</span>)</strong>, qui encadrent tout le travail et cadrent l'agent, puis d'y brancher le <strong>MCP adapté</strong> à la couche visée (modèle vs rapport). C'est ce cadre officiel qui évite la plupart des erreurs, plutôt qu'un outil communautaire seul.</p>
+      </div>
+
+      <h3>Les skills officielles Microsoft — <span class="p9-code">github.com/microsoft/skills-for-fabric</span></h3>
+      <p>Un dépôt Microsoft (MIT) de « skills » : des instructions markdown que l'agent lit pour savoir manipuler Fabric. Il couvre toute la plateforme ; voici les skills <strong>Power BI</strong> qui servent ici, chacune avec un rôle précis :</p>
       <ul>
-        <li><strong>CLI officielles Microsoft (npm)</strong> — <span class="p9-code">@microsoft/powerbi-report-authoring-cli</span> pour valider le JSON du rapport (format <strong>PBIR</strong>) et consulter les schémas exacts des visuels, et <span class="p9-code">@microsoft/powerbi-desktop-bridge-cli</span> pour piloter Power BI Desktop en ligne de commande (ouvrir, recharger, capturer l'écran).</li>
-        <li><strong>Dépôt de référence</strong> — <span class="p9-code">github.com/microsoft/skills-for-fabric</span> : la documentation Microsoft sur le modèle sémantique (<strong>TMDL</strong>, DAX) et l'authoring de rapports (pages, visuels, thèmes). Règle d'or affichée dedans : « ne jamais deviner le JSON PBIR de mémoire ».</li>
-        <li><strong>Plugin MCP</strong> — <span class="p9-code">powerbi-report-builder</span> (basé sur <span class="p9-code">jonathan-pap/powerbi-report-mcp</span>), un serveur MCP exposant des outils <span class="p9-code">pbir_*</span> pour construire le rapport sans écrire le JSON à la main.</li>
-        <li><strong>Power BI Desktop</strong> — installé à la volée via <span class="p9-code">winget</span> (paquet MSIX du Microsoft Store), puis piloté par le « Desktop Bridge » pour vérifier le rendu réel plutôt que de supposer que ça marche.</li>
-        <li><strong>Python</strong> — <span class="p9-code">pandas</span> / <span class="p9-code">openpyxl</span> pour générer de zéro les jeux de données fictifs (jusqu'au format brut « pivoté » que l'exercice demande de retraiter dans Power Query).</li>
+        <li><strong>powerbi-report-authoring</strong> — écrire/éditer le rapport <strong>PBIR</strong> (pages, visuels, filtres, slicers, thèmes, formatage) et la boucle valider → recharger → capturer. <em>C'est la skill centrale de ce projet.</em></li>
+        <li><strong>powerbi-report-design</strong> — le design ouvert : thème, style visuel, layout, archétypes de dashboard, critique de rendu.</li>
+        <li><strong>powerbi-report-planning</strong> — le cadrage amont : transformer un besoin en spécification de rapport avant de construire.</li>
+        <li><strong>powerbi-report-management</strong> — la gestion côté Fabric (créer/lister/supprimer des rapports dans un workspace).</li>
+        <li><strong>semantic-model-authoring</strong> — construire le <strong>modèle</strong> : tables, relations, mesures <strong>DAX</strong>, <strong>TMDL</strong>.</li>
+        <li><strong>semantic-model-consumption</strong> — interroger un modèle existant (requêtes DAX, exploration).</li>
+      </ul>
+      <p style="font-size:0.9rem; color:var(--text-muted);">Ces skills s'appuient sur deux <strong>CLI officielles Microsoft</strong> : <span class="p9-code">@microsoft/powerbi-report-authoring-cli</span> (valider le PBIR, connaître les propriétés exactes des visuels) et <span class="p9-code">@microsoft/powerbi-desktop-bridge-cli</span> (piloter Power BI Desktop : ouvrir, recharger, capturer le rendu réel).</p>
+
+      <h3>Les deux MCP : officiel (modèle) vs communautaire (rapport)</h3>
+      <p>Un MCP est un serveur qui expose des <em>outils</em> actionnables par l'agent. Deux existent, sur deux couches différentes :</p>
+      <div class="p9-phase">
+        <div class="p9-phase-card">
+          <span class="p9-badge">Officiel · Microsoft</span>
+          <h3><span class="p9-code">powerbi-modeling-mcp</span></h3>
+          <p style="color:var(--text-secondary);">Le MCP officiel Microsoft. Il agit sur le <strong>modèle sémantique</strong> : tables, colonnes, relations, mesures <strong>DAX</strong>, rôles de sécurité, hiérarchies, exécution/validation de requêtes DAX. <strong>Mais il ne touche pas au rapport</strong> — sa doc précise qu'il « ne peut pas modifier les pages de rapport ».</p>
+        </div>
+        <div class="p9-phase-card">
+          <span class="p9-badge">Communautaire</span>
+          <h3><span class="p9-code">powerbi-report-builder</span></h3>
+          <p style="color:var(--text-secondary);">Un MCP tiers (auteur <em>Jonathan</em>, MIT) qui embarque <span class="p9-code">powerbi-report-mcp</span>. Il expose ~30 outils <span class="p9-code">pbir_*</span> pour <strong>construire le rapport</strong> (pages, visuels, thème, layout) sans écrire le JSON à la main — la couche que le MCP officiel ne couvre pas.</p>
+        </div>
+      </div>
+      <p style="margin-top:1rem;"><strong>En clair :</strong> pour la partie <strong>modèle</strong> (DAX/TMDL), il existe un MCP <strong>officiel Microsoft</strong> ; pour la partie <strong>rapport</strong> (PBIR), seul un MCP <strong>communautaire</strong> répond aujourd'hui. Dans ce projet, le modèle a été écrit à la main en TMDL/DAX et le rapport assemblé via le MCP communautaire.</p>
+
+      <h3>Le reste de la stack</h3>
+      <ul>
+        <li><strong>Power BI Desktop</strong> — installé à la volée via <span class="p9-code">winget</span> (paquet MSIX du Microsoft Store), piloté par le Desktop Bridge pour vérifier le rendu réel.</li>
+        <li><strong>Python</strong> — <span class="p9-code">pandas</span> / <span class="p9-code">openpyxl</span> pour générer de zéro les jeux de données fictifs (jusqu'au format brut « pivoté » à retraiter dans Power Query).</li>
         <li><strong>Formats</strong> — projet <strong>PBIP</strong> (dossier versionnable), rapport <strong>PBIR</strong>, modèle <strong>TMDL</strong>, mesures <strong>DAX</strong>, transformations <strong>Power Query M</strong>.</li>
       </ul>
     </section>
@@ -1313,6 +1398,91 @@
 
       <h3>Le modèle de données</h3>
       <p>Deux tables de faits (<span class="p9-code">Comptabilite</span> au jour le jour, <span class="p9-code">Budget</span> au mois) partagent trois dimensions (<span class="p9-code">Ref_Services</span>, <span class="p9-code">Ref_Comptes</span>, <span class="p9-code">CALENDRIER</span>). Le calendrier n'est pas importé mais <strong>calculé en DAX</strong> (<span class="p9-code">CALENDARAUTO()</span> + colonnes ANNEE-MOIS, TRIMESTRE, SEMAINE, année fiscale), conformément à la consigne de la formation.</p>
+
+      <div class="p9-fig">
+        <div class="pbi-model">
+          <svg viewBox="0 0 680 430" role="img" aria-label="Schéma du modèle de données Power BI">
+            <g stroke="#7a7a7a" stroke-width="1.2" fill="none">
+              <line x1="255" y1="46" x2="150" y2="150"/>
+              <line x1="400" y1="48" x2="452" y2="120"/>
+              <line x1="205" y1="205" x2="170" y2="205"/>
+              <line x1="345" y1="200" x2="380" y2="182"/>
+              <line x1="250" y1="360" x2="110" y2="246"/>
+              <line x1="410" y1="360" x2="455" y2="228"/>
+            </g>
+            <g font-family="'JetBrains Mono', monospace" font-size="9" fill="#9a9a9a">
+              <text x="238" y="60">1</text><text x="150" y="145">*</text>
+              <text x="404" y="62">1</text><text x="454" y="118">*</text>
+              <text x="188" y="200">1</text><text x="172" y="200">*</text>
+              <text x="348" y="196">1</text><text x="366" y="180">*</text>
+              <text x="252" y="356">1</text><text x="108" y="242">*</text>
+              <text x="412" y="356">1</text><text x="458" y="224">*</text>
+            </g>
+            <!-- Ref_Services -->
+            <g font-family="'Inter', sans-serif">
+              <rect x="250" y="8" width="150" height="64" rx="6" fill="#252526" stroke="#3c3c3c"/>
+              <rect x="250" y="8" width="150" height="22" rx="6" fill="#2d2d30"/>
+              <text x="262" y="23" font-size="11" font-weight="700" fill="#fff">Ref_Services</text>
+              <text x="262" y="45" font-size="10" fill="#cfcfcf">SERVICE</text>
+              <text x="262" y="60" font-size="10" fill="#cfcfcf">SERVICE_ID</text>
+            </g>
+            <!-- Budget -->
+            <g font-family="'Inter', sans-serif">
+              <rect x="20" y="150" width="150" height="100" rx="6" fill="#252526" stroke="#3c3c3c"/>
+              <rect x="20" y="150" width="150" height="22" rx="6" fill="#2d2d30"/>
+              <text x="32" y="165" font-size="11" font-weight="700" fill="#fff">Budget</text>
+              <text x="32" y="187" font-size="10" fill="#cfcfcf">DATE</text>
+              <text x="32" y="202" font-size="10" fill="#cfcfcf">MONTANT_BUDGET</text>
+              <text x="32" y="217" font-size="10" fill="#cfcfcf">N_COMPTE</text>
+              <text x="32" y="232" font-size="10" fill="#cfcfcf">SERVICE</text>
+            </g>
+            <!-- CALENDRIER -->
+            <g font-family="'Inter', sans-serif">
+              <rect x="205" y="150" width="140" height="115" rx="6" fill="#252526" stroke="#3c3c3c"/>
+              <rect x="205" y="150" width="140" height="22" rx="6" fill="#2d2d30"/>
+              <text x="217" y="165" font-size="11" font-weight="700" fill="#fff">CALENDRIER</text>
+              <text x="217" y="187" font-size="10" fill="#cfcfcf">ANNEE</text>
+              <text x="217" y="202" font-size="10" fill="#cfcfcf">ANNEE-MOIS</text>
+              <text x="217" y="217" font-size="10" fill="#cfcfcf">DATE</text>
+              <text x="217" y="232" font-size="10" fill="#cfcfcf">SEMAINE</text>
+              <text x="217" y="247" font-size="10" fill="#cfcfcf">TRIMESTRE</text>
+            </g>
+            <!-- Comptabilite -->
+            <g font-family="'Inter', sans-serif">
+              <rect x="380" y="120" width="150" height="115" rx="6" fill="#252526" stroke="#3c3c3c"/>
+              <rect x="380" y="120" width="150" height="22" rx="6" fill="#2d2d30"/>
+              <text x="392" y="135" font-size="11" font-weight="700" fill="#fff">Comptabilite</text>
+              <text x="392" y="157" font-size="10" fill="#cfcfcf">DATE</text>
+              <text x="392" y="172" font-size="10" fill="#cfcfcf">FOURNISSEUR</text>
+              <text x="392" y="187" font-size="10" fill="#cfcfcf">MONTANT_HT</text>
+              <text x="392" y="202" font-size="10" fill="#cfcfcf">N_COMPTE</text>
+              <text x="392" y="217" font-size="10" fill="#cfcfcf">SERVICE_ID</text>
+            </g>
+            <!-- Ref_Comptes -->
+            <g font-family="'Inter', sans-serif">
+              <rect x="250" y="320" width="160" height="82" rx="6" fill="#252526" stroke="#3c3c3c"/>
+              <rect x="250" y="320" width="160" height="22" rx="6" fill="#2d2d30"/>
+              <text x="262" y="335" font-size="11" font-weight="700" fill="#fff">Ref_Comptes</text>
+              <text x="262" y="357" font-size="10" fill="#cfcfcf">N_COMPTE</text>
+              <text x="262" y="372" font-size="10" fill="#cfcfcf">NATURE_CHARGE</text>
+              <text x="262" y="387" font-size="10" fill="#cfcfcf">REGROUPEMENT</text>
+            </g>
+            <!-- _Mesures -->
+            <g font-family="'Inter', sans-serif">
+              <rect x="560" y="120" width="112" height="135" rx="6" fill="#252526" stroke="#3c3c3c"/>
+              <rect x="560" y="120" width="112" height="22" rx="6" fill="#2d2d30"/>
+              <text x="572" y="135" font-size="11" font-weight="700" fill="#fff">_Mesures</text>
+              <text x="572" y="157" font-size="9.5" fill="#cfcfcf">Alerte</text>
+              <text x="572" y="172" font-size="9.5" fill="#cfcfcf">Analyse des dérives</text>
+              <text x="572" y="187" font-size="9.5" fill="#cfcfcf">Budget HT</text>
+              <text x="572" y="202" font-size="9.5" fill="#cfcfcf">Écart %</text>
+              <text x="572" y="217" font-size="9.5" fill="#cfcfcf">Écart €</text>
+              <text x="572" y="232" font-size="9.5" fill="#cfcfcf">Fournisseur Principal</text>
+            </g>
+          </svg>
+        </div>
+        <div class="p9-figcap">Le modèle en flocon : deux tables de faits (Comptabilite, Budget), trois dimensions (Ref_Services, Ref_Comptes, CALENDRIER) et la table _Mesures — reproduit ici en SVG.</div>
+      </div>
 
       <h3>La partie la plus intéressante : le commentaire automatique</h3>
       <p>Une mesure DAX ne s'affiche qu'au niveau le plus fin (une nature de charge) et seulement au-delà d'un seuil de dépassement, en pointant le fournisseur responsable :</p>
