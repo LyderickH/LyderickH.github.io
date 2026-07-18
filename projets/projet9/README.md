@@ -1,22 +1,14 @@
 # Projet 9 — Power BI × Claude
 
-Déposez ici les fichiers du dossier `Powerbi` de votre bureau, en les renommant
-selon les noms attendus par la page `projet9.html` :
+Assets de la page `projet9.html` (étude de cas : faire construire un rapport
+Power BI par une IA agentique).
 
-## Fichiers attendus
+| Fichier                    | Rôle                                                        |
+|----------------------------|-------------------------------------------------------------|
+| `cover.svg`                | Vignette affichée sur la carte de la page d'accueil         |
+| `GUIDE_AGENT_POWERBI.md`   | Guide écrit par l'agent (pièges Power BI PBIP/PBIR)         |
+| `SuiviBudgetaire_PBIP.zip` | Projet Power BI « Suivi Réel vs Budget » (format PBIP)      |
+| `TestReport_PBIP.zip`      | Projet de test initial (format PBIP)                        |
 
-| Fichier attendu           | Rôle                                                    |
-|---------------------------|---------------------------------------------------------|
-| `cover.png`               | Vignette affichée sur la carte de la page d'accueil     |
-| `pbi_page-0001.jpg`       | Capture 1 du dashboard (slider)                         |
-| `pbi_page-0002.jpg`       | Capture 2 du dashboard (slider)                         |
-| `pbi_page-0003.jpg`       | Capture 3 du dashboard (slider)                         |
-| `pbi_page-0004.jpg`       | Capture 4 du dashboard (slider)                         |
-| `pbi.pdf`                 | Export PDF du rapport Power BI (bouton de téléchargement)|
-| `pbi.pbix`                | Fichier source Power BI (bouton de téléchargement)      |
-
-## Notes
-
-- Si vous avez plus ou moins de 4 captures, ajustez le nombre de `<img class="slide">`,
-  d'indicateurs et de `captions` dans `projet9.html`.
-- Les formats acceptés pour les captures sont `.jpg` ou `.png` (adaptez les `src` si besoin).
+Le visuel du dashboard est reconstruit directement en HTML dans `projet9.html`
+(pas de capture d'écran fournie dans les sources).

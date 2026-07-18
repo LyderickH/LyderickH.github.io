@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Power BI x Claude">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16233f"/>
+      <stop offset="1" stop-color="#0f1830"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+
+  <!-- eyebrow -->
+  <text x="60" y="92" font-family="'JetBrains Mono', monospace" font-size="19" letter-spacing="3" fill="#93C5FD">DATA / IA AGENTIQUE</text>
+
+  <!-- title -->
+  <text x="60" y="158" font-family="Georgia, 'Fraunces', serif" font-size="60" font-weight="600" fill="#F5F5F5">Power BI</text>
+  <text x="60" y="228" font-family="Georgia, 'Fraunces', serif" font-size="60" font-weight="600" fill="#F5F5F5">
+    <tspan fill="#93C5FD">×</tspan> Claude
+  </text>
+
+  <!-- mini matrix / bars motif -->
+  <g transform="translate(60,300)">
+    <rect x="0" y="0" width="680" height="150" rx="10" fill="#1d2c4d" opacity="0.55"/>
+    <!-- header row -->
+    <rect x="0" y="0" width="680" height="30" rx="10" fill="#1B2A4A"/>
+    <rect x="0" y="15" width="680" height="15" fill="#1B2A4A"/>
+    <!-- rows -->
+    <g font-family="'JetBrains Mono', monospace" font-size="13" fill="#B0B0B8">
+      <text x="16" y="58">Commercial &amp; Ventes</text>
+      <rect x="360" y="47" width="150" height="12" rx="3" fill="#4fa8db"/>
+      <circle cx="640" cy="53" r="6" fill="#1AAB40"/>
+
+      <text x="16" y="90">Charges de personnel</text>
+      <rect x="360" y="79" width="110" height="12" rx="3" fill="#4fa8db"/>
+      <circle cx="640" cy="85" r="6" fill="#1AAB40"/>
+
+      <text x="16" y="122">Charges externes</text>
+      <rect x="360" y="111" width="80" height="12" rx="3" fill="#4fa8db"/>
+      <circle cx="640" cy="117" r="6" fill="#D98E1F"/>
+    </g>
+  </g>
+</svg>
