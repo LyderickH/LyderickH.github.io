@@ -1280,38 +1280,38 @@
 
     <section class="content-section">
       <h2>L'idée du projet</h2>
-      <p class="p9-lead">Jusqu'où une IA agentique peut-elle construire <em>seule</em> un vrai rapport Power BI — modèle, mise en page, thème — et vérifier elle-même le rendu dans Power BI Desktop ?</p>
-      <p>J'ai piloté Claude (via Claude Code) en gardant le rôle de superviseur : je donne le brief et je débloque les actions manuelles ; l'agent fait le reste. En deux temps : un dashboard de test pour roder l'outillage, puis un vrai projet reproduisant un exercice de formation.</p>
+      <p class="p9-lead">Jusqu'où une IA agentique peut-elle construire un vrai rapport Power BI presque sans moi : monter le modèle, la mise en page, le thème, et vérifier elle-même le rendu dans Power BI Desktop ?</p>
+      <p>J'ai confié la tâche à Claude (via Claude Code) en restant superviseur : je donne le brief, je débloque les actions manuelles, l'agent fait le reste. J'ai procédé en deux étapes : d'abord un dashboard de test pour prendre en main l'outillage, ensuite un vrai projet qui reproduit un exercice de formation.</p>
 
       <div class="p9-phase">
         <div class="p9-phase-card">
           <span class="p9-badge">Projet 1 · rodage</span>
           <h3>Un dashboard de test</h3>
-          <p style="color:var(--text-secondary);">Jeu de données fictif (144 transactions). Le vrai objectif : découvrir la chaîne d'outils et <strong>faire écrire à Claude un guide</strong> de ses propres erreurs.</p>
+          <p style="color:var(--text-secondary);">Jeu de données fictif (144 transactions). Le vrai objectif n'était pas le dashboard : c'était de <strong>faire écrire à Claude un guide</strong> de ses propres erreurs, pour cadrer la suite.</p>
         </div>
         <div class="p9-phase-card">
           <span class="p9-badge">Projet 2 · le vrai</span>
           <h3>Suivi Réel vs Budget</h3>
-          <p style="color:var(--text-secondary);">Reproduire une matrice de pilotage budgétaire : Réel vs Budget par service, jusqu'à la nature de charge, avec alerte colorée et <strong>commentaire automatique</strong> des dépassements. Données générées en Python.</p>
+          <p style="color:var(--text-secondary);">Reproduire une matrice de pilotage vue en formation : Réel vs Budget par service, jusqu'à la nature de charge, avec alerte colorée et un <strong>commentaire automatique</strong> des dépassements. Toutes les données sont générées en Python.</p>
         </div>
       </div>
 
       <div class="p9-fig">
         <img class="p9-shot" src="projets/projet9/image-1784405810415.png" alt="Dashboard de test « Ventes 2025 » généré par l'agent — 4 cartes KPI, courbe de tendance mensuelle et ventes par catégorie" loading="lazy" />
-        <div class="p9-figcap">Projet 1 — le dashboard de test généré par l'agent (capture Power BI Desktop).</div>
+        <div class="p9-figcap">Projet 1 · le dashboard de test généré par l'agent (capture Power BI Desktop).</div>
       </div>
     </section>
 
     <section class="content-section">
       <h2>La stack</h2>
-      <p>Le principe : ne jamais deviner le format des fichiers Power BI, mais s'appuyer sur l'<strong>outillage officiel Microsoft</strong> (les skills <span class="p9-code">skills-for-fabric</span>) pour cadrer l'agent, en y branchant le MCP adapté à la couche visée.</p>
+      <p>Le principe : ne jamais deviner le format des fichiers Power BI. Je m'appuie sur l'<strong>outillage officiel Microsoft</strong> (les skills <span class="p9-code">skills-for-fabric</span>) pour cadrer l'agent, puis je branche le MCP adapté à la couche visée.</p>
       <div class="p9-matrix-frame">
         <table class="p9-stack">
           <thead>
             <tr><th>Outil</th><th>Rôle</th></tr>
           </thead>
           <tbody>
-            <tr class="cat"><td colspan="2">Skills officielles Microsoft — skills-for-fabric (MIT)</td></tr>
+            <tr class="cat"><td colspan="2">Skills officielles Microsoft · skills-for-fabric (MIT)</td></tr>
             <tr><td>powerbi-report-authoring</td><td>Écrire/éditer le rapport <strong>PBIR</strong> (pages, visuels, thème) + boucle valider → recharger → capturer. <em>Skill centrale du projet.</em></td></tr>
             <tr><td>powerbi-report-design</td><td>Thème, style visuel, layout, critique de rendu.</td></tr>
             <tr><td>powerbi-report-planning</td><td>Transformer un besoin en spécification de rapport.</td></tr>
@@ -1321,9 +1321,9 @@
             <tr class="cat"><td colspan="2">CLI officielles Microsoft</td></tr>
             <tr><td>powerbi-report-authoring-cli</td><td>Valider le PBIR, connaître les propriétés exactes des visuels.</td></tr>
             <tr><td>powerbi-desktop-bridge-cli</td><td>Piloter Power BI Desktop : ouvrir, recharger, capturer le rendu réel.</td></tr>
-            <tr class="cat"><td colspan="2">MCP — serveurs d'outils actionnables par l'agent</td></tr>
+            <tr class="cat"><td colspan="2">MCP · serveurs d'outils actionnables par l'agent</td></tr>
             <tr><td>powerbi-modeling-mcp<br><em>officiel · Microsoft</em></td><td>Modèle sémantique (tables, relations, mesures DAX). <strong>Ne touche pas au rapport.</strong></td></tr>
-            <tr><td>powerbi-report-builder<br><em>communautaire</em></td><td>~30 outils <span class="p9-code">pbir_*</span> pour construire le rapport — la couche que le MCP officiel ne couvre pas.</td></tr>
+            <tr><td>powerbi-report-builder<br><em>communautaire</em></td><td>~30 outils <span class="p9-code">pbir_*</span> pour construire le rapport, la couche que le MCP officiel ne couvre pas.</td></tr>
             <tr class="cat"><td colspan="2">Reste de la stack</td></tr>
             <tr><td>Power BI Desktop</td><td>Installé via <span class="p9-code">winget</span>, piloté par le Desktop Bridge pour vérifier le rendu réel.</td></tr>
             <tr><td>Python</td><td><span class="p9-code">pandas</span> / <span class="p9-code">openpyxl</span> pour générer les jeux de données fictifs.</td></tr>
@@ -1335,7 +1335,7 @@
 
     <section class="content-section">
       <h2>Le vrai projet : Suivi Réel vs Budget</h2>
-      <p>Toutes les sources sont générées en Python : <strong>9 services</strong>, <strong>13 natures de charge</strong>, <strong>~3 800 écritures</strong> sur 17 mois, avec un fournisseur volontairement mis en pic certains mois pour faire « vivre » la colonne de commentaire.</p>
+      <p>Aucune donnée réelle : tout est généré par un script Python. <strong>9 services</strong>, <strong>13 natures de charge</strong>, <strong>environ 3 800 écritures</strong> sur 17 mois. Sur certains mois, un fournisseur est volontairement mis en avant pour déclencher la colonne de commentaire.</p>
 
       <div class="kpi-grid">
         <div class="kpi-card"><span class="kpi-value">6</span><span class="kpi-label">tables (2 faits, 3 dim., 1 calendrier)</span></div>
@@ -1347,10 +1347,10 @@
       <p>Le modèle est un <strong>flocon</strong> : deux tables de faits (<span class="p9-code">Comptabilite</span> au jour, <span class="p9-code">Budget</span> au mois) partagent trois dimensions. Le calendrier n'est pas importé mais <strong>calculé en DAX</strong> (<span class="p9-code">CALENDARAUTO()</span>).</p>
       <div class="p9-fig">
         <img class="p9-shot" src="projets/projet9/image-1784405806793.png" alt="Schéma du modèle de données Power BI : Comptabilite et Budget (faits), Ref_Services, Ref_Comptes, CALENDRIER (dimensions) et _Mesures" loading="lazy" />
-        <div class="p9-figcap">Le modèle en flocon — vue Modèle de Power BI Desktop.</div>
+        <div class="p9-figcap">Le modèle en flocon, tel qu'affiché dans la vue Modèle de Power BI Desktop.</div>
       </div>
 
-      <p>Le cœur du projet : une mesure DAX qui ne s'affiche qu'au niveau le plus fin et au-delà d'un seuil de dépassement, en pointant le fournisseur responsable.</p>
+      <p>La partie la plus intéressante : une mesure DAX qui ne s'affiche qu'au niveau le plus fin, et seulement au-delà d'un certain seuil de dépassement, en indiquant le fournisseur responsable.</p>
       <pre class="p9-dax"><span class="k">Analyse des dérives</span> =
     <span class="k">VAR</span> EstAuNiveauNature = ISINSCOPE(Ref_Comptes[NATURE_CHARGE])
     <span class="k">VAR</span> Ecart = [Écart %]
@@ -1369,18 +1369,18 @@
 
     <section class="content-section">
       <h2>Le point qui a vraiment coûté du temps : le thème</h2>
-      <p>Les 4 cartes KPI restaient <strong>vides</strong> (cadre visible, mais ni chiffre ni libellé) — sans aucune erreur de validation. La cause : le fichier <span class="p9-code">theme.json</span> contenait un sélecteur <span class="p9-code">"$id": "default"</span>, valide dans un fichier de <em>visuel</em> mais pas dans un fichier de <em>thème</em>. Power BI ignore la clé en silence et casse l'affichage du texte, et le validateur officiel ne le détecte pas.</p>
+      <p>Les 4 cartes KPI restaient <strong>vides</strong> : le cadre s'affichait, mais ni chiffre ni libellé, et aucune erreur de validation pour me mettre sur la piste. En cause : le fichier <span class="p9-code">theme.json</span> contenait un sélecteur <span class="p9-code">"$id": "default"</span>, valide dans un fichier de <em>visuel</em> mais pas dans un fichier de <em>thème</em>. Power BI ignore la clé sans rien signaler, ce qui casse l'affichage du texte, et le validateur officiel ne le détecte pas.</p>
       <div class="p9-callout">
-        <p><strong>La leçon (écrite dans le guide) :</strong> jamais de sélecteur dans un fichier de thème, et pour un premier jet, préférer le thème officiel « Copilot » plutôt que d'en fabriquer un à la main.</p>
+        <p><strong>La leçon (écrite dans le guide) :</strong> jamais de sélecteur dans un fichier de thème, et pour un premier jet, mieux vaut partir du thème officiel « Copilot » que d'en fabriquer un à la main.</p>
       </div>
     </section>
 
     <section class="content-section">
       <h2>Ce que j'en retiens</h2>
       <ul>
-        <li>Une IA agentique peut produire un livrable Power BI réel et se <strong>vérifier elle-même</strong> en pilotant Desktop — à condition d'être supervisée.</li>
-        <li>Le plus gros risque n'est pas le code mais les <strong>différences subtiles de format</strong> (thème vs visuel, M vs DAX) qu'aucun validateur ne signale.</li>
-        <li>Faire écrire à l'agent un <strong>guide de ses propres erreurs</strong> transforme un projet raté-puis-réussi en capital réutilisable pour la session suivante.</li>
+        <li>Une IA agentique peut produire un vrai livrable Power BI et <strong>vérifier son propre rendu</strong> : recharger Desktop, capturer, corriger. Il reste une chose qu'elle ne décide pas à ma place : est-ce vraiment conforme ?</li>
+        <li>Le plus gros risque n'est pas le code, mais les <strong>différences subtiles de format</strong> (thème vs visuel, M vs DAX) qu'aucun validateur ne signale.</li>
+        <li>Faire écrire à l'agent un <strong>guide de ses propres erreurs</strong> est ce qui a le plus aidé : la session suivante démarrait déjà en connaissant les pièges.</li>
       </ul>
     </section>
 
