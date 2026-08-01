@@ -1,5 +1,5 @@
 /* ==========================================================================
-   components.css — composants partagés
+   components.css - composants partagés
    Reprend et remplace css/site-nav.css (mêmes noms de classes, le markup
    injecté par js/site-nav.js reste valable tel quel).
    ========================================================================== */
@@ -292,7 +292,7 @@
   border-top: 1px solid var(--rule);
 }
 
-/* ── Liste de projets — registre éditorial, pas de cartes ────────────── */
+/* ── Liste de projets - registre éditorial, pas de cartes ────────────── */
 
 .work-list {
   display: flex;
@@ -516,7 +516,7 @@
   color: var(--accent-contrast);
 }
 
-/* ── Figure — pour les captures de dashboards ────────────────────────── */
+/* ── Figure - pour les captures de dashboards ────────────────────────── */
 
 .figure { margin-block: var(--space-6); }
 
@@ -577,7 +577,7 @@
 }
 
 /* ==========================================================================
-   Pages projet — en-tête, corps de texte, diaporama, liens de documents
+   Pages projet - en-tête, corps de texte, diaporama, liens de documents
    ========================================================================== */
 
 /* ── En-tête de page ─────────────────────────────────────────────────── */
@@ -868,7 +868,7 @@
   margin-top: calc(var(--space-5) * -1 + var(--space-2));
 }
 
-/* ── Chiffres clés — partagé par le mémoire et les pages projet ──────── */
+/* ── Chiffres clés - partagé par le mémoire et les pages projet ──────── */
 
 .kpi-grid {
   display: grid;
@@ -1017,7 +1017,7 @@
 
 /* ── Lien d'evitement ────────────────────────────────────────────────── */
 
-/* Retire du flux visuel mais toujours atteignable au clavier — la mise
+/* Retire du flux visuel mais toujours atteignable au clavier - la mise
    hors champ par transform dependait de la hauteur du lien et le laissait
    affleurer. Le decoupage, lui, ne peut pas rater. */
 .skip-link {
