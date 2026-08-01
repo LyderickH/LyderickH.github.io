@@ -101,15 +101,17 @@ table, .tabular { font-variant-numeric: tabular-nums; }
 
 /* ── Mise en page ────────────────────────────────────────────────────── */
 
+/* Mobile d'abord : le style de base est celui du petit écran, les paliers
+   min-width ne font qu'ajouter de l'aisance quand la place existe. */
 .container {
   width: 100%;
   max-width: var(--container);
   margin-inline: auto;
-  padding-inline: var(--space-6);
+  padding-inline: var(--space-5);
 }
 
-@media (max-width: 640px) {
-  .container { padding-inline: var(--space-5); }
+@media (min-width: 641px) {
+  .container { padding-inline: var(--space-6); }
 }
 
 /* Bloc de texte courant, longueur de ligne bornée */

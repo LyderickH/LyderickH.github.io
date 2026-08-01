@@ -22,6 +22,8 @@
 
 <body>
 
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
   <nav class="site-nav"></nav>
 
   <header class="page-header">
@@ -31,7 +33,7 @@
     </div>
   </header>
 
-  <main class="container">
+  <main id="contenu" class="container">
     <style>
       /* ── Propre à cette page ──────────────────────────────────────── */
 
@@ -59,7 +61,7 @@
 
       .p9-phase {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: var(--space-4);
         margin-top: var(--space-5);
       }
@@ -87,7 +89,7 @@
         margin-bottom: var(--space-3);
       }
 
-      @media (max-width: 720px) { .p9-phase { grid-template-columns: 1fr; } }
+      @media (min-width: 721px) { .p9-phase { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
       /* Captures Power BI Desktop */
       .p9-fig { margin-block: var(--space-6) var(--space-2); }
@@ -231,7 +233,7 @@
       </div>
 
       <div class="p9-fig">
-        <img class="p9-shot" src="projets/projet9/image-1784405810415.png" alt="Dashboard de test « Ventes 2025 » généré par l'agent — 4 cartes KPI, courbe de tendance mensuelle et ventes par catégorie" loading="lazy" />
+        <img class="p9-shot" src="projets/projet9/image-1784405810415.webp" alt="Dashboard de test « Ventes 2025 » généré par l'agent — 4 cartes KPI, courbe de tendance mensuelle et ventes par catégorie" loading="lazy" / width="1443" height="764">
         <div class="p9-figcap">Projet 1 · le dashboard de test généré par l'agent (capture Power BI Desktop).</div>
       </div>
     </section>
@@ -280,7 +282,7 @@
 
       <p>Le modèle est un <strong>flocon</strong> : deux tables de faits (<span class="p9-code">Comptabilite</span> au jour, <span class="p9-code">Budget</span> au mois) partagent trois dimensions. Le calendrier n'est pas importé mais <strong>calculé en DAX</strong> (<span class="p9-code">CALENDARAUTO()</span>).</p>
       <div class="p9-fig">
-        <img class="p9-shot" src="projets/projet9/image-1784405806793.png" alt="Schéma du modèle de données Power BI : Comptabilite et Budget (faits), Ref_Services, Ref_Comptes, CALENDRIER (dimensions) et _Mesures" loading="lazy" />
+        <img class="p9-shot" src="projets/projet9/image-1784405806793.webp" alt="Schéma du modèle de données Power BI : Comptabilite et Budget (faits), Ref_Services, Ref_Comptes, CALENDRIER (dimensions) et _Mesures" loading="lazy" / width="1316" height="709">
         <div class="p9-figcap">Le modèle en flocon, tel qu'affiché dans la vue Modèle de Power BI Desktop.</div>
       </div>
 
@@ -296,7 +298,7 @@
             <span class="s">" ("</span> & FORMAT([Part Fournisseur Principal], <span class="s">"0%"</span>) & <span class="s">" du réel)"</span>
         )</pre>
       <div class="p9-fig">
-        <img class="p9-shot" src="projets/projet9/image-1784405802425.png" alt="Matrice Power BI « Suivi Réel vs Budget — Analyse par Service » : Réel HT, Budget HT, écart en € et %, pastille d'alerte et commentaire automatique de dérive" loading="lazy" />
+        <img class="p9-shot" src="projets/projet9/image-1784405802425.webp" alt="Matrice Power BI « Suivi Réel vs Budget — Analyse par Service » : Réel HT, Budget HT, écart en € et %, pastille d'alerte et commentaire automatique de dérive" loading="lazy" / width="1270" height="795">
         <div class="p9-figcap">Capture Power BI Desktop. La ligne en alerte affiche le commentaire automatique : « Dépassement +45 € — concentré sur Lyreco (38 % du réel) ».</div>
       </div>
     </section>

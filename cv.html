@@ -29,14 +29,14 @@
 
     .cv-hero-inner {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      gap: var(--space-6);
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
       align-items: start;
     }
 
     .cv-photo {
-      width: 128px;
-      height: 128px;
+      width: 88px;
+      height: 88px;
       object-fit: cover;
       border: 1px solid var(--rule);
       border-radius: var(--radius-lg);
@@ -77,9 +77,9 @@
     .cv-meta a:hover { text-decoration: underline; }
     .meta-label { color: var(--ink-faint); }
 
-    @media (max-width: 640px) {
-      .cv-hero-inner { grid-template-columns: 1fr; gap: var(--space-5); }
-      .cv-photo { width: 88px; height: 88px; }
+    @media (min-width: 641px) {
+      .cv-hero-inner { grid-template-columns: auto minmax(0, 1fr); gap: var(--space-6); }
+      .cv-photo { width: 128px; height: 128px; }
     }
 
     /* ── Sections ─────────────────────────────────────────────────────── */
@@ -178,7 +178,7 @@
       gap: var(--space-6);
     }
 
-    .skills-group h4 {
+    .skills-group .skills-heading {
       font-family: var(--font-mono);
       font-size: var(--label-size);
       font-weight: 500;
@@ -239,12 +239,14 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
   <nav class="site-nav"></nav>
 
   <header class="cv-hero">
     <div class="container">
       <div class="cv-hero-inner">
-        <img src="Photo%20professionnel.jpeg" alt="Lydérick Henry" class="cv-photo">
+        <img src="Photo%20professionnel.webp" alt="Lydérick Henry" class="cv-photo" width="400" height="400">
         <div>
           <h1 class="cv-name">Lydérick Henry</h1>
           <p class="cv-subtitle">Data & Finance · M2 CGAO · Forvis Mazars</p>
@@ -260,7 +262,7 @@
     </div>
   </header>
 
-  <section class="cv-section">
+  <section id="contenu" class="cv-section">
     <div class="container">
       <h2 class="section-title">Expériences professionnelles</h2>
 
@@ -359,7 +361,7 @@
 
       <div class="skills-groups">
         <div class="skills-group">
-          <h4>BI &amp; Data Visualisation</h4>
+          <h3 class="skills-heading">BI &amp; Data Visualisation</h3>
           <div class="skills-list">
             <span class="skill-chip">Power BI</span>
             <span class="skill-chip">DAX</span>
@@ -370,7 +372,7 @@
         </div>
 
         <div class="skills-group">
-          <h4>Programmation</h4>
+          <h3 class="skills-heading">Programmation</h3>
           <div class="skills-list">
             <span class="skill-chip">Python</span>
             <span class="skill-chip">SQL</span>
@@ -381,7 +383,7 @@
         </div>
 
         <div class="skills-group">
-          <h4>Cloud &amp; Bases de données</h4>
+          <h3 class="skills-heading">Cloud &amp; Bases de données</h3>
           <div class="skills-list">
             <span class="skill-chip">GCP</span>
             <span class="skill-chip">BigQuery</span>
@@ -393,7 +395,7 @@
         </div>
 
         <div class="skills-group">
-          <h4>Outils métier &amp; bureautique</h4>
+          <h3 class="skills-heading">Outils métier &amp; bureautique</h3>
           <div class="skills-list">
             <span class="skill-chip">Excel (TCD, VBA)</span>
             <span class="skill-chip">SAP</span>
@@ -405,7 +407,7 @@
         </div>
 
         <div class="skills-group">
-          <h4>Collaboration</h4>
+          <h3 class="skills-heading">Collaboration</h3>
           <div class="skills-list">
             <span class="skill-chip">Teams</span>
             <span class="skill-chip">Slack</span>
