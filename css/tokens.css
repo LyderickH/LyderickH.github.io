@@ -1,5 +1,5 @@
 /* ==========================================================================
-   tokens.css — source de vérité unique de la direction artistique
+   tokens.css - source de vérité unique de la direction artistique
    Registre : éditorial-technique, clair par défaut.
    Changer une valeur ici repeint tout le site.
    ========================================================================== */
@@ -7,7 +7,7 @@
 :root {
   color-scheme: light;
 
-  /* ── Couleur — mode clair (mode principal) ───────────────────────────── */
+  /* ── Couleur - mode clair (mode principal) ───────────────────────────── */
   --bg: #FBFAF7;              /* papier chaud */
   --surface: #FFFFFF;
   --bg-muted: #F1EFE9;
@@ -15,9 +15,9 @@
 
   --ink: #16161A;
   --ink-soft: #4A4A52;      /* 8.3:1 sur --bg */
-  --ink-faint: #6B6B74;     /* 5.0:1 — le mono est petit, il lui faut du contraste */
+  --ink-faint: #6B6B74;     /* 5.0:1 - le mono est petit, il lui faut du contraste */
 
-  --accent: #1B365D;          /* bleu marine — registre audit / finance */
+  --accent: #1B365D;          /* bleu marine - registre audit / finance */
   --accent-hover: #24487A;
   --accent-soft: rgba(27, 54, 93, 0.07);
   --accent-contrast: #FFFFFF; /* texte posé sur --accent */
@@ -28,7 +28,7 @@
   --shadow-sm: 0 1px 2px rgba(22, 22, 26, 0.04);
   --shadow-md: 0 2px 4px rgba(22, 22, 26, 0.04), 0 8px 24px rgba(22, 22, 26, 0.06);
 
-  /* ── Typographie — trois familles, trois rôles ───────────────────────── */
+  /* ── Typographie - trois familles, trois rôles ───────────────────────── */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -73,7 +73,7 @@
   --transition: 160ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Couleur — mode sombre (dérivé, recalibré) ─────────────────────────── */
+/* ── Couleur - mode sombre (dérivé, recalibré) ─────────────────────────── */
 [data-theme="dark"] {
   color-scheme: dark;
 

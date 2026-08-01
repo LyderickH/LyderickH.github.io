@@ -1,4 +1,4 @@
-# Projet 9 — Power BI × Claude
+# Projet 9 : Power BI × Claude
 
 Assets de la page `projet9.html` (étude de cas : faire construire un rapport
 Power BI par une IA agentique).
