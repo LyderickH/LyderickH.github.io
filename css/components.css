@@ -1017,22 +1017,33 @@
 
 /* ── Lien d'evitement ────────────────────────────────────────────────── */
 
+/* Retire du flux visuel mais toujours atteignable au clavier — la mise
+   hors champ par transform dependait de la hauteur du lien et le laissait
+   affleurer. Le decoupage, lui, ne peut pas rater. */
 .skip-link {
   position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link:focus {
+  position: fixed;
   left: var(--space-4);
   top: calc(var(--nav-height) + var(--space-2));
   z-index: 200;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
   padding: var(--space-3) var(--space-4);
   background: var(--accent);
   color: var(--accent-contrast);
   border-radius: var(--radius);
   font-size: 0.9rem;
   text-decoration: none;
-  transform: translateY(-200%);
-  transition: transform var(--transition);
-}
-
-.skip-link:focus {
-  transform: translateY(0);
-  color: var(--accent-contrast);
 }
