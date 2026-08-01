@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projets — Lydérick Henry</title>
+  <meta name="description" content="Réalisations en business intelligence, automatisation et ingénierie de données.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="js/site-nav.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var boutons = document.querySelectorAll('.filtre');
+      var fiches = document.querySelectorAll('#liste .work-item');
+      var compte = document.getElementById('compte');
+
+      function appliquer(cle) {
+        var visibles = 0;
+        fiches.forEach(function (f) {
+          var ok = cle === 'tous' || (' ' + f.dataset.familles + ' ').indexOf(' ' + cle + ' ') !== -1;
+          f.hidden = !ok;
+          if (ok) visibles++;
+        });
+        compte.textContent = visibles + (visibles > 1 ? ' projets' : ' projet');
+        boutons.forEach(function (b) {
+          b.setAttribute('aria-pressed', b.dataset.filtre === cle ? 'true' : 'false');
+        });
+      }
+
+      boutons.forEach(function (b) {
+        b.addEventListener('click', function () { appliquer(b.dataset.filtre); });
+      });
+    });
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <nav class="site-nav"></nav>
+
+  <header class="page-header">
+    <div class="container">
+      <a href="index.html" class="back-link">← Accueil</a>
+      <h1>Projets</h1>
+      <p class="page-lead">Neuf réalisations en business intelligence, automatisation et ingénierie de données. Filtrez par famille d'outils.</p>
+    </div>
+  </header>
+
+  <main id="contenu" class="container">
+    <div class="filtres" role="group" aria-label="Filtrer les projets par famille d'outils">
+            <button class="filtre" type="button" data-filtre="tous" aria-pressed="true">Tous</button>
+            <button class="filtre" type="button" data-filtre="powerbi" aria-pressed="false">Power BI</button>
+            <button class="filtre" type="button" data-filtre="ia" aria-pressed="false">Python & IA</button>
+            <button class="filtre" type="button" data-filtre="cloud" aria-pressed="false">Cloud & SQL</button>
+            <button class="filtre" type="button" data-filtre="tableau" aria-pressed="false">Tableau</button>
+            <button class="filtre" type="button" data-filtre="excel" aria-pressed="false">Excel</button>
+    </div>
+
+    <p class="filtre-compte" id="compte" aria-live="polite">9 projets</p>
+
+    <div class="work-list" id="liste">
+
+          <a href="projet8.html" class="work-item" data-familles="powerbi">
+            <div class="work-media">
+              <img src="projets/projet8/cover.webp" alt="Dashboard Power BI d'analyse des accidents routiers appliquée à la tarification d'assurance" loading="lazy" width="760" height="426">
+            </div>
+            <div>
+              <span class="work-index">Test de recrutement</span>
+              <h3 class="work-title">Power BI — Analyse Accidents &amp; Assurance</h3>
+              <p class="work-desc">Commande client fictive : dashboard Power BI et restitution PowerPoint selon un angle d'analyse imposé, sur les données BAAC 2021.</p>
+              <ul class="tag-list">
+                <li class="tag">Power BI</li><li class="tag">DAX</li><li class="tag">PowerPoint</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet9.html" class="work-item" data-familles="powerbi ia">
+            <div class="work-media">
+              <img src="projets/projet9/cover.svg" alt="Power BI x Claude — rapport construit par une IA agentique" loading="lazy" width="800" height="500">
+            </div>
+            <div>
+              <h3 class="work-title">Power BI × Claude</h3>
+              <p class="work-desc">Faire construire un rapport Power BI complet par une IA agentique (Claude Code) : dataset Python, modèle TMDL/DAX et débogage jusqu'au rendu vérifié.</p>
+              <ul class="tag-list">
+                <li class="tag">Power BI</li>
+                <li class="tag">DAX</li>
+                <li class="tag">Claude</li>
+                <li class="tag">IA</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet1.html" class="work-item" data-familles="powerbi">
+            <div class="work-media">
+              <img src="projets/portfolio%20accueil%20immobilier.webp" alt="Dashboard Power BI d'analyse du marché immobilier français" loading="lazy" width="760" height="388">
+            </div>
+            <div>
+              <h3 class="work-title">Power BI — Analyse Immobilière</h3>
+              <p class="work-desc">Simulateur d'achat et analyse du marché immobilier français sur la période 2019–2024, à partir des données data.gouv.</p>
+              <ul class="tag-list">
+                <li class="tag">Power BI</li>
+                <li class="tag">DAX</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet2.html" class="work-item" data-familles="powerbi">
+            <div class="work-media">
+              <img src="projets/Tableau%20de%20bord%20suivi%20bancaire.webp" alt="Tableau de bord Power BI de suivi bancaire" loading="lazy" width="760" height="429">
+            </div>
+            <div>
+              <h3 class="work-title">Power BI — Suivi Bancaire</h3>
+              <p class="work-desc">Tableau de bord personnel de suivi des dépenses, flux financiers et comparaison budgétaire par catégorie.</p>
+              <ul class="tag-list">
+                <li class="tag">Power BI</li>
+                <li class="tag">DAX</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet7.html" class="work-item" data-familles="cloud">
+            <div class="work-media">
+              <img src="projets/projet7/dataform_projet7.webp" alt="Pipeline de données sur Google Cloud Platform avec Dataform" loading="lazy" width="1600" height="792">
+            </div>
+            <div>
+              <h3 class="work-title">Pipeline de données GCP</h3>
+              <p class="work-desc">Pipeline cloud-native sur GCP : ingestion BigQuery, modélisation Dataform (style dbt) et visualisation Looker Studio.</p>
+              <ul class="tag-list">
+                <li class="tag">BigQuery</li>
+                <li class="tag">Dataform</li>
+                <li class="tag">Looker</li>
+                <li class="tag">GCP</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet4.html" class="work-item" data-familles="ia">
+            <div class="work-media">
+              <img src="projets/D%C3%A9moArticles.webp" alt="Revue de presse générée automatiquement à partir de flux RSS" loading="lazy" width="760" height="391">
+            </div>
+            <div>
+              <h3 class="work-title">Revue de presse automatisée</h3>
+              <p class="work-desc">Génération automatique de revues de presse via flux RSS, résumé par IA (BART) et traduction, exportée en document Word.</p>
+              <ul class="tag-list">
+                <li class="tag">Python</li>
+                <li class="tag">NLP</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet5.html" class="work-item" data-familles="powerbi">
+            <div class="work-media">
+              <img src="projets/projet5/accueil.webp" alt="Dashboard Power BI pour un restaurant" loading="lazy" width="760" height="440">
+            </div>
+            <div>
+              <h3 class="work-title">Power BI — Dashboard Restauration</h3>
+              <p class="work-desc">Dashboard analytique pour « L'Atelier des Saveurs » : vue globale, suivi budgétaire et simulateur de ventes.</p>
+              <ul class="tag-list">
+                <li class="tag">Power BI</li>
+                <li class="tag">DAX</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet6.html" class="work-item" data-familles="tableau">
+            <div class="work-media">
+              <img src="projets/projet6/projet%20tableau%20de%20bord.webp" alt="Tableau de bord d'analyse financière réalisé sous Tableau" loading="lazy" width="1600" height="899">
+            </div>
+            <div>
+              <h3 class="work-title">Tableau — Analyse Financière</h3>
+              <p class="work-desc">Analyse d'investissements et classification de profils d'investisseurs à partir d'un dataset Kaggle.</p>
+              <ul class="tag-list">
+                <li class="tag">Tableau</li>
+                <li class="tag">Kaggle</li>
+              </ul>
+            </div>
+          </a>
+<a href="projet3.html" class="work-item" data-familles="excel">
+            <div class="work-media">
+              <img src="projets/Tableau%20des%20sig.webp" alt="Tableau Excel des soldes intermédiaires de gestion" loading="lazy" width="760" height="332">
+            </div>
+            <div>
+              <h3 class="work-title">Excel — SIG, CAF &amp; Ratios</h3>
+              <p class="work-desc">Automatisation des états financiers : Soldes Intermédiaires de Gestion, Capacité d'Autofinancement et ratios comptables.</p>
+              <ul class="tag-list">
+                <li class="tag">Excel</li>
+                <li class="tag">VBA</li>
+              </ul>
+            </div>
+          </a>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a>
+          <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">linkedin.com/in/lyderickhenry</a>
+          <a href="cv.html">CV</a>
+        </div>
+        <p class="footer-meta">© <span id="year"></span> · Lydérick Henry · Lille, FR</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

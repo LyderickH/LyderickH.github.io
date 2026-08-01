@@ -11,13 +11,13 @@
     if (!file || file === '/') file = 'index.html';
     var page = file.replace(/\.html$/, '');
 
-    var projetsHref = page === 'index' ? prefix + '#projets' : prefix + 'index.html#projets';
+    var projetsHref = prefix + 'projets.html';
 
     function linkClass(target) {
       var cls = 'nav-link';
       var isActive =
         page === target ||
-        (target === 'projets' && (page === 'index' || /^projet\d+$/.test(page)));
+        (target === 'projets' && (page === 'projets' || /^projet\d+$/.test(page)));
       if (isActive) cls += ' active';
       return cls;
     }
@@ -33,9 +33,10 @@
       '<a href="' + prefix + 'index.html" class="nav-logo">Lydérick Henry</a>' +
       '<div class="nav-links">' +
       '<a href="' + projetsHref + '" class="' + linkClass('projets') + '">Projets</a>' +
-      '<a href="' + prefix + 'cv.html" class="' + linkClass('cv') + '">CV</a>' +
+      '<a href="' + prefix + 'a-propos.html" class="' + linkClass('a-propos') + '">À propos</a>' +
+      '<a href="' + prefix + 'cv.html" class="' + linkClass('cv') + '" data-secondary="true">CV</a>' +
       '<a href="' + prefix + 'memoire.html" class="' + linkClass('memoire') + '" data-secondary="true">Mémoire</a>' +
-      '<a href="' + prefix + 'explorateur.html" class="' + linkClass('explorateur') + '" data-secondary="true">Open data</a>' +
+      '<a href="' + prefix + 'contact.html" class="' + linkClass('contact') + '">Contact</a>' +
       themeBtn +
       '</div>' +
       '</div>';

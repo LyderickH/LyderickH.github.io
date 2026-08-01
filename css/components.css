@@ -903,3 +903,136 @@
   color: var(--ink-faint);
   line-height: 1.45;
 }
+
+/* ==========================================================================
+   Listing filtrable, page methode, page contact
+   ========================================================================== */
+
+/* ── Filtres ─────────────────────────────────────────────────────────── */
+
+.filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--rule);
+}
+
+.filtre {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition),
+              background var(--transition);
+}
+
+.filtre:hover { border-color: var(--rule-strong); color: var(--ink); }
+
+.filtre[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.filtre-compte {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  margin-bottom: var(--space-5);
+}
+
+.work-item[hidden] { display: none; }
+
+/* ── Page methode ────────────────────────────────────────────────────── */
+
+.methode {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 861px) {
+  .methode { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-7); }
+}
+
+.methode-bloc h3 {
+  font-size: var(--step-1);
+  margin-bottom: var(--space-3);
+}
+
+.methode-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--label-size);
+  letter-spacing: var(--label-tracking);
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+
+.methode-bloc p { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* ── Contact ─────────────────────────────────────────────────────────── */
+
+.contact-liste {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+  max-width: var(--measure);
+}
+
+.contact-ligne {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+}
+
+.contact-ligne:hover .contact-valeur { color: var(--accent); }
+
+.contact-cle {
+  font-family: var(--font-mono);
+  font-size: var(--label-size);
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.contact-valeur {
+  font-size: var(--step-1);
+  transition: color var(--transition);
+}
+
+/* ── Lien d'evitement ────────────────────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: calc(var(--nav-height) + var(--space-2));
+  z-index: 200;
+  padding: var(--space-3) var(--space-4);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--transition);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  color: var(--accent-contrast);
+}
