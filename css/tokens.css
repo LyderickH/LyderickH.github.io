@@ -84,7 +84,9 @@
 
   --ink: #F2F2F3;
   --ink-soft: #A8A8B2;      /* 8.1:1 sur --bg */
-  --ink-faint: #7E7E88;     /* 4.8:1 */
+  /* Calee sur --bg-muted, la surface la plus claire du mode sombre :
+     4.7:1 la-dessus, donc >= 4.5 sur tous les fonds. */
+  --ink-faint: #888894;
 
   /* Le marine ne tient pas le contraste sur fond sombre : version éclaircie */
   --accent: #9BBBD8;
