@@ -7,6 +7,8 @@
   <meta name="description" content="Profil data & finance — audit IT, business intelligence et automatisation. M2 CGAO, alternance Forvis Mazars.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     (function () {
@@ -14,623 +16,160 @@
       document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
     })();
   </script>
-  <style>
-    :root,
-    [data-theme="dark"] {
-      --bg-primary: #0F0F12;
-      --bg-secondary: #17171C;
-      --bg-muted: #1F1F26;
-      --text-primary: #F5F5F5;
-      --text-secondary: #B0B0B8;
-      --text-muted: #808088;
-      --accent: #93C5FD;
-      --accent-soft: rgba(147, 197, 253, 0.12);
-      --border: #2A2A30;
-      --border-strong: #3A3A42;
-      --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
-      --shadow-hover: 0 4px 16px rgba(0,0,0,0.5), 0 8px 32px rgba(0,0,0,0.4);
-    }
-
-    [data-theme="light"] {
-      --bg-primary: #FAFAF7;
-      --bg-secondary: #FFFFFF;
-      --bg-muted: #F2F2EE;
-      --text-primary: #1A1A1A;
-      --text-secondary: #555555;
-      --text-muted: #888888;
-      --accent: #1E3A8A;
-      --accent-soft: rgba(30, 58, 138, 0.08);
-      --border: #E5E5E0;
-      --border-strong: #D4D4CE;
-      --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
-      --shadow-hover: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      padding-top: 64px;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    h1, h2, h3, h4 {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-/* ─── Hero ─── */
-    .hero {
-      padding: 6rem 0 4rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-name {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 500;
-      letter-spacing: -0.015em;
-      color: var(--text-primary);
-      line-height: 1.05;
-      margin-bottom: 1rem;
-    }
-    .hero-tagline {
-      font-size: 1.1rem;
-      line-height: 1.55;
-      color: var(--text-secondary);
-      max-width: 620px;
-    }
-    .cursor {
-      display: inline-block;
-      margin-left: 0.1em;
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 400;
-      animation: blink 1.1s steps(2, end) infinite;
-    }
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      50.01%, 100% { opacity: 0; }
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.25rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      border: 1px solid var(--border-strong);
-      color: var(--text-primary);
-      background: var(--bg-secondary);
-      transition: all 0.2s ease;
-    }
-    .btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-    [data-theme="dark"] .btn-primary { color: var(--bg-primary); }
-    .btn-primary:hover { opacity: 0.9; color: #fff; }
-    [data-theme="dark"] .btn-primary:hover { color: var(--bg-primary); }
-    .btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-    .section-title {
-      font-size: 1.75rem;
-      margin-bottom: 1.5rem;
-    }
-    .section-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-    .section-eyebrow::before {
-      content: '> ';
-      opacity: 0.6;
-    }
-
-    /* ─── Projet phare ─── */
-    .featured {
-      padding: 4rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .featured-card {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: box-shadow 0.2s ease;
-    }
-    .featured-card:hover { box-shadow: var(--shadow-hover); }
-    .featured-image {
-      display: block;
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 16/9;
-      object-fit: contain;
-      background: var(--bg-muted);
-      border-right: 1px solid var(--border);
-    }
-    .featured-body {
-      padding: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .badge-mission {
-      display: inline-block;
-      align-self: flex-start;
-      padding: 0.3rem 0.7rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .featured-title {
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
-      line-height: 1.25;
-    }
-    .featured-desc {
-      color: var(--text-secondary);
-      font-size: 0.98rem;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-    .featured-tags {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .featured-cta {
-      align-self: flex-start;
-    }
-
-    @media (max-width: 768px) {
-      .featured-card { grid-template-columns: 1fr; }
-      .featured-image { border-right: 0; border-bottom: 1px solid var(--border); }
-      .featured-body { padding: 1.5rem; }
-    }
-
-    /* ─── Tags techno ─── */
-    .tag {
-      padding: 0.22rem 0.55rem;
-      border-radius: 3px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      border: 1px solid var(--border);
-      background: var(--bg-muted);
-      color: var(--text-secondary);
-    }
-
-    /* ─── Grille projets ─── */
-    .projects-section {
-      padding: 4rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-    @media (min-width: 640px) {
-      .projects-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 980px) {
-      .projects-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .project-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s ease;
-    }
-    .project-card.hidden { display: none; }
-    .project-card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
-    .project-card .card-num {
-      position: absolute;
-      top: 0.85rem;
-      right: 0.85rem;
-      z-index: 2;
-      padding: 0.2rem 0.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-    }
-    .project-image {
-      width: 100%;
-      aspect-ratio: 16/10;
-      object-fit: cover;
-      background: var(--bg-muted);
-      border-bottom: 1px solid var(--border);
-    }
-    .project-body {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    .project-title {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      line-height: 1.35;
-    }
-    .project-description {
-      color: var(--text-secondary);
-      font-size: 0.88rem;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-      flex-grow: 1;
-    }
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-    }
-    .projects-more {
-      display: flex;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-    .btn-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.5rem;
-      background: transparent;
-      border: 1px solid var(--border-strong);
-      border-radius: 6px;
-      color: var(--text-primary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .btn-more:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* ─── Recherche & démos ─── */
-    .research {
-      padding: 4rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .research-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.75rem;
-    }
-    @media (max-width: 768px) {
-      .research-grid { grid-template-columns: 1fr; }
-    }
-    .research-card {
-      display: flex;
-      gap: 1.25rem;
-      padding: 1.75rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s ease;
-    }
-    .research-card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-hover);
-    }
-    .research-icon {
-      width: 48px;
-      height: 48px;
-      flex-shrink: 0;
-      border-radius: 8px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .research-icon svg { width: 24px; height: 24px; }
-    .research-body h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
-      line-height: 1.3;
-    }
-    .research-body p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin-bottom: 0.75rem;
-    }
-    .research-link {
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    /* ─── Footer ─── */
-    footer {
-      padding: 3rem 0 2.5rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 1.5rem;
-      align-items: center;
-    }
-    .footer-contacts {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .footer-contacts a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      transition: color 0.2s ease;
-    }
-    .footer-contacts a:hover { color: var(--accent); }
-    .footer-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 768px) {
-      .container { padding: 0 1.25rem; }
-      .hero { padding: 4rem 0 2.5rem; }
-      .featured, .projects-section, .research { padding: 3rem 0; }
-      .footer-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    }
-  </style>
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/site-nav.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
 </head>
 <body>
 
-            <nav class="site-nav"></nav>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <nav class="site-nav"></nav>
 
   <header class="hero">
     <div class="container">
-      <h1 class="hero-name">Lydérick Henry</h1>
-      <p class="hero-tagline">Profil hybride entre audit IT, data et automatisation — 4 ans d'alternance (compta, contrôle de gestion, audit IT), je cherche un CDI à partir de juillet 2026<span class="cursor">_</span></p>
+      <div class="hero-inner">
+        <div>
+          <p class="hero-eyebrow label">Data &amp; Finance</p>
+          <h1 class="hero-name">Lydérick Henry</h1>
+          <p class="hero-lead">Je relie la comptabilité et l'audit à de vraies compétences data — et je le montre sur pièces.</p>
+          <ul class="hero-meta">
+            <li>4 ans d'alternance</li>
+            <li>Compta, contrôle de gestion, audit IT</li>
+            <li>CDI à partir de juillet 2026</li>
+            <li>Lille, FR</li>
+          </ul>
+          <div class="hero-actions">
+            <a href="#projets" class="btn btn-primary">Voir les projets</a>
+            <a href="cv.html" class="btn">Consulter le CV</a>
+          </div>
+        </div>
+        <img src="Photo%20professionnel.webp" alt="Portrait de Lydérick Henry" class="hero-portrait" width="116" height="116">
+      </div>
     </div>
   </header>
 
-  <section class="featured" id="projets">
-    <div class="container">
-      <h2 class="section-title">Projet phare</h2>
-      <div class="featured-card">
-        <img src="projets/projet8/cover.png" alt="Dashboard PowerBI accidents routiers et assurance" class="featured-image">
-        <div class="featured-body">
-          <span class="badge-mission">Test de recrutement</span>
-          <h2 class="featured-title">Power BI — Analyse Accidents &amp; Assurance</h2>
-          <p class="featured-desc">Commande client fictive dans le cadre d'un test de recrutement : production d'un dashboard Power BI et d'une restitution PowerPoint selon l'angle d'analyse imposé. Données BAAC 2021 — analyse des risques d'accidents routiers appliquée à la tarification d'assurance automobile.</p>
-          <div class="featured-tags">
-            <span class="tag">Power BI</span>
-            <span class="tag">DAX</span>
-            <span class="tag">PowerPoint</span>
+  <main id="contenu">
+
+    <section class="section" id="projets">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-eyebrow label">Projet phare · 01</p>
+        </div>
+
+        <a href="projet8.html" class="featured">
+          <div class="featured-media">
+            <img src="projets/projet8/cover.webp" alt="Dashboard Power BI d'analyse des accidents routiers appliquée à la tarification d'assurance" width="1512" height="847">
           </div>
-          <a href="projet8.html" class="btn btn-primary featured-cta">Voir le projet →</a>
+          <div>
+            <span class="badge">Test de recrutement</span>
+            <h2 class="featured-title">Power BI — Analyse Accidents &amp; Assurance</h2>
+            <p class="featured-desc">Commande client fictive dans le cadre d'un test de recrutement : production d'un dashboard Power BI et d'une restitution PowerPoint selon l'angle d'analyse imposé. Données BAAC 2021 — analyse des risques d'accidents routiers appliquée à la tarification d'assurance automobile.</p>
+            <div class="featured-foot">
+              <ul class="tag-list">
+                <li class="tag">Power BI</li>
+                <li class="tag">DAX</li>
+                <li class="tag">PowerPoint</li>
+              </ul>
+              <span class="btn btn-primary">Voir le projet →</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow label">Réalisations</p>
+            <h2 class="section-title">Deux autres études de cas</h2>
+          </div>
+          <a href="projets.html" class="section-count" style="text-decoration:none;">Les 9 projets →</a>
+        </div>
+
+        <div class="work-list">
+
+          <a href="projet9.html" class="work-item">
+            <div class="work-media">
+              <img src="projets/projet9/cover.svg" alt="Power BI x Claude — rapport construit par une IA agentique" loading="lazy" width="800" height="500">
+            </div>
+            <div>
+              <span class="work-index">02</span>
+              <h3 class="work-title">Power BI × Claude</h3>
+              <p class="work-desc">Faire construire un rapport Power BI complet par une IA agentique (Claude Code) : dataset Python, modèle TMDL/DAX et débogage jusqu'au rendu vérifié.</p>
+              <ul class="tag-list">
+                <li class="tag">Power BI</li>
+                <li class="tag">DAX</li>
+                <li class="tag">Claude</li>
+                <li class="tag">IA</li>
+              </ul>
+            </div>
+          </a>
+
+          <a href="projet7.html" class="work-item">
+            <div class="work-media">
+              <img src="projets/projet7/dataform_projet7.webp" alt="Pipeline de données sur Google Cloud Platform avec Dataform" loading="lazy" width="1600" height="792">
+            </div>
+            <div>
+              <span class="work-index">03</span>
+              <h3 class="work-title">Pipeline de données GCP</h3>
+              <p class="work-desc">Pipeline cloud-native sur GCP : ingestion BigQuery, modélisation Dataform (style dbt) et visualisation Looker Studio.</p>
+              <ul class="tag-list">
+                <li class="tag">BigQuery</li>
+                <li class="tag">Dataform</li>
+                <li class="tag">Looker</li>
+                <li class="tag">GCP</li>
+              </ul>
+            </div>
+          </a>
+
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="projects-section">
-    <div class="container">
-      <h2 class="section-title">Autres réalisations</h2>
-
-      <div class="projects-grid" id="projects-grid">
-
-        <a href="projet9.html" class="project-card">
-          <span class="card-num">09</span>
-          <img src="projets/projet9/cover.svg" alt="Power BI x Claude - rapport construit par une IA agentique" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Power BI × Claude</h3>
-            <p class="project-description">Faire construire un rapport Power BI complet par une IA agentique (Claude Code) : dataset Python, modèle TMDL/DAX et débogage jusqu'au rendu vérifié.</p>
-            <div class="project-tags">
-              <span class="tag">Power BI</span>
-              <span class="tag">DAX</span>
-              <span class="tag">Claude</span>
-              <span class="tag">IA</span>
-            </div>
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow label">Recherche &amp; démos</p>
+            <h2 class="section-title">Travaux complémentaires</h2>
           </div>
-        </a>
+        </div>
 
-        <a href="projet1.html" class="project-card">
-          <span class="card-num">01</span>
-          <img src="projets/portfolio accueil immobilier.png" alt="PowerBI - Analyse Immobilière" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Power BI — Analyse Immobilière</h3>
-            <p class="project-description">Simulateur d'achat et analyse du marché immobilier français sur la période 2019–2024, à partir des données data.gouv.</p>
-            <div class="project-tags">
-              <span class="tag">Power BI</span>
-              <span class="tag">DAX</span>
+        <div class="side-grid">
+          <a href="memoire.html" class="side-card">
+            <div class="side-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             </div>
-          </div>
-        </a>
-
-        <a href="projet2.html" class="project-card">
-          <span class="card-num">02</span>
-          <img src="projets/Tableau de bord suivi bancaire.png" alt="PowerBI - Suivi bancaire" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Power BI — Suivi Bancaire</h3>
-            <p class="project-description">Tableau de bord personnel de suivi des dépenses, flux financiers et comparaison budgétaire par catégorie.</p>
-            <div class="project-tags">
-              <span class="tag">Power BI</span>
-              <span class="tag">DAX</span>
+            <div>
+              <h3>Mémoire M2 — IA générative en audit</h3>
+              <p>Étude empirique de la perception et de l'adoption de l'IA générative en cabinet d'audit. 67 répondants, modèle TAM enrichi, tests de Spearman, alpha de Cronbach.</p>
+              <span class="side-link">Lire le mémoire →</span>
             </div>
-          </div>
-        </a>
+          </a>
 
-        <a href="projet7.html" class="project-card">
-          <span class="card-num">07</span>
-          <img src="projets/projet7/dataform_projet7.png" alt="Pipeline GCP" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Pipeline de données GCP</h3>
-            <p class="project-description">Pipeline cloud-native sur GCP : ingestion BigQuery, modélisation Dataform (style dbt) et visualisation Looker Studio.</p>
-            <div class="project-tags">
-              <span class="tag">BigQuery</span>
-              <span class="tag">Dataform</span>
-              <span class="tag">Looker</span>
-              <span class="tag">GCP</span>
+          <a href="explorateur.html" class="side-card">
+            <div class="side-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </div>
-          </div>
-        </a>
-
-        <a href="projet4.html" class="project-card">
-          <span class="card-num">04</span>
-          <img src="projets/DémoArticles.png" alt="Revue de presse automatisée" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Revue de presse automatisée</h3>
-            <p class="project-description">Génération automatique de revues de presse via flux RSS, résumé par IA (BART) et traduction, exportée en document Word.</p>
-            <div class="project-tags">
-              <span class="tag">Python</span>
-              <span class="tag">NLP</span>
+            <div>
+              <h3>Explorateur open data</h3>
+              <p>Outil d'exploration des jeux de données publics français (data.gouv.fr), avec recherche guidée et visualisations.</p>
+              <span class="side-link">Découvrir l'outil →</span>
             </div>
-          </div>
-        </a>
-
-        <a href="projet5.html" class="project-card">
-          <span class="card-num">05</span>
-          <img src="projets/projet5/accueil.png" alt="PowerBI - Restauration" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Power BI — Dashboard Restauration</h3>
-            <p class="project-description">Dashboard analytique pour "L'Atelier des Saveurs" : vue globale, suivi budgétaire et simulateur de ventes.</p>
-            <div class="project-tags">
-              <span class="tag">Power BI</span>
-              <span class="tag">DAX</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="projet6.html" class="project-card">
-          <span class="card-num">06</span>
-          <img src="projets/projet6/projet tableau de bord.png" alt="Tableau - Analyse financière" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Tableau — Analyse Financière</h3>
-            <p class="project-description">Analyse d'investissements et classification de profils d'investisseurs à partir d'un dataset Kaggle.</p>
-            <div class="project-tags">
-              <span class="tag">Tableau</span>
-              <span class="tag">Kaggle</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="projet3.html" class="project-card">
-          <span class="card-num">03</span>
-          <img src="projets/Tableau des sig.png" alt="Excel - SIG/CAF/Ratios" class="project-image">
-          <div class="project-body">
-            <h3 class="project-title">Excel — SIG, CAF &amp; Ratios</h3>
-            <p class="project-description">Automatisation des états financiers : Soldes Intermédiaires de Gestion, Capacité d'Autofinancement et ratios comptables.</p>
-            <div class="project-tags">
-              <span class="tag">Excel</span>
-              <span class="tag">VBA</span>
-            </div>
-          </div>
-        </a>
-
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="research">
-    <div class="container">
-      <h2 class="section-title">Travaux complémentaires</h2>
+  </main>
 
-      <div class="research-grid">
-        <a href="memoire.html" class="research-card">
-          <div class="research-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          </div>
-          <div class="research-body">
-            <h3>Mémoire M2 — IA générative en audit</h3>
-            <p>Étude empirique de la perception et de l'adoption de l'IA générative en cabinet d'audit. 67 répondants, modèle TAM enrichi, tests de Spearman, alpha de Cronbach.</p>
-            <span class="research-link">Lire le mémoire →</span>
-          </div>
-        </a>
-
-        <a href="explorateur.html" class="research-card">
-          <div class="research-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </div>
-          <div class="research-body">
-            <h3>Explorateur open data</h3>
-            <p>Outil d'exploration des jeux de données publics français (data.gouv.fr), avec recherche guidée et visualisations.</p>
-            <span class="research-link">Découvrir l'outil →</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
+  <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-contacts">
+        <div class="footer-links">
           <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a>
           <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">linkedin.com/in/lyderickhenry</a>
           <a href="cv.html">CV</a>
@@ -642,16 +181,6 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-      anchor.addEventListener('click', function (e) {
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
   </script>
 </body>
 </html>

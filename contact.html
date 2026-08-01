@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Lydérick Henry</title>
+  <meta name="description" content="Contacter Lydérick Henry — disponible en CDI à partir de juillet 2026.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="js/site-nav.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <nav class="site-nav"></nav>
+
+  <header class="page-header">
+    <div class="container">
+      <a href="index.html" class="back-link">← Accueil</a>
+      <h1>Contact</h1>
+      <p class="page-lead">Disponible en CDI à partir de juillet 2026. Le plus simple reste l'e-mail.</p>
+    </div>
+  </header>
+
+  <main id="contenu" class="container">
+    <section class="content-section">
+      <div class="contact-liste">
+        <a class="contact-ligne" href="mailto:lyderickhenry@hotmail.fr">
+          <span class="contact-cle">E-mail</span>
+          <span class="contact-valeur">lyderickhenry@hotmail.fr</span>
+        </a>
+        <a class="contact-ligne" href="tel:0619833633">
+          <span class="contact-cle">Téléphone</span>
+          <span class="contact-valeur">06 19 83 36 33</span>
+        </a>
+        <a class="contact-ligne" href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">
+          <span class="contact-cle">LinkedIn</span>
+          <span class="contact-valeur">@LydérickHenry</span>
+        </a>
+        <span class="contact-ligne">
+          <span class="contact-cle">Localisation</span>
+          <span class="contact-valeur">Villeneuve d'Ascq (59)</span>
+        </span>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>Le CV en deux formats</h2>
+      <p>La version en ligne se parcourt et se filtre ; la version A4 s'imprime et se joint à une candidature.</p>
+      <div class="button-container" style="margin-top:1.5rem;">
+        <a href="cv.html" class="modern-btn"><span class="btn-icon">→</span> CV en ligne</a>
+        <a href="projets/CV à jour.html" target="_blank" rel="noopener" class="modern-btn"><span class="btn-icon">↗</span> Version A4 imprimable</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a>
+          <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">linkedin.com/in/lyderickhenry</a>
+          <a href="cv.html">CV</a>
+        </div>
+        <p class="footer-meta">© <span id="year"></span> · Lydérick Henry · Lille, FR</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
