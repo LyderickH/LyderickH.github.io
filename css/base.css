@@ -1,0 +1,152 @@
+/* ==========================================================================
+   base.css — reset, éléments HTML, primitives de mise en page
+   Ne contient aucune valeur en dur : tout vient de tokens.css
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + var(--space-5));
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  color: var(--ink);
+  background: var(--bg);
+  padding-top: var(--nav-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ── Titres ──────────────────────────────────────────────────────────────
+   Fraunces porte tous les titres. Poids 500 : le 600 durcit trop le serif
+   aux grandes tailles, le 400 s'efface aux petites. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: var(--leading-snug);
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--step-4); line-height: var(--leading-tight); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); }
+h4 { font-size: var(--step-1); }
+
+p { text-wrap: pretty; }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--transition);
+}
+
+a:hover { color: var(--accent-hover); }
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+img { height: auto; }
+
+ul, ol { list-style: none; }
+
+button { font: inherit; color: inherit; }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+/* Chiffres alignés partout où ils comptent */
+table, .tabular { font-variant-numeric: tabular-nums; }
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Mise en page ────────────────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .container { padding-inline: var(--space-5); }
+}
+
+/* Bloc de texte courant, longueur de ligne bornée */
+.prose {
+  max-width: var(--measure);
+  color: var(--ink-soft);
+}
+
+.prose > * + * { margin-top: var(--space-4); }
+
+.prose h2,
+.prose h3 {
+  color: var(--ink);
+  margin-top: var(--space-7);
+}
+
+/* ── Utilitaires ─────────────────────────────────────────────────────── */
+
+/* Le monospace ne sert qu'aux métadonnées : eyebrows, tags, chiffres,
+   légendes. Une seule classe pour garantir un traitement homogène. */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--label-size);
+  font-weight: 500;
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
