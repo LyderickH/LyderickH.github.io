@@ -692,6 +692,34 @@
 
 .content-section > :last-child { margin-bottom: 0; }
 
+/* Mise en page éditoriale : sur grand écran, le titre de section se place
+   dans une colonne latérale à gauche, le corps de texte occupe la droite.
+   La largeur disponible est ainsi exploitée au lieu de laisser un vide. */
+@media (min-width: 900px) {
+  .content-section:has(> h2) {
+    display: grid;
+    grid-template-columns: minmax(150px, 210px) minmax(0, 1fr);
+    column-gap: var(--space-8);
+    align-items: start;
+  }
+
+  .content-section:has(> h2) > * { grid-column: 2; }
+
+  .content-section:has(> h2) > h2 {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 0;
+  }
+
+  /* Le corps peut respirer un peu plus large que la mesure par défaut */
+  .content-section:has(> h2) > p,
+  .content-section:has(> h2) > ul,
+  .content-section:has(> h2) > ol,
+  .content-section:has(> h2) > blockquote {
+    max-width: 68ch;
+  }
+}
+
 /* ── Diaporama ───────────────────────────────────────────────────────── */
 
 .slider-container {
