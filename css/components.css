@@ -377,8 +377,8 @@
 .work-item:hover .work-media img { transform: scale(1.03); }
 
 .work-index {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--accent);
   display: inline-block;
@@ -508,27 +508,23 @@
 }
 
 .tag {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
   color: var(--accent);
   background: var(--accent-soft);
   border: none;
   border-radius: 9999px;
-  padding: 0.28rem 0.65rem;
+  padding: 0.28rem 0.7rem;
   white-space: nowrap;
 }
 
 /* Badge plein, pour qualifier un projet (contexte, commanditaire…) */
 .badge {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: var(--label-size);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: var(--label-tracking);
-  text-transform: uppercase;
   color: var(--accent);
   background: var(--accent-soft);
   border: none;
@@ -1001,32 +997,37 @@
 }
 
 .filtre {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--ink-soft);
-  background: transparent;
+  background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: var(--radius-sm);
-  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
   cursor: pointer;
   transition: color var(--transition), border-color var(--transition),
-              background var(--transition);
+              background var(--transition), transform var(--transition);
 }
 
-.filtre:hover { border-color: var(--rule-strong); color: var(--ink); }
+.filtre:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
 
 .filtre[aria-pressed="true"] {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-contrast);
+  font-weight: 600;
 }
 
 .filtre-compte {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  color: var(--ink-faint);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink-soft);
   margin-bottom: var(--space-5);
 }
 
