@@ -22,6 +22,16 @@
       return cls;
     }
 
+    var savedLang = localStorage.getItem('lang') || 'fr';
+    document.documentElement.setAttribute('lang', savedLang);
+
+    var langBtn =
+      '<button class="lang-toggle" id="lang-toggle" aria-label="Basculer la langue FR / EN" type="button">' +
+      '<span class="lang-option lang-fr' + (savedLang === 'fr' ? ' active' : '') + '">FR</span>' +
+      '<span class="lang-sep">/</span>' +
+      '<span class="lang-option lang-en' + (savedLang === 'en' ? ' active' : '') + '">EN</span>' +
+      '</button>';
+
     var themeBtn =
       '<button class="theme-toggle" id="theme-toggle" aria-label="Basculer le thème clair / sombre" type="button">' +
       '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' +
@@ -38,10 +48,14 @@
       '<a href="' + prefix + 'explorateur.html" class="' + linkClass('explorateur') + '" data-secondary="true">Explorateur data</a>' +
       '<a href="' + prefix + 'memoire.html" class="' + linkClass('memoire') + '" data-secondary="true">Mémoire</a>' +
       '<a href="' + prefix + 'contact.html" class="' + linkClass('contact') + '">Contact</a>' +
+      '<div class="nav-controls">' +
+      langBtn +
       themeBtn +
+      '</div>' +
       '</div>' +
       '</div>';
 
+    // Theme toggle listener
     var toggle = document.getElementById('theme-toggle');
     if (toggle && !toggle.dataset.bound) {
       toggle.dataset.bound = 'true';
@@ -51,6 +65,31 @@
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
         document.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: next } }));
+      });
+    }
+
+    // Language toggle listener
+    var langToggle = document.getElementById('lang-toggle');
+    if (langToggle && !langToggle.dataset.bound) {
+      langToggle.dataset.bound = 'true';
+      langToggle.addEventListener('click', function () {
+        var currentLang = localStorage.getItem('lang') || 'fr';
+        var nextLang = currentLang === 'fr' ? 'en' : 'fr';
+        localStorage.setItem('lang', nextLang);
+        document.documentElement.setAttribute('lang', nextLang);
+
+        var frEl = document.querySelector('.lang-option.lang-fr');
+        var enEl = document.querySelector('.lang-option.lang-en');
+        if (frEl && enEl) {
+          if (nextLang === 'en') {
+            frEl.classList.remove('active');
+            enEl.classList.add('active');
+          } else {
+            enEl.classList.remove('active');
+            frEl.classList.add('active');
+          }
+        }
+        document.dispatchEvent(new CustomEvent('lang-changed', { detail: { lang: nextLang } }));
       });
     }
   }

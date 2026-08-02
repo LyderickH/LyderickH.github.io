@@ -79,6 +79,51 @@
   font-weight: 600;
 }
 
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: var(--space-2);
+}
+
+.lang-toggle {
+  flex-shrink: 0;
+  height: 34px;
+  padding: 0 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.lang-toggle:hover {
+  color: var(--accent);
+  border-color: var(--rule-strong);
+}
+
+.lang-option {
+  transition: color var(--transition);
+}
+
+.lang-option.active {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.lang-sep {
+  color: var(--ink-faint);
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
 .theme-toggle {
   flex-shrink: 0;
   width: 34px;
