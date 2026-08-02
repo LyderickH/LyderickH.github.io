@@ -720,8 +720,16 @@
 
 .page-header h1 {
   font-size: var(--step-4);
-  max-width: 20ch;
-  margin-bottom: var(--space-5);
+  max-width: 100%;
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-tight);
+}
+
+@media (min-width: 769px) {
+  .page-header h1 {
+    font-size: var(--step-4);
+    white-space: nowrap;
+  }
 }
 
 .back-link {
@@ -805,11 +813,12 @@
   }
 
   .content-section:has(> .content-body) > h2 {
-    width: 220px;
+    width: 270px;
     flex-shrink: 0;
     margin-bottom: 0;
     position: sticky;
     top: var(--space-6);
+    white-space: nowrap;
   }
 
   .content-section > .content-body {
