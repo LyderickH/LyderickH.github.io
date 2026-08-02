@@ -42,11 +42,11 @@
       '<div class="nav-inner">' +
       '<a href="' + prefix + 'index.html" class="nav-logo">Lydérick Henry</a>' +
       '<div class="nav-links">' +
-      '<a href="' + projetsHref + '" class="' + linkClass('projets') + '">Projets</a>' +
       '<a href="' + prefix + 'a-propos.html" class="' + linkClass('a-propos') + '">À propos</a>' +
-      '<a href="' + prefix + 'cv.html" class="' + linkClass('cv') + '" data-secondary="true">CV</a>' +
+      '<a href="' + projetsHref + '" class="' + linkClass('projets') + '">Projets</a>' +
       '<a href="' + prefix + 'explorateur.html" class="' + linkClass('explorateur') + '" data-secondary="true">Explorateur data</a>' +
       '<a href="' + prefix + 'memoire.html" class="' + linkClass('memoire') + '" data-secondary="true">Mémoire</a>' +
+      '<a href="' + prefix + 'cv.html" class="' + linkClass('cv') + '" data-secondary="true">CV</a>' +
       '<a href="' + prefix + 'contact.html" class="' + linkClass('contact') + '">Contact</a>' +
       '<div class="nav-controls">' +
       langBtn +
