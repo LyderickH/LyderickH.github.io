@@ -30,41 +30,74 @@
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Accueil</a>
-      <h1>Contact</h1>
-      <p class="page-lead">Ouvert aux opportunités en CDI. Le plus simple reste l'e-mail.</p>
+      <h1 data-i18n="nav.contact">Contact</h1>
+      <p class="page-lead" data-i18n="contact.lead">Ouvert aux opportunités en CDI.</p>
     </div>
   </header>
 
   <main id="contenu" class="container">
-    <section class="content-section">
-      <div class="contact-liste">
-        <a class="contact-ligne" href="mailto:lyderickhenry@hotmail.fr">
-          <span class="contact-cle">E-mail</span>
-          <span class="contact-valeur">lyderickhenry@hotmail.fr</span>
+    <div class="contact-grid">
+      <div class="contact-cards-group">
+        <a class="contact-card" href="mailto:lyderickhenry@hotmail.fr">
+          <div>
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <p class="contact-card-label">E-mail</p>
+            <p class="contact-card-value">lyderickhenry@hotmail.fr</p>
+            <p class="contact-card-sub">Canal privilégié · Réponse rapide</p>
+          </div>
+          <span class="contact-card-action">Envoyer un message →</span>
         </a>
-        <a class="contact-ligne" href="tel:0619833633">
-          <span class="contact-cle">Téléphone</span>
-          <span class="contact-valeur">06 19 83 36 33</span>
-        </a>
-        <a class="contact-ligne" href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">
-          <span class="contact-cle">LinkedIn</span>
-          <span class="contact-valeur">@LydérickHenry</span>
-        </a>
-        <span class="contact-ligne">
-          <span class="contact-cle">Localisation</span>
-          <span class="contact-valeur">Villeneuve d'Ascq (59)</span>
-        </span>
-      </div>
-    </section>
 
-    <section class="content-section">
-      <h2>Le CV en deux formats</h2>
-      <p>La version en ligne se parcourt et se filtre ; la version A4 s'imprime et se joint à une candidature.</p>
-      <div class="button-container" style="margin-top:1.5rem;">
-        <a href="cv.html" class="modern-btn"><span class="btn-icon">→</span> CV en ligne</a>
-        <a href="projets/CV à jour.html" target="_blank" rel="noopener" class="modern-btn"><span class="btn-icon">↗</span> Version A4 imprimable</a>
+        <a class="contact-card" href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">
+          <div>
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <p class="contact-card-label">LinkedIn</p>
+            <p class="contact-card-value">@LydérickHenry</p>
+            <p class="contact-card-sub">Profil professionnel &amp; réseau</p>
+          </div>
+          <span class="contact-card-action">Voir le profil ↗</span>
+        </a>
+
+        <a class="contact-card" href="tel:0619833633">
+          <div>
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <p class="contact-card-label">Téléphone</p>
+            <p class="contact-card-value">06 19 83 36 33</p>
+            <p class="contact-card-sub">Disponible pour un échange</p>
+          </div>
+          <span class="contact-card-action">Appeler →</span>
+        </a>
+
+        <div class="contact-card">
+          <div>
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <p class="contact-card-label">Localisation</p>
+            <p class="contact-card-value">Villeneuve d'Ascq (59)</p>
+            <p class="contact-card-sub">Région lilloise &amp; Télétravail</p>
+          </div>
+          <span class="contact-card-action" style="color:var(--ink-faint);">Hauts-de-France</span>
+        </div>
       </div>
-    </section>
+
+      <div class="cv-cta-card">
+        <div>
+          <h2>Le CV en deux formats</h2>
+          <p>La version web interactive se parcourt et se filtre par compétences. La version A4 s'imprime et se joint facilement à une candidature.</p>
+        </div>
+        <div class="cv-cta-actions">
+          <a href="cv.html" class="btn btn-primary">Consulter le CV en ligne →</a>
+          <a href="projets/CV à jour.html" target="_blank" rel="noopener" class="btn">Télécharger le CV A4 (PDF) ↗</a>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="site-footer">
