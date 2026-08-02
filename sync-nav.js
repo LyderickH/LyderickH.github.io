@@ -40,6 +40,7 @@ function ensureThemeScript(content) {
 function ensureAssets(content, prefix) {
   const themeHref = prefix + 'css/theme.css';
   const cssHref = prefix + 'css/site-nav.css';
+  const i18nSrc = prefix + 'js/i18n.js';
   const jsSrc = prefix + 'js/site-nav.js';
 
   if (!content.includes('css/theme.css')) {
@@ -63,10 +64,12 @@ function ensureAssets(content, prefix) {
     );
   }
 
-  content = content.replace(
-    new RegExp(`\\s*<script src="${jsSrc.replace(/\//g, '\\/')}"><\\/script>\\s*`, 'g'),
-    '\n'
-  );
+  if (!content.includes('js/i18n.js')) {
+    content = content.replace(
+      '</head>',
+      `  <script src="${i18nSrc}" defer></script>\n</head>`
+    );
+  }
 
   if (!content.includes('js/site-nav.js')) {
     content = content.replace(
