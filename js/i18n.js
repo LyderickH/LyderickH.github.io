@@ -156,44 +156,44 @@
     REVERSE_TEXT_MAP[EXACT_TEXT_MAP[frText]] = frText;
   });
 
-  function translateText(text, isEn) {
-    if (!text) return text;
-    const trimmed = text.trim();
-    if (isEn) {
-      if (EXACT_TEXT_MAP[trimmed]) {
-        return text.replace(trimmed, EXACT_TEXT_MAP[trimmed]);
-      }
-    } else {
-      if (REVERSE_TEXT_MAP[trimmed]) {
-        return text.replace(trimmed, REVERSE_TEXT_MAP[trimmed]);
-      }
-    }
-    return text;
-  }
-
   function translateNodeTree(node, isEn) {
     if (node.nodeType === Node.TEXT_NODE) {
-      const content = node.textContent;
-      if (content && content.trim().length > 0) {
-        const translated = translateText(content, isEn);
-        if (translated !== content) {
-          node.textContent = translated;
+      // Stocker le texte original en Français dès la première lecture
+      if (node._frText === undefined) {
+        node._frText = node.textContent;
+      }
+
+      const origText = node._frText;
+      if (!origText || origText.trim().length === 0) return;
+
+      if (isEn) {
+        const trimmed = origText.trim();
+        if (EXACT_TEXT_MAP[trimmed]) {
+          node.textContent = origText.replace(trimmed, EXACT_TEXT_MAP[trimmed]);
         }
+      } else {
+        // Restauration exacte du texte original en Français
+        node.textContent = origText;
       }
     } else if (node.nodeType === Node.ELEMENT_NODE) {
-      // Don't modify scripts or styles
+      // Ne pas modifier les balises de script et de style
       if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
 
-      // Handle input placeholders
       if (node.tagName === 'INPUT' || node.tagName === 'TEXTAREA') {
         const ph = node.getAttribute('placeholder');
         if (ph) {
-          const translatedPh = translateText(ph, isEn);
-          if (translatedPh !== ph) node.setAttribute('placeholder', translatedPh);
+          if (node._frPh === undefined) node._frPh = ph;
+          if (isEn) {
+            const trimmedPh = node._frPh.trim();
+            if (EXACT_TEXT_MAP[trimmedPh]) {
+              node.setAttribute('placeholder', EXACT_TEXT_MAP[trimmedPh]);
+            }
+          } else {
+            node.setAttribute('placeholder', node._frPh);
+          }
         }
       }
 
-      // Recurse children
       node.childNodes.forEach(child => translateNodeTree(child, isEn));
     }
   }
