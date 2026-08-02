@@ -19,12 +19,10 @@
   <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
   <script src="js/slider.js" defer></script>
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/site-nav.css">
   <script src="js/i18n.js" defer></script>
 </head>
 
-<body>
+<body data-en-doctitle="Looker Studio Project - BigQuery &amp; Dataform Pipeline - Lydérick Henry">
 
             <a class="skip-link" href="#contenu">Aller au contenu</a>
 
@@ -33,26 +31,24 @@
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Retour</a>
-      <h1>Pipeline Looker Studio : BigQuery & Dataform</h1>
+      <h1 data-en="Looker Studio Pipeline: BigQuery &amp; Dataform">Pipeline Looker Studio : BigQuery & Dataform</h1>
     </div>
   </header>
 
   <main id="contenu" class="container">
     <section class="content-section">
-      <h2>Présentation du Projet</h2>
+      <h2 data-en="Project Overview">Présentation du Projet</h2>
       <div class="content-body">
-      <p><strong>Thème :</strong> Analyse automatisée de la perception de l'Intelligence Artificielle Générative (IAG) en cabinet d'audit.</p>
-      <p><strong>Objectif :</strong> Mise en œuvre d'une architecture Cloud pour transformer des données brutes de questionnaire en indicateurs visuel clairs et exploitables.</p>
+      <p data-en="&lt;strong&gt;Topic:&lt;/strong&gt; automated analysis of how generative AI is perceived inside audit firms."><strong>Thème :</strong> Analyse automatisée de la perception de l'Intelligence Artificielle Générative (IAG) en cabinet d'audit.</p>
+      <p data-en="&lt;strong&gt;Goal:&lt;/strong&gt; build a cloud architecture turning raw survey data into clear, actionable indicators."><strong>Objectif :</strong> Mise en œuvre d'une architecture Cloud pour transformer des données brutes de questionnaire en indicateurs visuel clairs et exploitables.</p>
 
-      <br />
-
-      <h3>Solutions Techniques</h3>
+      <h3 data-en="Technical Solutions">Solutions Techniques</h3>
       <ul>
-        <li><strong>Infrastructure Cloud (GCP) :</strong> Déploiement sur Google Cloud avec paramétrage de facturation et alertes budgétaires pour la maîtrise des coûts.</li>
-        <li><strong>Ingestion de Données :</strong> Flux automatisé entre Google Sheets (réponses Google Form) et BigQuery dans un dataset <code>audit_raw</code>.</li>
-        <li><strong>Transformation (Dataform) :</strong> Développement de scripts SQLX pour le nettoyage, le calcul de scores et le traitement des données.</li>
-        <li><strong>Modélisation :</strong> Création de vues pivotées au format long via la fonction <code>UNNEST</code>.</li>
-        <li><strong>Automatisation :</strong> Configuration de l'ordonnanceur Dataform pour la mise à jour automatique.</li>
+        <li data-en="&lt;strong&gt;Cloud infrastructure (GCP):&lt;/strong&gt; deployed on Google Cloud with billing configuration and budget alerts to keep costs under control."><strong>Infrastructure Cloud (GCP) :</strong> Déploiement sur Google Cloud avec paramétrage de facturation et alertes budgétaires pour la maîtrise des coûts.</li>
+        <li data-en="&lt;strong&gt;Data ingestion:&lt;/strong&gt; automated flow from Google Sheets (Google Form responses) into a BigQuery &lt;code&gt;audit_raw&lt;/code&gt; dataset."><strong>Ingestion de Données :</strong> Flux automatisé entre Google Sheets (réponses Google Form) et BigQuery dans un dataset <code>audit_raw</code>.</li>
+        <li data-en="&lt;strong&gt;Transformation (Dataform):&lt;/strong&gt; SQLX scripts for cleaning, score computation and data processing."><strong>Transformation (Dataform) :</strong> Développement de scripts SQLX pour le nettoyage, le calcul de scores et le traitement des données.</li>
+        <li data-en="&lt;strong&gt;Modelling:&lt;/strong&gt; long-format pivoted views built with the &lt;code&gt;UNNEST&lt;/code&gt; function."><strong>Modélisation :</strong> Création de vues pivotées au format long via la fonction <code>UNNEST</code>.</li>
+        <li data-en="&lt;strong&gt;Automation:&lt;/strong&gt; Dataform scheduler configured to refresh the pipeline automatically."><strong>Automatisation :</strong> Configuration de l'ordonnanceur Dataform pour la mise à jour automatique.</li>
       </ul>
       </div>
     </section>
@@ -92,9 +88,9 @@
     </div>
 
     <div class="button-container">
-      <a href="projets/projet7/codes.txt" class="modern-btn" download>Obtenir les 3 fichiers .sqlx</a>
-      <a href="projets/projet7/Projet Looker Studio.pdf" class="modern-btn" target="_blank">Consulter le rapport PDF</a>
-      <a href="https://docs.google.com/spreadsheets/d/1PDI1qQNvVHDRTVQIJJxQc4GsGnYnVD5sRJNjK0-Hm1A/edit?usp=sharing" class="modern-btn" target="_blank">Lien Google Sheet (Lecture seule)</a>
+      <a href="projets/projet7/codes.txt" class="modern-btn" download data-en="Get the three .sqlx files">Obtenir les 3 fichiers .sqlx</a>
+      <a href="projets/projet7/Projet Looker Studio.pdf" class="modern-btn" target="_blank" data-en="Read the PDF report">Consulter le rapport PDF</a>
+      <a href="https://docs.google.com/spreadsheets/d/1PDI1qQNvVHDRTVQIJJxQc4GsGnYnVD5sRJNjK0-Hm1A/edit?usp=sharing" class="modern-btn" target="_blank" data-en="Google Sheet link (read-only)">Lien Google Sheet (Lecture seule)</a>
     </div>
   </main>
 
@@ -124,6 +120,16 @@
     { title: "Graphe de dépendances", text: "Visualisation du flux de données complet (Compiled Graph) dans Dataform." },
     { title: "Dashboard Looker Studio (Vue 1)", text: "Première page présentant le profil démographique et l'utilisation globale de l'IA." },
     { title: "Dashboard Looker Studio (Vue 2)", text: "Analyse comparative de la productivité et de la qualité perçue par type de tâche." }
+    ];
+
+    window.SLIDER_CAPTIONS_EN = [
+    { title: "Cloud billing management", text: "Budget alerts set up on GCP to keep service usage safe and predictable." },
+    { title: "BigQuery structure", text: "Layered data organisation: audit_raw for raw data, audit_final for processed data." },
+    { title: "source_responses table", text: "The BigQuery table kept in sync with the Google Sheet." },
+    { title: "SQLX cleaning scripts", text: "Dataform used to normalise free-text answers and compute scores." },
+    { title: "Dependency graph", text: "The full data flow (compiled graph) as shown in Dataform." },
+    { title: "Looker Studio dashboard (view 1)", text: "First page: respondent demographics and overall AI usage." },
+    { title: "Looker Studio dashboard (view 2)", text: "Perceived productivity and quality compared across task types." }
     ];
   </script>
 

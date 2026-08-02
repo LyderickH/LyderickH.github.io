@@ -1,7 +1,12 @@
 /* Diaporama partagé par les pages projet.
    Chaque page se contente de déclarer ses légendes :
-     window.SLIDER_CAPTIONS = [{ title: '…', text: '…' }, …];
-   La logique, elle, ne vit qu'ici. */
+     window.SLIDER_CAPTIONS    = [{ title: '…', text: '…' }, …];
+     window.SLIDER_CAPTIONS_EN = [{ title: '…', text: '…' }, …];  (facultatif)
+   La logique, elle, ne vit qu'ici.
+
+   Les légendes sont écrites en JS : le moteur i18n ne peut pas les atteindre.
+   C'est donc le diaporama qui choisit la langue, et qui se redessine quand
+   elle change. */
 (function () {
   function initSlider() {
     var container = document.querySelector('.slider-container');
@@ -16,10 +21,18 @@
     var captionText = container.querySelector('#caption-text');
     var prev = container.querySelector('.prev');
     var next = container.querySelector('.next');
-    var captions = window.SLIDER_CAPTIONS || [];
     var current = 0;
 
+    function captionSet() {
+      var lang = window.i18nLang ? window.i18nLang() : (localStorage.getItem('lang') || 'fr');
+      if (lang === 'en' && window.SLIDER_CAPTIONS_EN && window.SLIDER_CAPTIONS_EN.length) {
+        return window.SLIDER_CAPTIONS_EN;
+      }
+      return window.SLIDER_CAPTIONS || [];
+    }
+
     function show(index) {
+      var captions = captionSet();
       current = (index + slides.length) % slides.length;
 
       for (var i = 0; i < slides.length; i++) {
@@ -59,6 +72,10 @@
 
       show(e.key === 'ArrowLeft' ? current - 1 : current + 1);
     });
+
+    // Le moteur i18n vient de repasser sur la page : réécrire la légende
+    // courante dans la nouvelle langue.
+    document.addEventListener('i18n-applied', function () { show(current); });
 
     show(0);
   }

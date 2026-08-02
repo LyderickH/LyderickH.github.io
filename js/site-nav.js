@@ -25,15 +25,22 @@
     var savedLang = localStorage.getItem('lang') || 'fr';
     document.documentElement.setAttribute('lang', savedLang);
 
+    function ariaLang(lang) {
+      return lang === 'en' ? 'Switch language FR / EN' : 'Basculer la langue FR / EN';
+    }
+    function ariaTheme(lang) {
+      return lang === 'en' ? 'Toggle light / dark theme' : 'Basculer le thème clair / sombre';
+    }
+
     var langBtn =
-      '<button class="lang-toggle" id="lang-toggle" aria-label="Basculer la langue FR / EN" type="button">' +
+      '<button class="lang-toggle" id="lang-toggle" aria-label="' + ariaLang(savedLang) + '" type="button">' +
       '<span class="lang-option lang-fr' + (savedLang === 'fr' ? ' active' : '') + '">FR</span>' +
       '<span class="lang-sep">/</span>' +
       '<span class="lang-option lang-en' + (savedLang === 'en' ? ' active' : '') + '">EN</span>' +
       '</button>';
 
     var themeBtn =
-      '<button class="theme-toggle" id="theme-toggle" aria-label="Basculer le thème clair / sombre" type="button">' +
+      '<button class="theme-toggle" id="theme-toggle" aria-label="' + ariaTheme(savedLang) + '" type="button">' +
       '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' +
       '<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>' +
       '</button>';
@@ -66,7 +73,19 @@
         else if (href.indexOf('cv.html') !== -1) link.textContent = lang === 'en' ? 'Resume' : 'CV';
         else if (href.indexOf('contact') !== -1) link.textContent = 'Contact';
       });
+
+      var lb = nav.querySelector('#lang-toggle');
+      if (lb) lb.setAttribute('aria-label', ariaLang(lang));
+      var tb = nav.querySelector('#theme-toggle');
+      if (tb) tb.setAttribute('aria-label', ariaTheme(lang));
     }
+
+    /* La barre est écrite en JS : le moteur i18n ne la traduit pas. On se
+       raccroche à son signal pour que la nav suive, quel que soit le point
+       d'entrée (clic sur le bouton, setLanguage(), chargement de page). */
+    document.addEventListener('i18n-applied', function (e) {
+      applyNavTranslations(e.detail && e.detail.lang === 'en' ? 'en' : 'fr');
+    });
 
     // Theme toggle listener
     var toggle = document.getElementById('theme-toggle');

@@ -19,11 +19,9 @@
   <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
   <script src="js/slider.js" defer></script>
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/site-nav.css">
   <script src="js/i18n.js" defer></script>
 </head>
-<body>
+<body data-en-doctitle="Power BI Project - Restaurant Chain Dashboard - Lydérick Henry">
 
             <a class="skip-link" href="#contenu">Aller au contenu</a>
 
@@ -32,28 +30,27 @@
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Retour</a>
-      <h1>Projet PowerBI - Dashboard Restauration</h1>
+      <h1 data-en="Power BI Project - Restaurant Chain Dashboard">Projet PowerBI - Dashboard Restauration</h1>
     </div>
   </header>
 
   <main id="contenu" class="container">
     <section class="content-section">
-      <h2>Explications</h2>
-      <p><strong>L'Atelier des Saveurs : Suivi financier multi-sites</strong></p>
-      <p>Dans le cadre d'un projet étudiant, j'ai conçu un rapport complet de suivi financier pour une chaîne de restauration fictive (Lille, Arras, Saint-Malo), basé sur l'analyse de données brutes Excel.</p>
-      
-      <h3>Préparation et Modélisation (ETL et Data Modeling)</h3>
+      <h2 data-en="Overview">Explications</h2>
+      <p data-en="&lt;strong&gt;L'Atelier des Saveurs: multi-site financial tracking&lt;/strong&gt;"><strong>L'Atelier des Saveurs : Suivi financier multi-sites</strong></p>
+      <p data-en="For a student project, I built a complete financial tracking report for a fictitious restaurant chain (Lille, Arras, Saint-Malo), based on raw Excel data.">Dans le cadre d'un projet étudiant, j'ai conçu un rapport complet de suivi financier pour une chaîne de restauration fictive (Lille, Arras, Saint-Malo), basé sur l'analyse de données brutes Excel.</p>
+
+      <h3 data-en="Preparation and Modelling (ETL &amp; Data Modeling)">Préparation et Modélisation (ETL et Data Modeling)</h3>
       <ul>
-        <li><strong>Nettoyage des données (Power Query) :</strong> Dépivotage des données de fréquentation et structuration des objectifs/réalisés (CA, Charges Variables, Charges Fixes).</li>
-        <li><strong>Modélisation en étoile :</strong> Création de tables de faits (ventes/charges, clients) reliées à des tables de dimension (Date, Établissement, Type de vente).</li>
-        <li><strong>Cohérence :</strong> Harmonisation des catégories "Sur place" et "À emporter".</li>
+        <li data-en="&lt;strong&gt;Data cleaning (Power Query):&lt;/strong&gt; unpivoting footfall data and structuring target vs actual figures (revenue, variable costs, fixed costs)."><strong>Nettoyage des données (Power Query) :</strong> Dépivotage des données de fréquentation et structuration des objectifs/réalisés (CA, Charges Variables, Charges Fixes).</li>
+        <li data-en="&lt;strong&gt;Star schema modelling:&lt;/strong&gt; fact tables (sales/costs, customers) linked to dimension tables (Date, Site, Sales channel)."><strong>Modélisation en étoile :</strong> Création de tables de faits (ventes/charges, clients) reliées à des tables de dimension (Date, Établissement, Type de vente).</li>
+        <li data-en="&lt;strong&gt;Consistency:&lt;/strong&gt; harmonised the &quot;dine-in&quot; and &quot;takeaway&quot; categories."><strong>Cohérence :</strong> Harmonisation des catégories "Sur place" et "À emporter".</li>
       </ul>
 
-      <br>
-      <h3>Design et Fonctionnalités</h3>
+      <h3 data-en="Design and Features">Design et Fonctionnalités</h3>
       <ul>
-        <li><strong>UI/UX :</strong> Thème JSON personnalisé, logo généré par IA et menu de navigation intégré pour une expérience utilisateur fluide.</li>
-        <li><strong>DAX avancé :</strong> Mesures dynamiques pour les indicateurs clés et les labels contextuels.</li>
+        <li data-en="&lt;strong&gt;UI/UX:&lt;/strong&gt; custom JSON theme, AI-generated logo and a built-in navigation menu for a smooth experience."><strong>UI/UX :</strong> Thème JSON personnalisé, logo généré par IA et menu de navigation intégré pour une expérience utilisateur fluide.</li>
+        <li data-en="&lt;strong&gt;Advanced DAX:&lt;/strong&gt; dynamic measures for the key indicators and context-aware labels."><strong>DAX avancé :</strong> Mesures dynamiques pour les indicateurs clés et les labels contextuels.</li>
       </ul>
     </section>
 
@@ -84,7 +81,7 @@
     </div>
 
     <div class="button-container">
-      <a href="projets/projet5/rapport powerbi dashboard atelier des saveurs.pdf" class="modern-btn" target="_blank">📄 Télécharger le Rapport PDF</a>
+      <a href="projets/projet5/rapport powerbi dashboard atelier des saveurs.pdf" class="modern-btn" target="_blank" data-en="📄 Download the PDF report">📄 Télécharger le Rapport PDF</a>
     </div>
   </main>
 
@@ -110,6 +107,12 @@
     { title: "Vue Globale", text: "Présentation synthétique des KPIs (CA, Résultat, Panier moyen) avec analyse temporelle et par produit." },
     { title: "Suivi Budgétaire", text: "Analyse des écarts entre le réalisé et le budget pour comprendre la performance financière." },
     { title: "Simulateur", text: "Outil 'What-If' permettant de simuler l'impact d'une variation de CA sur le résultat et la marge." }
+    ];
+
+    window.SLIDER_CAPTIONS_EN = [
+    { title: "Overview", text: "Summary of the key indicators (revenue, profit, average basket) with time and product analysis." },
+    { title: "Budget tracking", text: "Actual vs budget variance analysis to explain financial performance." },
+    { title: "Simulator", text: "What-if tool simulating the impact of a revenue change on profit and margin." }
     ];
   </script>
 

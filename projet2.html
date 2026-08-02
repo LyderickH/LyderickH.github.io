@@ -19,11 +19,9 @@
   <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
   <script src="js/slider.js" defer></script>
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/site-nav.css">
   <script src="js/i18n.js" defer></script>
 </head>
-<body>
+<body data-en-doctitle="Power BI Project - Personal Banking Tracker - Lydérick Henry">
 
             <a class="skip-link" href="#contenu">Aller au contenu</a>
 
@@ -32,20 +30,20 @@
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Retour</a>
-      <h1>Projet PowerBI - Suivi bancaire</h1>
+      <h1 data-en="Power BI Project - Personal Banking Tracker">Projet PowerBI - Suivi bancaire</h1>
     </div>
   </header>
 
   <main id="contenu" class="container">
     <section class="content-section">
-      <h2>Explications</h2>
-      <p><strong>Projet Power BI : Outil de suivi de comptes personnel</strong></p>
-      <p>Ce projet de suivi bancaire est un tableau de bord interactif pour l'analyse des finances. Il illustre l'utilisation de Power BI pour transformer des données brutes de transactions en informations visuelles claires et exploitables.</p>
+      <h2 data-en="Overview">Explications</h2>
+      <p data-en="&lt;strong&gt;Power BI project: personal account tracking tool&lt;/strong&gt;"><strong>Projet Power BI : Outil de suivi de comptes personnel</strong></p>
+      <p data-en="This banking tracker is an interactive dashboard for personal finance analysis. It shows how Power BI turns raw transaction data into clear, actionable visuals.">Ce projet de suivi bancaire est un tableau de bord interactif pour l'analyse des finances. Il illustre l'utilisation de Power BI pour transformer des données brutes de transactions en informations visuelles claires et exploitables.</p>
       <ul>
-        <li>Suivre les <strong>revenus et les dépenses</strong> par catégorie.</li>
-        <li>Comparer les <strong>dépenses réelles</strong> avec un budget prévisionnel.</li>
-        <li>Analyser l'<strong>évolution de la trésorerie</strong> au fil des mois.</li>
-        <li>Visualiser la répartition des dépenses par <strong>type de paiement</strong>.</li>
+        <li data-en="Track &lt;strong&gt;income and spending&lt;/strong&gt; by category.">Suivre les <strong>revenus et les dépenses</strong> par catégorie.</li>
+        <li data-en="Compare &lt;strong&gt;actual spending&lt;/strong&gt; against a forecast budget.">Comparer les <strong>dépenses réelles</strong> avec un budget prévisionnel.</li>
+        <li data-en="Analyse &lt;strong&gt;cash position over time&lt;/strong&gt;, month by month.">Analyser l'<strong>évolution de la trésorerie</strong> au fil des mois.</li>
+        <li data-en="Break spending down by &lt;strong&gt;payment method&lt;/strong&gt;.">Visualiser la répartition des dépenses par <strong>type de paiement</strong>.</li>
       </ul>
     </section>
 
@@ -78,9 +76,9 @@
     </div>
 
     <div class="button-container">
-      <a href="projets/projet2/Projet suivi comptes.pdf" class="modern-btn" target="_blank">📄 Télécharger le PDF</a>
-      <a href="TechniqueBanqueM.M" class="modern-btn" target="_blank">⚙️ Aspect technique (code M)</a>
-      <a href="projets/projet2/BDDbanque.png" class="modern-btn" target="_blank">🗄️ Visualiser la base de données</a>
+      <a href="projets/projet2/Projet suivi comptes.pdf" class="modern-btn" target="_blank" data-en="📄 Download the PDF">📄 Télécharger le PDF</a>
+      <a href="TechniqueBanqueM.M" class="modern-btn" target="_blank" data-en="⚙️ Technical details (M code)">⚙️ Aspect technique (code M)</a>
+      <a href="projets/projet2/BDDbanque.png" class="modern-btn" target="_blank" data-en="🗄️ View the data model">🗄️ Visualiser la base de données</a>
     </div>
   </main>
 
@@ -107,6 +105,13 @@
     { title: "Analyse des flux financiers", text: "Détail des revenus et dépenses, suivi de la trésorerie mensuelle et de l'épargne totale." },
     { title: "Analyse mensuelle détaillée", text: "Analyse fine des revenus et dépenses d'août 2025, avec répartition par type de paiement." },
     { title: "Comparaisons budgétaires", text: "Comparaison des dépenses réelles et du budget par catégorie, et écarts budgétaires par mois." }
+    ];
+
+    window.SLIDER_CAPTIONS_EN = [
+    { title: "Dashboard: banking tracker", text: "Overview and spending tracking for August 2025." },
+    { title: "Cash flow analysis", text: "Income and spending detail, monthly cash position and total savings." },
+    { title: "Detailed monthly analysis", text: "Fine-grained view of August 2025 income and spending, split by payment method." },
+    { title: "Budget comparisons", text: "Actual spending against budget by category, with monthly variances." }
     ];
   </script>
 

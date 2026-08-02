@@ -19,11 +19,9 @@
   <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
   <script src="js/slider.js" defer></script>
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/site-nav.css">
   <script src="js/i18n.js" defer></script>
 </head>
-<body>
+<body data-en-doctitle="Automated Press Review Pipeline - Lydérick Henry">
 
             <a class="skip-link" href="#contenu">Aller au contenu</a>
 
@@ -32,14 +30,14 @@
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Retour</a>
-      <h1>Projet de Revue de Presse Automatisée</h1>
+      <h1 data-en="Automated Press Review Pipeline">Projet de Revue de Presse Automatisée</h1>
     </div>
   </header>
 
   <main id="contenu" class="container">
     <section class="content-section">
-      <h2>Explications</h2>
-      <p>
+      <h2 data-en="Overview">Explications</h2>
+      <p data-en="This project demonstrates my ability to build an end-to-end solution, from data collection to final document generation, using several modern libraries and technologies. The goal was a tool that automates media monitoring and article summarisation from RSS feeds, producing press reviews as Word (.docx) files.">
         Ce projet a pour but de démontrer ma capacité à développer une solution complète, de la collecte de données à la génération de documents finaux, en utilisant plusieurs bibliothèques et technologies modernes. L'objectif est de créer un outil qui automatise la veille et la synthèse d'articles de presse à partir de flux RSS, en générant des revues de presse au format Word (.docx).
       </p>
     </section>
@@ -47,33 +45,33 @@
     <div class="separator"></div>
 
     <section class="content-section">
-      <h2>Fonctionnalités Clés</h2>
-      <p>Ce script Python, <code>rss_processor.py</code>, effectue les tâches suivantes de manière automatique :</p>
+      <h2 data-en="Key Features">Fonctionnalités Clés</h2>
+      <p data-en="The Python script &lt;code&gt;rss_processor.py&lt;/code&gt; handles the following automatically:">Ce script Python, <code>rss_processor.py</code>, effectue les tâches suivantes de manière automatique :</p>
       <ul>
-        <li><strong>Récupération des Flux RSS :</strong> Il se connecte à des flux RSS à partir d'un fichier OPML pour extraire les derniers articles.</li>
-        <li><strong>Extraction de Contenu :</strong> Le script utilise la bibliothèque <code>newspaper</code> pour télécharger et analyser le contenu complet des articles.</li>
-        <li><strong>Traduction Automatique :</strong> Les titres et contenus sont traduits en français via plusieurs services pour garantir la cohérence.</li>
-        <li><strong>Résumé d'Article :</strong> Le script résume les articles longs avec un modèle de langage avancé (BART) pour créer des synthèses concises.</li>
-        <li><strong>Génération de Documents Word :</strong> Les articles sont compilés dans un document Word avec mise en page, table des matières, en-têtes et pieds de page.</li>
-        <li><strong>Traitement en Parallèle :</strong> <code>ThreadPoolExecutor</code> permet de traiter plusieurs flux simultanément, réduisant le temps global.</li>
+        <li data-en="&lt;strong&gt;RSS feed collection:&lt;/strong&gt; connects to the feeds listed in an OPML file and pulls the latest articles."><strong>Récupération des Flux RSS :</strong> Il se connecte à des flux RSS à partir d'un fichier OPML pour extraire les derniers articles.</li>
+        <li data-en="&lt;strong&gt;Content extraction:&lt;/strong&gt; uses the &lt;code&gt;newspaper&lt;/code&gt; library to download and parse the full text of each article."><strong>Extraction de Contenu :</strong> Le script utilise la bibliothèque <code>newspaper</code> pour télécharger et analyser le contenu complet des articles.</li>
+        <li data-en="&lt;strong&gt;Automatic translation:&lt;/strong&gt; titles and bodies are translated into French through several services to keep the output consistent."><strong>Traduction Automatique :</strong> Les titres et contenus sont traduits en français via plusieurs services pour garantir la cohérence.</li>
+        <li data-en="&lt;strong&gt;Article summarisation:&lt;/strong&gt; long articles are condensed with an advanced language model (BART)."><strong>Résumé d'Article :</strong> Le script résume les articles longs avec un modèle de langage avancé (BART) pour créer des synthèses concises.</li>
+        <li data-en="&lt;strong&gt;Word document generation:&lt;/strong&gt; articles are compiled into a Word file with layout, table of contents, headers and footers."><strong>Génération de Documents Word :</strong> Les articles sont compilés dans un document Word avec mise en page, table des matières, en-têtes et pieds de page.</li>
+        <li data-en="&lt;strong&gt;Parallel processing:&lt;/strong&gt; &lt;code&gt;ThreadPoolExecutor&lt;/code&gt; processes several feeds at once, cutting total runtime."><strong>Traitement en Parallèle :</strong> <code>ThreadPoolExecutor</code> permet de traiter plusieurs flux simultanément, réduisant le temps global.</li>
       </ul>
     </section>
 
     <div class="separator"></div>
 
     <section class="content-section">
-      <h2>Téléchargements</h2>
-      <p>Vous pouvez télécharger les fichiers du projet ci-dessous :</p>
+      <h2 data-en="Downloads">Téléchargements</h2>
+      <p data-en="The project files are available below:">Vous pouvez télécharger les fichiers du projet ci-dessous :</p>
       <div class="button-container">
-        <a href="rss_processor.py" class="modern-btn" download>
+        <a href="rss_processor.py" class="modern-btn" download data-en="&lt;span class=&quot;btn-icon&quot;&gt;🐍&lt;/span&gt; Python script">
           <span class="btn-icon">🐍</span>
           Script Python
         </a>
-        <a href="feedly.opml" class="modern-btn" download>
+        <a href="feedly.opml" class="modern-btn" download data-en="&lt;span class=&quot;btn-icon&quot;&gt;📂&lt;/span&gt; Sample Feedly OPML">
           <span class="btn-icon">📂</span>
           Exemple Feedly OPML
         </a>
-        <a href="rss_processor_readme.md" class="modern-btn" download>
+        <a href="rss_processor_readme.md" class="modern-btn" download data-en="&lt;span class=&quot;btn-icon&quot;&gt;📖&lt;/span&gt; README documentation">
           <span class="btn-icon">📖</span>
           Documentation README
         </a>
@@ -136,6 +134,14 @@
     { title: "Articles Finance / IT / Audit", text: "Extrait Word montrant les articles liés à la finance, IT et audit." },
     { title: "Articles Tech", text: "Extrait Word illustrant les articles concernant la technologie." },
     { title: "Exemple Feedly OPML", text: "Exemple de fichier OPML exporté depuis Feedly utilisé pour la collecte des flux RSS." }
+    ];
+
+    window.SLIDER_CAPTIONS_EN = [
+    { title: "Output folder after a run", text: "The folder holding every file generated by the script." },
+    { title: "Code and Word preview", text: "The Python script alongside an extract of an automatically generated Word file." },
+    { title: "Finance / IT / Audit articles", text: "Word extract showing the finance, IT and audit articles." },
+    { title: "Tech articles", text: "Word extract showing the technology articles." },
+    { title: "Sample Feedly OPML", text: "Example OPML file exported from Feedly, used to collect the RSS feeds." }
     ];
   </script>
 
