@@ -624,10 +624,8 @@
   .page-header { padding-block: var(--space-8) var(--space-7); margin-bottom: var(--space-8); }
 }
 
-/* ── Corps de texte ──────────────────────────────────────────────────── */
+/* ── Corps de texte (mise en page éditoriale) ────────────────────────── */
 
-/* La contrainte de longueur de ligne s'applique au texte, pas à la section :
-   tableaux, grilles de chiffres et figures doivent pouvoir respirer. */
 .content-section {
   margin-bottom: var(--space-8);
 }
@@ -635,10 +633,9 @@
 .content-section > p,
 .content-section > ul,
 .content-section > ol,
-.content-section > h2,
 .content-section > h3,
 .content-section > blockquote {
-  max-width: var(--measure);
+  max-width: 100%;
 }
 
 /* Sur les pages qui enchaînent plusieurs sections, un filet les sépare */
@@ -650,6 +647,31 @@
 .content-section h2 {
   font-size: var(--step-3);
   margin-bottom: var(--space-5);
+  line-height: var(--leading-tight);
+}
+
+/* Disposition éditoriale "titre en colonne latérale" sur desktop */
+@media (min-width: 769px) {
+  .content-section:has(> h2) {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    column-gap: var(--space-7);
+    row-gap: var(--space-4);
+    align-items: start;
+  }
+
+  .content-section > h2 {
+    grid-column: 1;
+    grid-row: 1 / span 99;
+    align-self: start;
+    position: sticky;
+    top: var(--space-6);
+    margin-bottom: 0;
+  }
+
+  .content-section > :not(h2) {
+    grid-column: 2;
+  }
 }
 
 .content-section h3 {
