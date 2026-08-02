@@ -42,18 +42,31 @@
       '<div class="nav-inner">' +
       '<a href="' + prefix + 'index.html" class="nav-logo">Lydérick Henry</a>' +
       '<div class="nav-links">' +
-      '<a href="' + prefix + 'a-propos.html" class="' + linkClass('a-propos') + '">À propos</a>' +
-      '<a href="' + projetsHref + '" class="' + linkClass('projets') + '">Projets</a>' +
-      '<a href="' + prefix + 'explorateur.html" class="' + linkClass('explorateur') + '" data-secondary="true">Explorateur data</a>' +
-      '<a href="' + prefix + 'memoire.html" class="' + linkClass('memoire') + '" data-secondary="true">Mémoire</a>' +
-      '<a href="' + prefix + 'cv.html" class="' + linkClass('cv') + '" data-secondary="true">CV</a>' +
+      '<a href="' + prefix + 'a-propos.html" class="' + linkClass('a-propos') + '">' + (savedLang === 'en' ? 'About' : 'À propos') + '</a>' +
+      '<a href="' + projetsHref + '" class="' + linkClass('projets') + '">' + (savedLang === 'en' ? 'Projects' : 'Projets') + '</a>' +
+      '<a href="' + prefix + 'explorateur.html" class="' + linkClass('explorateur') + '" data-secondary="true">' + (savedLang === 'en' ? 'Data Explorer' : 'Explorateur data') + '</a>' +
+      '<a href="' + prefix + 'memoire.html" class="' + linkClass('memoire') + '" data-secondary="true">' + (savedLang === 'en' ? 'Thesis' : 'Mémoire') + '</a>' +
+      '<a href="' + prefix + 'cv.html" class="' + linkClass('cv') + '" data-secondary="true">' + (savedLang === 'en' ? 'Resume' : 'CV') + '</a>' +
       '<a href="' + prefix + 'contact.html" class="' + linkClass('contact') + '">Contact</a>' +
       '<div class="nav-controls">' +
-      langBtn +
       themeBtn +
+      langBtn +
       '</div>' +
       '</div>' +
       '</div>';
+
+    function applyNavTranslations(lang) {
+      var links = nav.querySelectorAll('.nav-link');
+      links.forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (href.indexOf('a-propos') !== -1) link.textContent = lang === 'en' ? 'About' : 'À propos';
+        else if (href.indexOf('projets.html') !== -1) link.textContent = lang === 'en' ? 'Projects' : 'Projets';
+        else if (href.indexOf('explorateur') !== -1) link.textContent = lang === 'en' ? 'Data Explorer' : 'Explorateur data';
+        else if (href.indexOf('memoire') !== -1) link.textContent = lang === 'en' ? 'Thesis' : 'Mémoire';
+        else if (href.indexOf('cv.html') !== -1) link.textContent = lang === 'en' ? 'Resume' : 'CV';
+        else if (href.indexOf('contact') !== -1) link.textContent = 'Contact';
+      });
+    }
 
     // Theme toggle listener
     var toggle = document.getElementById('theme-toggle');
@@ -72,7 +85,8 @@
     var langToggle = document.getElementById('lang-toggle');
     if (langToggle && !langToggle.dataset.bound) {
       langToggle.dataset.bound = 'true';
-      langToggle.addEventListener('click', function () {
+      langToggle.addEventListener('click', function (e) {
+        e.preventDefault();
         var currentLang = localStorage.getItem('lang') || 'fr';
         var nextLang = currentLang === 'fr' ? 'en' : 'fr';
         localStorage.setItem('lang', nextLang);
@@ -89,6 +103,7 @@
             frEl.classList.add('active');
           }
         }
+        applyNavTranslations(nextLang);
         document.dispatchEvent(new CustomEvent('lang-changed', { detail: { lang: nextLang } }));
       });
     }
