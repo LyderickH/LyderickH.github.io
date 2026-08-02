@@ -791,17 +791,15 @@
   line-height: var(--leading-tight);
 }
 
-/* Disposition éditoriale 2 colonnes propre et sans chevauchement sur desktop */
+/* Disposition éditoriale 2 colonnes propre : UNIQUEMENT pour les sections avec conteneur .content-body */
 @media (min-width: 769px) {
-  .content-section:has(> .content-body),
-  .content-section:has(> div:only-of-type) {
+  .content-section:has(> .content-body) {
     display: flex;
     gap: var(--space-6);
     align-items: flex-start;
   }
 
-  .content-section:has(> .content-body) > h2,
-  .content-section:has(> div:only-of-type) > h2 {
+  .content-section:has(> .content-body) > h2 {
     width: 220px;
     flex-shrink: 0;
     margin-bottom: 0;
@@ -809,8 +807,7 @@
     top: var(--space-6);
   }
 
-  .content-section > .content-body,
-  .content-section > div {
+  .content-section > .content-body {
     flex: 1;
     min-width: 0;
   }

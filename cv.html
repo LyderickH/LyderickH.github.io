@@ -172,9 +172,43 @@
 
     /* ── Compétences ──────────────────────────────────────────────────── */
 
+    .skills-groups {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: var(--space-5);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .skills-group .skills-heading {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: var(--space-3);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .skill-chip {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      background: var(--surface);
+      border: 1px solid var(--rule-strong);
+      border-radius: var(--radius);
+      padding: 0.3rem 0.65rem;
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .skill-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .info-card {
