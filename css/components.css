@@ -755,15 +755,28 @@
 /* ── Corps de texte (mise en page éditoriale) ────────────────────────── */
 
 .content-section {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .content-section > p,
 .content-section > ul,
 .content-section > ol,
 .content-section > h3,
-.content-section > blockquote {
+.content-section > blockquote,
+.content-body > p,
+.content-body > ul,
+.content-body > ol,
+.content-body > h3 {
   max-width: 100%;
+}
+
+.content-body > p + p {
+  margin-top: var(--space-3);
+}
+
+.content-body > h3 {
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-3);
 }
 
 /* Sur les pages qui enchaînent plusieurs sections, un filet les sépare */
@@ -778,15 +791,17 @@
   line-height: var(--leading-tight);
 }
 
-/* Disposition éditoriale 2 colonnes propre et resserrée sur desktop */
+/* Disposition éditoriale 2 colonnes propre et sans chevauchement sur desktop */
 @media (min-width: 769px) {
-  .content-section {
+  .content-section:has(> .content-body),
+  .content-section:has(> div:only-of-type) {
     display: flex;
     gap: var(--space-6);
     align-items: flex-start;
   }
 
-  .content-section > h2 {
+  .content-section:has(> .content-body) > h2,
+  .content-section:has(> div:only-of-type) > h2 {
     width: 220px;
     flex-shrink: 0;
     margin-bottom: 0;
@@ -794,8 +809,8 @@
     top: var(--space-6);
   }
 
-  .content-section > div,
-  .content-section > .content-body {
+  .content-section > .content-body,
+  .content-section > div {
     flex: 1;
     min-width: 0;
   }
@@ -1308,27 +1323,30 @@
 
 /* ── Contact ─────────────────────────────────────────────────────────── */
 
+/* ── Contact ─────────────────────────────────────────────────────────── */
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-6);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 861px) {
   .contact-grid {
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1.25fr 0.75fr;
     gap: var(--space-7);
+    align-items: stretch;
   }
 }
 
 .contact-cards-group {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
-@media (min-width: 520px) {
+@media (min-width: 540px) {
   .contact-cards-group {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1338,9 +1356,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--space-5);
+  padding: var(--space-6);
   background: var(--surface);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--rule-strong);
   border-radius: var(--radius-lg);
   text-decoration: none;
   color: inherit;
@@ -1349,14 +1367,14 @@
 }
 
 .contact-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--accent);
   box-shadow: var(--shadow-md);
 }
 
 .contact-card-icon {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--accent-soft);
   color: var(--accent);
@@ -1373,8 +1391,8 @@
 }
 
 .contact-card-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .contact-card-label {
@@ -1382,13 +1400,14 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--accent);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .contact-card-value {
   font-family: var(--font-body);
-  font-size: 0.98rem;
+  font-size: 1.02rem;
   font-weight: 600;
   color: var(--ink);
   margin-bottom: var(--space-2);
@@ -1396,30 +1415,36 @@
 }
 
 .contact-card-sub {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--ink-soft);
 }
 
 .contact-card-action {
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--accent);
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  transition: transform var(--transition);
+}
+
+.contact-card:hover .contact-card-action {
+  transform: translateX(4px);
 }
 
 .cv-cta-card {
   padding: var(--space-6);
   background: var(--surface);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--rule-strong);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: var(--space-6);
 }
 
 .cv-cta-card h2 {
@@ -1429,15 +1454,20 @@
 
 .cv-cta-card p {
   color: var(--ink-soft);
-  font-size: 0.92rem;
-  line-height: 1.55;
-  margin-bottom: var(--space-5);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .cv-cta-actions {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+}
+
+.cv-cta-actions .btn {
+  justify-content: center;
+  padding: 0.8rem 1.25rem;
+  border-radius: 9999px;
 }
 
 /* ── Lien d'evitement ────────────────────────────────────────────────── */
