@@ -1239,7 +1239,10 @@
   }
 }
 
-.work-item[hidden] { display: none; }
+.work-item[hidden],
+.work-list .work-item[hidden] {
+  display: none !important;
+}
 
 /* ── Page methode ────────────────────────────────────────────────────── */
 
