@@ -48,7 +48,7 @@
       'cv.skills_title': 'Compétences clés',
 
       'about.title': 'À propos',
-      'about.subtitle': 'De la comptabilité et l\'audit vers l\'ingénierie data',
+      'about.subtitle': 'Mon parcours, ma démarche et comment j\'allie la rigueur financière à l\'ingénierie data pour automatiser et créer de la valeur.',
 
       'footer.rights': 'Tous droits réservés.'
     },
@@ -100,7 +100,7 @@
       'cv.skills_title': 'Key Skills',
 
       'about.title': 'About Me',
-      'about.subtitle': 'From accounting & audit to data engineering',
+      'about.subtitle': 'My background, methodology, and how I combine financial rigor with data engineering to automate and deliver value.',
 
       'footer.rights': 'All rights reserved.'
     }
