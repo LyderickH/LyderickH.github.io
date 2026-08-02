@@ -1,0 +1,7 @@
+# Copie recursive du depot dans lui-meme (source du sous-module fantome)
+/LyderickH.github.io/
+
+# Fichiers systeme
+Thumbs.db
+desktop.ini
+.DS_Store
