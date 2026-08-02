@@ -150,18 +150,42 @@
     "Télécharger le CV A4 (PDF) ↗": "Download A4 PDF Resume ↗"
   };
 
-  // Reverse map for EN -> FR
-  const REVERSE_TEXT_MAP = {};
-  Object.keys(EXACT_TEXT_MAP).forEach(frText => {
-    REVERSE_TEXT_MAP[EXACT_TEXT_MAP[frText]] = frText;
-  });
+  /* ------------------------------------------------------------------------
+     Deux mécanismes cohabitent :
+
+     1. `data-en` posé sur un élément : sa valeur est le HTML anglais complet
+        de cet élément. C'est le mécanisme principal — il gère les blocs
+        contenant du balisage en ligne (<strong>, <a>, <span>…), que le
+        remplacement texte-à-texte ne pouvait pas atteindre.
+     2. EXACT_TEXT_MAP : repli texte-à-texte pour les nœuds de texte simples,
+        conservé pour tout ce qui est déjà couvert.
+
+     Attributs traduisibles : data-en-placeholder, data-en-alt,
+     data-en-aria-label, data-en-title. Le <title> du document se déclare
+     avec data-en-doctitle sur <body>.
+     --------------------------------------------------------------------- */
+
+  const ATTR_PAIRS = [
+    ['data-en-placeholder', 'placeholder'],
+    ['data-en-alt', 'alt'],
+    ['data-en-aria-label', 'aria-label'],
+    ['data-en-title', 'title']
+  ];
+
+  function translateAttributes(el, isEn) {
+    ATTR_PAIRS.forEach(function (pair) {
+      const enValue = el.getAttribute(pair[0]);
+      if (enValue === null) return;
+      const store = '_fr_' + pair[1];
+      if (el[store] === undefined) el[store] = el.getAttribute(pair[1]) || '';
+      el.setAttribute(pair[1], isEn ? enValue : el[store]);
+    });
+  }
 
   function translateNodeTree(node, isEn) {
     if (node.nodeType === Node.TEXT_NODE) {
-      // Stocker le texte original en Français dès la première lecture
-      if (node._frText === undefined) {
-        node._frText = node.textContent;
-      }
+      // Mémoriser le texte français dès la première lecture
+      if (node._frText === undefined) node._frText = node.textContent;
 
       const origText = node._frText;
       if (!origText || origText.trim().length === 0) return;
@@ -172,62 +196,86 @@
           node.textContent = origText.replace(trimmed, EXACT_TEXT_MAP[trimmed]);
         }
       } else {
-        // Restauration exacte du texte original en Français
         node.textContent = origText;
       }
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      // Ne pas modifier les balises de script et de style
-      if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
-
-      if (node.tagName === 'INPUT' || node.tagName === 'TEXTAREA') {
-        const ph = node.getAttribute('placeholder');
-        if (ph) {
-          if (node._frPh === undefined) node._frPh = ph;
-          if (isEn) {
-            const trimmedPh = node._frPh.trim();
-            if (EXACT_TEXT_MAP[trimmedPh]) {
-              node.setAttribute('placeholder', EXACT_TEXT_MAP[trimmedPh]);
-            }
-          } else {
-            node.setAttribute('placeholder', node._frPh);
-          }
-        }
-      }
-
-      node.childNodes.forEach(child => translateNodeTree(child, isEn));
+      return;
     }
+
+    if (node.nodeType !== Node.ELEMENT_NODE) return;
+    if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
+
+    /* La barre de navigation est injectée et retraduite par site-nav.js.
+       Y toucher ici mémoriserait de l'anglais comme « texte français » quand
+       la page démarre déjà en EN, et le retour au français resterait bloqué. */
+    if (node.classList && node.classList.contains('site-nav')) return;
+
+    translateAttributes(node, isEn);
+
+    // Un élément porteur de data-en est traduit en bloc : on ne descend pas.
+    if (node.hasAttribute('data-en')) {
+      if (node._frHtml === undefined) node._frHtml = node.innerHTML;
+      const target = isEn ? node.getAttribute('data-en') : node._frHtml;
+      if (node.innerHTML !== target) node.innerHTML = target;
+      return;
+    }
+
+    // childNodes est une NodeList vivante : figer avant de muter l'arbre.
+    const children = Array.prototype.slice.call(node.childNodes);
+    children.forEach(function (child) { translateNodeTree(child, isEn); });
   }
+
+  let currentLang = 'fr';
 
   function translateDOM(lang) {
     const targetLang = lang === 'en' ? 'en' : 'fr';
+    currentLang = targetLang;
     document.documentElement.setAttribute('lang', targetLang);
     const isEn = targetLang === 'en';
 
-    // Translate DOM text tree
     translateNodeTree(document.body, isEn);
 
-    // Placeholder explicitly
+    // Titre du document
+    const docTitleEn = document.body.getAttribute('data-en-doctitle');
+    if (docTitleEn) {
+      if (document.body._frDocTitle === undefined) {
+        document.body._frDocTitle = document.title;
+      }
+      document.title = isEn ? docTitleEn : document.body._frDocTitle;
+    }
+
+    // Champ de recherche de la page projets (injecté sans data-en)
     const searchInput = document.getElementById('projet-search');
-    if (searchInput) {
-      searchInput.placeholder = isEn 
-        ? 'Search by keyword (Power BI, Python, Audit, DAX, SQL, GCP...)' 
+    if (searchInput && !searchInput.hasAttribute('data-en-placeholder')) {
+      searchInput.placeholder = isEn
+        ? 'Search by keyword (Power BI, Python, Audit, DAX, SQL, GCP...)'
         : 'Rechercher par mot-clé (Power BI, Python, Audit, DAX, SQL, GCP...)';
     }
+
+    // Laisser les composants qui réécrivent du texte (diaporama, filtres…)
+    // se remettre dans la bonne langue.
+    document.dispatchEvent(new CustomEvent('i18n-applied', { detail: { lang: targetLang } }));
   }
+
+  // API publique : utile aux composants qui injectent du texte après coup.
+  window.i18nLang = function () { return currentLang; };
+  window.i18nApply = function () { translateDOM(currentLang); };
 
   window.setLanguage = function (lang) {
     localStorage.setItem('lang', lang);
     translateDOM(lang);
   };
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const saved = localStorage.getItem('lang') || 'fr';
-    translateDOM(saved);
-  });
+  function boot() {
+    translateDOM(localStorage.getItem('lang') || 'fr');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
 
   document.addEventListener('lang-changed', function (e) {
-    if (e.detail && e.detail.lang) {
-      translateDOM(e.detail.lang);
-    }
+    if (e.detail && e.detail.lang) translateDOM(e.detail.lang);
   });
 })();

@@ -19,11 +19,9 @@
   <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
   <script src="js/slider.js" defer></script>
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/site-nav.css">
   <script src="js/i18n.js" defer></script>
 </head>
-<body>
+<body data-en-doctitle="Tableau Project - Investor Behaviour Dashboard (Kaggle) - Lydérick Henry">
 
             <a class="skip-link" href="#contenu">Aller au contenu</a>
 
@@ -32,29 +30,27 @@
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Retour</a>
-      <h1>Dashboard Tableau : Analyse Financière (Kaggle)</h1>
+      <h1 data-en="Tableau Dashboard: Investor Behaviour Analysis (Kaggle)">Dashboard Tableau : Analyse Financière (Kaggle)</h1>
     </div>
   </header>
 
   <main id="contenu" class="container">
     <section class="content-section">
-      <h2>Présentation du Projet</h2>
-      <p><strong>Objectif :</strong> Analyse interactive du profil et des préférences des investisseurs via le dataset finance_data.csv.</p>
-      
-      <br>
-      <h3>Solutions Techniques</h3>
+      <h2 data-en="Project Overview">Présentation du Projet</h2>
+      <p data-en="&lt;strong&gt;Goal:&lt;/strong&gt; interactive analysis of investor profiles and preferences using the finance_data.csv dataset."><strong>Objectif :</strong> Analyse interactive du profil et des préférences des investisseurs via le dataset finance_data.csv.</p>
+
+      <h3 data-en="Technical Solutions">Solutions Techniques</h3>
       <ul>
-        <li><strong>Inversion d'échelle :</strong> Calcul ad hoc (8 moins le rang) pour valoriser visuellement les actifs préférés par des barres plus longues.</li>
-        <li><strong>Paramètre Dynamique :</strong> Switch entre colonnes de motivations via une fonction CASE pour contourner la limite technique du Pivot unique.</li>
-        <li><strong>Interactivité :</strong> Centralisation des contrôles par filtres globaux (Genre, Âge) pilotant l'ensemble du dashboard.</li>
-        <li><strong>Structure :</strong> Intégration d'une barre latérale regroupant les indicateurs clés (KPI) et les sélecteurs.</li>
+        <li data-en="&lt;strong&gt;Scale inversion:&lt;/strong&gt; ad-hoc calculation (8 minus the rank) so that preferred assets read as longer bars."><strong>Inversion d'échelle :</strong> Calcul ad hoc (8 moins le rang) pour valoriser visuellement les actifs préférés par des barres plus longues.</li>
+        <li data-en="&lt;strong&gt;Dynamic parameter:&lt;/strong&gt; switching between motivation columns through a CASE function, working around the single-pivot limitation."><strong>Paramètre Dynamique :</strong> Switch entre colonnes de motivations via une fonction CASE pour contourner la limite technique du Pivot unique.</li>
+        <li data-en="&lt;strong&gt;Interactivity:&lt;/strong&gt; controls centralised into global filters (gender, age) driving the whole dashboard."><strong>Interactivité :</strong> Centralisation des contrôles par filtres globaux (Genre, Âge) pilotant l'ensemble du dashboard.</li>
+        <li data-en="&lt;strong&gt;Structure:&lt;/strong&gt; a sidebar grouping the key indicators (KPIs) and the selectors."><strong>Structure :</strong> Intégration d'une barre latérale regroupant les indicateurs clés (KPI) et les sélecteurs.</li>
       </ul>
 
-      <br>
-      <h3>Compétences clés</h3>
+      <h3 data-en="Key Skills">Compétences clés</h3>
       <ul>
-        <li><strong>Tableau :</strong> Maîtrise des paramètres, calculs ad hoc et filtrage global.</li>
-        <li><strong>Data Storytelling :</strong> Transformation de données brutes en visualisations stratégiques (matrice objectifs/finalités).</li>
+        <li data-en="&lt;strong&gt;Tableau:&lt;/strong&gt; parameters, ad-hoc calculations and global filtering."><strong>Tableau :</strong> Maîtrise des paramètres, calculs ad hoc et filtrage global.</li>
+        <li data-en="&lt;strong&gt;Data storytelling:&lt;/strong&gt; turning raw data into strategic visuals (goals/purpose matrix)."><strong>Data Storytelling :</strong> Transformation de données brutes en visualisations stratégiques (matrice objectifs/finalités).</li>
       </ul>
     </section>
 
@@ -95,8 +91,8 @@
     </div>
 
     <div class="button-container">
-      <a href="projets/projet6/investissement analyse.twb" class="modern-btn" download>📊 Télécharger le fichier Tableau (.twb)</a>
-      <a href="projets/projet6/Finance_data.csv" class="modern-btn" download>📄 Télécharger le Dataset (CSV)</a>
+      <a href="projets/projet6/investissement analyse.twb" class="modern-btn" download data-en="📊 Download the Tableau workbook (.twb)">📊 Télécharger le fichier Tableau (.twb)</a>
+      <a href="projets/projet6/Finance_data.csv" class="modern-btn" download data-en="📄 Download the dataset (CSV)">📄 Télécharger le Dataset (CSV)</a>
     </div>
   </main>
 
@@ -127,6 +123,17 @@
     { title: "Objectifs et Finalités", text: "Analyse des motivations profondes et des buts de l'investissement." },
     { title: "Sources d'Informations", text: "Canaux privilégiés par les investisseurs pour s'informer." },
     { title: "Motivation par Actif", text: "Détail des motivations spécifiques pour chaque type d'actif (via Paramètre Dynamique)." }
+    ];
+
+    window.SLIDER_CAPTIONS_EN = [
+    { title: "Dashboard overview", text: "Full view for analysing investment preferences, with dynamic filters." },
+    { title: "Data source", text: "A look at the original dataset and its structure." },
+    { title: "Respondent profile", text: "Demographic analysis of the investors (gender, age, marital status)." },
+    { title: "Preference ranking", text: "Favourite assets, with an inverted scale for readability." },
+    { title: "Horizon vs return", text: "Return expectations compared against investment horizon." },
+    { title: "Goals and purposes", text: "Analysis of underlying motivations and investment goals." },
+    { title: "Information sources", text: "Channels investors rely on to inform their decisions." },
+    { title: "Motivation by asset", text: "Motivations specific to each asset type (via the dynamic parameter)." }
     ];
   </script>
 
