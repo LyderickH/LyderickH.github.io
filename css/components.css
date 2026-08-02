@@ -1162,6 +1162,43 @@
   line-height: 1.4;
 }
 
+/* ── Encadré d'accentuation ──────────────────────────────────────────
+   Le point à retenir d'un projet, sorti du fil du texte. Volontairement
+   sobre : un filet accentué et un fond teinté suffisent à décrocher l'œil
+   sans casser la lecture. Un seul par section, sinon plus rien ne ressort. */
+
+.callout {
+  margin-block: var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.callout-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--label-size);
+  font-weight: 500;
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+
+.callout p {
+  color: var(--ink);
+  margin-bottom: 0;
+}
+
+.callout p + p { margin-top: var(--space-3); }
+
+/* Dans la mise en page éditoriale, l'encadré suit la colonne de texte
+   mais s'autorise toute sa largeur : c'est ce décalage qui le détache. */
+@media (min-width: 900px) {
+  .content-section:has(> h2) > .callout { max-width: 68ch; }
+}
+
 /* ── Grille des variables du modèle ─────────────────────────────────── */
 
 .vars-grid {

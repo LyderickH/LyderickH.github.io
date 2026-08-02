@@ -50,25 +50,45 @@
         <li data-en="&lt;strong&gt;Modelling:&lt;/strong&gt; long-format pivoted views built with the &lt;code&gt;UNNEST&lt;/code&gt; function."><strong>Modélisation :</strong> Création de vues pivotées au format long via la fonction <code>UNNEST</code>.</li>
         <li data-en="&lt;strong&gt;Automation:&lt;/strong&gt; Dataform scheduler configured to refresh the pipeline automatically."><strong>Automatisation :</strong> Configuration de l'ordonnanceur Dataform pour la mise à jour automatique.</li>
       </ul>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-value">Form → BI</span>
+          <span class="kpi-label" data-en="end-to-end chain: Google Form, Sheets, BigQuery, Looker Studio">chaîne de bout en bout : Google Form, Sheets, BigQuery, Looker Studio</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-value">3</span>
+          <span class="kpi-label" data-en="SQLX scripts: cleaning, scoring, pivoting">scripts SQLX : nettoyage, calcul de scores, pivot</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-value">0</span>
+          <span class="kpi-label" data-en="manual steps once the scheduler runs">manipulation manuelle une fois l'ordonnanceur en place</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-label" data-en="The reflex worth keeping">Le réflexe à garder</span>
+        <p data-en="Budget alerts were set up &lt;strong&gt;before&lt;/strong&gt; the first query, not after the first invoice. On a pay-per-query platform, cost control is part of the architecture — not an afterthought.">Les alertes budgétaires ont été posées <strong>avant</strong> la première requête, pas après la première facture. Sur une plateforme facturée à l'usage, la maîtrise des coûts fait partie de l'architecture — elle ne s'ajoute pas après coup.</p>
+      </div>
       </div>
     </section>
 
-    <div class="slider-container" aria-label="Galerie du projet">
+    <div class="slider-container" aria-label="Galerie du projet" data-en-aria-label="Project gallery">
       <div class="slider-wrapper">
-        <img src="projets/projet7/cloud_billing.webp" alt="Gestion de la facturation Cloud" class="slide active" / width="1600" height="792">
-        <img src="projets/projet7/bigquery_datasets.webp" alt="Structure BigQuery" class="slide" / width="1600" height="802">
+        <img src="projets/projet7/cloud_billing.webp" alt="Gestion de la facturation Cloud" data-en-alt="Cloud billing management" class="slide active" / width="1600" height="792">
+        <img src="projets/projet7/bigquery_datasets.webp" alt="Structure BigQuery" data-en-alt="BigQuery structure" class="slide" / width="1600" height="802">
         <img src="projets/projet7/bigquery_datasets_2.webp" alt="Table source_responses" class="slide" / width="1600" height="802">
-        <img src="projets/projet7/dataform_cleaning.webp" alt="Scripts SQLX de nettoyage" class="slide" / width="1600" height="784">
-        <img src="projets/projet7/dataform_projet7.webp" alt="Graphe de dépendances" class="slide" / width="1600" height="792">
-        <img src="projets/projet7/looker_studio_p1.webp" alt="Dashboard Looker Studio p1" class="slide" / width="843" height="873">
-        <img src="projets/projet7/looker_studio_p2.webp" alt="Dashboard Looker Studio p2" class="slide" / width="845" height="872">
+        <img src="projets/projet7/dataform_cleaning.webp" alt="Scripts SQLX de nettoyage" data-en-alt="SQLX cleaning scripts" class="slide" / width="1600" height="784">
+        <img src="projets/projet7/dataform_projet7.webp" alt="Graphe de dépendances" data-en-alt="Dependency graph" class="slide" / width="1600" height="792">
+        <img src="projets/projet7/looker_studio_p1.webp" alt="Dashboard Looker Studio p1" data-en-alt="Looker Studio dashboard p1" class="slide" / width="843" height="873">
+        <img src="projets/projet7/looker_studio_p2.webp" alt="Dashboard Looker Studio p2" data-en-alt="Looker Studio dashboard p2" class="slide" / width="845" height="872">
 
         <div class="slide-controls">
-          <button class="slide-btn prev" type="button" aria-label="Image précédente">‹</button>
-          <button class="slide-btn next" type="button" aria-label="Image suivante">›</button>
+          <button class="slide-btn prev" type="button" aria-label="Image précédente" data-en-aria-label="Previous image">‹</button>
+          <button class="slide-btn next" type="button" aria-label="Image suivante" data-en-aria-label="Next image">›</button>
         </div>
 
-        <div class="slide-indicators" aria-label="Indicateurs du slider">
+        <div class="slide-indicators" aria-label="Indicateurs du slider" data-en-aria-label="Slider indicators">
           <button class="indicator active" type="button" data-slide="0" aria-label="Image 1"></button>
           <button class="indicator" type="button" data-slide="1" aria-label="Image 2"></button>
           <button class="indicator" type="button" data-slide="2" aria-label="Image 3"></button>

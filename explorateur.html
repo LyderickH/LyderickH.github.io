@@ -19,7 +19,28 @@
   <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
   <style>
-    /* Propre à cette page : l'outil embarqué */
+    /* ── Propre à cette page : l'outil embarqué ──────────────────────────
+       L'outil est une application à part entière : la colonne de lecture
+       (1120px) l'étrangle. On lui donne sa propre largeur, plus généreuse,
+       et une hauteur indexée sur le viewport pour éviter le double
+       ascenseur qui rendait l'ensemble illisible. */
+
+    /* L'outil centre lui-même son contenu : l'élargir au-delà de la grille
+       du site n'ajoutait que du vide latéral. On reprend donc exactement la
+       géométrie de .container pour rester aligné au texte, et c'est la
+       hauteur qui fait le gain de lisibilité. */
+    .embed-section {
+      width: 100%;
+      max-width: var(--container);
+      margin-inline: auto;
+      margin-bottom: var(--space-8);
+      padding-inline: var(--space-5);
+    }
+
+    @media (min-width: 641px) {
+      .embed-section { padding-inline: var(--space-6); }
+    }
+
     .embed-header {
       display: flex;
       align-items: baseline;
@@ -45,12 +66,41 @@
       color: var(--accent);
       text-decoration: none;
       white-space: nowrap;
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
     }
 
-    .embed-block iframe { height: 560px; }
+    .fullscreen-link:hover { border-bottom-color: var(--accent); }
 
-    @media (min-width: 721px) {
-      .embed-block iframe { height: 760px; }
+    /* Le cadre porte la bordure et le rayon : l'iframe, elle, reste nue.
+       Sans ça les coins arrondis sont mangés par le contenu embarqué. */
+    .embed-frame {
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-muted);
+      box-shadow: var(--shadow-sm, 0 1px 2px rgb(0 0 0 / 0.04));
+    }
+
+    .embed-frame iframe {
+      display: block;
+      width: 100%;
+      height: clamp(520px, 78vh, 900px);
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .embed-note {
+      margin-top: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      color: var(--ink-faint);
+    }
+
+    @media (max-width: 720px) {
+      .embed-frame iframe { height: clamp(460px, 70vh, 640px); }
+      .embed-header { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
     }
   </style>
   <script src="js/i18n.js" defer></script>
@@ -70,32 +120,42 @@
     </div>
   </header>
 
-  <main id="contenu" class="container">
-    <section class="content-section">
-      <h2 data-en="About">À propos</h2>
-      <p data-en="Interactive application to search and explore the datasets published on &lt;strong&gt;data.gouv.fr&lt;/strong&gt;, the French open data platform. The tool queries the public API and presents the results in a readable, filterable way: organisations, formats, update dates and so on. Hosted on &lt;strong&gt;Hugging Face Spaces&lt;/strong&gt;.">
-        Application interactive permettant de rechercher et d'explorer les jeux de données publiés sur
-        <strong>data.gouv.fr</strong>, la plateforme française de l'open data. L'outil interroge l'API
-        publique et présente les résultats de façon lisible et filtrée : organisations, formats, dates de
-        mise à jour, etc. Hébergé sur <strong>Hugging Face Spaces</strong>.
-      </p>
-    </section>
-
-    <div class="embed-block">
-      <div class="embed-header">
-        <h2 data-en="Open the tool">Accéder à l'outil</h2>
-        <a href="https://huggingface.co/spaces/LyderickH/Datagouv-explorer" target="_blank" rel="noopener" class="fullscreen-link" data-en="↗ Open fullscreen">
-          ↗ Ouvrir en plein écran
-        </a>
-      </div>
-      <iframe
-        src="https://lyderickh-datagouv-explorer.hf.space"
-        title="Explorateur data.gouv.fr"
-        loading="lazy"
-        referrerpolicy="no-referrer"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-      ></iframe>
+  <main id="contenu">
+    <div class="container">
+      <section class="content-section">
+        <h2 data-en="About">À propos</h2>
+        <p data-en="Interactive application to search and explore the datasets published on &lt;strong&gt;data.gouv.fr&lt;/strong&gt;, the French open data platform. The tool queries the public API and presents the results in a readable, filterable way: organisations, formats, update dates and so on. Hosted on &lt;strong&gt;Hugging Face Spaces&lt;/strong&gt;.">
+          Application interactive permettant de rechercher et d'explorer les jeux de données publiés sur
+          <strong>data.gouv.fr</strong>, la plateforme française de l'open data. L'outil interroge l'API
+          publique et présente les résultats de façon lisible et filtrée : organisations, formats, dates de
+          mise à jour, etc. Hébergé sur <strong>Hugging Face Spaces</strong>.
+        </p>
+      </section>
     </div>
+
+    <section class="embed-section">
+      <div class="embed-shell">
+        <div class="embed-header">
+          <h2 data-en="Open the tool">Accéder à l'outil</h2>
+          <a href="https://huggingface.co/spaces/LyderickH/Datagouv-explorer" target="_blank" rel="noopener" class="fullscreen-link" data-en="↗ Open fullscreen">
+            ↗ Ouvrir en plein écran
+          </a>
+        </div>
+        <div class="embed-frame">
+          <iframe
+            src="https://lyderickh-datagouv-explorer.hf.space"
+            title="Explorateur data.gouv.fr" data-en-title="data.gouv.fr explorer"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          ></iframe>
+        </div>
+        <p class="embed-note" data-en="The tool runs on a free Hugging Face Space: the first request may take a few seconds to wake it up. Open fullscreen for more room.">
+          L'outil tourne sur un Space Hugging Face gratuit : la première requête peut prendre quelques
+          secondes, le temps du réveil. Le plein écran offre plus de confort.
+        </p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
