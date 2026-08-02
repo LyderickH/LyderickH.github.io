@@ -135,10 +135,11 @@ table, .tabular { font-variant-numeric: tabular-nums; }
 .label {
   font-family: var(--font-mono);
   font-size: var(--label-size);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   line-height: 1.4;
+  color: var(--accent);
 }
 
 .visually-hidden {

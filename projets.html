@@ -54,24 +54,47 @@
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Accueil</a>
-      <h1>Projets</h1>
-      <p class="page-lead">Neuf réalisations en business intelligence, automatisation et ingénierie de données. Filtrez par famille d'outils.</p>
+      <h1 data-i18n="projets.header_title">Projets</h1>
+      <p class="page-lead" data-i18n="projets.header_lead">Neuf réalisations en business intelligence, automatisation et ingénierie de données. Filtrez par famille d'outils.</p>
     </div>
   </header>
 
   <main id="contenu" class="container">
-    <div class="filtres" role="group" aria-label="Filtrer les projets par famille d'outils">
-            <button class="filtre" type="button" data-filtre="tous" aria-pressed="true">Tous</button>
-            <button class="filtre" type="button" data-filtre="powerbi" aria-pressed="false">Power BI</button>
-            <button class="filtre" type="button" data-filtre="ia" aria-pressed="false">Python et IA</button>
-            <button class="filtre" type="button" data-filtre="cloud" aria-pressed="false">Cloud et SQL</button>
-            <button class="filtre" type="button" data-filtre="tableau" aria-pressed="false">Tableau</button>
-            <button class="filtre" type="button" data-filtre="excel" aria-pressed="false">Excel</button>
+    <div class="projets-toolbar">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="search" id="projet-search" class="search-input" placeholder="Rechercher par mot-clé (Power BI, Python, Audit, DAX, SQL, GCP...)" aria-label="Rechercher des projets par mot-clé">
+      </div>
+
+      <div class="toolbar-controls">
+        <div class="filtres" role="group" aria-label="Filtrer les projets par famille d'outils">
+          <button class="filtre" type="button" data-filtre="tous" aria-pressed="true">Tous</button>
+          <button class="filtre" type="button" data-filtre="powerbi" aria-pressed="false">Power BI</button>
+          <button class="filtre" type="button" data-filtre="ia" aria-pressed="false">Python et IA</button>
+          <button class="filtre" type="button" data-filtre="cloud" aria-pressed="false">Cloud et SQL</button>
+          <button class="filtre" type="button" data-filtre="tableau" aria-pressed="false">Tableau</button>
+          <button class="filtre" type="button" data-filtre="excel" aria-pressed="false">Excel</button>
+        </div>
+
+        <div class="view-toggle" role="group" aria-label="Mode d'affichage">
+          <button class="view-btn active" type="button" data-view="grid" title="Vue en grille" aria-label="Vue en grille">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </button>
+          <button class="view-btn" type="button" data-view="line" title="Vue en ligne" aria-label="Vue en liste">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
 
-    <p class="filtre-compte" id="compte" aria-live="polite">9 projets</p>
+    <div class="results-header">
+      <p class="filtre-compte" id="compte" aria-live="polite">9 projets</p>
+    </div>
 
-    <div class="work-list" id="liste">
+    <div class="work-list grid-view" id="liste">
 
           <a href="projet8.html" class="work-item" data-familles="powerbi">
             <div class="work-media">
@@ -196,6 +219,12 @@
           </a>
 
     </div>
+
+    <div id="no-results" class="no-results" style="display:none;">
+      <p class="no-results-title">Aucun projet ne correspond à votre recherche</p>
+      <p class="no-results-desc">Essayez un autre mot-clé ou réinitialisez les filtres.</p>
+      <button type="button" class="btn btn-primary" id="reset-filters">Réinitialiser les filtres</button>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -213,6 +242,104 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function() {
+      const searchInput = document.getElementById('projet-search');
+      const filterBtns = document.querySelectorAll('.filtre');
+      const viewBtns = document.querySelectorAll('.view-btn');
+      const workList = document.getElementById('liste');
+      const items = workList ? workList.querySelectorAll('.work-item') : [];
+      const compteEl = document.getElementById('compte');
+      const noResults = document.getElementById('no-results');
+      const resetBtn = document.getElementById('reset-filters');
+
+      let activeCategory = 'tous';
+      let searchQuery = '';
+
+      function filterProjects() {
+        let count = 0;
+        const total = items.length;
+        const query = searchQuery.trim().toLowerCase();
+
+        items.forEach(item => {
+          const familles = (item.getAttribute('data-familles') || '').split(' ');
+          const title = (item.querySelector('.work-title')?.textContent || '').toLowerCase();
+          const desc = (item.querySelector('.work-desc')?.textContent || '').toLowerCase();
+          const index = (item.querySelector('.work-index')?.textContent || '').toLowerCase();
+          const tags = Array.from(item.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase()).join(' ');
+          
+          const textContent = `${title} ${desc} ${index} ${tags} ${familles.join(' ')}`;
+
+          const matchesCategory = (activeCategory === 'tous') || familles.includes(activeCategory);
+          const matchesSearch = !query || textContent.includes(query);
+
+          if (matchesCategory && matchesSearch) {
+            item.removeAttribute('hidden');
+            count++;
+          } else {
+            item.setAttribute('hidden', '');
+          }
+        });
+
+        if (compteEl) {
+          if (query || activeCategory !== 'tous') {
+            compteEl.textContent = `${count} projet${count > 1 ? 's' : ''} trouvé${count > 1 ? 's' : ''} sur ${total}`;
+          } else {
+            compteEl.textContent = `${total} projets`;
+          }
+        }
+
+        if (noResults) {
+          noResults.style.display = count === 0 ? 'block' : 'none';
+        }
+      }
+
+      // Filter Buttons
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+          btn.setAttribute('aria-pressed', 'true');
+          activeCategory = btn.getAttribute('data-filtre') || 'tous';
+          filterProjects();
+        });
+      });
+
+      // Search Input
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value;
+          filterProjects();
+        });
+      }
+
+      // Reset Button
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          searchQuery = '';
+          activeCategory = 'tous';
+          filterBtns.forEach(b => b.setAttribute('aria-pressed', b.getAttribute('data-filtre') === 'tous' ? 'true' : 'false'));
+          filterProjects();
+        });
+      }
+
+      // View Toggle
+      viewBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const viewMode = btn.getAttribute('data-view');
+          viewBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          if (viewMode === 'line') {
+            workList.classList.remove('grid-view');
+            workList.classList.add('line-view');
+          } else {
+            workList.classList.remove('line-view');
+            workList.classList.add('grid-view');
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>

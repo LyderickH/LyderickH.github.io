@@ -29,51 +29,58 @@
 
   <header class="page-header">
     <div class="container">
-      <a href="index.html" class="back-link">← Accueil</a>
-      <h1>À propos</h1>
-      <p class="page-lead">Comment je travaille, et pourquoi un profil comptable qui code n'est pas un profil comptable qui a appris à coder.</p>
+      <div class="page-header-inner">
+        <div class="page-header-content">
+          <a href="index.html" class="back-link">← Accueil</a>
+          <h1 data-i18n="about.title">À propos</h1>
+          <p class="page-lead" data-i18n="about.subtitle">Mon parcours, ma démarche et comment j'allie la rigueur financière à l'ingénierie data pour automatiser et créer de la valeur.</p>
+        </div>
+        <img src="Photo%20professionnel.webp" alt="Portrait de Lydérick Henry" class="hero-portrait" width="128" height="128">
+      </div>
     </div>
   </header>
 
   <main id="contenu" class="container">
 
     <section class="content-section">
-      <div class="cv-hero-inner" style="display:grid; gap:2rem; align-items:start;">
-        <img src="Photo professionnel.webp" alt="Portrait de Lydérick Henry" width="128" height="128" style="width:128px;height:128px;object-fit:cover;border:1px solid var(--rule);border-radius:var(--radius-lg);filter:grayscale(1);">
-        <div>
-          <p>Je suis arrivé à la data par la comptabilité, pas l'inverse. Quatre ans d'alternance (collaborateur comptable, puis contrôleur de gestion, aujourd'hui auditeur IT chez Forvis Mazars) pendant lesquels j'ai passé beaucoup de temps à faire à la main des choses qui n'auraient pas dû l'être.</p>
-          <p>C'est ce qui m'a poussé vers Power BI, Python et le SQL : moins par goût de la technique que par agacement devant les tâches répétitives. Ça oriente encore ma façon de travailler aujourd'hui : je cherche d'abord ce qui peut disparaître.</p>
-        </div>
+      <h2>Mon parcours</h2>
+      <div class="content-body">
+        <p>Je suis arrivé à la data par la comptabilité, pas l'inverse. Quatre ans d'alternance (collaborateur comptable, puis contrôleur de gestion, aujourd'hui auditeur IT chez Forvis Mazars) pendant lesquels j'ai passé beaucoup de temps à faire à la main des choses qui n'auraient pas dû l'être.</p>
+        <p>C'est ce qui m'a poussé vers Power BI, Python et le SQL : moins par goût de la technique que par agacement devant les tâches répétitives. Ça oriente encore ma façon de travailler aujourd'hui : je cherche d'abord ce qui peut disparaître.</p>
       </div>
     </section>
 
     <section class="content-section">
       <h2>Ma méthode</h2>
-      <div class="methode">
-        <div class="methode-bloc">
-          <span class="methode-num">01</span>
-          <h3>Comprendre le métier d'abord</h3>
-          <p>Un indicateur mal défini produit un dashboard inutile, si beau soit-il. Je commence par comprendre comment le chiffre est construit et à quelle décision il sert : c'est là que la formation comptable paie.</p>
-        </div>
-        <div class="methode-bloc">
-          <span class="methode-num">02</span>
-          <h3>Automatiser la reprise</h3>
-          <p>Un rapport qui demande une manipulation manuelle à chaque mise à jour finira abandonné. Je préfère passer du temps sur la normalisation en amont (langage M, Python, Dataform) que sur la mise en forme.</p>
-        </div>
-        <div class="methode-bloc">
-          <span class="methode-num">03</span>
-          <h3>Vérifier avant de livrer</h3>
-          <p>Réflexe d'audit : je recoupe les totaux, je teste les cas limites, je documente ce qui reste fragile. Un livrable dont je ne peux pas expliquer les écarts n'est pas fini.</p>
+      <div class="content-body">
+        <div class="methode">
+          <div class="methode-bloc">
+            <span class="methode-num">01</span>
+            <h3>Comprendre le métier d'abord</h3>
+            <p>Un indicateur mal défini produit un dashboard inutile, si beau soit-il. Je commence par comprendre comment le chiffre est construit et à quelle décision il sert : c'est là que la formation comptable paie.</p>
+          </div>
+          <div class="methode-bloc">
+            <span class="methode-num">02</span>
+            <h3>Automatiser la reprise</h3>
+            <p>Un rapport qui demande une manipulation manuelle à chaque mise à jour finira abandonné. Je préfère passer du temps sur la normalisation en amont (langage M, Python, Dataform) que sur la mise en forme.</p>
+          </div>
+          <div class="methode-bloc">
+            <span class="methode-num">03</span>
+            <h3>Vérifier avant de livrer</h3>
+            <p>Réflexe d'audit : je recoupe les totaux, je teste les cas limites, je documente ce qui reste fragile. Un livrable dont je ne peux pas expliquer les écarts n'est pas fini.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="content-section">
       <h2>Ce que je cherche</h2>
-      <p>Ouvert aux opportunités en CDI, à la croisée de l'audit des systèmes d'information et de la data : missions où il faut à la fois comprendre un processus métier et savoir le mesurer. Région lilloise ou télétravail partiel.</p>
-      <div class="hero-actions" style="margin-top:1.5rem;">
-        <a href="contact.html" class="btn btn-primary">Me contacter</a>
-        <a href="cv.html" class="btn">Consulter le CV</a>
+      <div class="content-body">
+        <p>Ouvert aux opportunités en CDI, à la croisée de l'audit des systèmes d'information et de la data : missions où il faut à la fois comprendre un processus métier et savoir le mesurer. Région lilloise ou télétravail partiel.</p>
+        <div class="hero-actions" style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-primary">Me contacter →</a>
+          <a href="cv.html" class="btn">Consulter le CV ↗</a>
+        </div>
       </div>
     </section>
 
