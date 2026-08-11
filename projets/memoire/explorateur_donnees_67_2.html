@@ -6,17 +6,29 @@
 <title>Atelier d'analyse : Mémoire IAG en audit (N=67)</title>
 <link rel="icon" href="../../favicon.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+    <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <script src="../../js/site-nav.js" defer></script>
+  <script src="../../js/i18n.js" defer></script>
 <style>
   :root {
-    --bg: #0f0f23;
-    --surface: rgba(255,255,255,0.05);
+    --wk-bg: #0f0f23;
+    --wk-surface: rgba(255,255,255,0.05);
     --surface-2: rgba(255,255,255,0.08);
-    --ink: #ffffff;
-    --ink-soft: rgba(255,255,255,0.82);
+    --wk-ink: #ffffff;
+    --wk-ink-soft: rgba(255,255,255,0.82);
     --ink-mute: #a1a1aa;
     --line: rgba(255,255,255,0.12);
     --line-soft: rgba(255,255,255,0.07);
-    --accent: #6366f1;
+    --wk-accent: #6366f1;
     --accent-light: #818cf8;
     --accent-bg: rgba(99,102,241,0.15);
     --ok: #10b981;
@@ -41,13 +53,13 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--bg);
+    background: var(--wk-bg);
     background-image:
       radial-gradient(circle at 20% 50%, rgba(99,102,241,0.15) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, rgba(16,185,129,0.15) 0%, transparent 50%),
       radial-gradient(circle at 40% 80%, rgba(245,158,11,0.1) 0%, transparent 50%);
     font-family: var(--sans);
-    color: var(--ink);
+    color: var(--wk-ink);
     line-height: 1.5;
     font-size: 14px;
     -webkit-font-smoothing: antialiased;
@@ -87,7 +99,7 @@
   header.top .sub {
     font-style: italic;
     font-size: 14px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     flex-basis: 100%;
   }
 
@@ -109,7 +121,7 @@
   .sidebar {
     position: sticky;
     top: 68px;
-    background: var(--surface);
+    background: var(--wk-surface);
     border: 1px solid var(--line);
     border-radius: 16px;
     padding: 20px;
@@ -134,7 +146,7 @@
   .filter-block { margin-bottom: 16px; }
   .filter-label {
     font-size: 12px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
@@ -153,10 +165,10 @@
     background: rgba(255,255,255,0.03);
     font-family: var(--sans);
     font-size: 13px;
-    color: var(--ink);
+    color: var(--wk-ink);
   }
-  select option { background: #1a1a2e; color: var(--ink); }
-  select:focus, input:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+  select option { background: #1a1a2e; color: var(--wk-ink); }
+  select:focus, input:focus { outline: 1px solid var(--wk-accent); border-color: var(--wk-accent); }
 
   .chip-group {
     display: flex;
@@ -170,15 +182,15 @@
     border: 1px solid var(--line);
     border-radius: 12px;
     cursor: pointer;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     transition: all 0.15s;
     user-select: none;
   }
-  .chip:hover { border-color: var(--accent-light); color: var(--ink); }
+  .chip:hover { border-color: var(--accent-light); color: var(--wk-ink); }
   .chip.active {
-    background: var(--accent);
+    background: var(--wk-accent);
     color: white;
-    border-color: var(--accent);
+    border-color: var(--wk-accent);
   }
 
   button.btn {
@@ -188,12 +200,12 @@
     border-radius: 6px;
     font-family: var(--sans);
     font-size: 12px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     cursor: pointer;
     transition: all 0.15s;
   }
-  button.btn:hover { border-color: var(--accent); color: var(--ink); }
-  button.btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+  button.btn:hover { border-color: var(--wk-accent); color: var(--wk-ink); }
+  button.btn.primary { background: var(--wk-accent); color: white; border-color: var(--wk-accent); }
   button.btn.full { width: 100%; }
 
   /* ========== MAIN ========== */
@@ -206,7 +218,7 @@
     margin-bottom: 24px;
   }
   .stat {
-    background: var(--surface);
+    background: var(--wk-surface);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 14px 16px;
@@ -223,13 +235,13 @@
   .stat .s-value {
     font-family: var(--serif);
     font-size: 24px;
-    color: var(--ink);
+    color: var(--wk-ink);
     line-height: 1;
     font-weight: 400;
   }
   .stat .s-sub {
     font-size: 11px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     margin-top: 4px;
     font-family: var(--mono);
   }
@@ -254,10 +266,10 @@
     font-family: var(--sans);
     transition: all 0.15s;
   }
-  .tab:hover { color: var(--ink-soft); }
+  .tab:hover { color: var(--wk-ink-soft); }
   .tab.active {
-    color: var(--ink);
-    border-bottom-color: var(--accent);
+    color: var(--wk-ink);
+    border-bottom-color: var(--wk-accent);
     font-weight: 500;
   }
 
@@ -271,11 +283,11 @@
     font-size: 22px;
     font-weight: 400;
     margin-bottom: 4px;
-    color: var(--ink);
+    color: var(--wk-ink);
   }
   .section-sub {
     font-size: 13px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     margin-bottom: 20px;
     max-width: 800px;
     line-height: 1.55;
@@ -283,7 +295,7 @@
 
   /* ========== CARDS ========== */
   .card {
-    background: var(--surface);
+    background: var(--wk-surface);
     border: 1px solid var(--line);
     border-radius: 16px;
     padding: 22px;
@@ -302,7 +314,7 @@
   .card-title {
     font-size: 15px;
     font-weight: 500;
-    color: var(--ink);
+    color: var(--wk-ink);
   }
   .card-meta {
     font-family: var(--mono);
@@ -333,7 +345,7 @@
     font-size: 12px;
   }
   .hbar-label {
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     font-family: var(--sans);
     text-align: right;
     line-height: 1.3;
@@ -359,7 +371,7 @@
   .hbar-fill:hover { opacity: 0.85; }
   .hbar-value {
     font-family: var(--mono);
-    color: var(--ink);
+    color: var(--wk-ink);
     font-size: 12px;
     white-space: nowrap;
     min-width: 32px;
@@ -375,11 +387,11 @@
   .axis-line { stroke: var(--line); stroke-width: 0.5; }
   .grid-line { stroke: var(--line-soft); stroke-width: 0.5; stroke-dasharray: 2,2; }
   .axis-label { font-size: 11px; fill: var(--ink-mute); font-family: var(--mono); }
-  .axis-title { font-size: 12px; fill: var(--ink-soft); font-family: var(--sans); }
+  .axis-title { font-size: 12px; fill: var(--wk-ink-soft); font-family: var(--sans); }
   .bar { transition: opacity 0.15s; }
   .bar:hover { opacity: 0.85; cursor: pointer; }
   .data-point {
-    fill: var(--accent);
+    fill: var(--wk-accent);
     stroke: rgba(255,255,255,0.3);
     stroke-width: 0.5;
     opacity: 0.7;
@@ -422,7 +434,7 @@
     letter-spacing: 0.03em;
   }
   .pill.freq-2, .pill.freq-3 { background: var(--warn-bg); color: var(--warn); }
-  .pill.freq-4, .pill.freq-5 { background: var(--accent-bg); color: var(--accent); }
+  .pill.freq-4, .pill.freq-5 { background: var(--accent-bg); color: var(--wk-accent); }
   .pill.freq-6, .pill.freq-7 { background: var(--ok-bg); color: var(--ok); }
   .pill.verdict-ok { background: var(--ok-bg); color: var(--ok); font-weight: 500; }
   .pill.verdict-ko { background: var(--ko-bg); color: var(--ko); font-weight: 500; }
@@ -458,7 +470,7 @@
   .result-highlight .rh-big {
     font-family: var(--mono);
     font-size: 26px;
-    color: var(--ink);
+    color: var(--wk-ink);
     font-weight: 500;
   }
   .result-highlight .rh-label {
@@ -470,7 +482,7 @@
   }
   .result-highlight .rh-note {
     font-size: 12px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     line-height: 1.5;
     font-style: italic;
     font-family: var(--serif);
@@ -483,7 +495,7 @@
     gap: 16px;
   }
   .hypo-card {
-    background: var(--surface);
+    background: var(--wk-surface);
     border: 1px solid var(--line);
     border-left: 3px solid var(--line);
     border-radius: 12px;
@@ -496,7 +508,7 @@
   .hypo-card h4 {
     font-family: var(--mono);
     font-size: 14px;
-    color: var(--ink);
+    color: var(--wk-ink);
     margin-bottom: 4px;
     font-weight: 500;
   }
@@ -504,14 +516,14 @@
     font-family: var(--serif);
     font-style: italic;
     font-size: 13px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     line-height: 1.5;
     margin-bottom: 14px;
   }
   .hypo-card .hc-rho {
     font-family: var(--mono);
     font-size: 20px;
-    color: var(--ink);
+    color: var(--wk-ink);
   }
   .hypo-card .hc-p {
     font-family: var(--mono);
@@ -521,7 +533,7 @@
   }
   .hypo-card .hc-interp {
     font-size: 12px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
     line-height: 1.55;
     margin-top: 10px;
     padding-top: 10px;
@@ -563,7 +575,7 @@
     margin-top: 12px;
     flex-wrap: wrap;
     font-size: 12px;
-    color: var(--ink-soft);
+    color: var(--wk-ink-soft);
   }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
@@ -577,18 +589,6 @@
     .result-highlight { grid-template-columns: 1fr; gap: 12px; }
   }
 </style>
-
-  <script>
-    (function () {
-      var saved = localStorage.getItem('theme');
-      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
-    })();
-  </script>
-    <link rel="stylesheet" href="../../css/tokens.css">
-  <link rel="stylesheet" href="../../css/base.css">
-  <link rel="stylesheet" href="../../css/components.css">
-  <script src="../../js/site-nav.js" defer></script>
-  <script src="../../js/i18n.js" defer></script>
 </head>
 <body>
 
@@ -1183,7 +1183,7 @@ function barChartH(container, data, opts = {}) {
     const v = valueFn(d);
     const pct = maxV > 0 ? (v / maxV) * 100 : 0;
     const globalPct = total > 0 ? ((v / total) * 100).toFixed(1) : '0.0';
-    const color = colorFn ? colorFn(d, i) : 'var(--accent)';
+    const color = colorFn ? colorFn(d, i) : 'var(--wk-accent)';
 
     const row = document.createElement('div');
     row.className = 'hbar-row';
@@ -1364,7 +1364,7 @@ function boxPlot(container, series, opts = {}) {
     const vmax = Math.max(...s.values);
     const mu = mean(s.values);
     const sd = stdev(s.values);
-    const color = s.color || 'var(--accent)';
+    const color = s.color || 'var(--wk-accent)';
 
     // whisker
     svg.appendChild(svgEl('line', { x1: cx, x2: cx, y1: yScale(vmin), y2: yScale(vmax), stroke: color, 'stroke-width': 1 }));
@@ -1467,9 +1467,9 @@ function groupedBars(container, groups, series, opts = {}) {
         const yTop = padT + innerH - (topVal / yMax) * innerH;
         const yBot = padT + innerH - (botVal / yMax) * innerH;
         const capW = Math.min(innerBarW * 0.35, 6);
-        svg.appendChild(svgEl('line', { x1: barCx, x2: barCx, y1: yTop, y2: yBot, stroke: 'var(--ink)', 'stroke-width': 1, opacity: 0.65 }));
-        svg.appendChild(svgEl('line', { x1: barCx - capW, x2: barCx + capW, y1: yTop, y2: yTop, stroke: 'var(--ink)', 'stroke-width': 1, opacity: 0.65 }));
-        svg.appendChild(svgEl('line', { x1: barCx - capW, x2: barCx + capW, y1: yBot, y2: yBot, stroke: 'var(--ink)', 'stroke-width': 1, opacity: 0.65 }));
+        svg.appendChild(svgEl('line', { x1: barCx, x2: barCx, y1: yTop, y2: yBot, stroke: 'var(--wk-ink)', 'stroke-width': 1, opacity: 0.65 }));
+        svg.appendChild(svgEl('line', { x1: barCx - capW, x2: barCx + capW, y1: yTop, y2: yTop, stroke: 'var(--wk-ink)', 'stroke-width': 1, opacity: 0.65 }));
+        svg.appendChild(svgEl('line', { x1: barCx - capW, x2: barCx + capW, y1: yBot, y2: yBot, stroke: 'var(--wk-ink)', 'stroke-width': 1, opacity: 0.65 }));
       }
     });
     const lbl = svgEl('text', { x: groupX, y: padT + innerH + 16, 'text-anchor': 'middle', class: 'axis-title' });
@@ -1594,7 +1594,7 @@ function renderScores(data) {
         <td><span style="display:inline-block;width:10px;height:10px;background:${s.color};border-radius:2px;margin-right:6px;vertical-align:middle;"></span><strong>${s.key}</strong></td>
         <td class="num">${vals.length}</td>
         <td class="num">${mu == null ? '-' : round(mu, 2).toFixed(2)}</td>
-        <td class="num" style="color: var(--ink); font-weight: 500;">${sd == null ? '-' : '± ' + round(sd, 2).toFixed(2)}</td>
+        <td class="num" style="color: var(--wk-ink); font-weight: 500;">${sd == null ? '-' : '± ' + round(sd, 2).toFixed(2)}</td>
         <td class="num">${med == null ? '-' : round(med, 2).toFixed(2)}</td>
         <td class="num">${vals.length ? round(Math.min(...vals), 2).toFixed(2) + ' - ' + round(Math.max(...vals), 2).toFixed(2) : '-'}</td>
         <td class="num">${cv == null ? '-' : round(cv, 1).toFixed(1) + '%'}</td>
@@ -1821,7 +1821,7 @@ function renderRisks(data) {
 
     const lbl = document.createElement('div');
     lbl.textContent = d.label;
-    lbl.style.cssText = 'color: var(--ink-soft); text-align: right; line-height: 1.3;';
+    lbl.style.cssText = 'color: var(--wk-ink-soft); text-align: right; line-height: 1.3;';
     row.appendChild(lbl);
 
     const bar = document.createElement('div');
@@ -1869,7 +1869,7 @@ function renderRisks(data) {
 
   // légende sig
   const leg = document.createElement('div');
-  leg.style.cssText = 'margin-top: 14px; padding-top: 10px; border-top: 0.5px solid var(--line-soft); display: flex; gap: 18px; font-size: 11px; color: var(--ink-soft);';
+  leg.style.cssText = 'margin-top: 14px; padding-top: 10px; border-top: 0.5px solid var(--line-soft); display: flex; gap: 18px; font-size: 11px; color: var(--wk-ink-soft);';
   leg.innerHTML = `
     <div style="display: flex; align-items: center; gap: 6px;"><div style="width: 12px; height: 12px; background: var(--ramp-3); border-radius: 2px;"></div>Significatif (p &lt; 0.05)</div>
     <div style="display: flex; align-items: center; gap: 6px;"><div style="width: 12px; height: 12px; background: var(--ink-mute); border-radius: 2px;"></div>Non significatif</div>
