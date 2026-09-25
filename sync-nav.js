@@ -8,7 +8,7 @@ const HTML_FILES = [
   'cv.html',
   'memoire.html',
   'explorateur.html',
-  ...Array.from({ length: 8 }, (_, i) => `projet${i + 1}.html`),
+  ...Array.from({ length: 10 }, (_, i) => `projet${i + 1}.html`),
   path.join('projets', 'memoire', 'explorateur_donnees_67_2.html'),
 ];
 

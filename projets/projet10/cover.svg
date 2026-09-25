@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Regex Genius - Regex par l'exemple">
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <radialGradient id="cyan-glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="amber-glow" cx="20%" cy="80%" r="50%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-grad)"/>
+  <rect width="800" height="500" fill="url(#cyan-glow)"/>
+  <rect width="800" height="500" fill="url(#amber-glow)"/>
+
+  <!-- Subtle grid lines -->
+  <g stroke="#334155" stroke-width="1" stroke-opacity="0.15">
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="500"/>
+    <line x1="400" y1="0" x2="400" y2="500"/>
+    <line x1="600" y1="0" x2="600" y2="500"/>
+  </g>
+
+  <!-- Eyebrow -->
+  <g transform="translate(60, 68)">
+    <rect x="0" y="-18" width="230" height="26" rx="13" fill="#0369a1" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.4"/>
+    <circle cx="14" cy="-5" r="4" fill="#38bdf8"/>
+    <text x="26" y="-1" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.5" fill="#38bdf8">IA LOCALE · WEBGPU</text>
+  </g>
+
+  <!-- Main Title -->
+  <text x="60" y="125" font-family="'Fraunces', Georgia, serif" font-size="44" font-weight="600" fill="#f8fafc">Regex Genius</text>
+  <text x="60" y="165" font-family="'Inter', sans-serif" font-size="18" font-weight="400" fill="#94a3b8">
+    Déduire un motif depuis vos données <tspan fill="#f59e0b">— façon Power Query</tspan>
+  </text>
+
+  <!-- UI Window Mockup -->
+  <g transform="translate(60, 200)" filter="url(#shadow)">
+    <!-- Window Container -->
+    <rect width="680" height="250" rx="14" fill="url(#card-grad)" stroke="#334155" stroke-width="1.2"/>
+
+    <!-- Window Topbar -->
+    <rect width="680" height="38" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <rect y="24" width="680" height="14" fill="#0f172a"/>
+    <!-- Window dots -->
+    <circle cx="22" cy="19" r="5" fill="#ef4444" opacity="0.8"/>
+    <circle cx="38" cy="19" r="5" fill="#f59e0b" opacity="0.8"/>
+    <circle cx="54" cy="19" r="5" fill="#10b981" opacity="0.8"/>
+
+    <!-- Formula / Regex bar -->
+    <g transform="translate(85, 8)">
+      <rect width="575" height="22" rx="6" fill="#020617" stroke="#1e293b"/>
+      <text x="10" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#f59e0b">pattern =</text>
+      <text x="80" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#38bdf8">^([A-Z]{3})</text>
+      <text x="165" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#94a3b8">-</text>
+      <text x="175" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#4ade80">(\d{4})</text>
+      <text x="225" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#94a3b8">_.*$</text>
+      <rect x="500" y="3" width="65" height="16" rx="4" fill="#065f46" stroke="#10b981" stroke-width="0.7"/>
+      <text x="508" y="14" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#a7f3d0">100% VALIDE</text>
+    </g>
+
+    <!-- Table Header -->
+    <g transform="translate(0, 38)">
+      <rect width="680" height="28" fill="#1e293b" fill-opacity="0.5"/>
+      <line x1="0" y1="28" x2="680" y2="28" stroke="#334155" stroke-width="1"/>
+      <line x1="360" y1="0" x2="360" y2="212" stroke="#334155" stroke-width="1"/>
+      <line x1="530" y1="0" x2="530" y2="212" stroke="#334155" stroke-width="1"/>
+
+      <text x="24" y="19" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#cbd5e1">COLONNE SOURCE (DONNÉES)</text>
+      <text x="380" y="19" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#f59e0b">EXEMPLE FOURNI</text>
+      <text x="548" y="19" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#38bdf8">RÉSULTAT DÉDUIT</text>
+    </g>
+
+    <!-- Row 1 -->
+    <g transform="translate(0, 66)">
+      <rect width="680" height="34" fill="#0f172a" fill-opacity="0.3"/>
+      <text x="24" y="22" font-family="'JetBrains Mono', monospace" font-size="12" fill="#e2e8f0">FAC-2025-0142_LILLE_EUR</text>
+      <rect x="375" y="6" width="105" height="22" rx="4" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
+      <text x="385" y="21" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#fbbf24">2025-0142</text>
+      <text x="548" y="22" font-family="'JetBrains Mono', monospace" font-size="12" fill="#38bdf8">2025-0142</text>
+      <circle cx="650" cy="17" r="4" fill="#10b981"/>
+      <line x1="0" y1="34" x2="680" y2="34" stroke="#334155" stroke-width="0.8" stroke-opacity="0.5"/>
+    </g>
+
+    <!-- Row 2 (Auto completed) -->
+    <g transform="translate(0, 100)">
+      <rect width="680" height="34" fill="#1e293b" fill-opacity="0.2"/>
+      <text x="24" y="22" font-family="'JetBrains Mono', monospace" font-size="12" fill="#e2e8f0">FAC-2024-9981_PARIS_EUR</text>
+      <text x="385" y="22" font-family="'Inter', sans-serif" font-size="11" font-style="italic" fill="#64748b">(auto-déduit)</text>
+      <text x="548" y="22" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#38bdf8">2024-9981</text>
+      <circle cx="650" cy="17" r="4" fill="#10b981"/>
+      <line x1="0" y1="34" x2="680" y2="34" stroke="#334155" stroke-width="0.8" stroke-opacity="0.5"/>
+    </g>
+
+    <!-- Row 3 (Auto completed) -->
+    <g transform="translate(0, 134)">
+      <rect width="680" height="34" fill="#0f172a" fill-opacity="0.3"/>
+      <text x="24" y="22" font-family="'JetBrains Mono', monospace" font-size="12" fill="#e2e8f0">FAC-2025-0210_LYON_USD</text>
+      <text x="385" y="22" font-family="'Inter', sans-serif" font-size="11" font-style="italic" fill="#64748b">(auto-déduit)</text>
+      <text x="548" y="22" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#38bdf8">2025-0210</text>
+      <circle cx="650" cy="17" r="4" fill="#10b981"/>
+      <line x1="0" y1="34" x2="680" y2="34" stroke="#334155" stroke-width="0.8" stroke-opacity="0.5"/>
+    </g>
+
+    <!-- Bottom Status Bar -->
+    <g transform="translate(0, 172)">
+      <rect width="680" height="40" rx="0" fill="#090d16"/>
+      <g transform="translate(24, 24)">
+        <circle cx="0" cy="0" r="3.5" fill="#f59e0b"/>
+        <text x="10" y="4" font-family="'Inter', sans-serif" font-size="11" fill="#94a3b8">Modèle IA local : <tspan fill="#f8fafc" font-weight="600">Qwen 2.5-Coder 1.5B (WebGPU)</tspan></text>
+      </g>
+      <g transform="translate(480, 24)">
+        <rect x="0" y="-12" width="70" height="20" rx="4" fill="#1e293b"/>
+        <text x="12" y="2" font-family="'JetBrains Mono', monospace" font-size="10" fill="#e2e8f0">CSV</text>
+        <rect x="76" y="-12" width="70" height="20" rx="4" fill="#1e293b"/>
+        <text x="84" y="2" font-family="'JetBrains Mono', monospace" font-size="10" fill="#e2e8f0">Python</text>
+        <rect x="152" y="-12" width="36" height="20" rx="4" fill="#1e293b"/>
+        <text x="158" y="2" font-family="'JetBrains Mono', monospace" font-size="10" fill="#e2e8f0">SQL</text>
+      </g>
+    </g>
+  </g>
+</svg>

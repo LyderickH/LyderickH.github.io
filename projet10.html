@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regex par l'exemple — Déduire un motif depuis vos données - Lydérick Henry</title>
+  <meta name="description" content="Déduction d'expressions régulières à partir d'exemples, inspiré de Power Query. IA locale embarquée WebGPU (Qwen 2.5-Coder), multi-colonnes, 100% privé." />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="js/site-nav.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <style>
+    /* ── Propre à cette page ──────────────────────────────────────── */
+
+    .p10-lead {
+      font-size: var(--step-1);
+      color: var(--ink-soft);
+      max-width: 68ch;
+    }
+
+    .p10-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      margin-bottom: var(--space-3);
+    }
+
+    .p10-features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      margin-block: var(--space-6);
+    }
+
+    @media (min-width: 721px) {
+      .p10-features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .p10-card {
+      background: var(--bg-inset);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      transition: border-color var(--transition);
+    }
+
+    .p10-card:hover {
+      border-color: var(--accent);
+    }
+
+    .p10-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+
+    .p10-card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .p10-card h3 {
+      margin: 0;
+      font-size: var(--step-0);
+      font-weight: 600;
+    }
+
+    .p10-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    /* Cadre de l'application embarquée */
+    .embed-section {
+      width: 100%;
+      margin-block: var(--space-8);
+    }
+
+    .embed-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    .embed-header h2 {
+      font-family: var(--font-mono);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .fullscreen-link {
+      font-family: var(--font-mono);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+
+    .fullscreen-link:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .embed-frame {
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-muted);
+      box-shadow: var(--shadow-sm, 0 1px 2px rgb(0 0 0 / 0.04));
+    }
+
+    .embed-frame iframe {
+      display: block;
+      width: 100%;
+      height: clamp(560px, 82vh, 920px);
+      border: 0;
+      background: transparent;
+    }
+
+    .embed-note {
+      margin-top: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      color: var(--ink-faint);
+    }
+
+    .p10-code-token {
+      font-family: var(--font-mono);
+      font-size: 0.84em;
+      background: var(--bg-muted);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-sm);
+      padding: 2px 7px;
+      color: var(--accent);
+    }
+
+    .p10-banner {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      margin-block: var(--space-6);
+      background: var(--bg-muted);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .p10-banner img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body data-en-doctitle="Regex by Example — Deduce Patterns From Data - Lydérick Henry">
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <nav class="site-nav"></nav>
+
+  <header class="page-header">
+    <div class="container">
+      <a href="projets.html" class="back-link" data-en="← Projects">← Projets</a>
+      <span class="p10-badge" data-en="Web App · Local AI · WebGPU">Application Web · IA Locale · WebGPU</span>
+      <h1 data-en="Regex by Example — Deduce Patterns From Data">Regex par l'exemple — Déduire un motif depuis vos données</h1>
+      <p class="p10-lead" data-en="Deduce regular expressions automatically from data examples, inspired by Power Query's 'Column From Examples'. Powered by heuristic synthesis and local WebGPU AI (Qwen 2.5-Coder 1.5B) with 100% on-device privacy.">Inspiré de « Colonne à partir d'exemples » de Power Query : collez vos données textuelles, saisissez le résultat attendu sur une ou deux lignes, et l'outil déduit automatiquement l'expression régulière optimale. Exécution 100% locale dans le navigateur avec IA WebGPU.</p>
+    </div>
+  </header>
+
+  <main id="contenu" class="container">
+
+    <div class="p10-banner">
+      <img src="projets/projet10/cover.svg" alt="Regex Genius - Interface de déduction d'expression régulière par l'exemple" data-en-alt="Regex Genius - Regular expression deduction from examples interface" width="800" height="500">
+    </div>
+
+    <div class="button-container" style="margin-bottom: var(--space-8);">
+      <a href="https://lyderickh.github.io/regex-genius/" class="btn btn-primary" target="_blank" rel="noopener" data-en="↗ Open live app (regex-genius)">
+        ↗ Ouvrir l'application en direct
+      </a>
+      <a href="https://github.com/LyderickH/regex-genius" class="modern-btn" target="_blank" rel="noopener" data-en="Code on GitHub">
+        Code sur GitHub
+      </a>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-value">100%</span>
+        <span class="kpi-label" data-en="local &amp; private: 0 bytes sent over Internet">local &amp; privé : 0 octet envoyé sur Internet</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value">WebGPU</span>
+        <span class="kpi-label" data-en="hardware-accelerated AI model (Qwen 2.5-Coder 1.5B)">modèle IA accéléré matériellement (Qwen 2.5-Coder 1.5B)</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value">1 à 2</span>
+        <span class="kpi-label" data-en="examples suffice to deduce the pattern">exemples suffisent pour déduire le motif</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value">PWA</span>
+        <span class="kpi-label" data-en="standalone offline app installable on PC">application autonome installable hors-ligne</span>
+      </div>
+    </div>
+
+    <!-- Interactive Embed Frame -->
+    <section class="embed-section">
+      <div class="embed-shell">
+        <div class="embed-header">
+          <h2 data-en="Interactive Tool Demo">Démonstration interactive de l'outil</h2>
+          <a href="https://lyderickh.github.io/regex-genius/" target="_blank" rel="noopener" class="fullscreen-link" data-en="↗ Open fullscreen">
+            ↗ Ouvrir en plein écran
+          </a>
+        </div>
+        <div class="embed-frame">
+          <iframe
+            src="https://lyderickh.github.io/regex-genius/"
+            title="Regex Genius - Déduction de regex par l'exemple"
+            data-en-title="Regex Genius - Regular expression deduction from examples"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-downloads"
+          ></iframe>
+        </div>
+        <p class="embed-note" data-en="The tool runs entirely in your browser. Paste text or Excel columns directly to try it. Open fullscreen for the best experience.">
+          L'application s'exécute entièrement dans votre navigateur. Vous pouvez coller du texte ou des colonnes Excel directement pour tester. Ouvrez en plein écran pour un confort optimal.
+        </p>
+      </div>
+    </section>
+
+    <!-- Context & Genesis -->
+    <section class="content-section">
+      <h2 data-en="The Problem &amp; Genesis">Le problème et la genèse</h2>
+      <p data-en="Regular expressions (regex) are essential across data engineering, auditing, and financial reporting for isolating invoice numbers, dates, reference codes, or transaction descriptions. Yet writing regex by hand is notoriously tedious, cryptic, and prone to syntax errors.">
+        Les expressions régulières (Regex) sont indispensables en ingénierie de données, en contrôle de gestion et en audit des systèmes d'information : isolation de numéros de factures, dates d'écritures, codes de référence, ou libellés bancaires. Pourtant, rédiger une regex à la main reste un exercice rébarbatif, cryptique et sujet aux erreurs de syntaxe.
+      </p>
+      <p data-en="Inspired by the 'Column From Examples' feature in Power Query and Microsoft Excel's FlashFill, this project reverses the paradigm: users don't write syntax; they provide the desired output on one or two lines, and the engine automatically infers the regular expression and completes the whole dataset.">
+        Inspiré de la fonctionnalité <em>« Colonne à partir d'exemples »</em> de Power Query et de FlashFill dans Microsoft Excel, ce projet renverse le paradigme : l'utilisateur n'écrit pas de code ; il renseigne le résultat souhaité sur une ou deux lignes d'exemples, et l'outil déduit automatiquement l'expression régulière optimale pour traiter l'intégralité du jeu de données.
+      </p>
+
+      <div class="callout">
+        <span class="callout-label" data-en="Key Philosophy">Philosophie clé</span>
+        <p data-en="Confidentiality by design: accounting, HR, and audit data are sensitive. Regex Genius runs strictly on the client machine with zero server roundtrips, even when invoking the local language model.">
+          <strong>Confidentialité dès la conception :</strong> les données comptables, RH ou d'audit sont confidentielles. Regex Genius s'exécute à 100% sur le poste client, sans aucun aller-retour serveur, y compris lors de l'activation du modèle d'IA local.
+        </p>
+      </div>
+    </section>
+
+    <div class="separator"></div>
+
+    <!-- Architecture & Features -->
+    <section class="content-section">
+      <h2 data-en="Key Capabilities &amp; Technical Architecture">Fonctionnalités et architecture technique</h2>
+
+      <div class="p10-features-grid">
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">⚡</span>
+            <h3 data-en="Heuristic Pattern Synthesis">Synthèse heuristique en temps réel</h3>
+          </div>
+          <p data-en="An algorithmic synthesis engine processes character classes, prefix/suffix delimiters, variable and fixed-length anchors. Executed inside a dedicated Web Worker to maintain an ultra-smooth 60 FPS spreadsheet experience.">
+            Moteur de synthèse algorithmique analysant les classes de caractères, préfixes/suffixes, longueurs fixes ou variables et ancres de capture. Exécuté dans un Web Worker pour garantir une fluidité parfaite à 60 FPS sans bloquer l'interface.
+          </p>
+        </div>
+
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">🧠</span>
+            <h3 data-en="Local WebGPU AI (Qwen 2.5-Coder)">IA locale WebGPU (Qwen 2.5-Coder)</h3>
+          </div>
+          <p data-en="For ambiguous or context-heavy patterns, an embedded LLM (Qwen 2.5-Coder 1.5B via WebLLM) executes directly on the user's GPU through WebGPU. Zero API keys, zero network data egress.">
+            Pour les motifs complexes ou ambigus, un grand modèle de langage (Qwen 2.5-Coder 1.5B via WebLLM) tourne directement sur la carte graphique de l'utilisateur grâce à WebGPU. Aucune clé d'API, 0 octet envoyé sur le réseau.
+          </p>
+        </div>
+
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">📑</span>
+            <h3 data-en="Multi-Column Extraction &amp; Flexible Import">Multi-colonnes et import polyvalent</h3>
+          </div>
+          <p data-en="Extract several target columns simultaneously from a single input string. Support for direct copy-paste from Excel (Ctrl+C / Ctrl+V), and file imports (.csv, .xlsx, .tsv, .txt) with or without custom delimiters.">
+            Extraction de plusieurs colonnes cibles simultanées à partir d'une même chaîne source. Support du copier-coller direct depuis Excel (Ctrl+C / Ctrl+V) et import de fichiers (.csv, .xlsx, .tsv, .txt) avec ou sans délimiteur.
+          </p>
+        </div>
+
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">🛠️</span>
+            <h3 data-en="Integrated Cleaning &amp; Transformations">Nettoyage et transformations intégrées</h3>
+          </div>
+          <p data-en="Pre-configured transformations for dates (DD/MM/YYYY, ISO, YYYYMMDD), monetary and numeric cleaning (spaces, decimal commas vs dots), and case formatting (UPPERCASE, lowercase, Capitalized).">
+            Transformations courantes prêtes à l'emploi : normalisation des dates (JJ/MM/AAAA, ISO, AAAAMMJJ), nettoyage des montants et décimales, gestion des espaces et casse (majuscules, minuscules, capitales).
+          </p>
+        </div>
+
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">💻</span>
+            <h3 data-en="Multi-Language Code Export">Export de code multi-langages</h3>
+          </div>
+          <p data-en="Generate production-ready code snippets in Python (re), SQL (REGEXP_EXTRACT), JavaScript, or download enriched datasets directly as CSV and formatted Excel files.">
+            Génération immédiate d'extraits de code exploitables en Python (<span class="p10-code-token">re</span>), SQL (<span class="p10-code-token">REGEXP_EXTRACT</span>), JavaScript, ou export direct des données enrichies en CSV et Excel.
+          </p>
+        </div>
+
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">📖</span>
+            <h3 data-en="Interactive Cheat Sheet &amp; Offline PWA">Cheat Sheet interactive &amp; PWA hors-ligne</h3>
+          </div>
+          <p data-en="Includes a synthetic reference cheat sheet for regex syntax, and installs as an autonomous Progressive Web App (PWA) on PC for offline day-to-day use.">
+            Intègre un aide-mémoire synthétique des métacaractères et quantificateurs, et s'installe comme une Progressive Web App (PWA) autonome sur PC, utilisable 100% hors-ligne sans connexion Internet.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="separator"></div>
+
+    <!-- Key takeaways -->
+    <section class="content-section">
+      <h2 data-en="Key Takeaways">Ce que j'en retiens</h2>
+      <ul>
+        <li data-en="&lt;strong&gt;Eliminating friction at the source:&lt;/strong&gt; The goal isn't just writing code, but building tools that make tedious technical hurdles disappear for business and data users.">
+          <strong>Supprimer la friction à la racine :</strong> l'enjeu n'est pas d'accumuler du code, mais de créer des outils qui font disparaître les obstacles techniques récurrents rencontrés en contrôle de gestion et en audit.
+        </li>
+        <li data-en="&lt;strong&gt;The power of on-device AI:&lt;/strong&gt; WebGPU unlocks client-side machine learning for enterprise environments with strict confidentiality constraints where sending data to third-party cloud APIs is prohibited.">
+          <strong>La force de l'IA locale (on-device) :</strong> WebGPU ouvre la porte à des fonctionnalités avancées sans compromis sur la confidentialité, un impératif absolu pour les données financières ou d'audit d'entreprise.
+        </li>
+        <li data-en="&lt;strong&gt;Power Query mental model:&lt;/strong&gt; Bringing the intuitiveness of Power Query's example-driven workflows to modern web applications creates an immediate productivity boost.">
+          <strong>La pertinence de l'approche par l'exemple :</strong> transposer l'ergonomie de Power Query sur le web moderne offre un confort de travail immédiat pour quiconque manipule des tables de données.
+        </li>
+      </ul>
+    </section>
+
+    <div class="button-container" style="margin-top: var(--space-8);">
+      <a href="https://lyderickh.github.io/regex-genius/" class="btn btn-primary" target="_blank" rel="noopener" data-en="↗ Test the application">
+        ↗ Tester l'application
+      </a>
+      <a href="https://github.com/LyderickH/regex-genius" class="modern-btn" target="_blank" rel="noopener" data-en="GitHub Repository">
+        Dépôt GitHub
+      </a>
+      <a href="projets.html" class="modern-btn" data-en="← Back to all projects">
+        ← Retour aux projets
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a>
+          <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">linkedin.com/in/lyderickhenry</a>
+          <a href="cv.html">CV</a>
+        </div>
+        <p class="footer-meta">© <span id="year"></span> · Lydérick Henry · Lille, FR</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

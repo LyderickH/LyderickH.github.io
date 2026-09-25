@@ -13,6 +13,7 @@
     "Me contacter": "Contact me",
     "Autres projets": "Other Projects",
     "Voir les 9 projets →": "View all 9 projects →",
+    "Voir les 10 projets →": "View all 10 projects →",
     "Tous les projets": "All projects",
     "Grille": "Grid",
     "Ligne": "List",
@@ -44,6 +45,7 @@
 
     // Projets Page
     "Neuf réalisations en business intelligence, automatisation et ingénierie de données. Filtrez par famille d'outils.": "Nine projects in business intelligence, automation, and data engineering. Filter by tech stack.",
+    "Dix réalisations en business intelligence, automatisation et ingénierie de données. Filtrez par famille d'outils.": "Ten projects in business intelligence, automation, and data engineering. Filter by tech stack.",
     "Aucun projet ne correspond à votre recherche": "No projects match your search query",
     "Essayez un autre mot-clé ou réinitialisez les filtres.": "Try another keyword or reset active filters.",
     "Tous": "All",
@@ -53,6 +55,10 @@
     "Cloud & SQL": "Cloud & SQL",
 
     // Project Titles & Summaries
+    "Regex par l'exemple — Déduire un motif depuis vos données": "Regex by Example — Deduce Patterns From Data",
+    "Regex par l'exemple": "Regex by Example",
+    "Inspiré de « Colonne à partir d'exemples » de Power Query : collez vos données, saisissez les résultats attendus et l'outil déduit l'expression régulière. 100% local avec IA WebGPU (Qwen 2.5-Coder), multi-colonnes et exports multi-formats.": "Inspired by Power Query's 'Column From Examples': paste your data, type expected outputs, and the tool deduces the regex. Runs 100% locally with WebGPU AI (Qwen 2.5-Coder), multi-column extraction, and multi-format export.",
+    "Déduire des expressions régulières depuis vos exemples de données, façon Power Query. IA locale WebGPU (Qwen 2.5-Coder), multi-colonnes et exports Python/SQL.": "Deduce regular expressions automatically from examples, inspired by Power Query. 100% on-device WebGPU AI (Qwen 2.5-Coder), multi-column extraction and Python/SQL exports.",
     "Modélisation DVF & Analyse du marché immobilier français": "DVF Data Modeling & French Real Estate Market Analysis",
     "Exploitation des données DVF sur 5 ans : modèle de données en étoile, métriques DAX temporelles, cartographie par département et simulateur de capacité d'achat.": "5-year DVF dataset analysis: star schema modeling, DAX time intelligence, departmental mapping, and purchasing power simulator.",
 
