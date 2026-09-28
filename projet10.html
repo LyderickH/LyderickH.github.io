@@ -58,6 +58,20 @@
       }
     }
 
+    .p10-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+      margin-block: var(--space-6);
+    }
+
+    @media (min-width: 800px) {
+      .p10-kpi-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-4);
+      }
+    }
+
     .p10-card {
       background: var(--bg-inset);
       border: 1px solid var(--rule);
@@ -205,14 +219,14 @@
       <a href="projets.html" class="back-link" data-en="← Projects">← Projets</a>
       <span class="p10-badge" data-en="Web App · Local AI · WebGPU">Application Web · IA Locale · WebGPU</span>
       <h1 data-en="Regex by Example — Deduce Patterns From Data">Regex par l'exemple — Déduire un motif depuis vos données</h1>
-      <p class="p10-lead" data-en="Deduce regular expressions automatically from data examples, inspired by Power Query's 'Column From Examples'. Powered by heuristic synthesis and local WebGPU AI (Qwen 2.5-Coder 1.5B) with 100% on-device privacy.">Inspiré de « Colonne à partir d'exemples » de Power Query : collez vos données textuelles, saisissez le résultat attendu sur une ou deux lignes, et l'outil déduit automatiquement l'expression régulière optimale. Exécution 100% locale dans le navigateur avec IA WebGPU.</p>
+      <p class="p10-lead" data-en="Regex comes up constantly in data, but writing it by hand is tedious. Inspired by Power Query's Flash Fill ('Column From Examples'): paste your raw data in the first column, give 2 to 3 examples of the expected result, and the tool deduces the regex automatically. 100% private and offline.">Les regex reviennent tout le temps en data, mais restent indigestes à écrire à la main. Inspiré du système <em>Flash Fill</em> de Power Query (« Colonne à partir d'exemples ») : vous collez vos données brutes dans la première colonne, vous donnez <strong>2 ou 3 exemples</strong> du résultat attendu, et l'outil déduit la regex tout seul. 100% local, privé et utilisable hors ligne.</p>
     </div>
   </header>
 
   <main id="contenu" class="container">
 
     <div class="p10-banner">
-      <img src="projets/projet10/cover.svg" alt="Regex Genius - Interface de déduction d'expression régulière par l'exemple" data-en-alt="Regex Genius - Regular expression deduction from examples interface" width="800" height="500">
+      <img src="projets/projet10/cover.png" alt="Regex Genius - Interface de déduction d'expression régulière par l'exemple" data-en-alt="Regex Genius - Regular expression deduction from examples interface" width="1440" height="900">
     </div>
 
     <div class="button-container" style="margin-bottom: var(--space-8);">
@@ -225,22 +239,22 @@
     </div>
 
     <!-- KPIs -->
-    <div class="kpi-grid">
+    <div class="kpi-grid p10-kpi-grid">
       <div class="kpi-card">
         <span class="kpi-value">100%</span>
         <span class="kpi-label" data-en="local &amp; private: 0 bytes sent over Internet">local &amp; privé : 0 octet envoyé sur Internet</span>
       </div>
       <div class="kpi-card">
         <span class="kpi-value">WebGPU</span>
-        <span class="kpi-label" data-en="hardware-accelerated AI model (Qwen 2.5-Coder 1.5B)">modèle IA accéléré matériellement (Qwen 2.5-Coder 1.5B)</span>
+        <span class="kpi-label" data-en="local AI in browser (Qwen 2.5-Coder 1.5B via WebLLM)">IA locale dans le navigateur (WebLLM)</span>
       </div>
       <div class="kpi-card">
-        <span class="kpi-value">1 à 2</span>
-        <span class="kpi-label" data-en="examples suffice to deduce the pattern">exemples suffisent pour déduire le motif</span>
+        <span class="kpi-value">2 à 3</span>
+        <span class="kpi-label" data-en="examples suffice to deduce the regex">exemples suffisent pour déduire la regex</span>
       </div>
       <div class="kpi-card">
         <span class="kpi-value">PWA</span>
-        <span class="kpi-label" data-en="standalone offline app installable on PC">application autonome installable hors-ligne</span>
+        <span class="kpi-label" data-en="100% offline once the page is loaded">utilisable à 100% hors-ligne une fois chargé</span>
       </div>
     </div>
 
@@ -272,17 +286,17 @@
     <!-- Context & Genesis -->
     <section class="content-section">
       <h2 data-en="The Problem &amp; Genesis">Le problème et la genèse</h2>
-      <p data-en="Regular expressions (regex) are essential across data engineering, auditing, and financial reporting for isolating invoice numbers, dates, reference codes, or transaction descriptions. Yet writing regex by hand is notoriously tedious, cryptic, and prone to syntax errors.">
-        Les expressions régulières (Regex) sont indispensables en ingénierie de données, en contrôle de gestion et en audit des systèmes d'information : isolation de numéros de factures, dates d'écritures, codes de référence, ou libellés bancaires. Pourtant, rédiger une regex à la main reste un exercice rébarbatif, cryptique et sujet aux erreurs de syntaxe.
+      <p data-en="Regular expressions (regex) are a frequent topic in data, management control, and IT audit for isolating invoice numbers, dates, reference codes, or bank descriptions. Yet writing regex by hand is notoriously tedious, cryptic, and error-prone.">
+        Les expressions régulières (Regex) sont un sujet qui revient constamment en data, en contrôle de gestion et en audit : isolation de numéros de factures, dates d'écritures, codes de référence ou libellés bancaires. Pourtant, rédiger une regex à la main reste un exercice indigeste, cryptique et sujet aux erreurs de syntaxe.
       </p>
-      <p data-en="Inspired by the 'Column From Examples' feature in Power Query and Microsoft Excel's FlashFill, this project reverses the paradigm: users don't write syntax; they provide the desired output on one or two lines, and the engine automatically infers the regular expression and completes the whole dataset.">
-        Inspiré de la fonctionnalité <em>« Colonne à partir d'exemples »</em> de Power Query et de FlashFill dans Microsoft Excel, ce projet renverse le paradigme : l'utilisateur n'écrit pas de code ; il renseigne le résultat souhaité sur une ou deux lignes d'exemples, et l'outil déduit automatiquement l'expression régulière optimale pour traiter l'intégralité du jeu de données.
+      <p data-en="Inspired by the 'Column From Examples' feature in Power Query and Microsoft Excel's Flash Fill, this tool simplifies the workflow: paste raw data into the first column, provide 2 or 3 examples of the expected result, and the tool automatically deduces the regular expression.">
+        Pour simplifier tout ça, je me suis inspiré du système <em>Flash Fill</em>, la mécanique derrière la <em>« Colonne à partir d'exemples »</em> de Power Query et Excel. Le principe est direct : on colle ses données brutes dans la première colonne, on donne <strong>2 ou 3 exemples</strong> du résultat attendu dans les colonnes suivantes, et l'outil déduit la regex tout seul pour compléter l'ensemble du tableau.
       </p>
 
       <div class="callout">
         <span class="callout-label" data-en="Key Philosophy">Philosophie clé</span>
         <p data-en="Confidentiality by design: accounting, HR, and audit data are sensitive. Regex Genius runs strictly on the client machine with zero server roundtrips, even when invoking the local language model.">
-          <strong>Confidentialité dès la conception :</strong> les données comptables, RH ou d'audit sont confidentielles. Regex Genius s'exécute à 100% sur le poste client, sans aucun aller-retour serveur, y compris lors de l'activation du modèle d'IA local.
+          <strong>Confidentialité totale dès la conception :</strong> les données comptables, RH ou d'audit sont confidentielles. Regex Genius s'exécute à 100% sur le poste de l'utilisateur, avec 0 octet envoyé sur Internet, y compris lors de l'activation du modèle d'IA local.
         </p>
       </div>
     </section>
@@ -291,26 +305,46 @@
 
     <!-- Architecture & Features -->
     <section class="content-section">
-      <h2 data-en="Key Capabilities &amp; Technical Architecture">Fonctionnalités et architecture technique</h2>
+      <h2 data-en="How It Works &amp; Architecture">Le principe en 3 étapes &amp; architecture</h2>
 
       <div class="p10-features-grid">
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">⚡</span>
-            <h3 data-en="Heuristic Pattern Synthesis">Synthèse heuristique en temps réel</h3>
+            <span class="p10-card-icon">1️⃣</span>
+            <h3 data-en="Deterministic Algorithmic Engine (No AI)">Moteur algorithmique (sans IA)</h3>
           </div>
-          <p data-en="An algorithmic synthesis engine processes character classes, prefix/suffix delimiters, variable and fixed-length anchors. Executed inside a dedicated Web Worker to maintain an ultra-smooth 60 FPS spreadsheet experience.">
-            Moteur de synthèse algorithmique analysant les classes de caractères, préfixes/suffixes, longueurs fixes ou variables et ancres de capture. Exécuté dans un Web Worker pour garantir une fluidité parfaite à 60 FPS sans bloquer l'interface.
+          <p data-en="Tests dozens of candidate rules first (delimiters, dates, number formats, anchors) and selects the simplest rule explaining 100% of examples. Runs inside a background Web Worker for a fluid 60 FPS experience.">
+            Un moteur algorithmique déterministe teste d'abord des dizaines de règles candidates (délimiteurs, dates, formats de nombres, motifs récurrents) et retient la formule la plus simple qui explique 100% des exemples. Exécuté dans un Web Worker en tâche de fond pour une fluidité totale.
           </p>
         </div>
 
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">🧠</span>
-            <h3 data-en="Local WebGPU AI (Qwen 2.5-Coder)">IA locale WebGPU (Qwen 2.5-Coder)</h3>
+            <span class="p10-card-icon">2️⃣</span>
+            <h3 data-en="Local In-Browser AI (WebLLM + WebGPU)">IA locale dans le navigateur (WebGPU)</h3>
           </div>
-          <p data-en="For ambiguous or context-heavy patterns, an embedded LLM (Qwen 2.5-Coder 1.5B via WebLLM) executes directly on the user's GPU through WebGPU. Zero API keys, zero network data egress.">
-            Pour les motifs complexes ou ambigus, un grand modèle de langage (Qwen 2.5-Coder 1.5B via WebLLM) tourne directement sur la carte graphique de l'utilisateur grâce à WebGPU. Aucune clé d'API, 0 octet envoyé sur le réseau.
+          <p data-en="If the algorithm gets stuck, an embedded AI model (Qwen 2.5-Coder 1.5B via WebLLM) runs directly on the GPU to suggest a regex. Its answer is then cross-verified by the algorithm before validation to eliminate hallucination risks.">
+            Si l'algorithme coince, une IA tourne en local dans le navigateur (WebLLM + WebGPU avec Qwen 2.5-Coder 1.5B) pour proposer une regex. Sa réponse est ensuite revérifiée par l'algorithme avant d'être validée, afin d'éliminer tout risque d'hallucination.
+          </p>
+        </div>
+
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">3️⃣</span>
+            <h3 data-en="1-Click External LLM Escalation">Escalade IA externe (Prompt en 1 clic)</h3>
+          </div>
+          <p data-en="If even local AI falls short, a single button generates a clean prompt with all entered examples and opens Claude, ChatGPT or Gemini with the prompt pre-copied to clipboard.">
+            Si même cela ne suffit pas, un bouton génère un prompt propre et structuré avec tous les exemples saisis, puis ouvre directement Claude, ChatGPT ou Gemini avec le prompt déjà copié dans le presse-papiers.
+          </p>
+        </div>
+
+        <div class="p10-card">
+          <div class="p10-card-header">
+            <span class="p10-card-icon">💡</span>
+            <h3 data-en="Pedagogy &amp; Interactive Cheat Sheet">Pédagogie &amp; Cheat Sheet intégrée</h3>
+          </div>
+          <p data-en="The goal is also to understand rather than blindly copy-pasting a magic formula: the suggested regex remains directly editable in the tool, with an interactive cheat sheet and concrete examples to help users learn.">
+            Le but est aussi de comprendre et pas juste de copier-coller une formule magique : la regex proposée reste modifiable directement dans l'outil, et une cheat sheet regex avec des exemples concrets est disponible pour progresser.
           </p>
         </div>
 
@@ -326,31 +360,11 @@
 
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">🛠️</span>
-            <h3 data-en="Integrated Cleaning &amp; Transformations">Nettoyage et transformations intégrées</h3>
-          </div>
-          <p data-en="Pre-configured transformations for dates (DD/MM/YYYY, ISO, YYYYMMDD), monetary and numeric cleaning (spaces, decimal commas vs dots), and case formatting (UPPERCASE, lowercase, Capitalized).">
-            Transformations courantes prêtes à l'emploi : normalisation des dates (JJ/MM/AAAA, ISO, AAAAMMJJ), nettoyage des montants et décimales, gestion des espaces et casse (majuscules, minuscules, capitales).
-          </p>
-        </div>
-
-        <div class="p10-card">
-          <div class="p10-card-header">
             <span class="p10-card-icon">💻</span>
-            <h3 data-en="Multi-Language Code Export">Export de code multi-langages</h3>
+            <h3 data-en="100% Offline &amp; Multi-Language Code Export">100% Hors-ligne &amp; Export de code</h3>
           </div>
-          <p data-en="Generate production-ready code snippets in Python (re), SQL (REGEXP_EXTRACT), JavaScript, or download enriched datasets directly as CSV and formatted Excel files.">
-            Génération immédiate d'extraits de code exploitables en Python (<span class="p10-code-token">re</span>), SQL (<span class="p10-code-token">REGEXP_EXTRACT</span>), JavaScript, ou export direct des données enrichies en CSV et Excel.
-          </p>
-        </div>
-
-        <div class="p10-card">
-          <div class="p10-card-header">
-            <span class="p10-card-icon">📖</span>
-            <h3 data-en="Interactive Cheat Sheet &amp; Offline PWA">Cheat Sheet interactive &amp; PWA hors-ligne</h3>
-          </div>
-          <p data-en="Includes a synthetic reference cheat sheet for regex syntax, and installs as an autonomous Progressive Web App (PWA) on PC for offline day-to-day use.">
-            Intègre un aide-mémoire synthétique des métacaractères et quantificateurs, et s'installe comme une Progressive Web App (PWA) autonome sur PC, utilisable 100% hors-ligne sans connexion Internet.
+          <p data-en="Once loaded, the tool works 100% offline via WebGPU and PWA caching. Instant export of enriched datasets to CSV/Excel or code snippets in Python (re), SQL (REGEXP_EXTRACT), and JavaScript.">
+            Une fois la page chargée une première fois, l'outil est utilisable à 100% hors ligne. Export immédiat des données enrichies en CSV et Excel, ou génération d'extraits de code exploitables en Python (<span class="p10-code-token">re</span>), SQL (<span class="p10-code-token">REGEXP_EXTRACT</span>) et JavaScript.
           </p>
         </div>
       </div>
@@ -363,13 +377,13 @@
       <h2 data-en="Key Takeaways">Ce que j'en retiens</h2>
       <ul>
         <li data-en="&lt;strong&gt;Eliminating friction at the source:&lt;/strong&gt; The goal isn't just writing code, but building tools that make tedious technical hurdles disappear for business and data users.">
-          <strong>Supprimer la friction à la racine :</strong> l'enjeu n'est pas d'accumuler du code, mais de créer des outils qui font disparaître les obstacles techniques récurrents rencontrés en contrôle de gestion et en audit.
+          <strong>Supprimer la friction à la racine :</strong> l'enjeu n'est pas d'accumuler du code pour le plaisir, mais de créer des outils simples qui font disparaître des irritants quotidiens rencontrés en contrôle de gestion, data et audit.
         </li>
         <li data-en="&lt;strong&gt;The power of on-device AI:&lt;/strong&gt; WebGPU unlocks client-side machine learning for enterprise environments with strict confidentiality constraints where sending data to third-party cloud APIs is prohibited.">
-          <strong>La force de l'IA locale (on-device) :</strong> WebGPU ouvre la porte à des fonctionnalités avancées sans compromis sur la confidentialité, un impératif absolu pour les données financières ou d'audit d'entreprise.
+          <strong>La force de l'IA locale (on-device) :</strong> WebGPU et WebLLM font tourner des modèles directement sur la machine de l'utilisateur. C'est l'atout idéal pour traiter des données d'entreprise sensibles sans coût d'API ni risque de fuite de données.
         </li>
         <li data-en="&lt;strong&gt;Power Query mental model:&lt;/strong&gt; Bringing the intuitiveness of Power Query's example-driven workflows to modern web applications creates an immediate productivity boost.">
-          <strong>La pertinence de l'approche par l'exemple :</strong> transposer l'ergonomie de Power Query sur le web moderne offre un confort de travail immédiat pour quiconque manipule des tables de données.
+          <strong>La pertinence de l'approche par l'exemple :</strong> transposer la simplicité du <em>Flash Fill</em> de Power Query sur le web moderne rend la manipulation de données naturelle et immédiate, tout en s'appuyant sur une validation rigoureuse.
         </li>
       </ul>
     </section>
