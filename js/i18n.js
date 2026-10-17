@@ -32,7 +32,7 @@
     "Data & Finance · Master CGAO Big Data (IAE Lille)": "Data & Finance · Master CGAO Big Data (IAE Lille)",
     "Transformer des données brutes en décisions financières et opérationnelles.": "Transforming raw data into actionable financial and operational insights.",
     "Alternant Auditeur IT chez Forvis Mazars. Diplômé M2 CGAO. Spécialisé en Business Intelligence, automatisation Python et modélisation de données.": "IT Audit Apprentice at Forvis Mazars. Master's degree in Data & Finance. Specialized in Business Intelligence, Python automation, and data modeling.",
-    "Projet phare · 01": "Featured Project · 01",
+    "Projet phare": "Featured Project",
     "Power BI — Analyse du marché immobilier français (2019–2024)": "Power BI — French Real Estate Market Analysis (2019–2024)",
     "Exploitation des données DVF (data.gouv) : modélisation DAX avancée, simulateur d'achat et cartographie dynamique du marché immobilier.": "Exploiting DVF French open data: advanced DAX modeling, purchase simulator, and dynamic market mapping.",
     "Mémoire M2": "Master's Thesis",

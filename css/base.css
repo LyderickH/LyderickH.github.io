@@ -33,11 +33,11 @@ body {
 }
 
 /* ── Titres ──────────────────────────────────────────────────────────────
-   Fraunces porte tous les titres. Poids 500 : le 600 durcit trop le serif
-   aux grandes tailles, le 400 s'efface aux petites. */
+   Archivo porte tous les titres, en 600 : assez dense pour tenir la page
+   sans recourir à de très grandes tailles. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   line-height: var(--leading-snug);
   letter-spacing: -0.015em;
   color: var(--ink);
@@ -130,14 +130,12 @@ table, .tabular { font-variant-numeric: tabular-nums; }
 
 /* ── Utilitaires ─────────────────────────────────────────────────────── */
 
-/* Le monospace ne sert qu'aux métadonnées : eyebrows, tags, chiffres,
-   légendes. Une seule classe pour garantir un traitement homogène. */
+/* Étiquette de métadonnées (sur-titres, catégories) : même famille que le
+   texte, en casse normale. Le poids et la couleur suffisent à la distinguer. */
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--label-size);
   font-weight: 600;
-  letter-spacing: var(--label-tracking);
-  text-transform: uppercase;
   line-height: 1.4;
   color: var(--accent);
 }

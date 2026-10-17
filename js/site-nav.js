@@ -48,17 +48,20 @@
     nav.innerHTML =
       '<div class="nav-inner">' +
       '<a href="' + prefix + 'index.html" class="nav-logo">Lydérick Henry</a>' +
-      '<div class="nav-links">' +
+      '<div class="nav-links" id="nav-links">' +
       '<a href="' + prefix + 'a-propos.html" class="' + linkClass('a-propos') + '">' + (savedLang === 'en' ? 'About' : 'À propos') + '</a>' +
       '<a href="' + projetsHref + '" class="' + linkClass('projets') + '">' + (savedLang === 'en' ? 'Projects' : 'Projets') + '</a>' +
       '<a href="' + prefix + 'explorateur.html" class="' + linkClass('explorateur') + '" data-secondary="true">' + (savedLang === 'en' ? 'Data Explorer' : 'Explorateur data') + '</a>' +
       '<a href="' + prefix + 'memoire.html" class="' + linkClass('memoire') + '" data-secondary="true">' + (savedLang === 'en' ? 'Thesis' : 'Mémoire') + '</a>' +
       '<a href="' + prefix + 'cv.html" class="' + linkClass('cv') + '" data-secondary="true">' + (savedLang === 'en' ? 'Resume' : 'CV') + '</a>' +
       '<a href="' + prefix + 'contact.html" class="' + linkClass('contact') + '">Contact</a>' +
+      '</div>' +
       '<div class="nav-controls">' +
       themeBtn +
       langBtn +
-      '</div>' +
+      '<button class="nav-menu-btn" id="nav-menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">' +
+      'Menu' +
+      '</button>' +
       '</div>' +
       '</div>';
 
@@ -86,6 +89,28 @@
     document.addEventListener('i18n-applied', function (e) {
       applyNavTranslations(e.detail && e.detail.lang === 'en' ? 'en' : 'fr');
     });
+
+    /* Sur petit écran, les liens passent dans un panneau déroulant : sans lui,
+       Explorateur, Mémoire et CV n'étaient pas atteignables depuis la barre. */
+    var menuBtn = document.getElementById('nav-menu-btn');
+    if (menuBtn) {
+      var setOpen = function (open) {
+        nav.classList.toggle('is-open', open);
+        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      menuBtn.addEventListener('click', function () {
+        setOpen(!nav.classList.contains('is-open'));
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+          setOpen(false);
+          menuBtn.focus();
+        }
+      });
+      document.addEventListener('click', function (e) {
+        if (nav.classList.contains('is-open') && !nav.contains(e.target)) setOpen(false);
+      });
+    }
 
     // Theme toggle listener
     var toggle = document.getElementById('theme-toggle');

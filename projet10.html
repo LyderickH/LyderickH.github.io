@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     (function () {
       var saved = localStorage.getItem('theme');
@@ -33,10 +33,8 @@
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
-      font-family: var(--font-mono);
+      font-family: var(--font-body);
       font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
       padding: 0.25rem 0.65rem;
       border-radius: var(--radius-sm);
       background: var(--accent-soft);
@@ -86,8 +84,9 @@
 
     .p10-card-header {
       display: flex;
-      align-items: center;
-      gap: var(--space-3);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-1);
       margin-bottom: var(--space-3);
     }
 
@@ -95,12 +94,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 1rem;
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--ink-faint);
       flex-shrink: 0;
     }
 
@@ -132,19 +128,15 @@
     }
 
     .embed-header h2 {
-      font-family: var(--font-mono);
+      font-family: var(--font-body);
       font-size: var(--label-size);
       font-weight: 500;
-      letter-spacing: var(--label-tracking);
-      text-transform: uppercase;
       color: var(--ink-faint);
     }
 
     .fullscreen-link {
-      font-family: var(--font-mono);
+      font-family: var(--font-body);
       font-size: var(--label-size);
-      letter-spacing: var(--label-tracking);
-      text-transform: uppercase;
       color: var(--accent);
       text-decoration: none;
       white-space: nowrap;
@@ -174,7 +166,7 @@
 
     .embed-note {
       margin-top: var(--space-3);
-      font-family: var(--font-mono);
+      font-family: var(--font-body);
       font-size: var(--step--1);
       color: var(--ink-faint);
     }
@@ -310,7 +302,7 @@
       <div class="p10-features-grid">
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">1️⃣</span>
+            <span class="p10-card-icon" data-en="Step 1">Étape 1</span>
             <h3 data-en="Deterministic Algorithmic Engine (No AI)">Moteur algorithmique (sans IA)</h3>
           </div>
           <p data-en="Tests dozens of candidate rules first (delimiters, dates, number formats, anchors) and selects the simplest rule explaining 100% of examples. Runs inside a background Web Worker for a fluid 60 FPS experience.">
@@ -320,7 +312,7 @@
 
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">2️⃣</span>
+            <span class="p10-card-icon" data-en="Step 2">Étape 2</span>
             <h3 data-en="Local In-Browser AI (WebLLM + WebGPU)">IA locale dans le navigateur (WebGPU)</h3>
           </div>
           <p data-en="If the algorithm gets stuck, an embedded AI model (Qwen 2.5-Coder 1.5B via WebLLM) runs directly on the GPU to suggest a regex. Its answer is then cross-verified by the algorithm before validation to eliminate hallucination risks.">
@@ -330,7 +322,7 @@
 
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">3️⃣</span>
+            <span class="p10-card-icon" data-en="Step 3">Étape 3</span>
             <h3 data-en="1-Click External LLM Escalation">Escalade IA externe (Prompt en 1 clic)</h3>
           </div>
           <p data-en="If even local AI falls short, a single button generates a clean prompt with all entered examples and opens Claude, ChatGPT or Gemini with the prompt pre-copied to clipboard.">
@@ -340,7 +332,6 @@
 
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">💡</span>
             <h3 data-en="Pedagogy &amp; Interactive Cheat Sheet">Pédagogie &amp; Cheat Sheet intégrée</h3>
           </div>
           <p data-en="The goal is also to understand rather than blindly copy-pasting a magic formula: the suggested regex remains directly editable in the tool, with an interactive cheat sheet and concrete examples to help users learn.">
@@ -350,7 +341,6 @@
 
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">📑</span>
             <h3 data-en="Multi-Column Extraction &amp; Flexible Import">Multi-colonnes et import polyvalent</h3>
           </div>
           <p data-en="Extract several target columns simultaneously from a single input string. Support for direct copy-paste from Excel (Ctrl+C / Ctrl+V), and file imports (.csv, .xlsx, .tsv, .txt) with or without custom delimiters.">
@@ -360,7 +350,6 @@
 
         <div class="p10-card">
           <div class="p10-card-header">
-            <span class="p10-card-icon">💻</span>
             <h3 data-en="100% Offline &amp; Multi-Language Code Export">100% Hors-ligne &amp; Export de code</h3>
           </div>
           <p data-en="Once loaded, the tool works 100% offline via WebGPU and PWA caching. Instant export of enriched datasets to CSV/Excel or code snippets in Python (re), SQL (REGEXP_EXTRACT), and JavaScript.">

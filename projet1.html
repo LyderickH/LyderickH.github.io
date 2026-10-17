@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     (function () {
       var saved = localStorage.getItem('theme');
@@ -112,17 +112,14 @@
 
     <!-- Modern Buttons -->
     <div class="button-container">
-      <a href="projets/projet1/PowerBiImmo.pdf" class="modern-btn" target="_blank" data-en="&lt;span class=&quot;btn-icon&quot;&gt;📄&lt;/span&gt; Download the PDF">
-        <span class="btn-icon">📄</span>
-        Télécharger le PDF
+      <a href="projets/projet1/PowerBiImmo.pdf" class="modern-btn" target="_blank" data-en="Download the PDF &lt;span class=&quot;doc-format&quot;&gt;PDF&lt;/span&gt;">
+        Télécharger le PDF <span class="doc-format">PDF</span>
       </a>
-      <a href="TechniqueImmoM.M" class="modern-btn" target="_blank" data-en="&lt;span class=&quot;btn-icon&quot;&gt;⚙️&lt;/span&gt; Technical details (M code)">
-        <span class="btn-icon">⚙️</span>
-        Aspect technique (code M)
+      <a href="TechniqueImmoM.M" class="modern-btn" target="_blank" data-en="Technical details (M code) &lt;span class=&quot;doc-format&quot;&gt;M&lt;/span&gt;">
+        Aspect technique (code M) <span class="doc-format">M</span>
       </a>
-      <a href="projets/projet1/BDDimmo.png" class="modern-btn" target="_blank" data-en="&lt;span class=&quot;btn-icon&quot;&gt;🗄️&lt;/span&gt; View the data model">
-        <span class="btn-icon">🗄️</span>
-        Visualiser la base de données
+      <a href="projets/projet1/BDDimmo.png" class="modern-btn" target="_blank" data-en="View the data model &lt;span class=&quot;doc-format&quot;&gt;PNG&lt;/span&gt;">
+        Visualiser la base de données <span class="doc-format">PNG</span>
       </a>
     </div>
 
@@ -130,9 +127,20 @@
 
     <section class="embed-block">
       <p data-en="An interactive online version is embedded below (requires an account with a Power BI licence).">Une version interactive en ligne est disponible ci-dessous (accès réservé aux comptes disposant d'une licence).</p>
-      <iframe title="powerbiimmo -V3 avec liens" data-en-title="powerbiimmo -V3 with links"
-        src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
+      <button class="btn" type="button" id="embed-load" data-en="Load the interactive report">Charger le rapport interactif</button>
+      <iframe hidden title="powerbiimmo -V3 avec liens" data-en-title="powerbiimmo -V3 with links"
+        data-src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
         allowFullScreen="true"></iframe>
+      <script>
+        /* L'iframe n'est chargée qu'à la demande : sans licence Power BI elle
+           reste vide, inutile d'afficher un grand cadre gris par défaut. */
+        document.getElementById('embed-load').addEventListener('click', function () {
+          var frame = this.nextElementSibling;
+          frame.src = frame.getAttribute('data-src');
+          frame.hidden = false;
+          this.remove();
+        });
+      </script>
     </section>
   </main>
 
