@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     (function () {
       var saved = localStorage.getItem('theme');
@@ -51,9 +51,9 @@
       }
 
       .p9-callout {
-        border-left: 2px solid var(--accent);
-        background: var(--accent-soft);
-        border-radius: 0 var(--radius) var(--radius) 0;
+        border: 1px solid var(--rule-strong);
+        background: var(--bg-muted);
+        border-radius: var(--radius-sm);
         padding: var(--space-5);
         margin-block: var(--space-5);
       }
@@ -79,10 +79,8 @@
 
       .p9-badge {
         display: inline-block;
-        font-family: var(--font-mono);
+        font-family: var(--font-body);
         font-size: 0.68rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
         padding: 0.22rem 0.5rem;
         border-radius: var(--radius-sm);
         background: var(--accent-soft);
@@ -104,7 +102,7 @@
       }
 
       .p9-figcap {
-        font-family: var(--font-mono);
+        font-family: var(--font-body);
         font-size: var(--step--1);
         color: var(--ink-faint);
         margin-top: var(--space-3);
@@ -181,7 +179,7 @@
 
       table.p9-stack td:first-child {
         color: var(--ink);
-        font-family: var(--font-mono);
+        font-family: var(--font-body);
         font-size: 0.8rem;
         white-space: nowrap;
       }
@@ -189,10 +187,8 @@
       table.p9-stack tr.cat td {
         background: var(--accent-soft);
         color: var(--accent);
-        font-family: var(--font-mono);
+        font-family: var(--font-body);
         font-size: 0.7rem;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
         font-weight: 600;
         white-space: normal;
       }

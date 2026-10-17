@@ -30,22 +30,24 @@
   --shadow-md: 0 4px 14px rgba(43, 56, 70, 0.10), 0 1px 3px rgba(43, 56, 70, 0.08);
 
   /* ── Typographie ─────────────────────────────────────────────────────── */
-  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Archivo (grotesque un peu serrée, registre presse économique) porte les
+     titres ; Source Sans 3 le texte courant. Le mono est réservé au code. */
+  --font-display: 'Archivo', 'Arial Narrow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Échelle fixe (px), alignée sur h1/h2/h3/body/small */
   --step--1: 13px;
-  --step-0: 15px;
+  --step-0: 16px;
   --step-1: 16.5px;
   --step-2: 18px;
   --step-3: 21.6px;
   --step-4: 25.9px;
   --step-5: 32px;
 
-  /* Le mono ne sert qu'aux métadonnées : une seule taille suffit */
-  --label-size: 0.72rem;
-  --label-tracking: 0.09em;
+  /* Étiquettes de métadonnées : petites, grasses, en casse normale */
+  --label-size: 0.85rem;
+  --label-tracking: 0;
 
   --leading-tight: 1.1;
   --leading-snug: 1.3;
@@ -63,9 +65,10 @@
   --space-9: 56px;
 
   /* ── Formes & mesures ────────────────────────────────────────────────── */
-  --radius-sm: 4px;
-  --radius: 8px;
-  --radius-lg: 12px;
+  /* Coins presque droits : un seul rayon discret, jamais de pilule */
+  --radius-sm: 2px;
+  --radius: 3px;
+  --radius-lg: 4px;
 
   --measure: 64ch;            /* longueur de ligne confortable */
   --container: 1120px;
