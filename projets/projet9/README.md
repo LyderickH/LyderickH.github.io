@@ -7,7 +7,6 @@ Power BI par une IA agentique).
 |----------------------------|-------------------------------------------------------------|
 | `cover.svg`                | Vignette affichée sur la carte de la page d'accueil         |
 | `GUIDE_AGENT_POWERBI.md`   | Guide écrit par l'agent (pièges Power BI PBIP/PBIR)         |
-| `GUIDE.md`                 | Guide de production EY avec GitHub Copilot (étapes, skills, thème) |
 | `SuiviBudgetaire_PBIP.zip` | Projet Power BI « Suivi Réel vs Budget » (format PBIP)      |
 | `TestReport_PBIP.zip`      | Projet de test initial (format PBIP)                        |
 
