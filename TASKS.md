@@ -32,3 +32,22 @@ Critère de fin : `PRODUCT.md` écrit à la racine, relu, et reconnu par `impecc
 - [ ] Mode live non configuré dans cette session cloud (à lancer sur le PC avec `/impeccable live`)
 - [ ] À décider : mise à jour du statut affiché (M2 et alternance « jusqu'en août 2026 »)
 - [ ] À décider : le bouton « Télécharger le CV A4 (PDF) » pointe vers une page HTML (`projets/CV à jour.html`), pas un PDF
+
+# Critique + polish de tout le site, mise à jour du statut et du CV
+
+Critère de fin : les 17 pages et le CV A4 s'affichent dans Chromium (1366 et 390 px) sans erreur JS ni défilement horizontal ; statut à jour partout en FR et EN ; bouton d'impression fonctionnel sur le CV A4 ; poussé sur `claude/compassionate-clarke-yhag3q`.
+
+Source des faits : profil LinkedIn fourni (PDF) — consultant FAAS chez EY à Lille depuis octobre 2026, Forvis Mazars sept. 2025 – août 2026, Master CGAO obtenu en août 2026.
+
+- [ ] Critique : revue design A1 (accueil, à propos, projets, contact, CV web, CV A4)
+- [ ] Critique : revue design A2 (projets 1 à 5)
+- [ ] Critique : revue design A3 (projets 6 à 10, mémoire, explorateur)
+- [ ] Critique : passe détecteur + navigateur B (18 pages)
+- [ ] Décision utilisateur : mention de disponibilité, périmètre du gel de style des CV
+- [ ] Synthèse de la critique et tri des corrections
+- [ ] Statut à jour : accueil, à propos, contact, descriptions de page, i18n EN
+- [ ] CV web et CV A4 : contenu mis à jour, style inchangé
+- [ ] CV A4 : bouton d'impression (masqué à l'impression), libellé du lien corrigé
+- [ ] Corrections issues de la critique (polish et commandes associées)
+- [ ] PRODUCT.md aligné sur la nouvelle situation
+- [ ] Vérification finale Chromium (desktop + mobile, FR + EN, clair + sombre) et push
