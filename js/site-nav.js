@@ -94,13 +94,27 @@
        Explorateur, Mémoire et CV n'étaient pas atteignables depuis la barre. */
     var menuBtn = document.getElementById('nav-menu-btn');
     if (menuBtn) {
+      var menuLabel = function () {
+        var en = (localStorage.getItem('lang') || 'fr') === 'en';
+        var open = nav.classList.contains('is-open');
+        menuBtn.textContent = open ? (en ? 'Close' : 'Fermer') : 'Menu';
+      };
       var setOpen = function (open) {
         nav.classList.toggle('is-open', open);
         menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        menuLabel();
       };
       menuBtn.addEventListener('click', function () {
-        setOpen(!nav.classList.contains('is-open'));
+        var open = !nav.classList.contains('is-open');
+        setOpen(open);
+        /* Les liens précèdent le bouton dans le DOM : sans ce déplacement,
+           Tab quittait le menu ouvert sans jamais passer par ses liens. */
+        if (open) {
+          var first = nav.querySelector('.nav-links .nav-link');
+          if (first) first.focus();
+        }
       });
+      document.addEventListener('i18n-applied', menuLabel);
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && nav.classList.contains('is-open')) {
           setOpen(false);
@@ -153,9 +167,103 @@
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSiteNav);
-  } else {
+  /* ── Fin de page ────────────────────────────────────────────────────────
+     Les pages projet, le mémoire et l'explorateur se terminaient sur un
+     bouton de téléchargement : aucun chemin vers le contact, le CV ou le
+     projet suivant. Ce bloc est écrit ici pour n'exister qu'à un endroit.
+     L'ordre et les titres reprennent ceux de projets.html : en ajoutant un
+     projet là-bas, l'ajouter aussi dans PROJECTS. */
+  var PROJECTS = [
+    { page: 'projet8',  fr: 'Power BI - Analyse Accidents et Assurance', en: 'Power BI - Road Accident & Insurance Analysis' },
+    { page: 'projet9',  fr: 'Power BI × Claude', en: 'Power BI × Claude' },
+    { page: 'projet10', fr: "Regex par l'exemple", en: 'Regex by Example' },
+    { page: 'projet1',  fr: 'Power BI - Analyse Immobilière', en: 'Power BI - Real Estate Analysis' },
+    { page: 'projet2',  fr: 'Power BI - Suivi Bancaire', en: 'Power BI - Banking Tracker' },
+    { page: 'projet7',  fr: 'Pipeline de données GCP', en: 'GCP Data Pipeline' },
+    { page: 'projet4',  fr: 'Revue de presse automatisée', en: 'Automated Press Review' },
+    { page: 'projet5',  fr: 'Power BI - Dashboard Restauration', en: 'Power BI - Restaurant Dashboard' },
+    { page: 'projet6',  fr: 'Tableau - Analyse Financière', en: 'Tableau - Investor Behaviour Analysis' },
+    { page: 'projet3',  fr: 'Excel - SIG, CAF et Ratios', en: 'Excel - Financial Statements, Cash Flow & Ratios' }
+  ];
+
+  function initPageEnd() {
+    var file = window.location.pathname.replace(/\\/g, '/').split('/').pop() || 'index.html';
+    var page = file.replace(/\.html$/, '');
+    var index = -1;
+    for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].page === page) index = i;
+    var isProject = index !== -1;
+    if (!isProject && page !== 'memoire' && page !== 'explorateur') return;
+
+    var main = document.querySelector('main');
+    if (!main || main.querySelector('.page-end')) return;
+
+    var next = isProject ? PROJECTS[(index + 1) % PROJECTS.length] : null;
+    var block = document.createElement('nav');
+    block.className = 'page-end';
+    var host = block;
+    if (!main.classList.contains('container')) {
+      host = document.createElement('div');
+      host.className = 'container';
+      host.appendChild(block);
+    }
+    main.appendChild(host);
+
+    function esc(text) {
+      return text.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    }
+
+    function render() {
+      var en = (localStorage.getItem('lang') || 'fr') === 'en';
+      block.setAttribute('aria-label', en ? 'What next' : 'Pour continuer');
+      var lead = isProject
+        ? (en ? 'A question about this project, or want to see another one?'
+              : "Une question sur ce projet, ou envie d'en voir un autre ?")
+        : (en ? 'A question about this work, or want to see the projects?'
+              : 'Une question sur ce travail, ou envie de voir les projets ?');
+      var html = '<p>' + lead + '</p><div class="page-end-actions">' +
+        '<a class="btn btn-primary" href="contact.html">' + (en ? 'Contact me' : 'Me contacter') + '</a>' +
+        '<a class="btn" href="cv.html">' + (en ? 'View the resume' : 'Consulter le CV') + '</a>';
+      if (next) {
+        html += '<a class="btn" href="' + next.page + '.html">' +
+          (en ? 'Next project: ' : 'Projet suivant : ') + esc(en ? next.en : next.fr) + ' →</a>';
+      }
+      html += '<a class="btn" href="projets.html">' + (en ? 'All projects' : 'Tous les projets') + '</a></div>';
+      block.innerHTML = html;
+    }
+
+    render();
+    document.addEventListener('i18n-applied', render);
+  }
+
+  /* ── Démos intégrées ────────────────────────────────────────────────────
+     Une iframe tierce (Power BI, Hugging Face, application hébergée) n'est
+     chargée que sur demande : pas de grand cadre vide si le service tarde,
+     et le défilement de la page n'est plus capté par surprise. */
+  function initEmbeds() {
+    var buttons = document.querySelectorAll('[data-embed-load]');
+    Array.prototype.forEach.call(buttons, function (button) {
+      button.addEventListener('click', function () {
+        var scope = button.closest('.embed-frame') || button.parentNode;
+        var frame = scope.querySelector('iframe[data-src]');
+        if (!frame) return;
+        frame.src = frame.getAttribute('data-src');
+        frame.hidden = false;
+        var launch = button.closest('.embed-launch');
+        if (launch) launch.hidden = true; else button.hidden = true;
+        frame.focus();
+      });
+    });
+  }
+
+  function initAll() {
     initSiteNav();
+    initPageEnd();
+    initEmbeds();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
   }
 })();

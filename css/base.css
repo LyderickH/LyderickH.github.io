@@ -151,3 +151,9 @@ table, .tabular { font-variant-numeric: tabular-nums; }
   white-space: nowrap;
   border: 0;
 }
+
+/* Code en ligne : la fonte mono du site, jamais celle du navigateur */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}

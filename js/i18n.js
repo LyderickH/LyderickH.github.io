@@ -31,7 +31,6 @@
     // Home Page
     "Data & Finance · Master CGAO Big Data (IAE Lille)": "Data & Finance · Master CGAO Big Data (IAE Lille)",
     "Transformer des données brutes en décisions financières et opérationnelles.": "Transforming raw data into actionable financial and operational insights.",
-    "Alternant Auditeur IT chez Forvis Mazars. Diplômé M2 CGAO. Spécialisé en Business Intelligence, automatisation Python et modélisation de données.": "IT Audit Apprentice at Forvis Mazars. Master's degree in Data & Finance. Specialized in Business Intelligence, Python automation, and data modeling.",
     "Projet phare": "Featured Project",
     "Power BI — Analyse du marché immobilier français (2019–2024)": "Power BI — French Real Estate Market Analysis (2019–2024)",
     "Exploitation des données DVF (data.gouv) : modélisation DAX avancée, simulateur d'achat et cartographie dynamique du marché immobilier.": "Exploiting DVF French open data: advanced DAX modeling, purchase simulator, and dynamic market mapping.",
@@ -87,20 +86,15 @@
     "Mon parcours, ma démarche et comment j'allie la rigueur financière à l'ingénierie data pour automatiser et créer de la valeur.": "My background, methodology, and how I combine financial rigor with data engineering to automate and deliver value.",
     "Mon parcours": "My Journey",
     "Ma méthode": "My Methodology",
-    "Ce que je cherche": "What I'm Looking For",
     "Comprendre le métier d'abord": "Understand the Business First",
     "Un indicateur mal défini produit un dashboard inutile, si beau soit-il. Je commence par comprendre comment le chiffre est construit et à quelle décision il sert : c'est là que la formation comptable paie.": "A poorly defined metric produces an unused dashboard, no matter how good it looks. I start by understanding how data is compiled and what decision it drives.",
     "Automatiser la reprise": "Automate Data Pipelines",
     "Un rapport qui demande une manipulation manuelle à chaque mise à jour finira abandonné. Je préfère passer du temps sur la normalisation en amont (langage M, Python, Dataform) que sur la mise en forme.": "A report requiring manual updates will eventually be abandoned. I focus on upstream automation (M language, Python, Dataform) rather than manual formatting.",
     "Vérifier avant de livrer": "Audit Before Delivery",
     "Réflexe d'audit : je recoupe les totaux, je teste les cas limites, je documente ce qui reste fragile. Un livrable dont je ne peux pas expliquer les écarts n'est pas fini.": "Audit mindset: I reconcile totals, test edge cases, and document fragile assumptions. A deliverable isn't complete without verified numbers.",
-    "Je suis arrivé à la data par la comptabilité, pas l'inverse. Quatre ans d'alternance (collaborateur comptable, puis contrôleur de gestion, aujourd'hui auditeur IT chez Forvis Mazars) pendant lesquels j'ai passé beaucoup de temps à faire à la main des choses qui n'auraient pas dû l'être.": "I came to data through accounting, not the other way around. Four years of work-study experience (accounting assistant, financial controller, and currently IT auditor at Forvis Mazars) where I spent significant time automating manual tasks.",
     "C'est ce qui m'a poussé vers Power BI, Python et le SQL : moins par goût de la technique que par agacement devant les tâches répétitives. Ça oriente encore ma façon de travailler aujourd'hui : je cherche d'abord ce qui peut disparaître.": "That is what drove me toward Power BI, Python, and SQL: driven by efficiency and eliminating repetitive tasks. It shapes how I work today: automating what can be streamlined.",
-    "Ouvert aux opportunités en CDI, à la croisée de l'audit des systèmes d'information et de la data : missions où il faut à la fois comprendre un processus métier et savoir le mesurer. Région lilloise ou télétravail partiel.": "Open for full-time CDI opportunities at the intersection of IT audit and data engineering: roles combining business process understanding with analytical measurement. Lille region or hybrid remote.",
 
     // CV Page
-    "Data et Finance · M2 CGAO · Forvis Mazars": "Data & Finance · M2 CGAO · Forvis Mazars",
-    "22 ans, en M2 CGAO Big Data à l'IAE Lille jusqu'en août 2026, actuellement auditeur IT en alternance chez Forvis Mazars. Major de promotion à chaque cycle. Je relie une formation comptable et audit à des compétences data solides (BI, Python, GCP).": "22 years old, completing Master's CGAO Big Data at IAE Lille until August 2026, currently IT Audit apprentice at Forvis Mazars. Top of class in every cycle. Combining accounting/audit foundation with strong data skills (BI, Python, GCP).",
     "Expériences professionnelles": "Professional Experience",
     "Formation & Diplômes": "Education & Degrees",
     "Compétences clés": "Key Skills",
@@ -142,7 +136,6 @@
     "Variables du modèle": "Model Variables",
 
     // Contact Page
-    "Ouvert aux opportunités en CDI.": "Open for full-time (CDI) opportunities.",
     "Canal privilégié · Réponse rapide": "Preferred channel · Quick response",
     "Envoyer un message →": "Send message →",
     "Profil professionnel & réseau": "Professional profile & network",

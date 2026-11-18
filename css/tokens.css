@@ -21,7 +21,7 @@
   --accent-hover: #0B4F99;
   --accent-soft: rgba(15, 101, 192, 0.08);
   --accent-contrast: #FFFFFF; /* texte posé sur --accent */
-  --accent-warm: #D97B08;     /* accent secondaire, usage ponctuel */
+  --accent-warm: #A25C06;     /* accent secondaire, usage ponctuel ; 5,2:1 sur blanc, 4,7:1 sur --bg-muted */
 
   --rule: #D9E2E8;
   --rule-strong: #B8C7D1;

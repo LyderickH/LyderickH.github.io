@@ -221,7 +221,7 @@
         <span class="kpi-label" data-en="local AI in browser (Qwen 2.5-Coder 1.5B via WebLLM)">IA locale dans le navigateur (WebLLM)</span>
       </div>
       <div class="kpi-card">
-        <span class="kpi-value">2 à 3</span>
+        <span class="kpi-value" data-en="2 to 3">2 à 3</span>
         <span class="kpi-label" data-en="examples suffice to deduce the regex">exemples suffisent pour déduire la regex</span>
       </div>
       <div class="kpi-card">
@@ -240,18 +240,22 @@
           </a>
         </div>
         <div class="embed-frame">
+          <div class="embed-launch">
+            <p data-en="The app runs entirely in your browser. Paste text or Excel columns straight in to try it.">L'application s'exécute entièrement dans votre navigateur. Vous pouvez coller du texte ou des colonnes Excel directement pour tester.</p>
+            <div class="embed-launch-actions">
+              <button class="btn btn-primary" type="button" data-embed-load data-en="Launch the demo here">Lancer la démonstration ici</button>
+              <a class="btn" href="https://lyderickh.github.io/regex-genius/" target="_blank" rel="noopener" data-en="Open in a new tab ↗">Ouvrir dans un nouvel onglet ↗</a>
+            </div>
+          </div>
           <iframe
-            src="https://lyderickh.github.io/regex-genius/"
+            hidden
+            data-src="https://lyderickh.github.io/regex-genius/"
             title="Regex Genius - Déduction de regex par l'exemple"
             data-en-title="Regex Genius - Regular expression deduction from examples"
-            loading="lazy"
             referrerpolicy="no-referrer"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-downloads"
           ></iframe>
         </div>
-        <p class="embed-note" data-en="The tool runs entirely in your browser. Paste text or Excel columns directly to try it. Open fullscreen for the best experience.">
-          L'application s'exécute entièrement dans votre navigateur. Vous pouvez coller du texte ou des colonnes Excel directement pour tester. Ouvrez en plein écran pour un confort optimal.
-        </p>
       </div>
     </section>
 
