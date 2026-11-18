@@ -57,8 +57,8 @@ Source des faits : profil LinkedIn fourni (PDF) — consultant FAAS chez EY à L
 - [x] Styles : contraste du badge (5,2:1), cibles tactiles 44 px, mesure de texte 68ch, code en fonte mono
 - [x] Couverture du projet 9 : plus d'étiquette monospace ni de titre serif
 - [x] PRODUCT.md aligné sur la nouvelle situation
-- [ ] Mémoire : résultats de l'enquête, intégrité des graphiques, repli sans Chart.js (en cours)
-- [ ] Vérification finale Chromium (desktop + mobile, FR + EN, clair + sombre) et push
+- [x] Mémoire : résultats de l'enquête sourcés dans la thèse, sept points d'échelle affichés, radar remplacé par des barres 0–100, repli texte sans Chart.js
+- [x] Vérification finale Chromium : 72 chargements (18 pages × 2 tailles × 2 langues), 0 erreur JS, 0 fichier local manquant, seul débordement = CV A4 sur mobile (style figé)
 
 ## Non traité, à décider
 - [ ] Titres des projets « outil d'abord » (« Power BI - … ») : les reformuler par la question métier

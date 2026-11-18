@@ -1652,6 +1652,10 @@ a.contact-card:hover { border-color: var(--ink-faint); }
   text-decoration: none;
 }
 
+/* Sections pleine largeur du mémoire : la grille éditoriale annulait la
+   marge sous le titre, qui collait alors au premier paragraphe. */
+.content-section.memoire-intro > h2 { margin-bottom: var(--space-5); }
+
 /* ── Mesure du texte ─────────────────────────────────────────────────── */
 
 /* Le corps enveloppé dans .content-body échappait au plafond de 68ch posé
