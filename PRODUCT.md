@@ -8,27 +8,27 @@ web
 
 ## Users
 
-Deux lecteurs, à égalité, qui évaluent une candidature en CDI :
+Deux lecteurs, à égalité, qui évaluent le profil (confirmés avant la prise de poste chez EY ; à reconfirmer si la cible change) :
 
-- **Recruteurs RH et cabinets de recrutement.** Ils trient des candidatures et veulent le profil, le CV et la disponibilité en moins d'une minute.
+- **Recruteurs RH et cabinets de recrutement.** Ils veulent le profil, le poste actuel et le CV en moins d'une minute.
 - **Managers opérationnels en audit IT et en data.** Ils lisent les projets en détail pour juger la méthode et la technique avant un entretien.
 
 Aucune des deux lectures ne doit être sacrifiée à l'autre.
 
 ## Product Purpose
 
-Portfolio personnel de Lydérick Henry, profil data et finance. Il existe pour obtenir un CDI à la croisée de l'audit des systèmes d'information et de la data, en région lilloise ou en télétravail partiel.
+Portfolio personnel de Lydérick Henry, consultant FAAS chez EY à Lille depuis octobre 2026. Il présente son profil data et finance, prouve ses compétences par des réalisations consultables, et le rend joignable.
 
-Le succès est une prise de contact : e-mail (canal privilégié), LinkedIn ou téléphone, avec le CV comme pièce à joindre à la candidature.
+Le site n'affiche pas de recherche d'emploi : la formule retenue est « en poste, ouvert aux échanges » (décision de novembre 2026). Le succès est une prise de contact : e-mail (canal privilégié), LinkedIn ou téléphone.
 
 ## Positioning
 
-Comptable venu à la data, pas l'inverse. Lydérick comprend comment un chiffre est construit et à quelle décision il sert avant de le mesurer : la data sert le métier finance. Quatre ans d'alternance en comptabilité, contrôle de gestion puis audit IT fondent cette position.
+Comptable venu à la data, pas l'inverse. Lydérick comprend comment un chiffre est construit et à quelle décision il sert avant de le mesurer : la data sert le métier finance. Quatre ans d'alternance en comptabilité, contrôle de gestion puis audit IT, puis le conseil FAAS chez EY, fondent cette position.
 
 ## Operating Context
 
-- Le site accompagne une candidature : le lecteur arrive depuis un CV, un profil LinkedIn ou un e-mail, puis parcourt l'accueil, les projets et le CV.
-- Le CV existe en deux formats : une version web interactive, filtrable par compétences (`cv.html`), et une version A4 à imprimer ou à joindre (`projets/CV à jour.html`).
+- Le lecteur arrive par un lien (profil LinkedIn, CV, e-mail), puis parcourt l'accueil, les projets et le CV. Le site n'est pas indexé par les moteurs de recherche (`robots.txt` et balises `noindex`).
+- Le CV existe en deux formats : une version web (`cv.html`) et une version A4 (`projets/CV à jour.html`), dotée d'un bouton pour l'imprimer ou l'enregistrer en PDF. Le style de la version A4 est figé : seul son contenu évolue.
 - Chaque projet a sa page, avec ses livrables consultables ou téléchargeables (PDF, captures, fichiers sources) et parfois une démo intégrée.
 - Le site est lu sur ordinateur comme sur mobile.
 
@@ -39,7 +39,7 @@ Fonctionnalités en place :
 - 17 pages : accueil, à propos, projets, dix pages projet, mémoire, explorateur open data, CV, contact.
 - Page projets filtrable par famille d'outils (Power BI, Python et IA, Cloud et SQL, Tableau, Excel).
 - Bascule de langue FR / EN et bascule de thème clair / sombre, mémorisées dans le navigateur.
-- Démos intégrées par iframe : rapport Power BI (projet 1, chargé au clic car sous licence), Regex par l'exemple (projet 10), explorateur open data (hébergé sur Hugging Face Spaces).
+- Démos intégrées par iframe, chargées à la demande : rapport Power BI (projet 1, sous licence), Regex par l'exemple (projet 10), explorateur open data (hébergé sur Hugging Face Spaces).
 
 Contraintes confirmées :
 
@@ -52,7 +52,8 @@ Dépendances externes : Google Fonts, Chart.js par CDN (page mémoire), services
 
 Points non décidés :
 
-- Le statut affiché (M2 et alternance chez Forvis Mazars jusqu'en août 2026) est à mettre à jour par Lydérick une fois la période terminée. Ne pas le reformuler sans son accord.
+- L'âge (« 22 ans ») et l'adresse postale complète figurent sur le CV A4 : à confirmer ou retirer par Lydérick.
+- L'ouverture du site aux moteurs de recherche n'est pas décidée.
 
 ## Brand Commitments
 
@@ -65,12 +66,12 @@ Points non décidés :
 
 - **Dix projets**, documentés dans `projet1.html` à `projet10.html`, livrables dans `projets/projet1/` à `projets/projet10/` : Power BI (immobilier, suivi bancaire, restauration, accidents et assurance, Power BI × Claude), Excel SIG / CAF, revue de presse automatisée en Python, Tableau, pipeline GCP (BigQuery, Dataform, Looker Studio), Regex par l'exemple.
 - **Mémoire de M2** sur l'IA générative en audit, 67 répondants : PDF, protocole, notebook exécuté et support de soutenance dans `projets/memoire/`, page `memoire.html`.
-- **Parcours** détaillé dans `cv.html` : collaborateur comptable (Humafin Coop), contrôleur de gestion (CIC Nord Ouest), auditeur IT (Forvis Mazars), Master CGAO Big Data à l'IAE Lille.
+- **Parcours** détaillé dans `cv.html` : collaborateur comptable (Humafin Coop), contrôleur de gestion (CIC Nord Ouest), auditeur IT (Forvis Mazars), consultant FAAS (EY, depuis octobre 2026), Master CGAO Big Data à l'IAE Lille.
 - **Absences à ne pas combler par invention :** aucun témoignage, aucune recommandation, aucun client nommé en dehors des employeurs, aucune mesure d'impact chiffrée des projets. Le projet « accidents et assurance » est une commande fictive issue d'un test de recrutement et doit rester présenté comme tel.
 
 ## Product Principles
 
-1. **Deux vitesses de lecture.** Le profil, le CV et la disponibilité se trouvent en moins d'une minute ; la preuve détaillée attend celui qui creuse.
+1. **Deux vitesses de lecture.** Le profil, le poste actuel et le CV se trouvent en moins d'une minute ; la preuve détaillée attend celui qui creuse.
 2. **Le métier avant l'outil.** Un projet se présente par la question financière ou opérationnelle à laquelle il répond, puis par la technique.
 3. **La preuve plutôt que l'affirmation.** Chaque compétence annoncée renvoie à un livrable réel et consultable.
 4. **Chaque page mène au contact ou au CV.** Le lecteur convaincu ne doit pas chercher comment écrire.

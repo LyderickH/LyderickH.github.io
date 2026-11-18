@@ -237,6 +237,8 @@
   flex-wrap: wrap;
   gap: var(--space-2) var(--space-5);
   margin-bottom: var(--space-6);
+  /* le point d'un élément renvoyé à la ligne tombe hors du bloc : on le rogne */
+  overflow-x: clip;
 }
 
 .hero-meta li {
@@ -922,6 +924,25 @@
 
 .slide.active { display: block; }
 
+/* slider.js fixe le ratio sur le format majoritaire des images : le cadre
+   ne change plus de hauteur d'une image à l'autre, et une petite capture
+   n'est jamais étirée au-delà de sa taille réelle. La largeur est posée
+   explicitement : sans elle, un plafond de hauteur rétrécirait le cadre. */
+.slider-wrapper.is-sized {
+  width: 100%;
+  aspect-ratio: var(--slide-ratio);
+}
+
+.slider-wrapper.is-sized .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+
+.caption .section-link { margin-top: var(--space-2); }
+
 .slide-controls {
   position: absolute;
   top: 50%;
@@ -1466,14 +1487,6 @@
   line-height: 1.3;
 }
 
-.methode-num {
-  display: block;
-  font-size: var(--label-size);
-  font-weight: 600;
-  color: var(--accent);
-  margin-bottom: var(--space-4);
-}
-
 .methode-bloc p {
   color: var(--ink-soft);
   font-size: 0.95rem;
@@ -1524,7 +1537,7 @@
   transition: border-color var(--transition);
 }
 
-.contact-card:hover { border-color: var(--ink-faint); }
+a.contact-card:hover { border-color: var(--ink-faint); }
 
 /* Pictogramme posé tel quel, sans pastille */
 .contact-card-icon {
@@ -1637,4 +1650,108 @@
   border-radius: var(--radius);
   font-size: 0.9rem;
   text-decoration: none;
+}
+
+/* ── Mesure du texte ─────────────────────────────────────────────────── */
+
+/* Le corps enveloppé dans .content-body échappait au plafond de 68ch posé
+   sur les enfants directs : des lignes de 120 caractères sur grand écran. */
+.content-body > p,
+.content-body > ul,
+.content-body > ol {
+  max-width: 68ch;
+}
+
+/* ── Chiffres clés : quatre cartes sans orpheline ────────────────────── */
+
+@media (min-width: 640px) {
+  .kpi-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .kpi-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* L'attribut hidden doit l'emporter sur le display:block posé par les pages */
+.embed-frame iframe[hidden],
+.embed-launch[hidden] { display: none; }
+
+/* ── Démo intégrée chargée à la demande ──────────────────────────────── */
+
+/* Tant que le visiteur n'a pas lancé l'outil, le cadre dit ce qui va
+   s'ouvrir au lieu d'afficher un grand rectangle vide. */
+.embed-launch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--surface);
+}
+
+.embed-launch p {
+  color: var(--ink-soft);
+  max-width: 62ch;
+  line-height: var(--leading-body);
+}
+
+.embed-launch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ── Fin de page : contact, CV, projet suivant ───────────────────────── */
+
+.page-end {
+  margin-block: var(--space-8);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--rule);
+}
+
+.page-end p {
+  color: var(--ink-soft);
+  max-width: 58ch;
+  margin-bottom: var(--space-5);
+}
+
+.page-end-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ── Cibles tactiles : 44 px minimum sur petit écran ─────────────────── */
+
+@media (max-width: 899px) {
+  .lang-toggle,
+  .theme-toggle,
+  .nav-menu-btn { height: 44px; }
+
+  .theme-toggle { width: 44px; }
+
+  .nav-logo,
+  .back-link,
+  .section-link,
+  .fullscreen-link,
+  .footer-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .footer-links a { min-width: 44px; }
+
+  /* la cible grandit, l'écart sous le lien de retour se resserre d'autant */
+  .back-link { margin-bottom: var(--space-3); }
+
+  .btn,
+  .modern-btn,
+  .filtre { min-height: 44px; }
+
+  .filtre { padding-inline: 0.9rem; }
+
+  .view-btn { width: 44px; height: 44px; }
+
+  .slide-btn { width: 2.75rem; height: 2.75rem; }
 }

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CV - Lydérick Henry</title>
+  <meta name="description" content="CV de Lydérick Henry, consultant FAAS chez EY : parcours en comptabilité, contrôle de gestion et audit IT, compétences data.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -120,6 +121,16 @@
     }
 
     .timeline-item h3 a { color: inherit; text-decoration: none; }
+
+    /* Petit écran : la zone tactile des liens en ligne grandit sans déplacer le texte */
+    @media (max-width: 899px) {
+      .timeline-item h3 a,
+      .cv-meta a {
+        display: inline-block;
+        padding-block: 0.85rem;
+        margin-block: -0.85rem;
+      }
+    }
     .timeline-item h3 a:hover { color: var(--accent); }
 
     .timeline-meta {
@@ -134,7 +145,7 @@
     .timeline-mention {
       display: inline-block;
       font-family: var(--font-body);
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: var(--accent);
       background: var(--accent-soft);
       border-radius: var(--radius-sm);
@@ -205,6 +216,17 @@
       color: var(--accent);
     }
 
+    /* Langues et savoir-être côte à côte : la règle avait disparu, les deux
+       cartes se touchaient bord à bord. */
+    .two-col {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    @media (min-width: 641px) {
+      .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
     .info-card {
       padding: var(--space-5);
       background: var(--surface);
@@ -244,8 +266,8 @@
         <img src="Photo%20professionnel.webp" alt="Lydérick Henry" class="cv-photo" width="400" height="400">
         <div>
           <h1 class="cv-name">Lydérick Henry</h1>
-          <p class="cv-subtitle" data-en="Data &amp; Finance · M2 CGAO · Forvis Mazars">Data et Finance · M2 CGAO · Forvis Mazars</p>
-          <p class="cv-bio" data-en="22, completing an M2 CGAO Big Data at IAE Lille until August 2026, currently an IT audit apprentice at Forvis Mazars. Top of the class at every level. I connect an accounting and audit background with solid data skills (BI, Python, GCP).">22 ans, en M2 CGAO Big Data à l'IAE Lille jusqu'en août 2026, actuellement auditeur IT en alternance chez Forvis Mazars. Major de promotion à chaque cycle. Je relie une formation comptable et audit à des compétences data solides (BI, Python, GCP).</p>
+          <p class="cv-subtitle" data-en="Data &amp; Finance · FAAS Consultant · EY">Data et Finance · Consultant FAAS · EY</p>
+          <p class="cv-bio" data-en="FAAS consultant at EY in Lille since October 2026, graduate of the Master CGAO Big Data at IAE Lille. Top of the class at every level. I connect an accounting and audit background with solid data skills (BI, Python, GCP).">Consultant FAAS chez EY à Lille depuis octobre 2026, diplômé du Master CGAO Big Data de l'IAE Lille. Major de promotion à chaque cycle. Je relie une formation comptable et audit à des compétences data solides (BI, Python, GCP).</p>
           <div class="cv-meta">
             <span><span class="meta-label">email →</span> <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a></span>
             <span><span class="meta-label">tel →</span> <a href="tel:0619833633">06.19.83.36.33</a></span>
@@ -257,15 +279,26 @@
     </div>
   </header>
 
-  <section id="contenu" class="cv-section">
+  <main id="contenu">
+  <section class="cv-section">
     <div class="container">
       <h2 class="section-title" data-en="Professional experience">Expériences professionnelles</h2>
 
       <div class="timeline">
 
         <div class="timeline-item">
+          <h3><a href="https://www.ey.com/fr_fr" target="_blank" rel="noopener" data-en="FAAS Consultant (Financial Accounting Advisory Services)">Consultant FAAS (Financial Accounting Advisory Services)</a></h3>
+          <p class="timeline-meta" data-en="&lt;span class=&quot;org&quot;&gt;EY · Lille&lt;/span&gt; · Since Oct. 2026"><span class="org">EY · Lille</span> · Depuis oct. 2026</p>
+          <ul>
+            <li data-en="Supporting finance departments on accounting, reporting and EPM (Enterprise Performance Management) tools.">Accompagnement des directions financières sur leurs sujets comptables, de reporting et d'outils EPM (Enterprise Performance Management).</li>
+            <li data-en="IT audit of an EPM solution: review of access and change management controls, and reliability of reporting data flows.">Audit IT d'une solution EPM : revue des contrôles d'accès et de gestion des changements, fiabilité des flux de données de reporting.</li>
+            <li data-en="FAAS engagements: support on finance transformation projects and on planning and reporting tools.">Missions FAAS : appui à des projets de transformation finance et aux outils de planification et de reporting.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
           <h3><a href="https://www.forvismazars.com/fr/" target="_blank" rel="noopener" data-en="IT Auditor - Apprenticeship">Auditeur IT - Alternance</a></h3>
-          <p class="timeline-meta" data-en="&lt;span class="org"&gt;Forvis Mazars France&lt;/span&gt; · Sept. 2025 – Aug. 2026"><span class="org">Forvis Mazars France</span> · Sept. 2025 – Août 2026</p>
+          <p class="timeline-meta" data-en="&lt;span class=&quot;org&quot;&gt;Forvis Mazars France&lt;/span&gt; · Sept. 2025 – Aug. 2026"><span class="org">Forvis Mazars France</span> · Sept. 2025 – Août 2026</p>
           <ul>
             <li data-en="Analysis of the information systems (IS) environment.">Analyse de l'environnement des systèmes d'information (SI).</li>
             <li data-en="Data projects (Power BI and Alteryx).">Projets Data (Power BI et Alteryx).</li>
@@ -273,15 +306,16 @@
             <li data-en="IT General Controls (ITGC) testing.">Réalisation des contrôles généraux informatiques (ITGC).</li>
             <li data-en="IT Automated Controls (ITAC) testing.">Tests de contrôles ITAC (IT Automated Controls).</li>
             <li data-en="Business process and IT reviews.">Revue de processus métier et IT.</li>
+            <li data-en="Review of migrations to major ERPs (SAP ECC, SAP S/4HANA): cutover risks and continuity of controls.">Revue de migrations vers de grands ERP (SAP ECC, SAP S/4HANA) : risques de bascule et continuité des contrôles.</li>
           </ul>
         </div>
 
         <div class="timeline-item">
           <h3><a href="https://www.cic.fr/fr/index.html" target="_blank" rel="noopener" data-en="Financial Controller - Apprenticeship">Contrôleur de gestion - Alternance</a></h3>
-          <p class="timeline-meta" data-en="&lt;span class="org"&gt;CIC Nord Ouest&lt;/span&gt; · Sept. 2024 → Aug. 2025"><span class="org">CIC Nord Ouest</span> · Sept. 2024 → Août 2025</p>
+          <p class="timeline-meta" data-en="&lt;span class=&quot;org&quot;&gt;CIC Nord Ouest&lt;/span&gt; · Sept. 2024 – Aug. 2025"><span class="org">CIC Nord Ouest</span> · Sept. 2024 – Août 2025</p>
           <ul>
             <li data-en="Reporting automation with Excel &amp; VBA to make recurring processes faster and more reliable.">Automatisation du reporting via Excel &amp; VBA pour fiabiliser et accélérer les traitements récurrents.</li>
-            <li data-en="Built a tool analysing negative gross operating income to diagnose performance gaps.">Développement d'un outil d'analyse des RBE négatifs pour diagnostiquer des écarts de performance.</li>
+            <li data-en="Built an Excel/VBA tool analysing negative gross operating income, used by the network of 300 branch managers to diagnose performance gaps.">Développement d'un outil Excel/VBA d'analyse des RBE négatifs, destiné au réseau de 300 directeurs d'agence, pour diagnostiquer les écarts de performance.</li>
             <li data-en="Audit and control of authorisation delegations and user rights (Excel macros).">Audit et contrôle de délégations d'autorisation et droits (macros Excel).</li>
             <li data-en="Monthly rate committee and financial analysis for pricing.">Comité des Taux mensuel et analyses financières pour la tarification.</li>
             <li data-en="Overhead cost control, monitoring and involvement in the budget process.">Contrôle des frais généraux, suivi et participation au processus budgétaire.</li>
@@ -290,7 +324,7 @@
 
         <div class="timeline-item">
           <h3><a href="https://humafin.coop/" target="_blank" rel="noopener" data-en="Accounting Associate - Apprenticeship">Collaborateur comptable - Alternance</a></h3>
-          <p class="timeline-meta" data-en="&lt;span class="org"&gt;Humafin Coop Lille&lt;/span&gt; · June 2022 → Aug. 2024"><span class="org">Humafin Coop Lille</span> · Juin 2022 → Août 2024</p>
+          <p class="timeline-meta" data-en="&lt;span class=&quot;org&quot;&gt;Humafin Coop Lille&lt;/span&gt; · June 2022 – Aug. 2024"><span class="org">Humafin Coop Lille</span> · Juin 2022 – Août 2024</p>
           <ul>
             <li data-en="Monthly and quarterly VAT returns for 25 client files.">TVA mensuelle et trimestrielle pour 25 dossiers clients.</li>
             <li data-en="Preparation of tax returns and forecast financial statements.">Établissement des liasses fiscales et bilans prévisionnels.</li>
@@ -311,7 +345,7 @@
 
         <div class="timeline-item">
           <h3><a href="https://iaelille.fr/formations/master-2-audit-comptable-et-financier/" target="_blank" rel="noopener" data-en="Master 2 - Management Control &amp; Organisational Audit (Big Data track)">Master 2 - Contrôle de gestion et audit organisationnel (Big Data)</a></h3>
-          <p class="timeline-meta" data-en="&lt;span class="org"&gt;IAE Lille&lt;/span&gt; · Sept. 2024 → Aug. 2026"><span class="org">IAE Lille</span> · Sept. 2024 → Août 2026</p>
+          <p class="timeline-meta" data-en="&lt;span class=&quot;org&quot;&gt;IAE Lille&lt;/span&gt; · Sept. 2024 – Aug. 2026"><span class="org">IAE Lille</span> · Sept. 2024 – Août 2026</p>
           <span class="timeline-mention" data-en="Top of the class">Major de promotion</span>
           <ul>
             <li data-en="Programme focused on audit, management control and information systems, specialising in data and digital transformation.">Formation orientée audit, contrôle de gestion et systèmes d'information, avec spécialisation data et transformation numérique.</li>
@@ -323,13 +357,13 @@
 
         <div class="timeline-item">
           <h3><a href="https://iaelille.fr/formations/licence-3-comptabilite-controle-audit/" target="_blank" rel="noopener" data-en="Bachelor CCA - Accounting, Control &amp; Audit">Licence CCA - Comptabilité, Contrôle, Audit</a></h3>
-          <p class="timeline-meta" data-en="&lt;span class="org"&gt;IAE Lille&lt;/span&gt; · Aug. 2023 → Aug. 2024"><span class="org">IAE Lille</span> · Août 2023 → Août 2024</p>
+          <p class="timeline-meta" data-en="&lt;span class=&quot;org&quot;&gt;IAE Lille&lt;/span&gt; · Aug. 2023 – Aug. 2024"><span class="org">IAE Lille</span> · Août 2023 – Août 2024</p>
           <span class="timeline-mention" data-en="Top of the class">Major de promotion</span>
         </div>
 
         <div class="timeline-item">
           <h3><a href="https://iut.univ-lille.fr/" target="_blank" rel="noopener" data-en="BUT GEA - Business Administration (GC2F track)">BUT GEA - option GC2F</a></h3>
-          <p class="timeline-meta" data-en="&lt;span class="org"&gt;IUT A · Université de Lille&lt;/span&gt; · Jan. 2022 → July 2023"><span class="org">IUT A · Université de Lille</span> · Janv. 2022 → Juil. 2023</p>
+          <p class="timeline-meta" data-en="&lt;span class=&quot;org&quot;&gt;IUT A · Université de Lille&lt;/span&gt; · Jan. 2022 – July 2023"><span class="org">IUT A · Université de Lille</span> · Janv. 2022 – Juil. 2023</p>
           <span class="timeline-mention" data-en="Top of the class">Major de promotion</span>
         </div>
 
@@ -441,10 +475,12 @@
       </div>
 
       <div class="print-cta">
-        <a href="projets/CV à jour.html" target="_blank" rel="noopener" class="btn" data-en="↗ View the printable PDF / A4 version">↗ Voir la version PDF / A4 imprimable</a>
+        <a href="projets/CV%20%C3%A0%20jour.html" target="_blank" rel="noopener" class="btn" data-en="Open the A4 resume (print or PDF) ↗">Ouvrir le CV A4 (impression ou PDF) ↗</a>
       </div>
     </div>
   </section>
+
+  </main>
 
   <footer class="site-footer">
     <div class="container">

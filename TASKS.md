@@ -39,15 +39,36 @@ Critère de fin : les 17 pages et le CV A4 s'affichent dans Chromium (1366 et 39
 
 Source des faits : profil LinkedIn fourni (PDF) — consultant FAAS chez EY à Lille depuis octobre 2026, Forvis Mazars sept. 2025 – août 2026, Master CGAO obtenu en août 2026.
 
-- [ ] Critique : revue design A1 (accueil, à propos, projets, contact, CV web, CV A4)
-- [ ] Critique : revue design A2 (projets 1 à 5)
-- [ ] Critique : revue design A3 (projets 6 à 10, mémoire, explorateur)
-- [ ] Critique : passe détecteur + navigateur B (18 pages)
-- [ ] Décision utilisateur : mention de disponibilité, périmètre du gel de style des CV
-- [ ] Synthèse de la critique et tri des corrections
-- [ ] Statut à jour : accueil, à propos, contact, descriptions de page, i18n EN
-- [ ] CV web et CV A4 : contenu mis à jour, style inchangé
-- [ ] CV A4 : bouton d'impression (masqué à l'impression), libellé du lien corrigé
-- [ ] Corrections issues de la critique (polish et commandes associées)
-- [ ] PRODUCT.md aligné sur la nouvelle situation
+- [x] Critique : revue design A1 (accueil, à propos, projets, contact, CV web, CV A4)
+- [x] Critique : revue design A2 (projets 1 à 5)
+- [x] Critique : revue design A3 (projets 6 à 10, mémoire, explorateur)
+- [x] Critique : passe détecteur + navigateur B (18 pages) — 18 signalements, 11 confirmés, 6 faux positifs
+- [x] Décision utilisateur : « en poste chez EY, ouvert aux échanges » ; gel de style sur le CV A4 seulement
+- [x] Synthèse de la critique : 361/604 (60 %), rapport rendu dans la conversation
+- [x] Statut à jour : accueil, à propos, contact, descriptions de page, traductions EN
+- [x] CV web : EY ajouté, bug anglais réparé (employeurs et dates), `<main>`, deux colonnes rétablies
+- [x] CV A4 : EY ajouté, contenu condensé sur une page, style inchangé, bouton d'impression masqué à l'impression
+- [x] Pages projet : lien « ← Projets », chapô repris des cartes, bloc de fin (contact, CV, projet suivant)
+- [x] Projet 8 : mention « commande fictive », six légendes réécrites d'après les images
+- [x] Diaporama : hauteur stable, texte alternatif tiré des légendes, lien « taille réelle »
+- [x] Démos intégrées (projets 1 et 10, explorateur) : chargement à la demande
+- [x] Page projets : recherche « Audit », « SQL », « finance » fonctionnelle, hiérarchie des titres
+- [x] À propos : numérotation 01/02/03 retirée, traduction anglaise fidèle
+- [x] Styles : contraste du badge (5,2:1), cibles tactiles 44 px, mesure de texte 68ch, code en fonte mono
+- [x] Couverture du projet 9 : plus d'étiquette monospace ni de titre serif
+- [x] PRODUCT.md aligné sur la nouvelle situation
+- [ ] Mémoire : résultats de l'enquête, intégrité des graphiques, repli sans Chart.js (en cours)
 - [ ] Vérification finale Chromium (desktop + mobile, FR + EN, clair + sombre) et push
+
+## Non traité, à décider
+- [ ] Titres des projets « outil d'abord » (« Power BI - … ») : les reformuler par la question métier
+- [ ] Ordre des diapositives : les projets 1, 2 et 4 s'ouvrent sur une page de navigation, pas sur l'analyse
+- [ ] Cartes « chiffres clés » qui ne sont pas des mesures (« OPML », « .docx », « Étoile ») sur les projets 1, 3, 4, 5, 7, 10
+- [ ] Projet 8 : remplacer les trois détails flous (575×450) par des pages entières du PDF
+- [ ] Projets 1 et 2 : le fichier de code M s'ouvre mal ; étiquette « DAX » sur les cartes sans mesure DAX montrée
+- [ ] CV A4 : âge « 22 ans » et adresse postale complète publiés
+- [ ] `projets/projet10/cover.svg` : fichier non utilisé qui enfreint les règles visuelles (à supprimer ?)
+- [ ] Ligne de contact du CV web au style terminal (« email → … »)
+- [ ] Mode sombre : les captures claires forment un bloc blanc dans le diaporama
+- [ ] Préférence système « sombre » ignorée au premier chargement
+- [ ] Aperçu de partage (Open Graph) absent ; site non indexé (`robots.txt`)

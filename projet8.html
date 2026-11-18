@@ -30,8 +30,9 @@
 
   <header class="page-header">
     <div class="container">
-      <a href="index.html" class="back-link">← Retour</a>
+      <a href="projets.html" class="back-link" data-en="← Projects">← Projets</a>
       <h1 data-en="Power BI - Road Accident &amp; Insurance Analysis">Power BI - Analyse Accidents et Assurance</h1>
+      <p class="page-lead" data-en="A fictitious client brief, produced as part of a recruitment test: a Power BI dashboard and a PowerPoint deliverable following an imposed angle of analysis, on the BAAC 2021 dataset.">Commande client fictive, réalisée dans le cadre d'un test de recrutement : dashboard Power BI et restitution PowerPoint selon un angle d'analyse imposé, sur les données BAAC 2021.</p>
     </div>
   </header>
 
@@ -39,7 +40,7 @@
     <section class="content-section">
       <h2 data-en="Project Overview">Présentation du Projet</h2>
       <div class="content-body">
-      <p data-en="&lt;strong&gt;Client:&lt;/strong&gt; OOTBox Advisory"><strong>Commanditaire :</strong> OOTBox Advisory</p>
+      <p data-en="&lt;strong&gt;Client (fictitious):&lt;/strong&gt; OOTBox Advisory"><strong>Commanditaire (fictif) :</strong> OOTBox Advisory</p>
       <p data-en="&lt;strong&gt;Topic:&lt;/strong&gt; analysis of injury road accidents in France (BAAC 2021) for motor insurance policy purposes."><strong>Thème :</strong> Analyse des accidents corporels de la circulation routière en France (BAAC 2021) à des fins de politique d'assurance automobile.</p>
       <p data-en="&lt;strong&gt;Goal:&lt;/strong&gt; build a Power BI dashboard that identifies at-risk profiles, models insurance costs and informs pricing strategy."><strong>Objectif :</strong> Construire un tableau de bord Power BI permettant d'identifier les profils à risque, de modéliser les coûts d'assurance et d'orienter la stratégie de tarification.</p>
 
@@ -120,13 +121,13 @@
     </div>
 
     <div class="button-container">
-      <a href="projets/projet8/pbi.pdf" class="modern-btn" target="_blank" data-en="Power BI report (PDF)">
+      <a href="projets/projet8/pbi.pdf" class="modern-btn" target="_blank" rel="noopener" data-en="Power BI report (PDF)">
         Rapport Power BI (PDF)
       </a>
       <a href="projets/projet8/pbi.pbix" class="modern-btn" download data-en="Download the Power BI file (.pbix)">
         Télécharger le fichier Power BI (.pbix)
       </a>
-      <a href="projets/projet8/0623 - Cas d'usage - Assurance.pdf" class="modern-btn" target="_blank" data-en="Insurance use case (PDF)">
+      <a href="projets/projet8/0623 - Cas d'usage - Assurance.pdf" class="modern-btn" target="_blank" rel="noopener" data-en="Insurance use case (PDF)">
         Cas d'usage Assurance (PDF)
       </a>
       <a href="projets/projet8/OOTBox_Accidents_France_2021_v3.pptx" class="modern-btn" download data-en="Slide deck (PPTX)">
@@ -154,21 +155,21 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     window.SLIDER_CAPTIONS = [
-    { title: "Vue d'ensemble", text: "Aperçu global des accidents et de la sinistralité." },
-    { title: "Analyse temporelle", text: "Répartition des accidents par heure, jour et mois." },
-    { title: "Analyse géographique", text: "Cartographie et répartition régionale." },
-    { title: "Profils des usagers", text: "Analyse par âge, sexe et catégorie de l'usager." },
-    { title: "Véhicules impliqués", text: "Étude des types de véhicules et impacts." },
-    { title: "Modélisation tarifaire", text: "Indices de risque et recommandations pour l'assurance." }
+    { title: "Vue synthèse et filtres globaux", text: "Quatre indicateurs (122 410 personnes impliquées, 54 207 accidents, 2,26 occupants en moyenne, 2,51 % de mortalité), les filtres globaux et la matrice de mortalité par âge et type de véhicule." },
+    { title: "Profil de risque croisé", text: "Indice de coût assurance comparé à la moyenne nationale, par tranche d'âge et type de véhicule, et répartition des accidents par âge et sexe du conducteur." },
+    { title: "Lieu et moment de l'accident", text: "Accidents en et hors agglomération avec leur taux de mortalité, répartition par heure, indice de coût selon la météo et mortalité selon l'éclairage." },
+    { title: "Gravité des personnes impliquées", text: "Détail d'un visuel : nombre de personnes par gravité (indemne, blessé léger, blessé hospitalisé, tué)." },
+    { title: "Accidents par catégorie de route", text: "Détail d'un visuel : les voies communales et les routes départementales concentrent l'essentiel des accidents." },
+    { title: "Mode de lecture du score", text: "Encart de la page « Profil de risque croisé » : le Score Coût Assurance pondère chaque victime (tué × 2,00, blessé grave × 1,50, blessé léger × 1,25, indemne exclu) et l'indice compare chaque profil à la moyenne nationale (1,00)." }
     ];
 
     window.SLIDER_CAPTIONS_EN = [
-    { title: "Overview", text: "Global picture of accidents and claim frequency." },
-    { title: "Time analysis", text: "Accident distribution by hour, day and month." },
-    { title: "Geographic analysis", text: "Mapping and regional breakdown." },
-    { title: "Road user profiles", text: "Analysis by age, sex and user category." },
-    { title: "Vehicles involved", text: "Vehicle types and their impact." },
-    { title: "Pricing model", text: "Risk indices and recommendations for insurance pricing." }
+    { title: "Summary view and global filters", text: "Four indicators (122,410 people involved, 54,207 accidents, 2.26 occupants on average, 2.51% mortality), the global filters and the mortality matrix by age and vehicle type." },
+    { title: "Cross-risk profile", text: "Insurance cost index against the national average, by age band and vehicle type, with accidents by driver age and sex." },
+    { title: "Place and time of the accident", text: "Accidents inside and outside built-up areas with their mortality rate, distribution by hour, cost index by weather and mortality by lighting conditions." },
+    { title: "Severity of people involved", text: "Detail of one visual: number of people by severity (unharmed, slightly injured, hospitalised, killed)." },
+    { title: "Accidents by road category", text: "Detail of one visual: local and departmental roads account for most accidents." },
+    { title: "How to read the score", text: "Inset from the \"Cross-risk profile\" page: the Insurance Cost Score weights each casualty (killed × 2.00, seriously injured × 1.50, slightly injured × 1.25, unharmed excluded) and the index compares each profile with the national average (1.00)." }
     ];
   </script>
 

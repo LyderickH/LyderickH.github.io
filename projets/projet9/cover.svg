@@ -8,22 +8,22 @@
   <rect width="800" height="500" fill="url(#bg)"/>
 
   <!-- eyebrow -->
-  <text x="60" y="92" font-family="'JetBrains Mono', monospace" font-size="19" letter-spacing="3" fill="#93C5FD">DATA / IA AGENTIQUE</text>
+  <text x="60" y="92" font-family="Archivo, 'Arial Narrow', Arial, sans-serif" font-size="21" font-weight="600" fill="#93C5FD">Data et IA agentique</text>
 
   <!-- title -->
-  <text x="60" y="158" font-family="Georgia, 'Fraunces', serif" font-size="60" font-weight="600" fill="#F5F5F5">Power BI</text>
-  <text x="60" y="228" font-family="Georgia, 'Fraunces', serif" font-size="60" font-weight="600" fill="#F5F5F5">
+  <text x="60" y="158" font-family="Archivo, 'Arial Narrow', Arial, sans-serif" font-size="60" font-weight="700" fill="#F5F5F5">Power BI</text>
+  <text x="60" y="228" font-family="Archivo, 'Arial Narrow', Arial, sans-serif" font-size="60" font-weight="700" fill="#F5F5F5">
     <tspan fill="#93C5FD">×</tspan> Claude
   </text>
 
   <!-- mini matrix / bars motif -->
   <g transform="translate(60,300)">
-    <rect x="0" y="0" width="680" height="150" rx="10" fill="#1d2c4d" opacity="0.55"/>
+    <rect x="0" y="0" width="680" height="150" rx="3" fill="#1d2c4d" opacity="0.55"/>
     <!-- header row -->
-    <rect x="0" y="0" width="680" height="30" rx="10" fill="#1B2A4A"/>
+    <rect x="0" y="0" width="680" height="30" rx="3" fill="#1B2A4A"/>
     <rect x="0" y="15" width="680" height="15" fill="#1B2A4A"/>
     <!-- rows -->
-    <g font-family="'JetBrains Mono', monospace" font-size="13" fill="#B0B0B8">
+    <g font-family="'Source Sans 3', Arial, sans-serif" font-size="15" fill="#B0B0B8">
       <text x="16" y="58">Commercial &amp; Ventes</text>
       <rect x="360" y="47" width="150" height="12" rx="3" fill="#4fa8db"/>
       <circle cx="640" cy="53" r="6" fill="#1AAB40"/>

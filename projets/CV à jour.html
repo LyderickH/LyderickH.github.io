@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV LH</title>
+    <title>CV - Lydérick Henry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -330,8 +330,74 @@
             line-height: 1.3;
         }
 
+        /* BARRE D'ACTION : visible à l'écran uniquement, absente de la page imprimée */
+        .print-bar {
+            position: fixed;
+            top: 8mm;
+            left: 218mm;
+            z-index: 10;
+            width: 62mm;
+        }
+
+        .print-btn {
+            display: block;
+            width: 100%;
+            font-family: 'Lato', sans-serif;
+            font-size: 10.5pt;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #ffffff;
+            background-color: var(--dark-blue);
+            border: 0;
+            border-radius: 1mm;
+            padding: 3.5mm 4mm;
+            cursor: pointer;
+        }
+
+        .print-btn:hover {
+            background-color: var(--dark-grey);
+        }
+
+        .print-btn:focus-visible {
+            outline: 0.8mm solid var(--main-gold);
+            outline-offset: 0.8mm;
+        }
+
+        .print-help {
+            margin-top: 2.5mm;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: var(--light-grey);
+        }
+
+        /* Écran étroit : le bouton passe en bas à droite, par-dessus la page */
+        @media screen and (max-width: 1080px) {
+            .print-bar {
+                top: auto;
+                left: auto;
+                right: 12px;
+                bottom: 12px;
+                width: auto;
+            }
+
+            .print-btn {
+                width: auto;
+                font-size: 15px;
+                padding: 14px 18px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+            }
+
+            .print-help {
+                display: none;
+            }
+        }
+
         /* PRINT SPECIFIC */
         @media print {
+            .print-bar {
+                display: none !important;
+            }
+
             body {
                 background-color: #ffffff !important;
             }
@@ -347,11 +413,15 @@
     </style>
 </head>
 <body>
+    <div class="print-bar">
+        <button type="button" class="print-btn" onclick="window.print()">Imprimer ou enregistrer en PDF</button>
+        <p class="print-help">Dans la fenêtre d'impression, choisir « Enregistrer au format PDF » comme destination, format A4, marges « Aucune ».</p>
+    </div>
     <div class="resume-container">
         <main class="main-content">
             <header class="main-header">
                 <h1>Lydérick HENRY</h1>
-                <h2> CDI | <span class="highlight"> M2 CGAO ACG</span></h2>
+                <h2> Consultant FAAS chez EY | <span class="highlight"> Master CGAO Big Data</span></h2>
                 
                 <div class="contact-info">
                     <p><i class="fas fa-envelope icon" aria-hidden="true"></i>&nbsp; <a href="mailto:lyderickhenry@hotmail.fr">lyderickhenry@hotmail.fr</a></p>
@@ -369,32 +439,39 @@
                 <h2>EXPÉRIENCES PROFESSIONNELLES</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <h3><a href="https://www.forvismazars.com/fr/" target="_blank">Auditeur IT - Alternance</a></h3>
+                        <h3><a href="https://www.ey.com/fr_fr" target="_blank" rel="noopener">Consultant FAAS (Financial Accounting Advisory Services)</a></h3>
+                        <h4>EY Lille - <span class="date">Depuis oct. 2026</span></h4>
+                        <ul>
+                            <li>Accompagnement des directions financières : comptabilité, reporting et outils EPM.</li>
+                            <li>Audit IT d'une solution EPM : accès, gestion des changements, flux de reporting.</li>
+                            <li>Appui à des projets de transformation finance (planification et reporting).</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3><a href="https://www.forvismazars.com/fr/" target="_blank" rel="noopener">Auditeur IT - Alternance</a></h3>
                         <h4>Forvis Mazars France - <span class="date">Sept. 2025 – Août 2026</span></h4>
                         <ul>
-                            <li>Analyse de l'environnement des systèmes d'information (SI).</li>
-                            <li>Projets Data (PowerBI et AlteryX)</li>
-                            <li>Évaluation du contrôle interne IT et évaluation des risques.</li>
-                            <li>Réalisation des contrôles généraux informatiques (ITGC).</li>
-                            <li>Tests de contrôles ITAC (IT Automated Controls).</li>
-                            <li>Revue de processus Métier et IT.</li>
+                            <li>Analyse de l'environnement SI, évaluation du contrôle interne IT et des risques.</li>
+                            <li>Contrôles généraux informatiques (ITGC) et tests de contrôles automatisés (ITAC).</li>
+                            <li>Projets Data (Power BI et Alteryx), revue de processus métier et IT.</li>
                         </ul>
                     </div>
 
                     <div class="timeline-item">
-                        <h3><a href="https://www.cic.fr/fr/index.html" target="_blank">Contrôleur de gestion - Alternance</a></h3>
+                        <h3><a href="https://www.cic.fr/fr/index.html" target="_blank" rel="noopener">Contrôleur de gestion - Alternance</a></h3>
                         <h4>CIC Nord Ouest - <span class="date">De sept. 2024 à août 2025</span></h4>
                         <ul>
-                            <li>Automatisation du reporting via Excel & VBA pour fiabiliser et accélérer les traitements récurrents.</li>
-                            <li>Développement d'un outil d'analyse des RBE négatifs pour diagnostiquer des écarts de performance.</li>
+                            <li>Automatisation et fiabilisation du reporting récurrent via Excel et VBA.</li>
+                            <li>Outil d'analyse des RBE négatifs pour le réseau de 300 directeurs d'agence.</li>
                             <li>Audit et contrôle de délégations d'autorisation et droits (macros Excel).</li>
-                            <li>Réalisation du Comité des Taux mensuel et d'analyses financières pour la tarification.</li>
-                            <li>Contrôle des frais généraux, suivi et participation au processus budgétaire</li>
+                            <li>Comité des Taux mensuel et analyses financières pour la tarification.</li>
+                            <li>Contrôle des frais généraux, suivi et participation au processus budgétaire.</li>
                         </ul>
                     </div>
 
                     <div class="timeline-item">
-                        <h3><a href="https://humafin.coop/" target="_blank">Collaborateur comptable - Alternance</a></h3>
+                        <h3><a href="https://humafin.coop/" target="_blank" rel="noopener">Collaborateur comptable - Alternance</a></h3>
                         <h4>Humafin Coop Lille - <span class="date">De juin 2022 à août 2024</span></h4>
                         <ul>
                             <li>Réalisation de la TVA mensuelle et trimestrielle pour 25 dossiers clients.</li>
@@ -410,7 +487,7 @@
                 <h2>ÉTUDES & FORMATIONS</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <h3><a href="https://iaelille.fr/formations/master-2-audit-comptable-et-financier/" target="_blank">Master 2 - Contrôle de gestion et audit organisationnel (BIG DATA)</a></h3>
+                        <h3><a href="https://iaelille.fr/formations/master-2-audit-comptable-et-financier/" target="_blank" rel="noopener">Master 2 - Contrôle de gestion et audit organisationnel (BIG DATA)</a></h3>
                         <h4>IAE Lille - <span class="date">Sept. 2024 - Août 2026</span></h4>
                         <p>Major de promotion</p>
                         <ul>
@@ -422,13 +499,13 @@
                     </div>
                     
                     <div class="timeline-item">
-                        <h3><a href="https://iaelille.fr/formations/licence-3-comptabilite-controle-audit/" target="_blank">Licence CCA (Comptabilité, Contrôle, Audit)</a></h3>
+                        <h3><a href="https://iaelille.fr/formations/licence-3-comptabilite-controle-audit/" target="_blank" rel="noopener">Licence CCA (Comptabilité, Contrôle, Audit)</a></h3>
                         <h4>IAE Lille - <span class="date">Août 2023 - Août 2024</span></h4>
                         <p>Major de promotion</p>
                     </div>
 
                     <div class="timeline-item">
-                        <h3><a href="https://iut.univ-lille.fr/" target="_blank">BUT GEA (option GC2F)</a></h3>
+                        <h3><a href="https://iut.univ-lille.fr/" target="_blank" rel="noopener">BUT GEA (option GC2F)</a></h3>
                         <h4>IUT A - Université de Lille - <span class="date">Janv. 2022 - Juil. 2023</span></h4>
                         <p>Major de promotion</p>
                     </div>
@@ -447,9 +524,7 @@
             <section class="sidebar-section">
                 <h2>À PROPOS</h2>
                 <p>
-                    Actuellement en M2 CGAO (Big Data) chez Forvis Mazars jusqu'en <b>août 2026.</b> </p>
-                    <p>
-                </p>
+                    Consultant FAAS chez EY à Lille depuis <b>octobre 2026.</b> Diplômé du Master CGAO (Big Data) de l'IAE Lille.</p>
             </section>
 
             <section class="sidebar-section">
@@ -459,9 +534,9 @@
                 <ul>
                     <li><b>BI </b>: Power BI (DAX, DataViz), Tableau, Alteryx</li>
                     <li><b>Excel avancé </b>(TCD, VBA, Power Query)</li>
-                    <li><b>GCP </b> (GCS, BigQuery, Dataform, Looker Studio) </b></li>
+                    <li><b>GCP </b> (GCS, BigQuery, Dataform, Looker Studio)</li>
                     <li><b>Outils comptables & financiers </b>: SAP, RCA, MyUnisoft, MEG</li>
-                    <li><b>Langages de programmation </b>: Python, HTML/CSS</li>
+                    <li><b>Langages de programmation </b>: Python, SQL, HTML/CSS</li>
                     <li><b>Bases de données</b> : MySQL, PostgreSQL, Access</li>
                     <li><b>Bureautique </b>: Word, PowerPoint, Suite Google</li>
                 </ul>
@@ -495,14 +570,14 @@
             <section class="sidebar-section">
                 <h2>CERTIFICATIONS</h2>
                 <ul>
-                    <li><a href="https://learn.microsoft.com/fr-fr/credentials/certifications/power-platform-fundamentals/" target="_blank"><b>PL-900</b> : Microsoft Power Platform Fundamentals</a></li>
+                    <li><a href="https://learn.microsoft.com/fr-fr/credentials/certifications/power-platform-fundamentals/" target="_blank" rel="noopener"><b>PL-900</b> : Microsoft Power Platform Fundamentals</a></li>
                 </ul>
             </section>
 
             <section class="sidebar-section links">
                 <h2>LIENS</h2>
-                <p><i class="fab fa-linkedin icon" aria-hidden="true"></i>&nbsp; <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank">@LydérickHenry</a></p>
-                <p><i class="fas fa-briefcase icon" aria-hidden="true"></i>&nbsp; <a href="https://lyderickh.github.io/" target="_blank">Portfolio : lyderickh.github.io/</a></p>
+                <p><i class="fab fa-linkedin icon" aria-hidden="true"></i>&nbsp; <a href="https://www.linkedin.com/in/lyderickhenry/" target="_blank" rel="noopener">@LydérickHenry</a></p>
+                <p><i class="fas fa-briefcase icon" aria-hidden="true"></i>&nbsp; <a href="https://lyderickh.github.io/" target="_blank" rel="noopener">Portfolio : lyderickh.github.io/</a></p>
             </section>
         </aside>
     </div>

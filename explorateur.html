@@ -138,18 +138,21 @@
           </a>
         </div>
         <div class="embed-frame">
+          <div class="embed-launch">
+            <p data-en="The tool runs on a free Hugging Face Space: on first load, waking it up may take a few seconds.">L'outil tourne sur un Space Hugging Face gratuit : au premier chargement, le réveil peut prendre quelques secondes.</p>
+            <div class="embed-launch-actions">
+              <button class="btn btn-primary" type="button" data-embed-load data-en="Launch the tool here">Lancer l'outil ici</button>
+              <a class="btn" href="https://huggingface.co/spaces/LyderickH/Datagouv-explorer" target="_blank" rel="noopener" data-en="Open in a new tab ↗">Ouvrir dans un nouvel onglet ↗</a>
+            </div>
+          </div>
           <iframe
-            src="https://lyderickh-datagouv-explorer.hf.space"
+            hidden
+            data-src="https://lyderickh-datagouv-explorer.hf.space"
             title="Explorateur data.gouv.fr" data-en-title="data.gouv.fr explorer"
-            loading="lazy"
             referrerpolicy="no-referrer"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           ></iframe>
         </div>
-        <p class="embed-note" data-en="The tool runs on a free Hugging Face Space: the first request may take a few seconds to wake it up. Open fullscreen for more room.">
-          L'outil tourne sur un Space Hugging Face gratuit : la première requête peut prendre quelques
-          secondes, le temps du réveil. Le plein écran offre plus de confort.
-        </p>
       </div>
     </section>
   </main>

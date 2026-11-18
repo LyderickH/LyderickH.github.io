@@ -29,8 +29,9 @@
 
   <header class="page-header">
     <div class="container">
-      <a href="index.html" class="back-link">← Retour</a>
+      <a href="projets.html" class="back-link" data-en="← Projects">← Projets</a>
       <h1 data-en="Power BI Project - French Real Estate Analysis">Projet PowerBI - Analyse immobilière</h1>
+      <p class="page-lead" data-en="Purchase simulator and analysis of the French property market over 2019-2024, built on data.gouv open data.">Simulateur d'achat et analyse du marché immobilier français sur la période 2019–2024, à partir des données data.gouv.</p>
     </div>
   </header>
 
@@ -112,13 +113,13 @@
 
     <!-- Modern Buttons -->
     <div class="button-container">
-      <a href="projets/projet1/PowerBiImmo.pdf" class="modern-btn" target="_blank" data-en="Download the PDF &lt;span class=&quot;doc-format&quot;&gt;PDF&lt;/span&gt;">
+      <a href="projets/projet1/PowerBiImmo.pdf" class="modern-btn" target="_blank" rel="noopener" data-en="Download the PDF &lt;span class=&quot;doc-format&quot;&gt;PDF&lt;/span&gt;">
         Télécharger le PDF <span class="doc-format">PDF</span>
       </a>
-      <a href="TechniqueImmoM.M" class="modern-btn" target="_blank" data-en="Technical details (M code) &lt;span class=&quot;doc-format&quot;&gt;M&lt;/span&gt;">
+      <a href="TechniqueImmoM.M" class="modern-btn" target="_blank" rel="noopener" data-en="Technical details (M code) &lt;span class=&quot;doc-format&quot;&gt;M&lt;/span&gt;">
         Aspect technique (code M) <span class="doc-format">M</span>
       </a>
-      <a href="projets/projet1/BDDimmo.png" class="modern-btn" target="_blank" data-en="View the data model &lt;span class=&quot;doc-format&quot;&gt;PNG&lt;/span&gt;">
+      <a href="projets/projet1/BDDimmo.png" class="modern-btn" target="_blank" rel="noopener" data-en="View the data model &lt;span class=&quot;doc-format&quot;&gt;PNG&lt;/span&gt;">
         Visualiser la base de données <span class="doc-format">PNG</span>
       </a>
     </div>
@@ -126,21 +127,11 @@
     <div class="separator"></div>
 
     <section class="embed-block">
-      <p data-en="An interactive online version is embedded below (requires an account with a Power BI licence).">Une version interactive en ligne est disponible ci-dessous (accès réservé aux comptes disposant d'une licence).</p>
-      <button class="btn" type="button" id="embed-load" data-en="Load the interactive report">Charger le rapport interactif</button>
-      <iframe hidden title="powerbiimmo -V3 avec liens" data-en-title="powerbiimmo -V3 with links"
+      <p data-en="An interactive version exists online, but Power BI asks you to sign in with an account that holds a licence. The eight views of the report are in the slideshow above and in the PDF.">Une version interactive existe en ligne, mais Power BI demande de se connecter avec un compte disposant d'une licence. Les huit vues du rapport sont visibles dans le diaporama ci-dessus et dans le PDF.</p>
+      <button class="btn" type="button" data-embed-load data-en="Load the interactive report">Charger le rapport interactif</button>
+      <iframe hidden title="Rapport Power BI - Analyse immobilière" data-en-title="Power BI report - Real estate analysis"
         data-src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
         allowFullScreen="true"></iframe>
-      <script>
-        /* L'iframe n'est chargée qu'à la demande : sans licence Power BI elle
-           reste vide, inutile d'afficher un grand cadre gris par défaut. */
-        document.getElementById('embed-load').addEventListener('click', function () {
-          var frame = this.nextElementSibling;
-          frame.src = frame.getAttribute('data-src');
-          frame.hidden = false;
-          this.remove();
-        });
-      </script>
     </section>
   </main>
 
