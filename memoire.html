@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mémoire M2 - IA générative en audit · Lydérick Henry</title>
   <link rel="icon" href="favicon.png" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
@@ -18,9 +18,24 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <script src="js/site-nav.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* Propre a cette page : la grille de graphiques */
+    /* Propre a cette page */
+
+    /* Ligne du diplome, au-dessus du sujet */
+    .page-kicker { margin-bottom: var(--space-3); }
+
+    /* Les resultats se lisent en colonne de texte, pas sur toute la largeur */
+    .memoire-findings > p,
+    .memoire-findings > ul { max-width: 68ch; }
+
+    .memoire-findings li {
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .memoire-findings > ul { gap: var(--space-4); }
+
+    /* Grille de graphiques */
     .charts-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -29,6 +44,7 @@
     }
 
     .chart-card {
+      min-width: 0;
       padding: var(--space-5);
       background: var(--surface);
       border: 1px solid var(--rule);
@@ -43,99 +59,148 @@
       margin-bottom: var(--space-5);
     }
 
-    .chart-card canvas { max-height: 280px; }
-    .chart-card.wide canvas { max-height: 320px; }
+    /* Hauteur explicite : le graphique reste lisible sur petit ecran au lieu
+       de s'ecraser sous ses etiquettes. */
+    .chart-box {
+      position: relative;
+      height: 280px;
+    }
+
+    .chart-box--tall { height: 340px; }
+
+    /* Une colonne : les etiquettes passent sur deux lignes, il faut plus de hauteur */
+    @media (max-width: 760px) {
+      .chart-box--tall { height: 400px; }
+    }
+
+    /* Resume en une ligne : il dit ce que montre le graphique et le remplace
+       si Chart.js ne se charge pas. */
+    .chart-summary {
+      margin-top: var(--space-5);
+      font-size: var(--label-size);
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    .charts-unavailable .chart-box { display: none; }
+
+    .charts-unavailable .chart-summary {
+      margin-top: 0;
+      font-size: var(--step-0);
+    }
 
     @media (min-width: 761px) {
       .charts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .chart-card.wide { grid-column: span 2; }
     }
   </style>
+  <noscript><style>.chart-box { display: none; } .chart-summary { margin-top: 0; }</style></noscript>
   <script src="js/i18n.js" defer></script>
+  <!-- Chart.js en dernier et en defer : un CDN lent ou en panne ne bloque ni
+       le rendu ni les scripts du site. Les graphiques sont traces au
+       DOMContentLoaded, quand tous les scripts defer ont ete executes. -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 </head>
 
 <body data-en-doctitle="Master's thesis - Generative AI in audit - Lydérick Henry">
 
   <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-            <nav class="site-nav"></nav>
+  <nav class="site-nav"></nav>
 
   <header class="page-header">
     <div class="container">
       <a href="index.html" class="back-link">← Retour</a>
-      <h1 data-en="Master's thesis - M2 CGAO">Mémoire de M2 CGAO - ACG</h1>
-      <p class="page-lead" data-en="Perception and adoption of generative AI in audit firms: empirical analysis (N = 67)">Perception et adoption de l'IA générative en cabinet d'audit : Analyse empirique (N = 67)</p>
+      <p class="label page-kicker" data-en="Master's thesis · M2 CGAO · Audit and Management Control track (ACG, Big Data) · 2025-2026">Mémoire de M2 CGAO · parcours Audit Contrôle de gestion (ACG, Big Data) · 2025-2026</p>
+      <h1 data-en="Perception and adoption of generative AI in audit firms">Perception et adoption de l'IA générative en cabinet d'audit</h1>
+      <p class="page-lead" data-en="A questionnaire survey (67 auditors from French firms retained) and three semi-structured interviews, run from January to March 2026.">Une enquête par questionnaire (67 auditeurs de cabinets français retenus) et trois entretiens semi-directifs, menés de janvier à mars 2026.</p>
     </div>
   </header>
 
   <main id="contenu" class="container">
+    <!-- Résultats -->
+    <section class="content-section memoire-intro memoire-findings">
+      <h2 data-en="What the survey shows">Ce que montre l'enquête</h2>
+      <p data-en="&lt;strong&gt;The question:&lt;/strong&gt; how does the perception of generative AI influence its use in audit firms?"><strong>La question :</strong> en quoi la perception de l'IA générative (IAG) influence-t-elle son utilisation dans les cabinets d'audit ?</p>
+      <ul>
+        <li data-en="Perceived usefulness is high (3.40 out of 5 on average) but no longer separates levels of use; the main driver of use is how well the tool fits into daily work (Spearman's ρ&nbsp;=&nbsp;0.492, p&nbsp;&lt;&nbsp;0.001).">L'utilité perçue est élevée (3,40 sur 5 en moyenne) mais ne distingue plus les niveaux d'usage ; le principal déterminant de l'usage est l'intégration de l'outil dans le travail quotidien (ρ de Spearman&nbsp;=&nbsp;0,492, p&nbsp;&lt;&nbsp;0,001).</li>
+        <li data-en="The main brake is the fear of being held personally accountable for an error made by the AI (ρ&nbsp;=&nbsp;0.304, p&nbsp;=&nbsp;0.012), not confidentiality, even though respondents rank it as the most important risk.">Le principal frein est la crainte d'être tenu personnellement responsable d'une erreur de l'IAG (ρ&nbsp;=&nbsp;0,304, p&nbsp;=&nbsp;0,012), et non la confidentialité, que les répondants classent pourtant comme le risque le plus important.</li>
+        <li data-en="Training received is not what sets heavy users apart: the ability to word prompts and spot errors is; those same users say they are more confident in their own judgement while being more willing to follow the AI when it contradicts them, which suggests an automation bias.">Ce n'est pas la formation reçue qui distingue les utilisateurs intensifs, mais la capacité à formuler ses requêtes et à repérer les erreurs ; ces mêmes utilisateurs se disent plus sûrs de leur jugement tout en suivant plus volontiers l'IAG quand elle les contredit, ce qui suggère un biais d'automatisation.</li>
+      </ul>
+      <p data-en="&lt;strong&gt;The sample:&lt;/strong&gt; I collected 85 responses and kept 67, after removing 5 non-users, 5 inattentive responses (attention-check question) and 8 respondents working outside audit; respondents are volunteers and all of them users, so these results do not generalise to the whole profession."><strong>L'échantillon :</strong> j'ai collecté 85 réponses et j'en ai retenu 67, après avoir écarté 5 non-utilisateurs, 5 réponses inattentives (question piège) et 8 répondants hors du périmètre de l'audit ; les répondants sont volontaires et tous utilisateurs, donc ces résultats ne se généralisent pas à l'ensemble de la profession.</p>
+    </section>
+
     <!-- Présentation -->
     <section class="content-section memoire-intro">
       <h2 data-en="Thesis overview">Présentation du mémoire</h2>
-      <p data-en="&lt;strong&gt;Topic:&lt;/strong&gt; how generative AI is perceived and adopted by audit professionals in practice."><strong>Thème :</strong> Perception et adoption de l'intelligence artificielle générative (IAG) par les professionnels de l'audit en cabinet.</p>
-      <p data-en="&lt;strong&gt;Theoretical framework:&lt;/strong&gt; TAM (Technology Acceptance Model, Davis 1989), extended with professional scepticism and motivation variables."><strong>Cadre théorique :</strong> Modèle TAM (Technology Acceptance Model, Davis 1989), enrichi de variables de scepticisme professionnel et de motivation.</p>
+      <p data-en="&lt;strong&gt;Theoretical framework:&lt;/strong&gt; TAM (Technology Acceptance Model, Davis 1989), extended with professional scepticism (Hurtt, 2010) and functional competence with the tool (digital talent, Liang et al., 2025)."><strong>Cadre théorique :</strong> modèle TAM (Technology Acceptance Model, Davis 1989), complété par le scepticisme professionnel (Hurtt, 2010) et la maîtrise fonctionnelle de l'outil (talent digital, Liang et al., 2025).</p>
 
       <div class="kpi-grid">
         <div class="kpi-card"><span class="kpi-value">67</span><span class="kpi-label" data-en="Retained respondents">Répondants retenus</span></div>
         <div class="kpi-card"><span class="kpi-value">85</span><span class="kpi-label" data-en="Raw responses">Réponses brutes</span></div>
-        <div class="kpi-card"><span class="kpi-value">70,1 %</span><span class="kpi-label" data-en="Usage ≥ several times/week">Usage ≥ plusieurs fois/sem.</span></div>
-        <div class="kpi-card"><span class="kpi-value">5,0</span><span class="kpi-label" data-en="Median frequency (out of 7)">Fréquence médiane (sur 7)</span></div>
-        <div class="kpi-card"><span class="kpi-value">77,3 %</span><span class="kpi-label" data-en="Perceived benefits &gt; risks">Bénéfices perçus &gt; risques</span></div>
-        <div class="kpi-card"><span class="kpi-value">79,1 %</span><span class="kpi-label" data-en="Perceived risk score / scale">Score risques perçus / éch.</span></div>
+        <div class="kpi-card"><span class="kpi-value" data-en="70.1%">70,1&nbsp;%</span><span class="kpi-label" data-en="Usage ≥ several times/week">Usage ≥ plusieurs fois/sem.</span></div>
+        <div class="kpi-card"><span class="kpi-value" data-en="5.0">5,0</span><span class="kpi-label" data-en="Median frequency (out of 7)">Fréquence médiane (sur 7)</span></div>
+        <div class="kpi-card"><span class="kpi-value" data-en="77.3%">77,3&nbsp;%</span><span class="kpi-label" data-en="Perceived benefits &gt; risks">Bénéfices perçus &gt; risques</span></div>
+        <div class="kpi-card"><span class="kpi-value" data-en="79.1%">79,1&nbsp;%</span><span class="kpi-label" data-en="Perceived risks: mean score, % of scale">Risques perçus : score moyen, en % de l'échelle</span></div>
       </div>
 
       <h3 data-en="Model variables">Variables du modèle</h3>
       <div class="vars-grid">
-        <div class="var-card"><span class="var-code">SUP</span><span class="var-desc" data-en="Perceived usefulness (21 items, 1-5 scale)">Utilité perçue (21 items, échelle 1-5)</span><span class="var-stat">Moy. 3,40</span></div>
-        <div class="var-card"><span class="var-code">SFU</span><span class="var-desc" data-en="Perceived ease of use (3 items)">Facilité d'utilisation perçue (3 items)</span><span class="var-stat">Moy. 4,77</span></div>
-        <div class="var-card"><span class="var-code">SRP</span><span class="var-desc" data-en="Perceived risks (4 items, 1-7 scale)">Risques perçus (4 items, échelle 1-7)</span><span class="var-stat">Moy. 5,54</span></div>
-        <div class="var-card"><span class="var-code">SMF</span><span class="var-desc" data-en="Motivation (3 items, 1-7 scale)">Motivation (3 items, échelle 1-7)</span><span class="var-stat">Moy. 4,78</span></div>
-        <div class="var-card"><span class="var-code">SSP</span><span class="var-desc" data-en="Professional scepticism (5 items)">Scepticisme professionnel (5 items)</span><span class="var-stat">Moy. 4,96</span></div>
+        <div class="var-card"><span class="var-code">SUP</span><span class="var-desc" data-en="Perceived usefulness (21 items, 1-5 scale)">Utilité perçue (21 items, échelle 1-5)</span><span class="var-stat" data-en="Avg. 3.40">Moy. 3,40</span></div>
+        <div class="var-card"><span class="var-code">SFU</span><span class="var-desc" data-en="Perceived ease of use (3 items, 1-7 scale)">Facilité d'utilisation perçue (3 items, échelle 1-7)</span><span class="var-stat" data-en="Avg. 4.77">Moy. 4,77</span></div>
+        <div class="var-card"><span class="var-code">SRP</span><span class="var-desc" data-en="Perceived risks (4 items, 1-7 scale)">Risques perçus (4 items, échelle 1-7)</span><span class="var-stat" data-en="Avg. 5.54">Moy. 5,54</span></div>
+        <div class="var-card"><span class="var-code">SMF</span><span class="var-desc" data-en="Functional competence (3 items, 1-7 scale)">Maîtrise fonctionnelle (3 items, échelle 1-7)</span><span class="var-stat" data-en="Avg. 4.78">Moy. 4,78</span></div>
+        <div class="var-card"><span class="var-code">SSP</span><span class="var-desc" data-en="Professional scepticism (5 items, 1-7 scale)">Scepticisme professionnel (5 items, échelle 1-7)</span><span class="var-stat" data-en="Avg. 4.96">Moy. 4,96</span></div>
       </div>
     </section>
 
     <!-- Dataviz -->
-    <div class="charts-grid">
+    <div class="charts-grid" id="charts">
 
       <div class="chart-card">
-        <h3 data-en="Generative AI usage frequency (Q1) - N = 67">Fréquence d'usage IAG (Q1) - N = 67</h3>
-        <canvas id="chartQ1"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <h3 data-en="Benefit / risk balance (Q30) - N = 66">Équilibre bénéfices / risques (Q30) - N = 66</h3>
-        <canvas id="chartQ30"></canvas>
-      </div>
-
-      <div class="chart-card wide">
-        <h3 data-en="Generative AI tools used (Q3, multi-answer) - N = 67">Outils IAG utilisés (Q3, multi-réponses) - N = 67</h3>
-        <canvas id="chartQ3"></canvas>
-      </div>
-
-      <div class="chart-card wide">
-        <h3 data-en="Tasks performed with generative AI (Q4, multi-answer) - N = 67">Tâches réalisées avec l'IAG (Q4, multi-réponses) - N = 67</h3>
-        <canvas id="chartQ4"></canvas>
+        <h3 id="ttlQ1" data-en="Generative AI usage frequency (Q1) - N = 67">Fréquence d'usage IAG (Q1) - N = 67</h3>
+        <div class="chart-box"><canvas id="chartQ1" role="img" aria-labelledby="ttlQ1" aria-describedby="sumQ1"></canvas></div>
+        <p class="chart-summary" id="sumQ1" data-en="70.1% of respondents use generative AI several times a week or more: regularly 38.8%, daily 13.4%, very frequently 17.9%. The rest: sometimes 16.4%, rarely 9.0%, very rarely 4.5%.">70,1&nbsp;% des répondants utilisent l'IAG plusieurs fois par semaine ou plus : régulièrement 38,8&nbsp;%, quotidiennement 13,4&nbsp;%, très fréquemment 17,9&nbsp;%. Les autres : parfois 16,4&nbsp;%, rarement 9,0&nbsp;%, très rarement 4,5&nbsp;%.</p>
       </div>
 
       <div class="chart-card">
-        <h3 data-en="Composite scores (% of max scale)">Scores composites (% de l'échelle max)</h3>
-        <canvas id="chartRadar"></canvas>
+        <h3 id="ttlQ30" data-en="Benefit / risk balance (Q30) - N = 66">Équilibre bénéfices / risques (Q30) - N = 66</h3>
+        <div class="chart-box"><canvas id="chartQ30" role="img" aria-labelledby="ttlQ30" aria-describedby="sumQ30"></canvas></div>
+        <p class="chart-summary" id="sumQ30" data-en="On a scale from 1 (risks dominate) to 7 (benefits dominate), 77.3% answer 5 to 7 (37.9%, 25.8% and 13.6%); 12.1% answer 4, 7.6% answer 3, nobody answers 2 and 3.0% answer 1.">Sur une échelle de 1 (les risques dominent) à 7 (les bénéfices dominent), 77,3&nbsp;% répondent de 5 à 7 (37,9&nbsp;%, 25,8&nbsp;% et 13,6&nbsp;%) ; 12,1&nbsp;% répondent 4, 7,6&nbsp;% répondent 3, personne ne répond 2 et 3,0&nbsp;% répondent 1.</p>
       </div>
 
       <div class="chart-card">
-        <h3 data-en="Usage environment (Q2) - N = 67">Environnement d'usage (Q2) - N = 67</h3>
-        <canvas id="chartQ2"></canvas>
+        <h3 id="ttlQ3" data-en="Generative AI tools used (Q3, multi-answer) - N = 67">Outils IAG utilisés (Q3, multi-réponses) - N = 67</h3>
+        <div class="chart-box chart-box--tall"><canvas id="chartQ3" role="img" aria-labelledby="ttlQ3" aria-describedby="sumQ3"></canvas></div>
+        <p class="chart-summary" id="sumQ3" data-en="Copilot leads (73.1%), ahead of ChatGPT (53.7%) and firm-specific tools (29.9%); the six other answers range from 22.4% (Gemini) to 6.0% (Grok).">Copilot arrive en tête (73,1&nbsp;%), devant ChatGPT (53,7&nbsp;%) et les outils propres au cabinet (29,9&nbsp;%) ; les six autres réponses vont de 22,4&nbsp;% (Gemini) à 6,0&nbsp;% (Grok).</p>
+      </div>
+
+      <div class="chart-card">
+        <h3 id="ttlQ4" data-en="Tasks performed with generative AI (Q4, multi-answer) - N = 67">Tâches réalisées avec l'IAG (Q4, multi-réponses) - N = 67</h3>
+        <div class="chart-box chart-box--tall"><canvas id="chartQ4" role="img" aria-labelledby="ttlQ4" aria-describedby="sumQ4"></canvas></div>
+        <p class="chart-summary" id="sumQ4" data-en="Three tasks exceed 70%: rewording or translation (74.6%), drafting (73.1%) and information research (70.1%). The seven others range from 34.3% (proofreading) to 11.9% (internal control evaluation).">Trois tâches dépassent 70&nbsp;% : reformulation ou traduction (74,6&nbsp;%), rédaction (73,1&nbsp;%) et recherche d'informations (70,1&nbsp;%). Les sept autres vont de 34,3&nbsp;% (correction) à 11,9&nbsp;% (évaluation du contrôle interne).</p>
+      </div>
+
+      <div class="chart-card">
+        <h3 id="ttlScores" data-en="Composite scores (% of max scale) - N = 67">Scores composites (% de l'échelle max) - N = 67</h3>
+        <div class="chart-box"><canvas id="chartScores" role="img" aria-labelledby="ttlScores" aria-describedby="sumScores"></canvas></div>
+        <p class="chart-summary" id="sumScores" data-en="Mean score as a percentage of the scale maximum: perceived risks 79.1%, professional scepticism 70.8%, functional competence 68.3%, ease of use 68.1%, perceived usefulness 68.0%.">Score moyen en pourcentage du maximum de l'échelle : risques perçus 79,1&nbsp;%, scepticisme professionnel 70,8&nbsp;%, maîtrise fonctionnelle 68,3&nbsp;%, facilité d'utilisation 68,1&nbsp;%, utilité perçue 68,0&nbsp;%.</p>
+      </div>
+
+      <div class="chart-card">
+        <h3 id="ttlQ2" data-en="Usage environment (Q2) - N = 67">Environnement d'usage (Q2) - N = 67</h3>
+        <div class="chart-box"><canvas id="chartQ2" role="img" aria-labelledby="ttlQ2" aria-describedby="sumQ2"></canvas></div>
+        <p class="chart-summary" id="sumQ2" data-en="49.3% mainly use tools provided or approved by their firm, 31.3% a mix of both and 19.4% mainly consumer tools.">49,3&nbsp;% utilisent surtout les outils fournis ou agréés par leur cabinet, 31,3&nbsp;% un mélange des deux et 19,4&nbsp;% surtout des outils grand public.</p>
       </div>
 
     </div>
 
     <!-- Downloads -->
     <div class="button-container">
-      <a href="projets/memoire/Mémoire M2 CGAO ACG.pdf" class="modern-btn" target="_blank" data-en="Read the thesis (PDF)">Lire le mémoire (PDF)</a>
+      <a href="projets/memoire/Mémoire M2 CGAO ACG.pdf" class="modern-btn" target="_blank" rel="noopener" data-en="Read the thesis (PDF)">Lire le mémoire (PDF)</a>
       <a href="projets/memoire/Soutenance_Memoire_HENRY_IAG_Audit_v17.pptx" class="modern-btn" download data-en="Defence slides (PPTX)">Soutenance (PPTX)</a>
       <a href="projets/memoire/analyse_empirique_IAG_executed.ipynb" class="modern-btn" download data-en="Python notebook (.ipynb)">Notebook Python (.ipynb)</a>
       <a href="projets/memoire/Protocole_GRAPHS_v2_1.xlsx" class="modern-btn" download data-en="Source data (.xlsx)">Données sources (.xlsx)</a>
-      <a href="projets/memoire/explorateur_donnees_67_2.html" class="modern-btn" target="_blank" data-en="Data exploration">Exploration des données</a>
+      <a href="projets/memoire/explorateur_donnees_67_2.html" class="modern-btn" target="_blank" rel="noopener" data-en="Analysis workbench for the 67 responses (interactive page, in French)">Atelier d'analyse des 67 réponses (page interactive)</a>
     </div>
   </main>
 
@@ -164,22 +229,51 @@
       renderCharts();
     });
 
-    // Theme-aware colors for charts
+    // Chart.js est charge en defer : il est pret (ou en echec) au
+    // DOMContentLoaded. S'il manque, les resumes textuels restent seuls.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.Chart) { chartsUnavailable(); return; }
+      renderCharts();
+      // La police web peut arriver apres le premier trace : un canvas ne se
+      // redessine pas tout seul.
+      if (!fontReadyAtDraw && document.fonts && document.fonts.load) {
+        document.fonts.load("12px " + CHART_FONT).then(function () { renderCharts(); }, function () {});
+      }
+    });
+
+    // Sous 761px la grille passe en une colonne : les etiquettes longues
+    // passent sur deux lignes.
+    var narrowQuery = window.matchMedia('(max-width: 760px)');
+    var onNarrowChange = function () { renderCharts(); };
+    if (narrowQuery.addEventListener) narrowQuery.addEventListener('change', onNarrowChange);
+    else if (narrowQuery.addListener) narrowQuery.addListener(onNarrowChange);
+
+    function chartsUnavailable() {
+      destroyCharts();
+      document.getElementById('charts').classList.add('charts-unavailable');
+    }
+
     // La palette des graphiques est lue dans les tokens CSS : une seule
-    // source de verite, les courbes suivent le theme automatiquement.
+    // source de verite, les graphiques suivent le theme automatiquement.
     function themeColors() {
       var css = getComputedStyle(document.documentElement);
       var v = function (name) { return css.getPropertyValue(name).trim(); };
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       return {
+        ink: v('--ink'),
         tick: v('--ink-soft'),
-        grid: isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)',
-        accent: isDark ? 'rgba(155,187,216,' : 'rgba(27,54,93,',
-        positive: 'rgba(30,90,74,',
-        negative: 'rgba(154,52,35,',
-        warn: 'rgba(176,116,26,'
+        grid: v('--rule'),
+        axis: v('--rule-strong'),
+        surface: v('--surface'),
+        accent: v('--accent'),
+        warm: v('--accent-warm'),
+        neutral: v('--ink-faint')
       };
     }
+
+    // Forme entre guillemets : sans eux, le canvas rejette la famille.
+    var CHART_FONT = "'Source Sans 3', sans-serif";
+    var fontReadyAtDraw = true;
+    var firstDraw = true;
 
     var chartInstances = {};
     function destroyCharts() {
@@ -190,149 +284,231 @@
     }
 
     function renderCharts() {
+      if (!window.Chart) return;
+      try {
+        drawCharts();
+      } catch (err) {
+        chartsUnavailable();
+      }
+    }
+
+    function drawCharts() {
       destroyCharts();
       var C = themeColors();
-      var font = { family: 'Source Sans 3', size: 12 };
+      var font = { family: CHART_FONT, size: 12 };
+      var narrow = narrowQuery.matches;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Animation au premier trace seulement : pas de rejeu a chaque bascule
+      // de theme ou de langue.
+      var animate = firstDraw && !reduceMotion;
+      firstDraw = false;
+      fontReadyAtDraw = !(document.fonts && document.fonts.check) || document.fonts.check("12px " + CHART_FONT);
+
+      Chart.defaults.font.family = CHART_FONT;
+      Chart.defaults.color = C.tick;
 
       /* Les libelles des graphiques vivent en JS : le moteur i18n ne peut pas
          les atteindre. L() choisit la langue au moment du rendu. */
       var isEn = (window.i18nLang ? window.i18nLang() : localStorage.getItem('lang')) === 'en';
       var L = function (fr, en) { return isEn ? en : fr; };
 
-      chartInstances.Q1 = new Chart(document.getElementById('chartQ1'), {
-        type: 'bar',
-        data: {
-          labels: [
-            [L('Très rarement', 'Very rarely'), L('<1×/mois', '<1×/month')],
-            [L('Rarement', 'Rarely'), L('1-3×/mois', '1-3×/month')],
-            [L('Parfois', 'Sometimes'), L('~1×/sem.', '~1×/week')],
-            [L('Régulièrement', 'Regularly'), L('plx/sem.', 'several×/week')],
-            [L('Quotidiennement', 'Daily'), L('1×/jour', '1×/day')],
-            [L('Très fréquemment', 'Very frequently'), L('plx/jour', 'several×/day')]
-          ],
-          datasets: [{
-            data: [4.5, 9.0, 16.4, 38.8, 13.4, 17.9],
-            backgroundColor: [C.accent+'0.4)', C.accent+'0.5)', C.accent+'0.6)', C.accent+'0.85)', C.positive+'0.7)', C.positive+'0.85)'],
-            borderColor: [C.accent+'0.9)', C.accent+'0.9)', C.accent+'0.9)', C.accent+'1)', C.positive+'0.9)', C.positive+'1)'],
-            borderWidth: 1, borderRadius: 6
-          }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
-            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 50 }
+      // Nombres : virgule et espace avant % en francais, point et % colle en anglais.
+      var num = function (n, d) { var s = n.toFixed(d); return isEn ? s : s.replace('.', ','); };
+      var pct = function (n, d) { return num(n, d) + (isEn ? '%' : ' %'); };
+      var share = function (count, total) { return Math.round(count / total * 1000) / 10; };
+      var shares = function (counts, total) { return counts.map(function (c) { return share(c, total); }); };
+      var countLine = function (count, total) {
+        return pct(share(count, total), 1) + L(' (' + count + ' répondants sur ' + total + ')', ' (' + count + ' of ' + total + ' respondents)');
+      };
+
+      // Coupe une etiquette longue en deux lignes sur petit ecran.
+      var wrap = function (label) {
+        if (!narrow || label.length <= 16) return label;
+        var mid = Math.floor(label.length / 2), best = -1;
+        for (var i = 0; i < label.length; i++) {
+          if (label.charAt(i) === ' ' && (best === -1 || Math.abs(i - mid) < Math.abs(best - mid))) best = i;
+        }
+        return best === -1 ? label : [label.slice(0, best), label.slice(best + 1)];
+      };
+
+      var tooltip = function (names, line) {
+        return {
+          backgroundColor: C.ink,
+          titleColor: C.surface,
+          bodyColor: C.surface,
+          titleFont: { family: CHART_FONT, size: 12, weight: '600' },
+          bodyFont: font,
+          cornerRadius: 2,
+          padding: 8,
+          displayColors: false,
+          callbacks: {
+            title: function (items) { return names[items[0].dataIndex]; },
+            label: function (ctx) { return line(ctx.dataIndex); }
           }
+        };
+      };
+
+      // Barres : une couleur pleine issue des tokens, coins a 2px, axe des
+      // valeurs toujours a partir de 0.
+      var barChart = function (id, o) {
+        var valueAxis = {
+          min: 0, max: o.max,
+          ticks: { color: C.tick, font: font, stepSize: o.step, callback: function (v) { return pct(v, 0); } },
+          grid: { color: C.grid },
+          border: { color: C.axis }
+        };
+        var categoryAxis = {
+          ticks: { color: C.tick, font: font, autoSkip: false },
+          grid: { display: false },
+          border: { color: C.axis }
+        };
+        if (o.axisTitle) categoryAxis.title = { display: true, text: o.axisTitle, color: C.tick, font: font };
+        return new Chart(document.getElementById(id), {
+          type: 'bar',
+          data: {
+            labels: o.labels,
+            datasets: [{ data: o.values, backgroundColor: o.colors, borderWidth: 0, borderRadius: 2, maxBarThickness: o.thickness || 28 }]
+          },
+          options: {
+            indexAxis: o.horizontal ? 'y' : 'x',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: animate ? { duration: 400 } : false,
+            plugins: { legend: { display: false }, tooltip: tooltip(o.names, o.line) },
+            scales: o.horizontal ? { x: valueAxis, y: categoryAxis } : { x: categoryAxis, y: valueAxis }
+          }
+        });
+      };
+
+      /* Q1 - frequence d'usage (effectifs, N = 67) */
+      var q1Names = [
+        L('Très rarement (<1×/mois)', 'Very rarely (<1×/month)'),
+        L('Rarement (1-3×/mois)', 'Rarely (1-3×/month)'),
+        L('Parfois (~1×/sem.)', 'Sometimes (~1×/week)'),
+        L('Régulièrement (plusieurs×/sem.)', 'Regularly (several×/week)'),
+        L('Quotidiennement (1×/jour)', 'Daily (1×/day)'),
+        L('Très fréquemment (plusieurs×/jour)', 'Very frequently (several×/day)')
+      ];
+      var q1Counts = [3, 6, 11, 26, 9, 12];
+      chartInstances.Q1 = barChart('chartQ1', {
+        // Barres horizontales : les libelles restent droits et entiers ; sur
+        // petit ecran la precision de frequence passe sur une seconde ligne.
+        horizontal: true,
+        labels: q1Names.map(function (n) {
+          var cut = n.indexOf(' (');
+          return narrow ? [n.slice(0, cut), n.slice(cut + 2, -1)] : n;
+        }),
+        names: q1Names,
+        values: shares(q1Counts, 67),
+        colors: C.accent,
+        max: 50, step: 10,
+        line: function (i) { return countLine(q1Counts[i], 67); }
+      });
+
+      /* Q30 - equilibre benefices / risques (effectifs, N = 66). La note 2
+         n'a recu aucune reponse : elle garde sa place sur l'echelle. */
+      var q30Counts = [2, 0, 5, 8, 25, 17, 9];
+      chartInstances.Q30 = barChart('chartQ30', {
+        labels: ['1', '2', '3', '4', '5', '6', '7'],
+        names: ['1', '2', '3', '4', '5', '6', '7'].map(function (n) { return L('Note ' + n + ' sur 7', 'Score ' + n + ' out of 7'); }),
+        values: shares(q30Counts, 66),
+        // 1 a 3 : cote risques ; 4 : milieu de l'echelle ; 5 a 7 : cote benefices.
+        colors: [C.warm, C.warm, C.warm, C.neutral, C.accent, C.accent, C.accent],
+        max: 50, step: 10, thickness: 44,
+        axisTitle: L('1 = les risques dominent · 7 = les bénéfices dominent', '1 = risks dominate · 7 = benefits dominate'),
+        line: function (i) { return countLine(q30Counts[i], 66); }
+      });
+
+      /* Q3 - outils utilises (effectifs, N = 67, multi-reponses) */
+      var q3Names = ['Copilot', 'ChatGPT', L('Outils propres au cabinet', 'Firm-specific tools'), 'Gemini', 'Mistral', 'Claude', 'Perplexity', 'Grok', L('Autres', 'Other')];
+      var q3Counts = [49, 36, 20, 15, 9, 8, 7, 4, 5];
+      chartInstances.Q3 = barChart('chartQ3', {
+        horizontal: true,
+        labels: q3Names.map(wrap),
+        names: q3Names,
+        values: shares(q3Counts, 67),
+        colors: C.accent,
+        max: 100, step: 25,
+        line: function (i) { return countLine(q3Counts[i], 67); }
+      });
+
+      /* Q4 - taches realisees (effectifs, N = 67, multi-reponses) */
+      var q4Names = [
+        L('Reformulation, traduction', 'Rewording, translation'),
+        L('Rédaction', 'Drafting'),
+        L("Recherche d'informations", 'Information research'),
+        L('Correction', 'Proofreading'),
+        L('Préparation de données', 'Data preparation'),
+        L('Automatisation, scripts', 'Automation, scripts'),
+        L('Analyse de données', 'Data analysis'),
+        L('Rapprochement de documents', 'Document reconciliation'),
+        L('Aide à la décision', 'Decision support'),
+        L('Évaluation du contrôle interne', 'Internal control evaluation')
+      ];
+      var q4Counts = [50, 49, 47, 23, 18, 17, 17, 14, 13, 8];
+      chartInstances.Q4 = barChart('chartQ4', {
+        horizontal: true,
+        labels: q4Names.map(wrap),
+        names: q4Names,
+        values: shares(q4Counts, 67),
+        colors: C.accent,
+        max: 100, step: 25,
+        line: function (i) { return countLine(q4Counts[i], 67); }
+      });
+
+      /* Scores composites : moyenne rapportee au maximum de l'echelle.
+         Barres sur un axe 0-100 : les ecarts gardent leur vraie taille. */
+      var scores = [
+        { code: 'SUP', name: L('Utilité perçue', 'Perceived usefulness'), mean: 3.399, max: 5 },
+        { code: 'SFU', name: L("Facilité d'utilisation", 'Ease of use'), mean: 4.766, max: 7 },
+        { code: 'SRP', name: L('Risques perçus', 'Perceived risks'), mean: 5.537, max: 7 },
+        { code: 'SMF', name: L('Maîtrise fonctionnelle', 'Functional competence'), mean: 4.781, max: 7 },
+        { code: 'SSP', name: L('Scepticisme professionnel', 'Professional scepticism'), mean: 4.958, max: 7 }
+      ];
+      chartInstances.Scores = barChart('chartScores', {
+        horizontal: true,
+        labels: scores.map(function (s) { return narrow ? [s.code, s.name] : s.code + ' · ' + s.name; }),
+        names: scores.map(function (s) { return s.code + ' · ' + s.name; }),
+        values: scores.map(function (s) { return share(s.mean, s.max); }),
+        colors: C.accent,
+        max: 100, step: 25,
+        line: function (i) {
+          var s = scores[i];
+          return pct(share(s.mean, s.max), 1) + L(" de l'échelle (moyenne ", ' of the scale (mean ') + num(s.mean, 2) + L(' sur ', ' out of ') + s.max + ')';
         }
       });
 
-      chartInstances.Q30 = new Chart(document.getElementById('chartQ30'), {
-        type: 'bar',
-        data: {
-          labels: [
-            ['1', L('Risques dominent', 'Risks dominate')],
-            '3', '4', '5', '6',
-            ['7', L('Bénéfices dominent', 'Benefits dominate')]
-          ],
-          datasets: [{
-            data: [3.0, 7.6, 12.1, 37.9, 25.8, 13.6],
-            backgroundColor: [C.negative+'0.6)', C.negative+'0.4)', C.warn+'0.5)', C.positive+'0.5)', C.positive+'0.7)', C.positive+'0.9)'],
-            borderColor: [C.negative+'0.9)', C.negative+'0.7)', C.warn+'0.8)', C.positive+'0.8)', C.positive+'0.9)', C.positive+'1)'],
-            borderWidth: 1, borderRadius: 6
-          }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
-            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 50 }
-          }
-        }
-      });
-
-      chartInstances.Q3 = new Chart(document.getElementById('chartQ3'), {
-        type: 'bar',
-        data: {
-          labels: ['Copilot', 'ChatGPT', L('Outils cabinet', 'In-house tools'), 'Gemini', 'Mistral', 'Claude', 'Perplexity', 'Grok', L('Autres', 'Other')],
-          datasets: [{ data: [73.1, 53.7, 29.9, 22.4, 13.4, 11.9, 10.4, 6.0, 7.5],
-            backgroundColor: C.accent+'0.6)', borderColor: C.accent+'1)', borderWidth: 1, borderRadius: 6 }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
-            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 90 }
-          }
-        }
-      });
-
-      chartInstances.Q4 = new Chart(document.getElementById('chartQ4'), {
-        type: 'bar',
-        data: {
-          labels: [
-            L('Reformulation', 'Rewording'), L('Rédaction', 'Drafting'), L('Recherche', 'Research'),
-            L('Correction', 'Proofreading'), L('Prép. données', 'Data prep'), L('Automatisation', 'Automation'),
-            L('Analyse données', 'Data analysis'), L('Rapprochement', 'Reconciliation'),
-            L('Aide décision', 'Decision support'), L('Éval. CI', 'Internal control eval.')
-          ],
-          datasets: [{ data: [74.6, 73.1, 70.1, 34.3, 26.9, 25.4, 25.4, 20.9, 19.4, 11.9],
-            backgroundColor: C.positive+'0.6)', borderColor: C.positive+'1)', borderWidth: 1, borderRadius: 6 }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: C.tick, font }, grid: { color: C.grid } },
-            y: { ticks: { color: C.tick, font, callback: function (v) { return v + ' %'; } }, grid: { color: C.grid }, max: 90 }
-          }
-        }
-      });
-
-      var isDarkRadar = document.documentElement.getAttribute('data-theme') === 'dark';
-      chartInstances.Radar = new Chart(document.getElementById('chartRadar'), {
-        type: 'radar',
-        data: {
-          labels: [
-            ['SUP', L('(Utilité)', '(Usefulness)')],
-            ['SFU', L('(Facilité)', '(Ease of use)')],
-            ['SRP', L('(Risques)', '(Risks)')],
-            ['SMF', L('(Maitrise Fonctionnelle)', '(Functional mastery)')],
-            ['SSP', L('(Scepticisme)', '(Scepticism)')]
-          ],
-          datasets: [{ data: [68.0, 68.1, 79.1, 68.3, 70.8],
-            backgroundColor: C.accent+'0.2)', borderColor: C.accent+'0.9)', pointBackgroundColor: C.accent+'1)', borderWidth: 2, pointRadius: 4 }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } },
-          scales: {
-            r: { min: 50, max: 90,
-              ticks: {
-                color: C.tick,
-                font: { family: 'Source Sans 3', size: 10 },
-                stepSize: 10,
-                callback: function (v) { return v + '%'; },
-                backdropColor: isDarkRadar ? 'rgba(15,15,18,0.85)' : 'rgba(250,250,247,0.85)',
-                backdropPadding: 2
-              },
-              grid: { color: C.grid },
-              pointLabels: { color: C.tick, font: { family: 'Source Sans 3', size: 11, weight: '500' } },
-              angleLines: { color: C.grid }
-            }
-          }
-        }
-      });
-
+      /* Q2 - environnement d'usage (effectifs, N = 67) */
+      var q2Names = [
+        L('Outils fournis ou agréés par le cabinet', 'Tools provided or approved by the firm'),
+        L('Mélange des deux', 'A mix of both'),
+        L('Outils grand public', 'Consumer tools')
+      ];
+      var q2Counts = [33, 21, 13];
       chartInstances.Q2 = new Chart(document.getElementById('chartQ2'), {
         type: 'doughnut',
         data: {
-          labels: [
-            L('Outils cabinet (Copilot sécurisé…)', 'In-house tools (secured Copilot…)'),
-            L('Mix des deux', 'A mix of both'),
-            L('Outils grand public (ChatGPT…)', 'Consumer tools (ChatGPT…)')
-          ],
-          datasets: [{ data: [49.3, 31.3, 19.4],
-            backgroundColor: [C.accent+'0.75)', C.positive+'0.7)', C.warn+'0.7)'],
-            borderColor: [C.accent+'1)', C.positive+'1)', C.warn+'1)'], borderWidth: 2 }]
+          // La part est ecrite dans la legende : lisible sans survol.
+          labels: q2Names.map(function (n, i) { return n + L(' : ', ': ') + pct(share(q2Counts[i], 67), 1); }),
+          datasets: [{
+            data: shares(q2Counts, 67),
+            backgroundColor: [C.accent, C.neutral, C.warm],
+            borderColor: C.surface,
+            borderWidth: 2
+          }]
         },
-        options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: C.tick, font, padding: 16, boxWidth: 14 } } } }
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '58%',
+          animation: animate ? { duration: 400 } : false,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: C.tick, font: font, padding: 12, boxWidth: 12, boxHeight: 12 } },
+            tooltip: tooltip(q2Names, function (i) { return countLine(q2Counts[i], 67); })
+          }
+        }
       });
     }
-
-    renderCharts();
   </script>
 </body>
 </html>
