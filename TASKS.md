@@ -20,3 +20,15 @@ Critère de fin : pages clés affichées sans erreur dans Chromium (desktop 1366
 - [ ] Image de couverture du projet 9 (`projets/projet9/cover.svg`) : contient elle-même une étiquette monospace « DATA / IA AGENTIQUE » et un titre serif
 - [ ] Ligne de contact du CV au style terminal (« email → … tel → … »)
 - [ ] Projet 10 : l'iframe de démo affiche aussi un grand cadre vide si l'app ne charge pas (non modifié)
+
+# Impeccable init
+
+Critère de fin : `PRODUCT.md` écrit à la racine, relu, et reconnu par `impeccable context` ; poussé sur `claude/compassionate-clarke-yhag3q`.
+
+- [x] Contexte chargé (`impeccable context`) : pas de PRODUCT.md, implémentation visuelle existante
+- [x] Exploration du dépôt (pages, textes, i18n, CV, dépendances externes)
+- [x] Entretien : lecteur principal, positionnement, contraintes
+- [x] `PRODUCT.md` écrit
+- [ ] Mode live non configuré dans cette session cloud (à lancer sur le PC avec `/impeccable live`)
+- [ ] À décider : mise à jour du statut affiché (M2 et alternance « jusqu'en août 2026 »)
+- [ ] À décider : le bouton « Télécharger le CV A4 (PDF) » pointe vers une page HTML (`projets/CV à jour.html`), pas un PDF
