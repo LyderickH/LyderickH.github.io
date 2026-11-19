@@ -42,16 +42,10 @@
 
       <h3 data-en="Technical Solutions">Solutions Techniques</h3>
       <ul>
-        <li data-en="&lt;strong&gt;Scale inversion:&lt;/strong&gt; ad-hoc calculation (8 minus the rank) so that preferred assets read as longer bars."><strong>Inversion d'échelle :</strong> Calcul ad hoc (8 moins le rang) pour valoriser visuellement les actifs préférés par des barres plus longues.</li>
-        <li data-en="&lt;strong&gt;Dynamic parameter:&lt;/strong&gt; switching between motivation columns through a CASE function, working around the single-pivot limitation."><strong>Paramètre Dynamique :</strong> Switch entre colonnes de motivations via une fonction CASE pour contourner la limite technique du Pivot unique.</li>
-        <li data-en="&lt;strong&gt;Interactivity:&lt;/strong&gt; controls centralised into global filters (gender, age) driving the whole dashboard."><strong>Interactivité :</strong> Centralisation des contrôles par filtres globaux (Genre, Âge) pilotant l'ensemble du dashboard.</li>
+        <li data-en="&lt;strong&gt;Scale inversion:&lt;/strong&gt; ad-hoc calculation (8 minus the rank)."><strong>Inversion d'échelle :</strong> Calcul ad hoc (8 moins le rang).</li>
+        <li data-en="&lt;strong&gt;Dynamic parameter:&lt;/strong&gt; switching between motivation columns through a CASE function, working around the single-pivot limitation."><strong>Paramètre Dynamique :</strong> Switch entre colonnes de motivations via une fonction CASE pour contourner la limite du Pivot unique.</li>
+        <li data-en="&lt;strong&gt;Interactivity:&lt;/strong&gt; global filters (gender, age) driving the whole dashboard."><strong>Interactivité :</strong> Filtres globaux (Genre, Âge) pilotant l'ensemble du dashboard.</li>
         <li data-en="&lt;strong&gt;Structure:&lt;/strong&gt; a sidebar grouping the key indicators (KPIs) and the selectors."><strong>Structure :</strong> Intégration d'une barre latérale regroupant les indicateurs clés (KPI) et les sélecteurs.</li>
-      </ul>
-
-      <h3 data-en="Key Skills">Compétences clés</h3>
-      <ul>
-        <li data-en="&lt;strong&gt;Tableau:&lt;/strong&gt; parameters, ad-hoc calculations and global filtering."><strong>Tableau :</strong> Maîtrise des paramètres, calculs ad hoc et filtrage global.</li>
-        <li data-en="&lt;strong&gt;Data storytelling:&lt;/strong&gt; turning raw data into strategic visuals (goals/purpose matrix)."><strong>Data Storytelling :</strong> Transformation de données brutes en visualisations stratégiques (matrice objectifs/finalités).</li>
       </ul>
 
       <div class="callout">
@@ -92,7 +86,7 @@
 
       <div class="caption">
         <h3 id="caption-title">Vue d'ensemble du Dashboard</h3>
-        <p id="caption-text">Vue complète permettant d'analyser les préférences d'investissement avec filtres dynamiques.</p>
+        <p id="caption-text">Préférences d'investissement avec filtres dynamiques.</p>
       </div>
     </div>
 
@@ -121,25 +115,25 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     window.SLIDER_CAPTIONS = [
-    { title: "Vue d'ensemble du Dashboard", text: "Vue complète permettant d'analyser les préférences d'investissement avec filtres dynamiques." },
-    { title: "Source de Données", text: "Aperçu du dataset initial et de sa structure." },
-    { title: "Profil des Répondants", text: "Analyse démographique des investisseurs (Genre, Âge, Situation)." },
-    { title: "Classement des Préférences", text: "Visualisation des actifs favoris avec échelle inversée pour plus de clarté." },
-    { title: "Horizon vs Rendement", text: "Comparaison des attentes de rendement selon l'horizon de placement." },
-    { title: "Objectifs et Finalités", text: "Analyse des motivations profondes et des buts de l'investissement." },
-    { title: "Sources d'Informations", text: "Canaux privilégiés par les investisseurs pour s'informer." },
-    { title: "Motivation par Actif", text: "Détail des motivations spécifiques pour chaque type d'actif (via Paramètre Dynamique)." }
+    { title: "Vue d'ensemble du Dashboard", text: "Préférences d'investissement avec filtres dynamiques." },
+    { title: "Source de Données", text: "Dataset initial et sa structure." },
+    { title: "Profil des Répondants", text: "Analyse démographique (Genre, Âge, Situation)." },
+    { title: "Classement des Préférences", text: "Actifs favoris avec échelle inversée." },
+    { title: "Horizon vs Rendement", text: "Attentes de rendement selon l'horizon de placement." },
+    { title: "Objectifs et Finalités", text: "Motivations profondes et buts de l'investissement." },
+    { title: "Sources d'Informations", text: "Canaux privilégiés par les investisseurs." },
+    { title: "Motivation par Actif", text: "Motivations pour chaque type d'actif (via Paramètre Dynamique)." }
     ];
 
     window.SLIDER_CAPTIONS_EN = [
-    { title: "Dashboard overview", text: "Full view for analysing investment preferences, with dynamic filters." },
-    { title: "Data source", text: "A look at the original dataset and its structure." },
-    { title: "Respondent profile", text: "Demographic analysis of the investors (gender, age, marital status)." },
-    { title: "Preference ranking", text: "Favourite assets, with an inverted scale for readability." },
-    { title: "Horizon vs return", text: "Return expectations compared against investment horizon." },
-    { title: "Goals and purposes", text: "Analysis of underlying motivations and investment goals." },
-    { title: "Information sources", text: "Channels investors rely on to inform their decisions." },
-    { title: "Motivation by asset", text: "Motivations specific to each asset type (via the dynamic parameter)." }
+    { title: "Dashboard overview", text: "Investment preferences, with dynamic filters." },
+    { title: "Data source", text: "Original dataset and its structure." },
+    { title: "Respondent profile", text: "Demographic analysis (gender, age, marital status)." },
+    { title: "Preference ranking", text: "Favourite assets, with an inverted scale." },
+    { title: "Horizon vs return", text: "Return expectations by investment horizon." },
+    { title: "Goals and purposes", text: "Underlying motivations and investment goals." },
+    { title: "Information sources", text: "Channels investors rely on." },
+    { title: "Motivation by asset", text: "Motivations for each asset type (via the dynamic parameter)." }
     ];
   </script>
 
