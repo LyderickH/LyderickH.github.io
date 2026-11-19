@@ -108,3 +108,4 @@ Critère de fin : 72 chargements Chromium sans défaut, 0 tiret cadratin, blocs 
 - [x] Vignettes des projets 8 et 9 : vraies captures (profil de risque croisé, matrice Réel vs Budget)
 - [x] Tirets cadratins « — » supprimés partout (6 visibles + traductions)
 - [x] Pages projet : contexte, chiffres, captures et « L'essentiel » visibles ; détails repliés dans « Le détail »-type (11 blocs sur 10 pages)
+- [x] Boutons sous la présentation : « Me contacter » retiré (doublon avec le bloc de fin et le menu) ; blocs repliables plus aérés

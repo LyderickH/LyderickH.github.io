@@ -11,6 +11,24 @@
         ],
         "createdAt": "2026-11-19T10:56:14.453Z",
         "reason": "Claude, mesure navigateur 2026-11-18 : .p9-matrix-frame sans padding mais cellules a 9,6 x 14,4 px, texte a 15,4 px de la bordure"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "projet6.html"
+        ],
+        "createdAt": "2026-11-19T17:54:23.481Z",
+        "reason": "Claude, mesure navigateur 2026-11-19 : .project-details a 6 px de padding, texte du resume a 19 px du filet ; le detecteur CLI n'applique pas la regle en cascade"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "projet10.html"
+        ],
+        "createdAt": "2026-11-19T17:54:23.488Z",
+        "reason": "Claude, mesure navigateur 2026-11-19 : .project-details a 6 px de padding, texte du resume a 19 px du filet ; le detecteur CLI n'applique pas la regle en cascade"
       }
     ]
   }
