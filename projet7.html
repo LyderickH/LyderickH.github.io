@@ -43,7 +43,10 @@
       <p data-en="&lt;strong&gt;Topic:&lt;/strong&gt; automated analysis of how generative AI is perceived inside audit firms."><strong>Thème :</strong> Analyse automatisée de la perception de l'Intelligence Artificielle Générative en cabinet d'audit.</p>
       <p data-en="&lt;strong&gt;Goal:&lt;/strong&gt; build a cloud architecture turning raw survey data into visual indicators."><strong>Objectif :</strong> Mise en œuvre d'une architecture Cloud pour transformer des données brutes de questionnaire en indicateurs visuels.</p>
 
-      <h3 data-en="Technical Solutions">Solutions Techniques</h3>
+      <details class="project-details">
+        <summary><span data-en="Technical solutions">Solutions techniques</span></summary>
+        <div class="project-details-body">
+
       <ul>
         <li data-en="&lt;strong&gt;Cloud infrastructure (GCP):&lt;/strong&gt; deployed on Google Cloud with billing configuration and budget alerts."><strong>Infrastructure Cloud (GCP) :</strong> Déploiement sur Google Cloud avec paramétrage de facturation et alertes budgétaires.</li>
         <li data-en="&lt;strong&gt;Data ingestion:&lt;/strong&gt; automated flow from Google Sheets (Google Form responses) into a BigQuery &lt;code&gt;audit_raw&lt;/code&gt; dataset."><strong>Ingestion de Données :</strong> Flux automatisé entre Google Sheets (réponses Google Form) et BigQuery dans un dataset <code>audit_raw</code>.</li>
@@ -51,10 +54,13 @@
         <li data-en="&lt;strong&gt;Modelling:&lt;/strong&gt; long-format pivoted views built with the &lt;code&gt;UNNEST&lt;/code&gt; function."><strong>Modélisation :</strong> Vues pivotées au format long via la fonction <code>UNNEST</code>.</li>
         <li data-en="&lt;strong&gt;Automation:&lt;/strong&gt; Dataform scheduler configured to refresh the pipeline automatically."><strong>Automatisation :</strong> Ordonnanceur Dataform pour la mise à jour automatique.</li>
       </ul>
+        </div>
+      </details>
+
 
       <div class="callout">
         <span class="callout-label" data-en="The reflex worth keeping">Le réflexe à garder</span>
-        <p data-en="Budget alerts were set up &lt;strong&gt;before&lt;/strong&gt; the first query, not after the first invoice. On a pay-per-query platform, cost control is part of the architecture — not an afterthought.">Les alertes budgétaires ont été posées <strong>avant</strong> la première requête, pas après la première facture. Sur une plateforme facturée à l'usage, la maîtrise des coûts fait partie de l'architecture — elle ne s'ajoute pas après coup.</p>
+        <p data-en="Budget alerts were set up &lt;strong&gt;before&lt;/strong&gt; the first query, not after the first invoice. On a pay-per-query platform, cost control is part of the architecture, not an afterthought.">Les alertes budgétaires ont été posées <strong>avant</strong> la première requête, pas après la première facture. Sur une plateforme facturée à l'usage, la maîtrise des coûts fait partie de l'architecture, elle ne s'ajoute pas après coup.</p>
       </div>
       </div>
     </section>
