@@ -87,3 +87,14 @@ Critère de fin : accueil et pages types vérifiés dans Chromium (1366, 1024, 3
 - [x] Tout le site : titres Archivo 700 et plus grands, catégorie des projets en orange sous le titre, page courante en orange, encadrés bleutés à étiquette orange, fin de page en aplat bleu
 - [x] Description de page traduite en anglais (6 pages)
 - [x] Vérification : 72 chargements sans défaut ; contrastes 4,6:1 au minimum (étiquette d'encadré, clair)
+
+# Distill : alléger le texte sans changer le propos
+
+Critère de fin : À propos, page projets et projets 1 à 10 allégés (mots avant/après mesurés), mêmes faits et même voix, FR et EN alignés ; 0 erreur JS, 0 débordement dans Chromium ; poussé sur la branche.
+Hors périmètre : accueil (déjà fait), CV web et CV A4, mémoire (résultats sourcés), contact et explorateur (déjà courts).
+
+- [ ] Lot 1 : À propos, page projets (descriptions des cartes), projets 1, 2, 3
+- [ ] Lot 2 : projets 4, 5, 6, 7, 8
+- [ ] Lot 3 : projets 9, 10
+- [ ] Relecture des coupes : aucun fait perdu, aucun ajout
+- [ ] Vérification Chromium et push
