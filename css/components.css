@@ -1680,6 +1680,11 @@ a.contact-card:hover { border-color: var(--ink-faint); }
 .embed-frame iframe[hidden],
 .embed-launch[hidden] { display: none; }
 
+/* Deux cartes seulement : deux colonnes, pas de case vide */
+@media (min-width: 640px) {
+  .kpi-grid:has(> :nth-child(2):last-child) { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ── Démo intégrée chargée à la demande ──────────────────────────────── */
 
 /* Tant que le visiteur n'a pas lancé l'outil, le cadre dit ce qui va
