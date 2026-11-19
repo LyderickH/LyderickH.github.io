@@ -40,17 +40,23 @@
       <h2 data-en="Project Overview">Présentation du Projet</h2>
       <p data-en="&lt;strong&gt;Goal:&lt;/strong&gt; interactive analysis of investor profiles and preferences using the finance_data.csv dataset."><strong>Objectif :</strong> Analyse interactive du profil et des préférences des investisseurs via le dataset finance_data.csv.</p>
 
-      <h3 data-en="Technical Solutions">Solutions Techniques</h3>
+      <details class="project-details">
+        <summary><span data-en="Technical solutions">Solutions techniques</span></summary>
+        <div class="project-details-body">
+
       <ul>
         <li data-en="&lt;strong&gt;Scale inversion:&lt;/strong&gt; ad-hoc calculation (8 minus the rank)."><strong>Inversion d'échelle :</strong> Calcul ad hoc (8 moins le rang).</li>
         <li data-en="&lt;strong&gt;Dynamic parameter:&lt;/strong&gt; switching between motivation columns through a CASE function, working around the single-pivot limitation."><strong>Paramètre Dynamique :</strong> Switch entre colonnes de motivations via une fonction CASE pour contourner la limite du Pivot unique.</li>
         <li data-en="&lt;strong&gt;Interactivity:&lt;/strong&gt; global filters (gender, age) driving the whole dashboard."><strong>Interactivité :</strong> Filtres globaux (Genre, Âge) pilotant l'ensemble du dashboard.</li>
         <li data-en="&lt;strong&gt;Structure:&lt;/strong&gt; a sidebar grouping the key indicators (KPIs) and the selectors."><strong>Structure :</strong> Barre latérale regroupant les indicateurs clés (KPI) et les sélecteurs.</li>
       </ul>
+        </div>
+      </details>
+
 
       <div class="callout">
         <span class="callout-label" data-en="The trick worth remembering">L'astuce à retenir</span>
-        <p data-en="A ranking reads backwards on a bar chart: rank 1 is the favourite asset but draws the shortest bar. Inverting the scale (&lt;strong&gt;8 minus the rank&lt;/strong&gt;) puts the reading back on its feet — the preferred asset finally looks preferred.">Un classement se lit à l'envers sur un graphique en barres : le rang 1 est l'actif préféré mais dessine la barre la plus courte. L'inversion d'échelle (<strong>8 moins le rang</strong>) remet la lecture d'aplomb — l'actif préféré ressort enfin comme tel.</p>
+        <p data-en="A ranking reads backwards on a bar chart: rank 1 is the favourite asset but draws the shortest bar. Inverting the scale (&lt;strong&gt;8 minus the rank&lt;/strong&gt;) puts the reading back on its feet: the preferred asset finally looks preferred.">Un classement se lit à l'envers sur un graphique en barres : le rang 1 est l'actif préféré mais dessine la barre la plus courte. L'inversion d'échelle (<strong>8 moins le rang</strong>) remet la lecture d'aplomb : l'actif préféré ressort enfin comme tel.</p>
       </div>
     </section>
 

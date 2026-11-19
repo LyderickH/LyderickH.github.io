@@ -98,3 +98,14 @@ Hors périmètre : accueil (déjà fait), CV web et CV A4, mémoire (résultats 
 - [x] Lot 3 : projets 9, 10 (tableau d'outils du projet 9 replié dans un bloc « Les outils et leur rôle »)
 - [x] Relecture des coupes : 6 rétablissements (première personne projet 1, multi-colonnes et exports Regex, PWA et « l'atout idéal » projet 10, .docx projet 4, analyse « Profils de risque » projet 8)
 - [x] Vérification Chromium : 72 chargements sans défaut ; 4 266 → 3 541 mots (−17 %) sur le périmètre ; faux positif cramped-padding du projet 9 ignoré (.impeccable/config.json)
+
+# Accueil allégé, détails repliés, tirets
+
+Critère de fin : 72 chargements Chromium sans défaut, 0 tiret cadratin, blocs repliés au chargement et dépliables au clavier, FR et EN ; poussé sur la branche.
+
+- [x] Ancienne phrase d'intro rétablie, « la comptabilité à la data » souligné
+- [x] Accueil : une seule ligne sous le nom, plus de rangées d'étiquettes, projets en rangées sans cadre (26 → 11 cadres)
+- [x] Vignettes des projets 8 et 9 : vraies captures (profil de risque croisé, matrice Réel vs Budget)
+- [x] Tirets cadratins « — » supprimés partout (6 visibles + traductions)
+- [x] Pages projet : contexte, chiffres, captures et « L'essentiel » visibles ; détails repliés dans « Le détail »-type (11 blocs sur 10 pages)
+- [x] Boutons sous la présentation : « Me contacter » retiré (doublon avec le bloc de fin et le menu) ; blocs repliables plus aérés

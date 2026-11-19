@@ -32,7 +32,7 @@
     "Data & Finance · Master CGAO Big Data (IAE Lille)": "Data & Finance · Master CGAO Big Data (IAE Lille)",
     "Transformer des données brutes en décisions financières et opérationnelles.": "Transforming raw data into actionable financial and operational insights.",
     "Projet phare": "Featured Project",
-    "Power BI — Analyse du marché immobilier français (2019–2024)": "Power BI — French Real Estate Market Analysis (2019–2024)",
+    "Power BI - Analyse du marché immobilier français (2019–2024)": "Power BI - French Real Estate Market Analysis (2019–2024)",
     "Exploitation des données DVF (data.gouv) : modélisation DAX avancée, simulateur d'achat et cartographie dynamique du marché immobilier.": "Exploiting DVF French open data: advanced DAX modeling, purchase simulator, and dynamic market mapping.",
     "Mémoire M2": "Master's Thesis",
     "L'impact de l'IA générative sur les métiers de l'audit": "The Impact of Generative AI on Audit & Risk Consulting",
@@ -54,7 +54,7 @@
     "Cloud & SQL": "Cloud & SQL",
 
     // Project Titles & Summaries
-    "Regex par l'exemple — Déduire un motif depuis vos données": "Regex by Example — Deduce Patterns From Data",
+    "Regex par l'exemple : déduire un motif depuis vos données": "Regex by Example: Deduce Patterns From Data",
     "Regex par l'exemple": "Regex by Example",
     "Inspiré de « Colonne à partir d'exemples » de Power Query : collez vos données, saisissez les résultats attendus et l'outil déduit l'expression régulière. 100% local avec IA WebGPU (Qwen 2.5-Coder), multi-colonnes et exports multi-formats.": "Inspired by Power Query's 'Column From Examples': paste your data, type expected outputs, and the tool deduces the regex. Runs 100% locally with WebGPU AI (Qwen 2.5-Coder), multi-column extraction, and multi-format export.",
     "Déduire des expressions régulières depuis vos exemples de données, façon Power Query. IA locale WebGPU (Qwen 2.5-Coder), multi-colonnes et exports Python/SQL.": "Deduce regular expressions automatically from examples, inspired by Power Query. 100% on-device WebGPU AI (Qwen 2.5-Coder), multi-column extraction and Python/SQL exports.",
@@ -122,7 +122,7 @@
     "DUT GEA - Gestion des Entreprises et des Administrations": "Associate Degree GEA - Business Administration & Management",
 
     // Thesis Page
-    "Mémoire de M2 CGAO - ACG": "Master's Thesis — M2 CGAO",
+    "Mémoire de M2 CGAO - ACG": "Master's thesis, M2 CGAO",
     "Perception et adoption de l'IA générative en cabinet d'audit : Analyse empirique (N = 67)": "Perception and adoption of generative AI in audit firms: Empirical analysis (N = 67)",
     "Présentation du mémoire": "Thesis Overview",
     "Thème :": "Topic:",
@@ -153,7 +153,7 @@
      Deux mécanismes cohabitent :
 
      1. `data-en` posé sur un élément : sa valeur est le HTML anglais complet
-        de cet élément. C'est le mécanisme principal — il gère les blocs
+        de cet élément. C'est le mécanisme principal : il gère les blocs
         contenant du balisage en ligne (<strong>, <a>, <span>…), que le
         remplacement texte-à-texte ne pouvait pas atteindre.
      2. EXACT_TEXT_MAP : repli texte-à-texte pour les nœuds de texte simples,
