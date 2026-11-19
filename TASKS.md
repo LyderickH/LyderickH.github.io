@@ -93,8 +93,8 @@ Critère de fin : accueil et pages types vérifiés dans Chromium (1366, 1024, 3
 Critère de fin : À propos, page projets et projets 1 à 10 allégés (mots avant/après mesurés), mêmes faits et même voix, FR et EN alignés ; 0 erreur JS, 0 débordement dans Chromium ; poussé sur la branche.
 Hors périmètre : accueil (déjà fait), CV web et CV A4, mémoire (résultats sourcés), contact et explorateur (déjà courts).
 
-- [ ] Lot 1 : À propos, page projets (descriptions des cartes), projets 1, 2, 3
-- [ ] Lot 2 : projets 4, 5, 6, 7, 8
-- [ ] Lot 3 : projets 9, 10
-- [ ] Relecture des coupes : aucun fait perdu, aucun ajout
-- [ ] Vérification Chromium et push
+- [x] Lot 1 : À propos, page projets (descriptions des cartes), projets 1, 2, 3
+- [x] Lot 2 : projets 4, 5, 6, 7, 8
+- [x] Lot 3 : projets 9, 10 (tableau d'outils du projet 9 replié dans un bloc « Les outils et leur rôle »)
+- [x] Relecture des coupes : 6 rétablissements (première personne projet 1, multi-colonnes et exports Regex, PWA et « l'atout idéal » projet 10, .docx projet 4, analyse « Profils de risque » projet 8)
+- [x] Vérification Chromium : 72 chargements sans défaut ; 4 266 → 3 541 mots (−17 %) sur le périmètre ; faux positif cramped-padding du projet 9 ignoré (.impeccable/config.json)

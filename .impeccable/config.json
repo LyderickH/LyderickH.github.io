@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "projet9.html"
+        ],
+        "createdAt": "2026-11-19T10:56:14.453Z",
+        "reason": "Claude, mesure navigateur 2026-11-18 : .p9-matrix-frame sans padding mais cellules a 9,6 x 14,4 px, texte a 15,4 px de la bordure"
+      }
+    ]
+  }
+}
