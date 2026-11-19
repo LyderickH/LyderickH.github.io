@@ -37,9 +37,9 @@ body {
    sans recourir à de très grandes tailles. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   line-height: var(--leading-snug);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   color: var(--ink);
   text-wrap: balance;
 }

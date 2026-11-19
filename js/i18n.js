@@ -242,6 +242,13 @@
       document.title = isEn ? docTitleEn : document.body._frDocTitle;
     }
 
+    // Description de la page (data-en-content sur la balise meta)
+    const metaDesc = document.querySelector('meta[name="description"][data-en-content]');
+    if (metaDesc) {
+      if (metaDesc._frContent === undefined) metaDesc._frContent = metaDesc.getAttribute('content');
+      metaDesc.setAttribute('content', isEn ? metaDesc.getAttribute('data-en-content') : metaDesc._frContent);
+    }
+
     // Champ de recherche de la page projets (injecté sans data-en)
     const searchInput = document.getElementById('projet-search');
     if (searchInput && !searchInput.hasAttribute('data-en-placeholder')) {

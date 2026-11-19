@@ -38,23 +38,8 @@
   <main id="contenu" class="container">
     <section class="content-section">
       <h2 data-en="Overview">Explications</h2>
-      <p data-en="Project carried out as part of the BUT GEA capstone. The goal was to analyse the financial performance of a fictitious company using automated calculation tools.">Projet réalisé dans le cadre de la SAé en BUT GEA. L'objectif est d'analyser la performance financière d'une entreprise fictive avec des outils de calcul automatisés.</p>
-      <p data-en="The analysis assesses the company's financial health and its ability to generate internal resources to fund growth and repay debt.">L'analyse permet d'évaluer la santé financière de l'entreprise et sa capacité à générer des ressources internes pour financer sa croissance et rembourser ses dettes.</p>
-
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <span class="kpi-value">3</span>
-          <span class="kpi-label" data-en="financial years compared (N-2 to N)">exercices comparés (N-2 à N)</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value">3</span>
-          <span class="kpi-label" data-en="strands: SIG, operating cash flow, ratios">volets : SIG, CAF, ratios</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-value">2</span>
-          <span class="kpi-label" data-en="deliverables: PDF report and blank Excel workbook">livrables : rapport PDF et trame Excel vierge</span>
-        </div>
-      </div>
+      <p data-en="Project carried out as part of the BUT GEA capstone: analysing the financial performance of a fictitious company using automated calculation tools.">Projet réalisé dans le cadre de la SAé en BUT GEA : analyser la performance financière d'une entreprise fictive avec des outils de calcul automatisés.</p>
+      <p data-en="The analysis assesses the company's financial health and its ability to generate internal resources to fund growth and repay debt.">L'analyse évalue la santé financière de l'entreprise et sa capacité à générer des ressources internes pour financer sa croissance et rembourser ses dettes.</p>
 
       <div class="callout">
         <span class="callout-label" data-en="The point">L'essentiel</span>
@@ -65,10 +50,10 @@
     <section class="content-section">
       <h2 data-en="Components of the Analysis">Composantes de l'Analyse</h2>
       <ul>
-        <li data-en="&lt;strong&gt;Restated income statement (SIG):&lt;/strong&gt; calculations that make accounts comparable and break the result down."><strong>SIG retraités :</strong> Calculs permettant de rendre les comptes comparables et d'analyser le résultat.</li>
-        <li data-en="&lt;strong&gt;Operating cash flow (CAF):&lt;/strong&gt; measure of internally generated funds."><strong>CAF :</strong> Évaluation de la Capacité d'Autofinancement.</li>
-        <li data-en="&lt;strong&gt;Financial ratios:&lt;/strong&gt; key indicators for profitability and solvency."><strong>Ratios financiers :</strong> Indicateurs clés pour évaluer la rentabilité et solvabilité.</li>
-        <li data-en="&lt;strong&gt;Comparative analysis:&lt;/strong&gt; three financial years reviewed to surface trends."><strong>Analyse comparative :</strong> Étude sur trois exercices pour identifier les tendances.</li>
+        <li data-en="&lt;strong&gt;Restated income statement (SIG):&lt;/strong&gt; making accounts comparable and breaking the result down."><strong>SIG retraités :</strong> rendre les comptes comparables et analyser le résultat.</li>
+        <li data-en="&lt;strong&gt;Operating cash flow (CAF):&lt;/strong&gt; internally generated funds."><strong>CAF :</strong> Capacité d'Autofinancement.</li>
+        <li data-en="&lt;strong&gt;Financial ratios:&lt;/strong&gt; profitability and solvency."><strong>Ratios financiers :</strong> rentabilité et solvabilité.</li>
+        <li data-en="&lt;strong&gt;Comparative analysis:&lt;/strong&gt; three financial years (N-2 to N) to surface trends."><strong>Analyse comparative :</strong> trois exercices (N-2 à N) pour identifier les tendances.</li>
       </ul>
     </section>
 
@@ -94,13 +79,13 @@
       </div>
       <div class="caption">
         <h3 id="caption-title">SIG retraités</h3>
-        <p id="caption-text">Présentation des Soldes Intermédiaires de Gestion (SIG) pour les années N-2 à N.</p>
+        <p id="caption-text">Exercices N-2 à N.</p>
       </div>
     </div>
 
     <section class="content-section">
       <h2 data-en="Downloads">Téléchargements</h2>
-      <p data-en="Reports and working files:">Accédez aux documents et fichiers de travail :</p>
+      <p data-en="PDF report and blank Excel workbook:">Rapport PDF et trame Excel vierge :</p>
       <div class="button-container">
         <a href="projets/projet3/SIG_CAF_RATIOS.pdf" class="modern-btn" target="_blank" rel="noopener" data-en="Full PDF report &lt;span class=&quot;doc-format&quot;&gt;PDF&lt;/span&gt;">Rapport PDF Complet <span class="doc-format">PDF</span></a>
         <a href="SIG & CAF vierge.xlsx" class="modern-btn" target="_blank" rel="noopener" data-en="Excel working file &lt;span class=&quot;doc-format&quot;&gt;XLSX&lt;/span&gt;">Fichier Excel de Travail <span class="doc-format">XLSX</span></a>
@@ -127,15 +112,15 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     window.SLIDER_CAPTIONS = [
-    { title:"SIG retraités", text:"Présentation des SIG pour N-2 à N."},
-    { title:"CAF", text:"Calcul de la Capacité d'Autofinancement."},
-    { title:"Ratios financiers", text:"Analyse des ratios financiers."}
+    { title:"SIG retraités", text:"Exercices N-2 à N."},
+    { title:"CAF", text:"Capacité d'Autofinancement."},
+    { title:"Ratios financiers", text:"Rentabilité et solvabilité."}
     ];
 
     window.SLIDER_CAPTIONS_EN = [
-    { title:"Restated income statement", text:"Restated results for years N-2 to N."},
-    { title:"Operating cash flow", text:"Computation of internally generated funds (CAF)."},
-    { title:"Financial ratios", text:"Profitability and solvency ratio analysis."}
+    { title:"Restated income statement", text:"Financial years N-2 to N."},
+    { title:"Operating cash flow", text:"Internally generated funds (CAF)."},
+    { title:"Financial ratios", text:"Profitability and solvency."}
     ];
   </script>
 

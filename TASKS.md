@@ -72,3 +72,29 @@ Source des faits : profil LinkedIn fourni (PDF) — consultant FAAS chez EY à L
 - [ ] Mode sombre : les captures claires forment un bloc blanc dans le diaporama
 - [ ] Préférence système « sombre » ignorée au premier chargement
 - [ ] Aperçu de partage (Open Graph) absent ; site non indexé (`robots.txt`)
+
+# Critique de l'accueil + identité « sobre, mais affirmée »
+
+Critère de fin : accueil et pages types vérifiés dans Chromium (1366, 1024, 390 px ; FR, EN ; clair, sombre), sans erreur ni débordement, contrastes AA ; poussé sur la branche.
+
+- [x] Critique de l'accueil : 25/32 (78 %), retours d'une amie intégrés (trop neutre, une couleur, paragraphes longs)
+- [x] Décisions : caractère visuel d'abord ; ton sobre mais affirmé ; projet phare gardé, couverture changée ; identité appliquée à tout le site
+- [x] Haut de page : poste chez EY en ligne sous le nom, mot-clé souligné à l'orange, étiquette « Data et Finance » retirée
+- [x] Projet phare : couverture = page « Profil de risque croisé » du dashboard, titre par la question métier
+- [x] Sélection : Power BI × Claude (réel contre budget), SIG/CAF, suivi bancaire à la place de Regex et GCP
+- [x] Texte : descriptions de deux lignes, étiquettes redondantes retirées
+- [x] Bloc de fin bleu sur l'accueil (contact, CV)
+- [x] Tout le site : titres Archivo 700 et plus grands, catégorie des projets en orange sous le titre, page courante en orange, encadrés bleutés à étiquette orange, fin de page en aplat bleu
+- [x] Description de page traduite en anglais (6 pages)
+- [x] Vérification : 72 chargements sans défaut ; contrastes 4,6:1 au minimum (étiquette d'encadré, clair)
+
+# Distill : alléger le texte sans changer le propos
+
+Critère de fin : À propos, page projets et projets 1 à 10 allégés (mots avant/après mesurés), mêmes faits et même voix, FR et EN alignés ; 0 erreur JS, 0 débordement dans Chromium ; poussé sur la branche.
+Hors périmètre : accueil (déjà fait), CV web et CV A4, mémoire (résultats sourcés), contact et explorateur (déjà courts).
+
+- [x] Lot 1 : À propos, page projets (descriptions des cartes), projets 1, 2, 3
+- [x] Lot 2 : projets 4, 5, 6, 7, 8
+- [x] Lot 3 : projets 9, 10 (tableau d'outils du projet 9 replié dans un bloc « Les outils et leur rôle »)
+- [x] Relecture des coupes : 6 rétablissements (première personne projet 1, multi-colonnes et exports Regex, PWA et « l'atout idéal » projet 10, .docx projet 4, analyse « Profils de risque » projet 8)
+- [x] Vérification Chromium : 72 chargements sans défaut ; 4 266 → 3 541 mots (−17 %) sur le périmètre ; faux positif cramped-padding du projet 9 ignoré (.impeccable/config.json)

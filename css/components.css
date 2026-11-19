@@ -1680,6 +1680,11 @@ a.contact-card:hover { border-color: var(--ink-faint); }
 .embed-frame iframe[hidden],
 .embed-launch[hidden] { display: none; }
 
+/* Deux cartes seulement : deux colonnes, pas de case vide */
+@media (min-width: 640px) {
+  .kpi-grid:has(> :nth-child(2):last-child) { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ── Démo intégrée chargée à la demande ──────────────────────────────── */
 
 /* Tant que le visiteur n'a pas lancé l'outil, le cadre dit ce qui va
@@ -1759,3 +1764,156 @@ a.contact-card:hover { border-color: var(--ink-faint); }
 
   .slide-btn { width: 2.75rem; height: 2.75rem; }
 }
+
+/* ==========================================================================
+   Identité : sobre, mais affirmée
+   Titres en Archivo 700 nettement au-dessus du texte, orange pour mettre en
+   évidence, bleu en aplat pour les moments d'action. Aucune nouvelle couleur :
+   seulement les rôles que les jetons possédaient déjà.
+   ========================================================================== */
+
+/* Mot-clé souligné à l'orange : la mise en évidence de la phrase */
+.hl {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-warm);
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.2em;
+  text-decoration-skip-ink: none;
+}
+
+/* Page courante : le trait passe à l'orange */
+.nav-link.active { border-bottom-color: var(--accent-warm); }
+
+/* ── Accueil : le nom, puis le poste ─────────────────────────────────── */
+
+.hero-name {
+  font-size: var(--step-5);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin-bottom: var(--space-5);
+}
+
+.hero-role {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: 52ch;
+  text-wrap: balance;
+  margin-bottom: var(--space-6);
+}
+
+.hero-role strong { font-weight: 700; }
+
+.hero-lead {
+  font-size: var(--step-2);
+  margin-bottom: var(--space-6);
+}
+
+/* Petit écran : l'action principale prend toute la largeur, les deux autres
+   se partagent la ligne suivante au lieu qu'une reste seule. */
+@media (max-width: 520px) {
+  .hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .hero-actions .btn { justify-content: center; }
+  .hero-actions .btn-primary { grid-column: 1 / -1; }
+}
+
+/* ── Titres de section et de page ────────────────────────────────────── */
+
+.section-title { font-size: var(--step-4); }
+
+.page-header h1 { letter-spacing: -0.025em; }
+
+/* ── Cartes projet : le titre d'abord, la catégorie en orange dessous ── */
+
+.featured > div:last-child,
+.work-item > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.featured-title,
+.work-title { order: -1; }
+
+.featured-title { font-size: var(--step-3); margin-block: 0 var(--space-4); }
+
+.featured .badge { margin-bottom: var(--space-5); }
+
+.featured-foot { align-self: stretch; }
+
+.work-title { font-size: var(--step-3); margin-bottom: var(--space-3); }
+
+.work-index {
+  color: var(--accent-warm);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+/* La flèche reste visible : au doigt, il n'y a pas de survol pour la révéler */
+.work-title::after {
+  opacity: 1;
+  transform: none;
+  color: var(--accent);
+}
+
+.work-item:hover .work-title::after,
+.work-item:focus-visible .work-title::after { transform: translateX(3px); }
+
+/* ── Encadrés « L'essentiel » : fond bleuté, étiquette orange ─────────── */
+
+.callout {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.callout-label { color: var(--accent-warm); font-weight: 700; }
+
+/* ── Fin de page : un aplat bleu, le seul de la page ─────────────────── */
+
+.page-end {
+  margin-block: var(--space-9) var(--space-8);
+  padding: var(--space-8) var(--space-7);
+  border-top: 0;
+  border-radius: var(--radius-lg);
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.page-end p {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--accent-contrast);
+  margin-bottom: var(--space-7);
+}
+
+.page-end .btn {
+  background: transparent;
+  color: var(--accent-contrast);
+  border-color: color-mix(in srgb, var(--accent-contrast) 55%, transparent);
+}
+
+.page-end .btn:hover {
+  color: var(--accent-contrast);
+  border-color: var(--accent-contrast);
+}
+
+.page-end .btn-primary,
+.page-end .btn-primary:hover {
+  background: var(--accent-contrast);
+  border-color: var(--accent-contrast);
+  color: var(--accent);
+}
+
+.page-end .btn:focus-visible { outline-color: var(--accent-contrast); }
+
+/* Lien « CV » du pied de page : jamais plus étroit que 24 px */
+.footer-links a { display: inline-block; min-width: 24px; text-align: center; }

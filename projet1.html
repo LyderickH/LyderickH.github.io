@@ -38,15 +38,14 @@
   <main id="contenu" class="container">
     <section class="content-section">
       <h2 data-en="Overview">Explications</h2>
-      <p data-en="&lt;strong&gt;Power BI project: interactive simulator of the French property market&lt;/strong&gt;"><strong>Projet Power BI : Simulateur interactif du marché immobilier</strong></p>
-      <p data-en="Built during my training at IAE Lille, this interactive simulator explores and analyses the French property market. The goal was to consolidate my &lt;strong&gt;data visualisation&lt;/strong&gt; skills and deepen my command of &lt;strong&gt;Power BI&lt;/strong&gt;.">Ce projet, développé dans le cadre d'une formation à l'IAE de Lille, est un simulateur interactif conçu pour explorer et analyser le marché immobilier français. L'objectif était de consolider mes compétences en <strong>data visualisation</strong> et d'approfondir ma maîtrise de l'outil <strong>Power BI</strong>.</p>
-      <p data-en="I used open data from &lt;strong&gt;Data.gouv&lt;/strong&gt; (2019-2024 for property sales, 2022-2024 for rentals) to build a tool that lets users:">J'ai utilisé des données provenant de <strong>Data.gouv</strong> (période 2019-2024 pour le foncier et 2022-2024 pour la location) pour créer une solution permettant aux utilisateurs de :</p>
+      <p data-en="Built during my training at IAE Lille, to consolidate my &lt;strong&gt;data visualisation&lt;/strong&gt; skills and deepen my command of &lt;strong&gt;Power BI&lt;/strong&gt;.">Projet développé dans le cadre d'une formation à l'IAE de Lille, pour consolider mes compétences en <strong>data visualisation</strong> et approfondir ma maîtrise de <strong>Power BI</strong>.</p>
+      <p data-en="I used open data from &lt;strong&gt;Data.gouv&lt;/strong&gt; to build a tool that lets users:">J'ai utilisé des données <strong>Data.gouv</strong> pour créer une solution permettant de :</p>
       <ul>
         <li data-en="&lt;strong&gt;Compute mortgages&lt;/strong&gt; and simulate purchases."><strong>Calculer des emprunts</strong> et simuler des achats.</li>
         <li data-en="&lt;strong&gt;Estimate the yield&lt;/strong&gt; of a rental investment."><strong>Estimer la rentabilité</strong> d'un investissement locatif.</li>
         <li data-en="&lt;strong&gt;Compare&lt;/strong&gt; sale prices against rents."><strong>Comparer</strong> les prix fonciers et les loyers.</li>
         <li data-en="&lt;strong&gt;Analyse market trends&lt;/strong&gt; by region and city."><strong>Analyser les tendances</strong> du marché par région et ville.</li>
-        <li data-en="&lt;strong&gt;Compare two cities&lt;/strong&gt; side by side."><strong>Comparer deux villes</strong> distinctes.</li>
+        <li data-en="&lt;strong&gt;Compare two cities&lt;/strong&gt;."><strong>Comparer deux villes</strong>.</li>
       </ul>
       <div class="kpi-grid">
         <div class="kpi-card">
@@ -68,7 +67,6 @@
         <p data-en="Turning raw open data into strategic, visual insight — and setting up an &lt;strong&gt;automated refresh process&lt;/strong&gt; through the M language, so the report stays current without manual work.">Transformer des données publiques brutes en informations stratégiques et visuelles, et mettre en place un <strong>processus de mise à jour automatisé</strong> via le langage M, pour que le rapport reste à jour sans reprise manuelle.</p>
       </div>
 
-      <p data-en="To see the full project or discuss it, feel free to get in touch.">Pour accéder au projet complet ou pour en discuter, n'hésitez pas à me contacter.</p>
     </section>
 
 <!-- Modern Slider adapté -->
@@ -107,7 +105,7 @@
 
   <div class="caption">
     <h3 id="caption-title">Page d'accueil : L'immobilier en un rapport</h3>
-    <p id="caption-text">Page centrale servant de hub interactif vers les différentes sections du rapport.</p>
+    <p id="caption-text">Hub interactif vers les sections du rapport.</p>
   </div>
 </div>
 
@@ -127,7 +125,7 @@
     <div class="separator"></div>
 
     <section class="embed-block">
-      <p data-en="An interactive version exists online, but Power BI asks you to sign in with an account that holds a licence. The eight views of the report are in the slideshow above and in the PDF.">Une version interactive existe en ligne, mais Power BI demande de se connecter avec un compte disposant d'une licence. Les huit vues du rapport sont visibles dans le diaporama ci-dessus et dans le PDF.</p>
+      <p data-en="An interactive version exists online, but Power BI asks you to sign in with an account that holds a licence. The eight views are in the slideshow above and in the PDF.">Une version interactive existe en ligne, mais Power BI demande de se connecter avec un compte disposant d'une licence. Les huit vues sont dans le diaporama ci-dessus et dans le PDF.</p>
       <button class="btn" type="button" data-embed-load data-en="Load the interactive report">Charger le rapport interactif</button>
       <iframe hidden title="Rapport Power BI - Analyse immobilière" data-en-title="Power BI report - Real estate analysis"
         data-src="https://app.powerbi.com/reportEmbed?reportId=595f7e1c-ae4d-4038-ad85-9f49f0734bc8&autoAuth=true&ctid=5dd8a2bb-ec68-4001-8b40-8d12dc51acd8"
@@ -154,25 +152,25 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     window.SLIDER_CAPTIONS = [
-    { title: "Page d'accueil : L'immobilier en un rapport", text: "Page centrale servant de hub interactif vers les différentes sections du rapport." },
-    { title: "Simulateur emprunt", text: "Outil pour estimer la capacité d'emprunt et visualiser la répartition des remboursements." },
-    { title: "Simulateur achat", text: "Simulateur calculant la surface achetable et comparant les prix au m² selon les zones." },
-    { title: "Tendances Fonciers", text: "Analyse des prix du foncier avec cartes et graphiques illustrant l'évolution par région et type de bien." },
-    { title: "Tendances Location", text: "Étude des loyers au m² par ville et région avec tendances annuelles et comparaisons par type de bien." },
-    { title: "Comparaison Foncier/Location", text: "Page dédiée à la comparaison entre prix d'achat et loyers avec filtres interactifs." },
-    { title: "Comparatif des villes", text: "Outil permettant de comparer deux villes selon prix, loyers, ventes et rendement locatif." },
-    { title: "Analyse des rendements locatifs", text: "Présentation des rendements locatifs par région et par type de bien à l'aide de cartes et graphiques." }
+    { title: "Page d'accueil : L'immobilier en un rapport", text: "Hub interactif vers les sections du rapport." },
+    { title: "Simulateur emprunt", text: "Capacité d'emprunt et répartition des remboursements." },
+    { title: "Simulateur achat", text: "Surface achetable et prix au m² comparés selon les zones." },
+    { title: "Tendances Fonciers", text: "Évolution des prix du foncier par région et type de bien, en cartes et graphiques." },
+    { title: "Tendances Location", text: "Loyers au m² par ville et région, tendances annuelles et comparaisons par type de bien." },
+    { title: "Comparaison Foncier/Location", text: "Prix d'achat face aux loyers, avec filtres interactifs." },
+    { title: "Comparatif des villes", text: "Deux villes comparées selon prix, loyers, ventes et rendement locatif." },
+    { title: "Analyse des rendements locatifs", text: "Rendements locatifs par région et type de bien, en cartes et graphiques." }
     ];
 
     window.SLIDER_CAPTIONS_EN = [
-    { title: "Home page: the property market in one report", text: "Central page acting as an interactive hub to every section of the report." },
-    { title: "Mortgage simulator", text: "Tool estimating borrowing capacity and visualising the repayment split." },
-    { title: "Purchase simulator", text: "Simulator computing affordable floor area and comparing price per m² across areas." },
-    { title: "Sale price trends", text: "Sale price analysis with maps and charts showing the trend by region and property type." },
-    { title: "Rental trends", text: "Rent per m² by city and region, with yearly trends and comparisons by property type." },
-    { title: "Sale vs rental comparison", text: "Page dedicated to comparing purchase prices against rents, with interactive filters." },
-    { title: "City comparison", text: "Tool comparing two cities on prices, rents, transaction volume and rental yield." },
-    { title: "Rental yield analysis", text: "Rental yields by region and property type, shown through maps and charts." }
+    { title: "Home page: the property market in one report", text: "Interactive hub to the sections of the report." },
+    { title: "Mortgage simulator", text: "Borrowing capacity and repayment split." },
+    { title: "Purchase simulator", text: "Affordable floor area and price per m² compared across areas." },
+    { title: "Sale price trends", text: "Sale price trend by region and property type, in maps and charts." },
+    { title: "Rental trends", text: "Rent per m² by city and region, yearly trends and comparisons by property type." },
+    { title: "Sale vs rental comparison", text: "Purchase prices against rents, with interactive filters." },
+    { title: "City comparison", text: "Two cities compared on prices, rents, sales and rental yield." },
+    { title: "Rental yield analysis", text: "Rental yields by region and property type, in maps and charts." }
     ];
   </script>
 
