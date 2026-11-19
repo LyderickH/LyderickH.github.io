@@ -192,7 +192,8 @@
     var index = -1;
     for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].page === page) index = i;
     var isProject = index !== -1;
-    if (!isProject && page !== 'memoire' && page !== 'explorateur') return;
+    var isHome = page === 'index';
+    if (!isProject && !isHome && page !== 'memoire' && page !== 'explorateur') return;
 
     var main = document.querySelector('main');
     if (!main || main.querySelector('.page-end')) return;
@@ -215,7 +216,9 @@
     function render() {
       var en = (localStorage.getItem('lang') || 'fr') === 'en';
       block.setAttribute('aria-label', en ? 'What next' : 'Pour continuer');
-      var lead = isProject
+      var lead = isHome
+        ? (en ? 'A question, or a project to talk about?' : 'Une question, un projet à discuter ?')
+        : isProject
         ? (en ? 'A question about this project, or want to see another one?'
               : "Une question sur ce projet, ou envie d'en voir un autre ?")
         : (en ? 'A question about this work, or want to see the projects?'
@@ -227,7 +230,8 @@
         html += '<a class="btn" href="' + next.page + '.html">' +
           (en ? 'Next project: ' : 'Projet suivant : ') + esc(en ? next.en : next.fr) + ' →</a>';
       }
-      html += '<a class="btn" href="projets.html">' + (en ? 'All projects' : 'Tous les projets') + '</a></div>';
+      if (!isHome) html += '<a class="btn" href="projets.html">' + (en ? 'All projects' : 'Tous les projets') + '</a>';
+      html += '</div>';
       block.innerHTML = html;
     }
 

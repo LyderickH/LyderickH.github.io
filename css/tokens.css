@@ -29,6 +29,11 @@
   --shadow-sm: 0 1px 3px rgba(43, 56, 70, 0.08);
   --shadow-md: 0 4px 14px rgba(43, 56, 70, 0.10), 0 1px 3px rgba(43, 56, 70, 0.08);
 
+  /* ── Mise en évidence ──────────────────────────────────────────────── */
+  /* Deux couleurs, deux rôles : le bleu porte l'action et les aplats,
+     l'orange (--accent-warm) signale ce qui compte - catégorie d'un projet,
+     page courante, mot-clé souligné, étiquette d'un encadré. */
+
   /* ── Typographie ─────────────────────────────────────────────────────── */
   /* Archivo (grotesque un peu serrée, registre presse économique) porte les
      titres ; Source Sans 3 le texte courant. Le mono est réservé au code. */
@@ -41,9 +46,9 @@
   --step-0: 16px;
   --step-1: 16.5px;
   --step-2: 18px;
-  --step-3: 21.6px;
-  --step-4: 25.9px;
-  --step-5: 32px;
+  --step-3: 23px;
+  --step-4: 30px;
+  --step-5: clamp(2.5rem, 5.4vw, 3.75rem);
 
   /* Étiquettes de métadonnées : petites, grasses, en casse normale */
   --label-size: 0.85rem;
